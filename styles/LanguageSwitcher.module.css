@@ -1,0 +1,45 @@
+/* styles/LanguageSwitcher.module.css */
+
+.languageSwitcher {
+  display: flex;
+  gap: 10px;
+}
+/*
+.button {
+  background: none;
+  border: none;
+  margin-left: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #333333;
+  transition: color 0.3s ease;
+}
+
+.button:hover {
+  color: #0070f3;
+}
+
+.active {
+  font-weight: bold;
+  color: #0070f3;
+}
+
+*/
+.button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #0070f3;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #005bb5;
+}
+
+.active {
+  background-color: #005bb5; /* 현재 선택된 언어 버튼 색상 변경 */
+}

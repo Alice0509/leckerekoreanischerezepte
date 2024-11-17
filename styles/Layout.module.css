@@ -1,0 +1,16 @@
+/* styles/Layout.module.css */
+
+.main {
+    padding: 20px;
+    min-height: 80vh;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* 모바일 화면 크기에 대한 스타일 */
+  @media (max-width: 768px) {
+    .main {
+      padding: 10px;
+    }
+  }
+  

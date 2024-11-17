@@ -1,0 +1,19 @@
+/* styles/Header.module.css */
+
+.header {
+  background-color: #f8f8f8;
+  color: #555555;
+  padding: 15px 20px;
+  text-align: left;
+}
+
+.logo {
+  text-decoration: none;
+  color: #555555;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  text-align: center;
+}

@@ -1,0 +1,31 @@
+/* styles/RecipeCard.module.css */
+.card {
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  overflow: hidden; /* 이미지가 카드 밖으로 벗어나지 않도록 설정 */
+  transition: transform 0.2s;
+  width: 300px;
+  margin: 10px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* 전체 영역 클릭 가능하도록 설정 */
+}
+
+.image {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
+.h3 {
+  text-align: center;
+  padding: 10px 0;
+  font-size: 1.2em;
+}

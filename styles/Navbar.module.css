@@ -1,0 +1,55 @@
+/* styles/Navbar.module.css */
+
+.navbar {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  background-color: #f8f8f8;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.navLink {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: #0070f3;
+}
+
+.languageSwitcher {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.langLink {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.langLink:hover {
+  color: #0070f3;
+}
+/* 모바일 화면 크기에 대한 스타일 */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .navLink {
+    margin: 5px 0;
+  }
+
+  .languageSwitcher {
+    margin-top: 15px;
+  }
+}

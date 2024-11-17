@@ -1,0 +1,91 @@
+/* styles/Home.module.css */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+/* styles/Home.module.css */
+
+.controlsContainer {
+  display: flex;
+  justify-content: space-between; /* 양 끝으로 요소 배치 */
+  align-items: center; /* 수직 중앙 정렬 */
+  margin-bottom: 20px; /* 아래쪽에 여백 추가 */
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 8px; /* 아이콘과 입력 필드 사이에 간격 추가 */
+  color: #666;
+}
+
+.searchInput {
+  padding: 6px 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 250px; /* 원하는 너비로 조정 */
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: column; /* 레이블과 셀렉트를 세로로 배치 */
+  align-items: flex-start; /* 왼쪽 정렬 */
+}
+
+.filterContainer label {
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: #333;
+}
+
+.categorySelect {
+  padding: 6px 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.noResults {
+  text-align: center;
+  color: #888888;
+  font-size: 18px;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  font-size: 18px;
+}
+
+.h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+@media (max-width: 768px) {
+  .controlsContainer {
+    flex-direction: column; /* 세로 방향으로 레이아웃 변경 */
+    align-items: flex-start; /* 왼쪽 정렬 */
+  }
+
+  .filterContainer {
+    align-items: flex-start; /* 셀렉트를 왼쪽으로 정렬 */
+    margin-top: 10px; /* 검색 바와 카테고리 필터 사이에 여백 추가 */
+  }
+
+  .searchInput,
+  .categorySelect {
+    width: 100%; /* 입력 필드와 셀렉트의 너비를 100%로 확장 */
+  }
+}
