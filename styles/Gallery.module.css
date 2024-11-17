@@ -17,14 +17,16 @@
   border-radius: 8px;
   overflow: hidden; /* 자식 요소가 경계를 벗어나지 않도록 설정 */
   background-color: #ffffff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   display: flex;
   flex-direction: column; /* 세로 방향으로 정렬 */
 }
 
 .galleryItem:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .imageWrapper {

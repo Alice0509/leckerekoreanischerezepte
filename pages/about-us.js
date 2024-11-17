@@ -13,31 +13,42 @@ const AboutUs = () => {
   const content = {
     'en-US': {
       title: 'About Us | Leckere Koreanische Rezepte',
-      description: 'Learn more about us and our mission to make authentic Korean cuisine accessible in Germany.',
+      description:
+        'Learn more about us and our mission to make authentic Korean cuisine accessible in Germany.',
       heading: 'About Us',
       sections: [
         {
           heading: 'About Us',
-          paragraph: 'Welcome to our website! We are passionate chefs and lovers of Korean cuisine, dedicated to sharing authentic Korean recipes using ingredients that are easily accessible in Germany.',
+          paragraph:
+            'Welcome to our website! We are passionate chefs and lovers of Korean cuisine, dedicated to sharing authentic Korean recipes using ingredients that are easily accessible in Germany.',
         },
         {
           heading: 'About Me',
-          paragraph: 'Hello, I am Joan, a Korean living in Germany. First of all, thank you for visiting my website. I used to think that the time I spend cooking was wasted, but when I lived in Germany, my surroundings often talked about dishes that my child had eaten in Korea and wished for. This led me to constantly search for and research recipes. There are still many dishes where I fail.',
+          paragraph:
+            'Hello, I am Joan, a Korean living in Germany. First of all, thank you for visiting my website. I used to think that the time I spend cooking was wasted, but when I lived in Germany, my surroundings often talked about dishes that my child had eaten in Korea and wished for. This led me to constantly search for and research recipes. There are still many dishes where I fail.',
         },
         {
           heading: 'Why This Website?',
-          paragraph: 'The reason I created this website is so that my child can request my dishes in the future and I want them to remember the recipes I used. This means that only the dishes where my child gives a "thumbs up" and asks for the recipe will be published here.',
+          paragraph:
+            'The reason I created this website is so that my child can request my dishes in the future and I want them to remember the recipes I used. This means that only the dishes where my child gives a &quot;thumbs up&quot; and asks for the recipe will be published here.',
         },
         {
           heading: 'Korean Cuisine in Germany',
-          paragraph: 'In Korea, like in many other countries, there are thousands of recipes. These recipes are the ones highly praised by my child. In Germany, there are many ingredients to prepare Korean dishes, but sometimes there are also ingredients that can only be found in Korea. This is the second reason why I decided to start this site – I want to introduce the ingredients I have found that are suitable for Korean cuisine.',
+          paragraph:
+            'In Korea, like in many other countries, there are thousands of recipes. These recipes are the ones highly praised by my child. In Germany, there are many ingredients to prepare Korean dishes, but sometimes there are also ingredients that can only be found in Korea. This is the second reason why I decided to start this site – I want to introduce the ingredients I have found that are suitable for Korean cuisine.',
         },
         {
           heading: 'Contact Me',
           paragraph: (
             <>
-              I am happy to assist you with any questions and suggestions. Do not hesitate to contact me via email:{' '}
-              <a href="mailto:joan.korean.rezepte@gmail.com" aria-label="Contact me via email">joan.korean.rezepte@gmail.com</a>
+              I am happy to assist you with any questions and suggestions. Do
+              not hesitate to contact me via email:{' '}
+              <a
+                href="mailto:joan.korean.rezepte@gmail.com"
+                aria-label="Contact me via email"
+              >
+                joan.korean.rezepte@gmail.com
+              </a>
             </>
           ),
         },
@@ -45,14 +56,18 @@ const AboutUs = () => {
     },
     'de-DE': {
       title: 'Über Uns | Leckere Koreanische Rezepte',
-      description: 'Erfahren Sie mehr über uns und unsere Mission, authentische koreanische Küche in Deutschland zugänglich zu machen.',
+      description:
+        'Erfahren Sie mehr über uns und unsere Mission, authentische koreanische Küche in Deutschland zugänglich zu machen.',
       heading: 'Über Uns',
       sections: [
         {
           heading: 'Über Uns',
           paragraph: (
             <>
-              Willkommen bei <strong>leckere-koreanische-rezepte.de</strong>! Hier finden Sie authentische koreanische Rezepte, die mit viel Liebe und Sorgfalt ausgewählt wurden, um Ihnen die echte koreanische Küche näherzubringen.
+              Willkommen bei <strong>leckere-koreanische-rezepte.de</strong>!
+              Hier finden Sie authentische koreanische Rezepte, die mit viel
+              Liebe und Sorgfalt ausgewählt wurden, um Ihnen die echte
+              koreanische Küche näherzubringen.
             </>
           ),
         },
@@ -60,7 +75,14 @@ const AboutUs = () => {
           heading: 'Über Mich',
           paragraph: (
             <>
-              Hallo, ich bin Joan, eine Koreanerin, die in Deutschland lebt. Zunächst einmal danke ich Ihnen, dass Sie meine Webseite besuchen. Früher dachte ich, dass die Zeit, die ich mit Kochen verbringe, verschwendet ist, aber als ich in Deutschland lebte, sprach mein Umfeld oft über Gerichte, die mein Kind in Korea gegessen hatte und die es sich wünschte. Das hat mich dazu gebracht, ständig nach Rezepten zu suchen und zu forschen. Es gibt immer noch viele Gerichte, bei denen ich scheitere.
+              Hallo, ich bin Joan, eine Koreanerin, die in Deutschland lebt.
+              Zunächst einmal danke ich Ihnen, dass Sie meine Webseite besuchen.
+              Früher dachte ich, dass die Zeit, die ich mit Kochen verbringe,
+              verschwendet ist, aber als ich in Deutschland lebte, sprach mein
+              Umfeld oft über Gerichte, die mein Kind in Korea gegessen hatte
+              und die es sich wünschte. Das hat mich dazu gebracht, ständig nach
+              Rezepten zu suchen und zu forschen. Es gibt immer noch viele
+              Gerichte, bei denen ich scheitere.
             </>
           ),
         },
@@ -68,7 +90,12 @@ const AboutUs = () => {
           heading: 'Warum Diese Webseite?',
           paragraph: (
             <>
-              Der Grund, warum ich diese Webseite erstellt habe, ist, dass mein Kind in Zukunft nach meinen Gerichten verlangen kann und ich möchte, dass es sich an die Rezepte erinnert, die ich verwendet habe. Das bedeutet, dass nur die Gerichte, bei denen mein Kind "Daumen hoch" gibt und nach dem Rezept fragt, hier veröffentlicht werden.
+              Der Grund, warum ich diese Webseite erstellt habe, ist, dass mein
+              Kind in Zukunft nach meinen Gerichten verlangen kann und ich
+              möchte, dass es sich an die Rezepte erinnert, die ich verwendet
+              habe. Das bedeutet, dass nur die Gerichte, bei denen mein Kind
+              &quot;Daumen hoch&quot; gibt und nach dem Rezept fragt, hier
+              veröffentlicht werden.
             </>
           ),
         },
@@ -76,7 +103,14 @@ const AboutUs = () => {
           heading: 'Koreanische Küche in Deutschland',
           paragraph: (
             <>
-              In Korea gibt es, wie in vielen anderen Ländern, tausende von Rezepten. Diese Rezepte sind diejenigen, die von meinem Kind sehr gelobt werden. In Deutschland gibt es viele Zutaten, um koreanische Gerichte zuzubereiten, aber manchmal gibt es auch Zutaten, die nur in Korea zu finden sind. Das ist der zweite Grund, warum ich mich entschieden habe, diese Seite zu eröffnen – ich möchte die Zutaten vorstellen, die ich gefunden habe und die für die koreanische Küche geeignet sind.
+              In Korea gibt es, wie in vielen anderen Ländern, tausende von
+              Rezepten. Diese Rezepte sind diejenigen, die von meinem Kind sehr
+              gelobt werden. In Deutschland gibt es viele Zutaten, um
+              koreanische Gerichte zuzubereiten, aber manchmal gibt es auch
+              Zutaten, die nur in Korea zu finden sind. Das ist der zweite
+              Grund, warum ich mich entschieden habe, diese Seite zu eröffnen –
+              ich möchte die Zutaten vorstellen, die ich gefunden habe und die
+              für die koreanische Küche geeignet sind.
             </>
           ),
         },
@@ -84,8 +118,14 @@ const AboutUs = () => {
           heading: 'Kontaktieren Sie Mich',
           paragraph: (
             <>
-              Ich stehe Ihnen gerne für Fragen und Anregungen zur Verfügung. Zögern Sie nicht, mich per E-Mail zu kontaktieren:{' '}
-              <a href="mailto:joan.korean.rezepte@gmail.com" aria-label="Contact me via email">joan.korean.rezepte@gmail.com</a>
+              Ich stehe Ihnen gerne für Fragen und Anregungen zur Verfügung.
+              Zögern Sie nicht, mich per E-Mail zu kontaktieren:{' '}
+              <a
+                href="mailto:joan.korean.rezepte@gmail.com"
+                aria-label="Contact me via email"
+              >
+                joan.korean.rezepte@gmail.com
+              </a>
             </>
           ),
         },
@@ -115,7 +155,7 @@ const AboutUs = () => {
           site_name: 'Leckere Koreanische Rezepte',
         }}
       />
-      
+
       <ArticleJsonLd
         url="https://www.leckere-koreanische-rezepte.de/about-us"
         title={currentContent.title}

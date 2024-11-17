@@ -22,7 +22,8 @@
   justify-content: center;
 }
 
-.error, .noIngredients {
+.error,
+.noIngredients {
   color: red;
   text-align: center;
   margin-top: 50px;

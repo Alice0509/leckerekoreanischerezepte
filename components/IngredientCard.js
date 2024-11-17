@@ -45,7 +45,9 @@ const IngredientCard = ({ ingredient }) => {
       {/* 내용 Wrapper */}
       <div className={styles.content}>
         <h2 className={styles.title}>{name}</h2>
-        {germanMeatCut && <p className={styles.meatCut}>부위: {germanMeatCut}</p>}
+        {germanMeatCut && (
+          <p className={styles.meatCut}>부위: {germanMeatCut}</p>
+        )}
         <div className={styles.description}>
           {typeof description === 'object'
             ? documentToReactComponents(description)

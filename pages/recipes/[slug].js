@@ -8,7 +8,10 @@ import Link from 'next/link';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 // DisqusComments 컴포넌트를 동적으로 임포트 (SSR 제외)
-const DisqusComments = dynamic(() => import('../../components/DisqusComments'), { ssr: false });
+const DisqusComments = dynamic(
+  () => import('../../components/DisqusComments'),
+  { ssr: false }
+);
 
 export async function getStaticPaths() {
   try {
@@ -22,7 +25,7 @@ export async function getStaticPaths() {
         locale: locale,
       });
 
-      const localePaths = res.items.map(item => ({
+      const localePaths = res.items.map((item) => ({
         params: { slug: item.fields.slug },
         locale: locale,
       }));
@@ -55,7 +58,9 @@ export async function getStaticProps({ params, locale }) {
     });
 
     if (!res.items.length) {
-      console.warn(`No recipe found for slug: ${params.slug} and locale: ${mappedLocale}`);
+      console.warn(
+        `No recipe found for slug: ${params.slug} and locale: ${mappedLocale}`
+      );
       return { props: { recipe: null } };
     }
 
@@ -63,17 +68,23 @@ export async function getStaticProps({ params, locale }) {
 
     // Asset 매핑
     const assetsMap = {};
-    res.includes.Asset?.forEach(asset => {
+    res.includes.Asset?.forEach((asset) => {
       assetsMap[asset.sys.id] = asset;
     });
 
     // recipeIngredient 매핑
-    const recipeIngredientEntries = res.includes.Entry?.filter(entry => entry.sys.contentType.sys.id === 'recipeIngredient') || [];
+    const recipeIngredientEntries =
+      res.includes.Entry?.filter(
+        (entry) => entry.sys.contentType.sys.id === 'recipeIngredient'
+      ) || [];
 
     // ingredient 엔트리 매핑 (entry 전체로 매핑)
-    const ingredientEntries = res.includes.Entry?.filter(entry => entry.sys.contentType.sys.id === 'ingredient') || [];
+    const ingredientEntries =
+      res.includes.Entry?.filter(
+        (entry) => entry.sys.contentType.sys.id === 'ingredient'
+      ) || [];
     const ingredientMap = {};
-    ingredientEntries.forEach(entry => {
+    ingredientEntries.forEach((entry) => {
       ingredientMap[entry.sys.id] = entry.fields.name; // 재료 이름만 매핑
     });
 
@@ -82,25 +93,33 @@ export async function getStaticProps({ params, locale }) {
     console.log('Ingredient Entries:', ingredientEntries);
 
     // Ingredients 데이터 구성
-    const ingredients = recipeEntry.fields.ingredients?.map(ri => {
-      const recipeIngredient = recipeIngredientEntries.find(entry => entry.sys.id === ri.sys.id);
-      if (!recipeIngredient) {
-        console.warn(`Missing recipeIngredient entry for ID: ${ri.sys.id}`);
-        return null; // 오류 방지: recipeIngredient가 없을 경우 null 반환
-      }
+    const ingredients =
+      recipeEntry.fields.ingredients
+        ?.map((ri) => {
+          const recipeIngredient = recipeIngredientEntries.find(
+            (entry) => entry.sys.id === ri.sys.id
+          );
+          if (!recipeIngredient) {
+            console.warn(`Missing recipeIngredient entry for ID: ${ri.sys.id}`);
+            return null; // 오류 방지: recipeIngredient가 없을 경우 null 반환
+          }
 
-      const ingredientRef = recipeIngredient.fields.ingredient;
-      const ingredientName = ingredientRef?.sys?.id ? ingredientMap[ingredientRef.sys.id] : 'Unknown Ingredient';
+          const ingredientRef = recipeIngredient.fields.ingredient;
+          const ingredientName = ingredientRef?.sys?.id
+            ? ingredientMap[ingredientRef.sys.id]
+            : 'Unknown Ingredient';
 
-      return {
-        id: recipeIngredient.sys.id,
-        name: ingredientName,
-        quantity: recipeIngredient.fields.quantity || '',
-      };
-    }).filter(Boolean) || []; // null 요소 제거
+          return {
+            id: recipeIngredient.sys.id,
+            name: ingredientName,
+            quantity: recipeIngredient.fields.quantity || '',
+          };
+        })
+        .filter(Boolean) || []; // null 요소 제거
 
     // Recipe 이미지 매핑
-    const images = recipeEntry.fields.image?.map(img => assetsMap[img.sys.id]) || [];
+    const images =
+      recipeEntry.fields.image?.map((img) => assetsMap[img.sys.id]) || [];
 
     const finalRecipe = {
       id: recipeEntry.sys.id,
@@ -204,9 +223,7 @@ const RecipeDetail = ({ recipe, error }) => {
         )}
       </div>
 
-      <h2>
-        {mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}
-      </h2>
+      <h2>{mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}</h2>
       <ul className={styles.ingredientsList}>
         {ingredients.length > 0 ? (
           ingredients.map((ingredient, index) => (
@@ -215,19 +232,23 @@ const RecipeDetail = ({ recipe, error }) => {
             </li>
           ))
         ) : (
-          <p>{mappedLocale === 'de' ? 'Keine Zutaten verfügbar.' : 'No ingredients available.'}</p>
+          <p>
+            {mappedLocale === 'de'
+              ? 'Keine Zutaten verfügbar.'
+              : 'No ingredients available.'}
+          </p>
         )}
       </ul>
-      <h2>
-        {mappedLocale === 'de' ? 'Anleitung' : 'Instructions'}
-      </h2>
+      <h2>{mappedLocale === 'de' ? 'Anleitung' : 'Instructions'}</h2>
       <div className={styles.instructions}>
         {documentToReactComponents(instructions)}
       </div>
       {youTubeUrl && (
         <div className={styles.youtubeContainer}>
           <h2>
-            {mappedLocale === 'de' ? 'Video zur Orientierung' : 'Video for reference'}
+            {mappedLocale === 'de'
+              ? 'Video zur Orientierung'
+              : 'Video for reference'}
           </h2>
           <iframe
             width="560"
@@ -242,7 +263,9 @@ const RecipeDetail = ({ recipe, error }) => {
       {videoFile && (
         <div className={styles.videoContainer}>
           <h2>
-            {mappedLocale === 'de' ? 'Video zur Orientierung' : 'Video for reference'}
+            {mappedLocale === 'de'
+              ? 'Video zur Orientierung'
+              : 'Video for reference'}
           </h2>
           <video controls className={styles.video}>
             <source
@@ -258,7 +281,13 @@ const RecipeDetail = ({ recipe, error }) => {
       <DisqusComments post={recipe} />
 
       {/* 홈으로 돌아가는 링크 */}
-      <Link href="/" className={styles.backLink} aria-label={mappedLocale === 'de' ? 'Zurück zur Startseite' : 'Back to Home'}>
+      <Link
+        href="/"
+        className={styles.backLink}
+        aria-label={
+          mappedLocale === 'de' ? 'Zurück zur Startseite' : 'Back to Home'
+        }
+      >
         {mappedLocale === 'de' ? 'Zurück zur Startseite' : 'Back to Home'}
       </Link>
     </div>

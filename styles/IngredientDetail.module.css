@@ -35,7 +35,8 @@
   color: #555555;
 }
 
-.error, .noIngredient {
+.error,
+.noIngredient {
   text-align: center;
   color: red;
   margin-top: 50px;

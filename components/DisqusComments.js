@@ -12,7 +12,9 @@ const DisqusComments = ({ post }) => {
 
   // 환경 변수 검증
   if (!disqusShortname) {
-    console.error('Disqus shortname is not defined. Please set NEXT_PUBLIC_DISQUS_SHORTNAME in .env.local');
+    console.error(
+      'Disqus shortname is not defined. Please set NEXT_PUBLIC_DISQUS_SHORTNAME in .env.local'
+    );
     return null;
   }
 
@@ -23,9 +25,10 @@ const DisqusComments = ({ post }) => {
   }
 
   const disqusConfig = {
-    url: process.env.NODE_ENV === 'development'
-      ? `http://localhost:3000${asPath}`
-      : `${process.env.NEXT_PUBLIC_SITE_URL}${asPath}`,
+    url:
+      process.env.NODE_ENV === 'development'
+        ? `http://localhost:3000${asPath}`
+        : `${process.env.NEXT_PUBLIC_SITE_URL}${asPath}`,
     identifier: post.id,
     title: post.title,
   };

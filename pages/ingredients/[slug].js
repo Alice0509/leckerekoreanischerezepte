@@ -5,8 +5,8 @@ import Image from 'next/image';
 import styles from '../../styles/IngredientDetail.module.css';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-const loadingSpinner = 'data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAACH5BAEAAAEALAAAAAAQABAAAAIgjI+py+0Po5y02ouzPgUAOw==';
-
+const loadingSpinner =
+  'data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAACH5BAEAAAEALAAAAAAQABAAAAIgjI+py+0Po5y02ouzPgUAOw==';
 
 export async function getStaticPaths() {
   const res = await client.getEntries({
@@ -15,7 +15,7 @@ export async function getStaticPaths() {
     include: 0,
   });
 
-  const paths = res.items.map(item => ({
+  const paths = res.items.map((item) => ({
     params: { slug: item.fields.slug },
   }));
 
@@ -82,7 +82,13 @@ const IngredientDetail = ({ ingredient, error, mappedLocale }) => {
   }
 
   if (!ingredient) {
-    return <div className={styles.noIngredient}>{mappedLocale === 'de' ? 'Zutat nicht gefunden.' : 'Ingredient not found.'}</div>;
+    return (
+      <div className={styles.noIngredient}>
+        {mappedLocale === 'de'
+          ? 'Zutat nicht gefunden.'
+          : 'Ingredient not found.'}
+      </div>
+    );
   }
 
   const { name, germanMeatCut, bild, description } = ingredient;
@@ -105,7 +111,9 @@ const IngredientDetail = ({ ingredient, error, mappedLocale }) => {
       )}
       {germanMeatCut && <p className={styles.meatCut}>부위: {germanMeatCut}</p>}
       <div className={styles.description}>
-        {description ? documentToReactComponents(description) : '설명이 없습니다.'}
+        {description
+          ? documentToReactComponents(description)
+          : '설명이 없습니다.'}
       </div>
     </div>
   );

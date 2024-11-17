@@ -20,22 +20,20 @@ export async function getStaticProps({ locale }) {
 
     const assetsMap = {};
 
-
     // Asset 매핑
-    res.includes.Asset?.forEach(asset => {
+    res.includes.Asset?.forEach((asset) => {
       assetsMap[asset.sys.id] = asset;
     });
 
-
     // Recipes 매핑
-    const recipes = res.items.map(item => {
-      const images = item.fields.image?.map(img => assetsMap[img.sys.id]) || [];
-
+    const recipes = res.items.map((item) => {
+      const images =
+        item.fields.image?.map((img) => assetsMap[img.sys.id]) || [];
 
       return {
         id: item.sys.id, // sys.id를 별도의 필드로 추가
         ...item.fields,
-        image: images.length > 0 ? images[0] : null
+        image: images.length > 0 ? images[0] : null,
       };
     });
 
@@ -107,7 +105,9 @@ const Home = ({ recipes, error }) => {
   }, [searchTerm, fuse, filteredItems]);
 
   // 무한 스크롤을 위한 아이템 로드
-  const [displayItems, setDisplayItems] = useState(searchedItems.slice(0, itemsPerPage));
+  const [displayItems, setDisplayItems] = useState(
+    searchedItems.slice(0, itemsPerPage)
+  );
 
   const fetchMoreData = () => {
     const nextPage = currentPage + 1;
@@ -131,46 +131,47 @@ const Home = ({ recipes, error }) => {
       <h1>{mappedLocale === 'de-DE' ? 'Rezeptliste' : 'Recipe List'}</h1>
 
       <div className={styles.controlsContainer}>
-  {/* 카테고리 필터 */}
-  <div className={styles.filterContainer}>
-    <label htmlFor="categorySelect">
-      {mappedLocale === 'de-DE' ? 'Kategorie:' : 'Category:'}
-    </label>
-    <select
-      id="categorySelect"
-      value={selectedCategory}
-      onChange={(e) => {
-        setSelectedCategory(e.target.value);
-      }}
-      className={styles.categorySelect}
-    >
-      <option value="">
-        {mappedLocale === 'de-DE' ? 'Alle' : 'All'}
-      </option>
-      {categories.map((category, index) => (
-        <option key={index} value={category}>
-          {category}
-        </option>
-      ))}
-    </select>
-  </div>
+        {/* 카테고리 필터 */}
+        <div className={styles.filterContainer}>
+          <label htmlFor="categorySelect">
+            {mappedLocale === 'de-DE' ? 'Kategorie:' : 'Category:'}
+          </label>
+          <select
+            id="categorySelect"
+            value={selectedCategory}
+            onChange={(e) => {
+              setSelectedCategory(e.target.value);
+            }}
+            className={styles.categorySelect}
+          >
+            <option value="">
+              {mappedLocale === 'de-DE' ? 'Alle' : 'All'}
+            </option>
+            {categories.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
 
-  {/* 검색 바 */}
-  <div className={styles.searchContainer}>
-    <FaSearch className={styles.icon} />
-    <input
-      type="text"
-      placeholder={
-        mappedLocale === 'de-DE' ? 'Rezept suchen...' : 'Search recipes...'
-      }
-      onChange={(e) => {
-        setSearchTerm(e.target.value);
-      }}
-      className={styles.searchInput}
-    />
-  </div>
-</div>
-
+        {/* 검색 바 */}
+        <div className={styles.searchContainer}>
+          <FaSearch className={styles.icon} />
+          <input
+            type="text"
+            placeholder={
+              mappedLocale === 'de-DE'
+                ? 'Rezept suchen...'
+                : 'Search recipes...'
+            }
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+            className={styles.searchInput}
+          />
+        </div>
+      </div>
 
       {/* 레시피 그리드 - 무한 스크롤 */}
       <InfiniteScroll

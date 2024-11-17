@@ -17,7 +17,7 @@ export async function getStaticProps({ locale }) {
     });
 
     const assetsMap = {};
-    res.includes.Asset?.forEach(asset => {
+    res.includes.Asset?.forEach((asset) => {
       assetsMap[asset.sys.id] = asset;
     });
 
@@ -26,7 +26,7 @@ export async function getStaticProps({ locale }) {
         // 'bild' 필드가 배열인지 단일 객체인지 확인
         let images = [];
         if (Array.isArray(item.fields.bild)) {
-          images = item.fields.bild.map(img => assetsMap[img.sys.id]);
+          images = item.fields.bild.map((img) => assetsMap[img.sys.id]);
         } else if (item.fields.bild) {
           images = [assetsMap[item.fields.bild.sys.id]];
         }
@@ -39,7 +39,10 @@ export async function getStaticProps({ locale }) {
             try {
               address = await reverseGeocode(lat, lon);
             } catch (geoError) {
-              console.error(`Reverse geocoding failed for item ID ${item.sys.id}:`, geoError);
+              console.error(
+                `Reverse geocoding failed for item ID ${item.sys.id}:`,
+                geoError
+              );
               address = 'Unable to determine address';
             }
           }
@@ -49,7 +52,9 @@ export async function getStaticProps({ locale }) {
 
         return {
           id: item.sys.id,
-          titel: item.fields.titel || (mappedLocale === 'de' ? 'Galerie Titel' : 'Gallery Title'),
+          titel:
+            item.fields.titel ||
+            (mappedLocale === 'de' ? 'Galerie Titel' : 'Gallery Title'),
           businessName: item.fields.businessName || null, // 상호 필드 추가
           location: address, // 주소 문자열로 설정
           bild: images.length > 0 ? `https:${images[0].fields.file.url}` : null, // 이미지 URL 설정
@@ -87,14 +92,20 @@ const Gallery = ({ galleryItems, error }) => {
   }
 
   if (!galleryItems || galleryItems.length === 0) {
-    return <div className={styles.noGallery}>{mappedLocale === 'de' ? 'Keine Galerie verfügbar.' : 'No gallery available.'}</div>;
+    return (
+      <div className={styles.noGallery}>
+        {mappedLocale === 'de'
+          ? 'Keine Galerie verfügbar.'
+          : 'No gallery available.'}
+      </div>
+    );
   }
 
   return (
     <div className={styles.container}>
       <h1>{mappedLocale === 'de' ? 'Galerie' : 'Gallery'}</h1>
       <div className={styles.galleryGrid}>
-        {galleryItems.map(item => (
+        {galleryItems.map((item) => (
           <div key={item.id} className={styles.galleryItem}>
             {item.bild ? (
               <div className={styles.imageWrapper}>
@@ -109,15 +120,26 @@ const Gallery = ({ galleryItems, error }) => {
                 />
               </div>
             ) : (
-              <div className={styles.placeholder}>{mappedLocale === 'de' ? 'Kein Bild' : 'No Image'}</div>
+              <div className={styles.placeholder}>
+                {mappedLocale === 'de' ? 'Kein Bild' : 'No Image'}
+              </div>
             )}
             <h3>{item.titel}</h3>
             <p>
-              {item.location && item.location !== 'N/A' && item.location !== 'Unable to determine address' && (
-                <span>{mappedLocale === 'de' ? 'Standort: ' : 'Location: '}{item.location}</span>
-              )}
+              {item.location &&
+                item.location !== 'N/A' &&
+                item.location !== 'Unable to determine address' && (
+                  <span>
+                    {mappedLocale === 'de' ? 'Standort: ' : 'Location: '}
+                    {item.location}
+                  </span>
+                )}
               {item.businessName && (
-                <span>{item.location ? <br /> : null}{mappedLocale === 'de' ? 'Unternehmen: ' : 'Business: '}{item.businessName}</span>
+                <span>
+                  {item.location ? <br /> : null}
+                  {mappedLocale === 'de' ? 'Unternehmen: ' : 'Business: '}
+                  {item.businessName}
+                </span>
               )}
               {!item.location && !item.businessName && 'N/A'}
             </p>
@@ -126,6 +148,6 @@ const Gallery = ({ galleryItems, error }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Gallery;

@@ -1,22 +1,21 @@
-// components/ToTopButton.js
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import styles from '../styles/ToTopButton.module.css';
 import { ChevronUpIcon } from '@heroicons/react/24/solid';
 
 const ToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
-  let timeoutId = null;
+  const timeoutId = useRef(null);
 
-  const toggleVisibility = () => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
+  const toggleVisibility = useCallback(() => {
+    clearTimeout(timeoutId.current);
+    timeoutId.current = setTimeout(() => {
       if (window.pageYOffset > 300) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
     }, 100); // 100ms 딜레이
-  };
+  }, []); // 빈 배열로, 의존성 없이 처음에만 생성되도록 함
 
   // 버튼 클릭 시 상단으로 스크롤
   const scrollToTop = () => {
@@ -32,8 +31,9 @@ const ToTopButton = () => {
     // 컴포넌트 언마운트 시 이벤트 리스너 제거
     return () => {
       window.removeEventListener('scroll', toggleVisibility);
+      clearTimeout(timeoutId.current); // 타임아웃도 해제합니다.
     };
-  }, []);
+  }, [toggleVisibility]);
 
   return (
     <>

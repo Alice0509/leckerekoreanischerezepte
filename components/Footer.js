@@ -12,13 +12,19 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <p>
-        &copy; {new Date().getFullYear()} {mappedLocale === 'de' ? 'Alle Rechte vorbehalten.' : 'All rights reserved.'}
+        &copy; {new Date().getFullYear()}{' '}
+        {mappedLocale === 'de'
+          ? 'Alle Rechte vorbehalten.'
+          : 'All rights reserved.'}
       </p>
-      <p>
-        {mappedLocale === 'de' ? 'Erstellt von Joan.' : 'Created by Joan.'}
-      </p>
+      <p>{mappedLocale === 'de' ? 'Erstellt von Joan.' : 'Created by Joan.'}</p>
       {/* 인스타그램 링크 */}
-      <a href="https://www.instagram.com/recipe" target="_blank" rel="noopener noreferrer" className={styles.instagramLink}>
+      <a
+        href="https://www.instagram.com/recipe"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.instagramLink}
+      >
         <FaInstagram size={24} />
       </a>
     </footer>

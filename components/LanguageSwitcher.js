@@ -2,12 +2,12 @@
 import { useRouter } from 'next/router';
 import styles from '../styles/LanguageSwitcher.module.css';
 
+/*
 const languageNames = {
   en: 'English',
   de: 'Deutsch',
 };
-
-
+*/
 
 const LanguageSwitcher = () => {
   const router = useRouter();

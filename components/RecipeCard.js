@@ -5,7 +5,6 @@ import styles from '../styles/RecipeCard.module.css';
 import Link from 'next/link';
 
 const RecipeCard = ({ recipe }) => {
-
   const titel = recipe.titel || recipe.title;
 
   const imageUrl = recipe.image?.fields?.file?.url
