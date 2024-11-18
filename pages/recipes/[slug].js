@@ -1,3 +1,4 @@
+// pages/recipes/[slug].js
 import React from 'react';
 import dynamic from 'next/dynamic';
 import client from '../../lib/contentful';
@@ -6,6 +7,7 @@ import styles from '../../styles/RecipeDetail.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail'; // 추가된 import
 
 // DisqusComments 컴포넌트를 동적으로 임포트 (SSR 제외)
 const DisqusComments = dynamic(
@@ -190,20 +192,29 @@ const RecipeDetail = ({ recipe, error }) => {
     youTubeUrl,
   } = recipe;
 
-  const imageUrl = image ? image : '/images/default.png';
+  // 이미지 URL 설정: image가 있으면 사용, 없으면 YouTube 썸네일, 둘 다 없으면 기본 이미지
+  const imageUrl = image
+    ? image
+    : youTubeUrl
+      ? getYouTubeThumbnail(youTubeUrl)
+      : '/images/default.png';
+
+  console.log(`Recipe: ${titel}, Thumbnail URL: ${imageUrl}`);
 
   return (
     <div className={styles.container}>
       <h1>{titel}</h1>
-      {image && (
+      <div className={styles.imageWrapper}>
         <Image
           src={imageUrl}
           alt={titel}
           width={600}
           height={400}
           className={styles.image}
+          placeholder="blur"
+          blurDataURL="/images/default.png" // 블러링을 위한 기본 이미지
         />
-      )}
+      </div>
       <div className={styles.description}>
         {documentToReactComponents(description)}
       </div>

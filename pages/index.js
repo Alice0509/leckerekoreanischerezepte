@@ -30,10 +30,24 @@ export async function getStaticProps({ locale }) {
       const images =
         item.fields.image?.map((img) => assetsMap[img.sys.id]) || [];
 
+      // description을 텍스트로 변환
+      let descriptionText = '';
+      if (item.fields.description && item.fields.description.content) {
+        descriptionText = item.fields.description.content
+          .map((block) => {
+            if (block.nodeType === 'paragraph') {
+              return block.content.map((node) => node.value).join('');
+            }
+            return '';
+          })
+          .join(' ');
+      }
+
       return {
         id: item.sys.id, // sys.id를 별도의 필드로 추가
         ...item.fields,
         image: images.length > 0 ? images[0] : null,
+        descriptionText, // 텍스트로 변환된 description 추가 (검색용)
       };
     });
 
@@ -72,9 +86,8 @@ const Home = ({ recipes, error }) => {
       new Fuse(recipes, {
         keys: [
           'titel',
-          'description',
-          'ingredients.name_de',
-          'ingredients.name_en',
+          'descriptionText', // 텍스트로 변환된 description 사용
+          'ingredients.name', // 독일어 재료명 검색
         ],
         threshold: 0.3,
       }),
