@@ -1,4 +1,5 @@
 // pages/page/[page].js
+
 import React, { useState, useMemo, useEffect } from 'react';
 import client from '../../lib/contentful';
 import Fuse from 'fuse.js';
@@ -50,7 +51,7 @@ export async function getStaticProps({ params, locale }) {
   try {
     const mappedLocale = locale === 'de' ? 'de' : 'en';
     const pageNumber = parseInt(params.page, 10) || 1;
-    const itemsPerPage = 20; // 페이지당 항목 수 (일치시킬 것)
+    const itemsPerPage = 20; // 페이지당 항목 수
 
     const res = await client.getEntries({
       content_type: 'recipe',
@@ -75,37 +76,19 @@ export async function getStaticProps({ params, locale }) {
 
       if (item.fields.image) {
         if (Array.isArray(item.fields.image)) {
-          // 이미지 필드가 배열인 경우 (단일 이미지로 설정되어야 하지만, 혹시 모르니 처리)
           const firstImage = item.fields.image[0];
           if (firstImage?.sys?.id) {
             const imageAsset = assetsMap[firstImage.sys.id];
             if (imageAsset && imageAsset.fields.file.url) {
               imageUrl = `https:${imageAsset.fields.file.url}`;
-            } else {
-              console.warn(
-                `Image asset not found for ID: ${firstImage.sys.id}`
-              );
             }
-          } else {
-            console.warn(
-              `Invalid image structure for recipe ID: ${item.sys.id}`
-            );
           }
         } else if (item.fields.image.sys?.id) {
-          // 단일 이미지 필드인 경우
           const imageAsset = assetsMap[item.fields.image.sys.id];
           if (imageAsset && imageAsset.fields.file.url) {
             imageUrl = `https:${imageAsset.fields.file.url}`;
-          } else {
-            console.warn(
-              `Image asset not found for ID: ${item.fields.image.sys.id}`
-            );
           }
-        } else {
-          console.warn(`Invalid image structure for recipe ID: ${item.sys.id}`);
         }
-      } else {
-        console.warn(`No image field for recipe ID: ${item.sys.id}`);
       }
 
       // description을 텍스트로 변환 및 길이 제한
@@ -127,9 +110,12 @@ export async function getStaticProps({ params, locale }) {
 
       return {
         id: item.sys.id,
-        ...item.fields,
-        image: imageUrl, // 단일 이미지 URL로 설정
-        descriptionText, // 텍스트로 변환된 description 추가 (검색용)
+        slug: item.fields.slug,
+        titel: item.fields.titel,
+        category: item.fields.category,
+        youTubeUrl: item.fields.youTubeUrl || null,
+        image: imageUrl || '/images/default.png', // 기본 이미지 설정
+        descriptionText,
       };
     });
 
@@ -227,7 +213,7 @@ const PaginatedPage = ({ recipes, currentPage, totalPages, error }) => {
         setDisplayItems((prev) => [...prev, ...data.recipes]);
         setPage(nextPage);
 
-        // URL 업데이트
+        // URL 업데이트 (shallow routing)
         router.push(`/page/${nextPage}`, undefined, { shallow: true });
       } else {
         setHasMore(false);
@@ -240,9 +226,10 @@ const PaginatedPage = ({ recipes, currentPage, totalPages, error }) => {
 
   // 검색 또는 카테고리 변경 시 아이템 리셋
   useEffect(() => {
-    setDisplayItems(searchedItems.slice(0, page * itemsPerPage));
-    setHasMore(page < totalPages);
-  }, [searchedItems, page, totalPages]);
+    setDisplayItems(searchedItems.slice(0, itemsPerPage));
+    setPage(1); // 페이지를 1로 재설정
+    setHasMore(1 < totalPages);
+  }, [searchedItems, itemsPerPage, totalPages]);
 
   if (error) {
     return <div className={styles.error}>{error}</div>;
