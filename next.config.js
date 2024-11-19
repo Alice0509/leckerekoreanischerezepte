@@ -5,10 +5,21 @@ module.exports = {
     defaultLocale: 'en',
   },
   images: {
-    domains: [
-      'images.ctfassets.net',
-      'img.youtube.com',
-      'your-other-domains.com'
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+        // pathname: '/**', // 필요 시 추가
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        // pathname: '/**',
+      },
+      // 기타 도메인 추가 가능
     ],
+  },
+  experimental: {
+    largePageDataBytes: 150 * 1024, // 선택 사항: 임계값 약간 증가
   },
 };

@@ -7,7 +7,8 @@ import styles from '../../styles/RecipeDetail.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail'; // 추가된 import
+import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
+import Slider from 'react-slick'; // react-slick 임포트
 
 // DisqusComments 컴포넌트를 동적으로 임포트 (SSR 제외)
 const DisqusComments = dynamic(
@@ -121,13 +122,15 @@ export async function getStaticProps({ params, locale }) {
 
     // Recipe 이미지 매핑
     const images =
-      recipeEntry.fields.image?.map((img) => assetsMap[img.sys.id]) || [];
+      recipeEntry.fields.image?.map(
+        (img) => `https:${assetsMap[img.sys.id].fields.file.url}`
+      ) || [];
 
     const finalRecipe = {
       id: recipeEntry.sys.id,
       titel: recipeEntry.fields.titel,
       description: recipeEntry.fields.description,
-      image: images.length > 0 ? `https:${images[0].fields.file.url}` : null,
+      images, // 모든 이미지를 배열로 할당
       category: recipeEntry.fields.category,
       preparationTime: recipeEntry.fields.preparationTime || null,
       servings: recipeEntry.fields.servings || null,
@@ -182,7 +185,7 @@ const RecipeDetail = ({ recipe, error }) => {
   const {
     titel,
     description,
-    image,
+    images,
     category,
     preparationTime,
     servings,
@@ -192,29 +195,76 @@ const RecipeDetail = ({ recipe, error }) => {
     youTubeUrl,
   } = recipe;
 
-  // 이미지 URL 설정: image가 있으면 사용, 없으면 YouTube 썸네일, 둘 다 없으면 기본 이미지
-  const imageUrl = image
-    ? image
-    : youTubeUrl
-      ? getYouTubeThumbnail(youTubeUrl)
-      : '/images/default.png';
+  // 이미지 URL 설정: 이미지가 있으면 첫 번째 이미지 사용, 없으면 YouTube 썸네일, 둘 다 없으면 기본 이미지
+  const thumbnailUrl =
+    images.length > 0
+      ? images[0]
+      : youTubeUrl
+        ? getYouTubeThumbnail(youTubeUrl)
+        : '/images/default.png';
 
-  console.log(`Recipe: ${titel}, Thumbnail URL: ${imageUrl}`);
+  console.log(`Recipe: ${titel}, Thumbnail URL: ${thumbnailUrl}`);
+
+  // react-slick 캐러셀 설정
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true,
+  };
 
   return (
     <div className={styles.container}>
       <h1>{titel}</h1>
-      <div className={styles.imageWrapper}>
-        <Image
-          src={imageUrl}
-          alt={titel}
-          width={600}
-          height={400}
-          className={styles.image}
-          placeholder="blur"
-          blurDataURL="/images/default.png" // 블러링을 위한 기본 이미지
-        />
-      </div>
+
+      {/* 이미지 캐러셀 */}
+      {images.length > 0 || youTubeUrl ? (
+        <div className={styles.imageWrapper}>
+          <Slider {...sliderSettings}>
+            {images.map((imgUrl, index) => (
+              <div key={index} className={styles.slide}>
+                <Image
+                  src={imgUrl}
+                  alt={`${titel} 이미지 ${index + 1}`}
+                  width={600}
+                  height={400}
+                  className={styles.image}
+                  placeholder="blur"
+                  blurDataURL="/images/default.png"
+                />
+              </div>
+            ))}
+            {!images.length && youTubeUrl && (
+              <div className={styles.slide}>
+                <Image
+                  src={getYouTubeThumbnail(youTubeUrl)}
+                  alt={`${titel} YouTube 썸네일`}
+                  width={600}
+                  height={400}
+                  className={styles.image}
+                  placeholder="blur"
+                  blurDataURL="/images/default.png"
+                />
+              </div>
+            )}
+          </Slider>
+        </div>
+      ) : (
+        <div className={styles.imageWrapper}>
+          <Image
+            src="/images/default.png"
+            alt="Default Image"
+            width={600}
+            height={400}
+            className={styles.image}
+            placeholder="blur"
+            blurDataURL="/images/default.png"
+          />
+        </div>
+      )}
+
       <div className={styles.description}>
         {documentToReactComponents(description)}
       </div>
