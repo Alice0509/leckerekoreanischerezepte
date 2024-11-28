@@ -1,3 +1,9 @@
+# *
 User-agent: *
-Disallow: /admin
+Allow: /
+
+# Host
+Host: https://www.leckere-koreanische-rezepte.de
+
+# Sitemaps
 Sitemap: https://www.leckere-koreanische-rezepte.de/sitemap.xml
