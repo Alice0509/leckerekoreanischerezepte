@@ -1,4 +1,5 @@
 // pages/recipes/[slug].js
+
 import React from 'react';
 import dynamic from 'next/dynamic';
 import client from '../../lib/contentful';
@@ -8,7 +9,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
-import Slider from 'react-slick'; // react-slick 임포트
+import Slider from 'react-slick';
 
 // DisqusComments 컴포넌트를 동적으로 임포트 (SSR 제외)
 const DisqusComments = dynamic(
@@ -26,19 +27,22 @@ export async function getStaticPaths() {
         content_type: 'recipe',
         select: 'fields.slug',
         locale: locale,
+        limit: 1000,
       });
 
       const localePaths = res.items.map((item) => ({
-        params: { slug: item.fields.slug },
+        params: { slug: item.fields.slug.toLowerCase() }, // 소문자로 변환
         locale: locale,
       }));
 
       paths = paths.concat(localePaths);
     }
 
+    console.log('Generated paths:', paths); // 로그 추가
+
     return {
       paths,
-      fallback: false,
+      fallback: false, // 또는 'blocking'으로 변경 가능
     };
   } catch (error) {
     console.error('Error fetching recipe slugs:', error);
@@ -51,13 +55,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params, locale }) {
   try {
+    const { slug } = params;
     const mappedLocale = locale === 'de' ? 'de' : 'en';
 
     const res = await client.getEntries({
       content_type: 'recipe',
-      'fields.slug': params.slug,
+      'fields.slug': slug.toLowerCase(), // 소문자로 변환
       locale: mappedLocale,
-      include: 3, // 더 깊은 참조를 위해 include를 3으로 설정
+      include: 3,
     });
 
     if (!res.items.length) {
@@ -138,7 +143,7 @@ export async function getStaticProps({ params, locale }) {
       instructions: recipeEntry.fields.instructions,
       videoFile: recipeEntry.fields.videoFile || null,
       youTubeUrl: recipeEntry.fields.youTubeUrl || null,
-      slug: recipeEntry.fields.slug,
+      slug: recipeEntry.fields.slug.toLowerCase(), // 소문자로 변환
       title: recipeEntry.fields.titel,
       locale: mappedLocale,
     };
