@@ -1,0 +1,9 @@
+{
+    "routes": [
+      {
+        "src": "/BingSiteAuth.xml",
+        "dest": "/BingSiteAuth.xml"
+      }
+    ]
+  }
+  
