@@ -39,6 +39,7 @@
   margin-top: 20px;
   font-size: 1em;
   line-height: 1.6;
+  text-align: left;
 }
 
 .ingredientsList {
@@ -55,6 +56,7 @@
   margin-top: 20px;
   font-size: 1em;
   line-height: 1.6;
+  text-align: left;
 }
 
 .youtubeContainer,
@@ -91,6 +93,7 @@
 }
 
 .detailText {
+  text-align: left;
   font-size: 1rem;
   color: #555;
 }
@@ -109,9 +112,12 @@
     align-items: flex-start; /* 주요 콘텐츠 중앙 정렬 대신 왼쪽 정렬 */
   }
 
-  .detailText, .instructions, .description {
+  .detailText,
+  .instructions,
+  .description {
     text-align: center;
     font-size: 1rem; /* 글자 크기를 좀 더 작게 조정 */
+    text-align: left;
   }
 
   .ingredientsList li {
