@@ -20,7 +20,7 @@ const Footer = () => {
       <p>{mappedLocale === 'de' ? 'Erstellt von Joan.' : 'Created by Joan.'}</p>
       {/* 인스타그램 링크 */}
       <a
-        href="https://www.instagram.com/recipe"
+        href="https://www.instagram.com/germanhansik"
         target="_blank"
         rel="noopener noreferrer"
         className={styles.instagramLink}

@@ -1,11 +1,16 @@
 /* styles/RecipeDetail.module.css */
-
 .container {
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 주요 콘텐츠를 중앙 정렬 */
+}
 .h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -17,10 +22,10 @@
 }
 
 .imageWrapper {
-  position: relative;
   width: 100%;
-  height: 400px; /* 원하는 높이로 조절 */
-  margin-bottom: 20px;
+  height: auto; /* 높이를 자동으로 조정 */
+  aspect-ratio: 4 / 3; /* 원하는 비율로 유지 */
+  overflow: hidden; /* 이미지가 넘치지 않도록 숨김 */
 }
 .slide {
   position: relative;
@@ -85,7 +90,45 @@
   margin-top: 10px;
 }
 
-.detail {
+.detailText {
   font-size: 1rem;
   color: #555;
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .imageWrapper {
+    height: auto; /* 고정 높이 제거 */
+    width: 100%; /* 가로 너비를 화면에 맞춤 */
+  }
+
+  .mainContent {
+    align-items: flex-start; /* 주요 콘텐츠 중앙 정렬 대신 왼쪽 정렬 */
+  }
+
+  .detailText, .instructions, .description {
+    text-align: center;
+    font-size: 1rem; /* 글자 크기를 좀 더 작게 조정 */
+  }
+
+  .ingredientsList li {
+    margin-bottom: 5px; /* 목록 간격 축소 */
+  }
+
+  .youtubeContainer iframe {
+    max-width: 100%;
+    height: auto;
+  }
+}
+@media (max-width: 480px) {
+  .h1 {
+    font-size: 1.2rem; /* 제목 폰트 크기 줄이기 */
+  }
+
+  .detailText {
+    font-size: 0.9rem; /* 세부 텍스트 크기 줄이기 */
+  }
 }

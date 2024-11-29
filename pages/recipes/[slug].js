@@ -235,6 +235,7 @@ const RecipeDetail = ({ recipe, error }) => {
                   alt={`${titel} 이미지 ${index + 1}`}
                   width={600}
                   height={400}
+                  layout="responsive"
                   className={styles.image}
                   placeholder="blur"
                   blurDataURL="/images/default.png"
@@ -276,14 +277,14 @@ const RecipeDetail = ({ recipe, error }) => {
       <h2>
         {mappedLocale === 'de' ? 'Kategorie' : 'Category'}: {category}
       </h2>
-      <div className={styles.details}>
+      <div className={styles.detailTexts}>
         {preparationTime && (
-          <span className={styles.detail}>
+          <span className={styles.detailText}>
             🕒 {preparationTime} {mappedLocale === 'de' ? 'Minuten' : 'mins'}
           </span>
         )}
         {servings && (
-          <span className={styles.detail}>
+          <span className={styles.detailText}>
             🍽️ {servings} {mappedLocale === 'de' ? 'Portionen' : 'servings'}
           </span>
         )}
