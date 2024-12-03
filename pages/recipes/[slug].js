@@ -6,8 +6,7 @@ import styles from '../../styles/RecipeDetail.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
-import Slider from 'react-slick';
+import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail'; // 사용되는 import
 import Head from 'next/head';
 
 // DisqusComments 컴포넌트를 동적으로 임포트 (SSR 제외)
@@ -17,6 +16,9 @@ const DisqusComments = dynamic(
     ssr: false,
   }
 );
+
+// Slider를 동적으로 로드
+const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
 export async function getStaticPaths() {
   try {
@@ -183,6 +185,11 @@ const RecipeDetail = ({ recipe, error }) => {
     youTubeUrl,
   } = recipe;
 
+  // YouTube 썸네일 URL 생성
+  const thumbnailUrl = youTubeUrl
+    ? getYouTubeThumbnail(youTubeUrl)
+    : '/images/default.png';
+
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -206,7 +213,7 @@ const RecipeDetail = ({ recipe, error }) => {
       <div className={styles.container}>
         <h1>{titel}</h1>
 
-        {/* 캐러셀만 렌더링 */}
+        {/* 캐러셀 렌더링 */}
         {images.length > 0 || youTubeUrl ? (
           <div className={styles.imageWrapper}>
             <Slider {...sliderSettings}>
@@ -217,7 +224,9 @@ const RecipeDetail = ({ recipe, error }) => {
                     alt={`${titel} image ${index + 1}`}
                     width={600}
                     height={400}
+                    loading="lazy"
                     style={{ width: '100%', height: 'auto' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                     className={styles.image}
                   />
                 </div>
@@ -225,7 +234,7 @@ const RecipeDetail = ({ recipe, error }) => {
               {!images.length && youTubeUrl && (
                 <div className={styles.slide}>
                   <Image
-                    src={getYouTubeThumbnail(youTubeUrl)}
+                    src={thumbnailUrl}
                     alt={`${titel} YouTube thumbnail`}
                     width={600}
                     height={400}

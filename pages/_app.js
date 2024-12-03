@@ -1,5 +1,3 @@
-// pages/_app.js
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../styles/globals.css';
@@ -51,13 +49,14 @@ function MyApp({ Component, pageProps }) {
       {/* Google Analytics */}
       {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
         <>
+          {/* 비동기 로드 방식 개선 */}
           <Script
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
           />
           <Script
             id="google-analytics"
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             dangerouslySetInnerHTML={{
               __html: `
                 window.dataLayer = window.dataLayer || [];

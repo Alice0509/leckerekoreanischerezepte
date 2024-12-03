@@ -1,5 +1,8 @@
-// next.config.js
-module.exports = {
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer({
   i18n: {
     locales: ['de', 'en'],
     defaultLocale: 'en',
@@ -9,17 +12,15 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'images.ctfassets.net',
-        // pathname: '/**', // 필요 시 추가
       },
       {
         protocol: 'https',
         hostname: 'img.youtube.com',
-        // pathname: '/**',
       },
-      // 기타 도메인 추가 가능
     ],
   },
   experimental: {
-    largePageDataBytes: 150 * 1024, // 선택 사항: 임계값 약간 증가
+    largePageDataBytes: 150 * 1024, // 실험적 기능
   },
-};
+  reactStrictMode: true, // React Strict 모드 활성화
+});
