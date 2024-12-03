@@ -6,10 +6,9 @@ import styles from '../../styles/RecipeDetail.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail'; // 사용되는 import
+import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
 import Head from 'next/head';
 
-// DisqusComments 컴포넌트를 동적으로 임포트 (SSR 제외)
 const DisqusComments = dynamic(
   () => import('../../components/DisqusComments'),
   {
@@ -17,7 +16,6 @@ const DisqusComments = dynamic(
   }
 );
 
-// Slider를 동적으로 로드
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
 export async function getStaticPaths() {
@@ -185,7 +183,6 @@ const RecipeDetail = ({ recipe, error }) => {
     youTubeUrl,
   } = recipe;
 
-  // YouTube 썸네일 URL 생성
   const thumbnailUrl = youTubeUrl
     ? getYouTubeThumbnail(youTubeUrl)
     : '/images/default.png';
@@ -213,7 +210,6 @@ const RecipeDetail = ({ recipe, error }) => {
       <div className={styles.container}>
         <h1>{titel}</h1>
 
-        {/* 캐러셀 렌더링 */}
         {images.length > 0 || youTubeUrl ? (
           <div className={styles.imageWrapper}>
             <Slider {...sliderSettings}>
@@ -261,9 +257,11 @@ const RecipeDetail = ({ recipe, error }) => {
         <div className={styles.description}>
           {documentToReactComponents(description)}
         </div>
-        <h2>
+
+        <h3>
           {mappedLocale === 'de' ? 'Kategorie' : 'Category'}: {category}
-        </h2>
+        </h3>
+
         <div className={styles.detailTexts}>
           {preparationTime && (
             <span className={styles.detailText}>
@@ -277,7 +275,7 @@ const RecipeDetail = ({ recipe, error }) => {
           )}
         </div>
 
-        <h2>{mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}</h2>
+        <h3>{mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}</h3>
         <ul className={styles.ingredientsList}>
           {ingredients.length > 0 ? (
             ingredients.map((ingredient, index) => (
@@ -293,17 +291,19 @@ const RecipeDetail = ({ recipe, error }) => {
             </p>
           )}
         </ul>
-        <h2>{mappedLocale === 'de' ? 'Anleitung' : 'Instructions'}</h2>
+
+        <h3>{mappedLocale === 'de' ? 'Anleitung' : 'Instructions'}</h3>
         <div className={styles.instructions}>
           {documentToReactComponents(instructions)}
         </div>
+
         {youTubeUrl && (
           <div className={styles.youtubeContainer}>
-            <h2>
+            <h3>
               {mappedLocale === 'de'
                 ? 'Video zur Orientierung'
                 : 'Video for reference'}
-            </h2>
+            </h3>
             <iframe
               width="560"
               height="315"
@@ -314,13 +314,14 @@ const RecipeDetail = ({ recipe, error }) => {
             ></iframe>
           </div>
         )}
+
         {videoFile && (
           <div className={styles.videoContainer}>
-            <h2>
+            <h3>
               {mappedLocale === 'de'
                 ? 'Video zur Orientierung'
                 : 'Video for reference'}
-            </h2>
+            </h3>
             <video controls className={styles.video}>
               <source
                 src={`https:${videoFile.fields.file.url}`}
@@ -339,6 +340,7 @@ const RecipeDetail = ({ recipe, error }) => {
           aria-label={
             mappedLocale === 'de' ? 'Zurück zur Startseite' : 'Back to Home'
           }
+          tabIndex="0"
         >
           {mappedLocale === 'de' ? 'Zurück zur Startseite' : 'Back to Home'}
         </Link>
