@@ -183,15 +183,6 @@ const RecipeDetail = ({ recipe, error }) => {
     youTubeUrl,
   } = recipe;
 
-  const thumbnailUrl =
-    images.length > 0
-      ? images[0]
-      : youTubeUrl
-        ? getYouTubeThumbnail(youTubeUrl)
-        : '/images/default.png';
-
-  console.log(`Recipe: ${titel}, Thumbnail URL: ${thumbnailUrl}`);
-
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -215,19 +206,8 @@ const RecipeDetail = ({ recipe, error }) => {
       <div className={styles.container}>
         <h1>{titel}</h1>
 
-        {/* Thumbnail 이미지 렌더링 */}
-        <div className={styles.thumbnailWrapper}>
-          <Image
-            src={thumbnailUrl}
-            alt={`${titel} thumbnail`}
-            width={600}
-            height={400}
-            style={{ width: '100%', height: 'auto' }}
-            className={styles.thumbnailImage}
-          />
-        </div>
-
-        {images.length > 0 && (
+        {/* 캐러셀만 렌더링 */}
+        {images.length > 0 || youTubeUrl ? (
           <div className={styles.imageWrapper}>
             <Slider {...sliderSettings}>
               {images.map((imgUrl, index) => (
@@ -242,7 +222,30 @@ const RecipeDetail = ({ recipe, error }) => {
                   />
                 </div>
               ))}
+              {!images.length && youTubeUrl && (
+                <div className={styles.slide}>
+                  <Image
+                    src={getYouTubeThumbnail(youTubeUrl)}
+                    alt={`${titel} YouTube thumbnail`}
+                    width={600}
+                    height={400}
+                    style={{ width: '100%', height: 'auto' }}
+                    className={styles.image}
+                  />
+                </div>
+              )}
             </Slider>
+          </div>
+        ) : (
+          <div className={styles.imageWrapper}>
+            <Image
+              src="/images/default.png"
+              alt="Default Image"
+              width={600}
+              height={400}
+              style={{ width: '100%', height: 'auto' }}
+              className={styles.image}
+            />
           </div>
         )}
 
