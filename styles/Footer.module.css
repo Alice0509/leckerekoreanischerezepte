@@ -1,20 +1,23 @@
-/* styles/Footer.module.css */
-
+/* Footer.module.css */
 .footer {
-  background-color: #f8f8f8;
-  padding: 20px 0;
-  text-align: center;
-  color: #555555;
-  border-top: 1px solid #e7e7e7;
+  background-color: #f8f9fa; /* 푸터 배경색 */
+  padding: 10px 20px; /* 상하/좌우 여백 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.footerContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* 요소 간격 */
+  flex-wrap: wrap; /* 작은 화면에서 줄바꿈 */
 }
 
 .instagramLink {
-  margin-top: 10px;
-  display: inline-block;
-  color: #555555;
-  transition: color 0.3s ease;
+  color: #000; /* 인스타그램 아이콘 색상 */
+  text-decoration: none; /* 밑줄 제거 */
 }
 
 .instagramLink:hover {
-  color: #e1306c; /* 인스타그램 색상 */
+  color: #e1306c; /* 인스타그램 로고 색상 */
 }
