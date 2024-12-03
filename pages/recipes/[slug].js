@@ -1,5 +1,3 @@
-// pages/recipes/[slug].js
-
 import React from 'react';
 import dynamic from 'next/dynamic';
 import client from '../../lib/contentful';
@@ -10,11 +8,14 @@ import Link from 'next/link';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
 import Slider from 'react-slick';
+import Head from 'next/head';
 
 // DisqusComments 컴포넌트를 동적으로 임포트 (SSR 제외)
 const DisqusComments = dynamic(
   () => import('../../components/DisqusComments'),
-  { ssr: false }
+  {
+    ssr: false,
+  }
 );
 
 export async function getStaticPaths() {
@@ -31,18 +32,16 @@ export async function getStaticPaths() {
       });
 
       const localePaths = res.items.map((item) => ({
-        params: { slug: item.fields.slug.toLowerCase() }, // 소문자로 변환
+        params: { slug: item.fields.slug.toLowerCase() },
         locale: locale,
       }));
 
       paths = paths.concat(localePaths);
     }
 
-    console.log('Generated paths:', paths); // 로그 추가
-
     return {
       paths,
-      fallback: false, // 또는 'blocking'으로 변경 가능
+      fallback: false,
     };
   } catch (error) {
     console.error('Error fetching recipe slugs:', error);
@@ -60,57 +59,43 @@ export async function getStaticProps({ params, locale }) {
 
     const res = await client.getEntries({
       content_type: 'recipe',
-      'fields.slug': slug.toLowerCase(), // 소문자로 변환
+      'fields.slug': slug.toLowerCase(),
       locale: mappedLocale,
       include: 3,
     });
 
     if (!res.items.length) {
-      console.warn(
-        `No recipe found for slug: ${params.slug} and locale: ${mappedLocale}`
-      );
       return { props: { recipe: null } };
     }
 
     const recipeEntry = res.items[0];
 
-    // Asset 매핑
     const assetsMap = {};
     res.includes.Asset?.forEach((asset) => {
       assetsMap[asset.sys.id] = asset;
     });
 
-    // recipeIngredient 매핑
     const recipeIngredientEntries =
       res.includes.Entry?.filter(
         (entry) => entry.sys.contentType.sys.id === 'recipeIngredient'
       ) || [];
 
-    // ingredient 엔트리 매핑 (entry 전체로 매핑)
     const ingredientEntries =
       res.includes.Entry?.filter(
         (entry) => entry.sys.contentType.sys.id === 'ingredient'
       ) || [];
     const ingredientMap = {};
     ingredientEntries.forEach((entry) => {
-      ingredientMap[entry.sys.id] = entry.fields.name; // 재료 이름만 매핑
+      ingredientMap[entry.sys.id] = entry.fields.name;
     });
 
-    console.log('Recipe Entry Ingredients:', recipeEntry.fields.ingredients);
-    console.log('Recipe Ingredients Entries:', recipeIngredientEntries);
-    console.log('Ingredient Entries:', ingredientEntries);
-
-    // Ingredients 데이터 구성
     const ingredients =
       recipeEntry.fields.ingredients
         ?.map((ri) => {
           const recipeIngredient = recipeIngredientEntries.find(
             (entry) => entry.sys.id === ri.sys.id
           );
-          if (!recipeIngredient) {
-            console.warn(`Missing recipeIngredient entry for ID: ${ri.sys.id}`);
-            return null; // 오류 방지: recipeIngredient가 없을 경우 null 반환
-          }
+          if (!recipeIngredient) return null;
 
           const ingredientRef = recipeIngredient.fields.ingredient;
           const ingredientName = ingredientRef?.sys?.id
@@ -123,9 +108,8 @@ export async function getStaticProps({ params, locale }) {
             quantity: recipeIngredient.fields.quantity || '',
           };
         })
-        .filter(Boolean) || []; // null 요소 제거
+        .filter(Boolean) || [];
 
-    // Recipe 이미지 매핑
     const images =
       recipeEntry.fields.image?.map(
         (img) => `https:${assetsMap[img.sys.id].fields.file.url}`
@@ -133,22 +117,23 @@ export async function getStaticProps({ params, locale }) {
 
     const finalRecipe = {
       id: recipeEntry.sys.id,
-      titel: recipeEntry.fields.titel,
-      description: recipeEntry.fields.description,
-      images, // 모든 이미지를 배열로 할당
-      category: recipeEntry.fields.category,
-      preparationTime: recipeEntry.fields.preparationTime || null,
-      servings: recipeEntry.fields.servings || null,
+      titel: recipeEntry.fields.titel || 'Default Recipe Title',
+      description:
+        recipeEntry.fields.description ||
+        'Default description: Find delicious recipes and tips.',
+      images,
+      category: recipeEntry.fields.category || 'Uncategorized',
+      preparationTime: recipeEntry.fields.preparationTime || 'N/A',
+      servings: recipeEntry.fields.servings || 'N/A',
       ingredients,
-      instructions: recipeEntry.fields.instructions,
+      instructions:
+        recipeEntry.fields.instructions || 'No instructions provided.',
       videoFile: recipeEntry.fields.videoFile || null,
       youTubeUrl: recipeEntry.fields.youTubeUrl || null,
-      slug: recipeEntry.fields.slug.toLowerCase(), // 소문자로 변환
-      title: recipeEntry.fields.titel,
+      slug: recipeEntry.fields.slug.toLowerCase(),
+      title: recipeEntry.fields.titel || 'Default Recipe Title',
       locale: mappedLocale,
     };
-
-    console.log('Fetched recipe:', finalRecipe);
 
     return {
       props: {
@@ -172,8 +157,6 @@ const RecipeDetail = ({ recipe, error }) => {
   const router = useRouter();
   const { locale } = router;
   const mappedLocale = locale === 'de' ? 'de' : 'en';
-
-  console.log('Rendering RecipeDetail:', recipe);
 
   if (error) {
     return <div className={styles.error}>{error}</div>;
@@ -200,7 +183,6 @@ const RecipeDetail = ({ recipe, error }) => {
     youTubeUrl,
   } = recipe;
 
-  // 이미지 URL 설정: 이미지가 있으면 첫 번째 이미지 사용, 없으면 YouTube 썸네일, 둘 다 없으면 기본 이미지
   const thumbnailUrl =
     images.length > 0
       ? images[0]
@@ -210,7 +192,6 @@ const RecipeDetail = ({ recipe, error }) => {
 
   console.log(`Recipe: ${titel}, Thumbnail URL: ${thumbnailUrl}`);
 
-  // react-slick 캐러셀 설정
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -221,143 +202,136 @@ const RecipeDetail = ({ recipe, error }) => {
   };
 
   return (
-    <div className={styles.container}>
-      <h1>{titel}</h1>
+    <>
+      <Head>
+        <title>{`${titel} - ${
+          mappedLocale === 'de' ? 'Einfaches Rezept' : 'Easy Recipe'
+        }`}</title>
+        <meta
+          name="description"
+          content={description || 'Find delicious recipes here!'}
+        />
+      </Head>
+      <div className={styles.container}>
+        <h1>{titel}</h1>
 
-      {/* 이미지 캐러셀 */}
-      {images.length > 0 || youTubeUrl ? (
-        <div className={styles.imageWrapper}>
-          <Slider {...sliderSettings}>
-            {images.map((imgUrl, index) => (
-              <div key={index} className={styles.slide}>
-                <Image
-                  src={imgUrl}
-                  alt={`${titel} 이미지 ${index + 1}`}
-                  width={600}
-                  height={400}
-                  layout="responsive"
-                  className={styles.image}
-                  placeholder="blur"
-                  blurDataURL="/images/default.png"
-                />
-              </div>
-            ))}
-            {!images.length && youTubeUrl && (
-              <div className={styles.slide}>
-                <Image
-                  src={getYouTubeThumbnail(youTubeUrl)}
-                  alt={`${titel} YouTube 썸네일`}
-                  width={600}
-                  height={400}
-                  className={styles.image}
-                  placeholder="blur"
-                  blurDataURL="/images/default.png"
-                />
-              </div>
-            )}
-          </Slider>
-        </div>
-      ) : (
-        <div className={styles.imageWrapper}>
+        {/* Thumbnail 이미지 렌더링 */}
+        <div className={styles.thumbnailWrapper}>
           <Image
-            src="/images/default.png"
-            alt="Default Image"
+            src={thumbnailUrl}
+            alt={`${titel} thumbnail`}
             width={600}
             height={400}
-            className={styles.image}
-            placeholder="blur"
-            blurDataURL="/images/default.png"
+            style={{ width: '100%', height: 'auto' }}
+            className={styles.thumbnailImage}
           />
         </div>
-      )}
 
-      <div className={styles.description}>
-        {documentToReactComponents(description)}
-      </div>
-      <h2>
-        {mappedLocale === 'de' ? 'Kategorie' : 'Category'}: {category}
-      </h2>
-      <div className={styles.detailTexts}>
-        {preparationTime && (
-          <span className={styles.detailText}>
-            🕒 {preparationTime} {mappedLocale === 'de' ? 'Minuten' : 'mins'}
-          </span>
+        {images.length > 0 && (
+          <div className={styles.imageWrapper}>
+            <Slider {...sliderSettings}>
+              {images.map((imgUrl, index) => (
+                <div key={index} className={styles.slide}>
+                  <Image
+                    src={imgUrl}
+                    alt={`${titel} image ${index + 1}`}
+                    width={600}
+                    height={400}
+                    style={{ width: '100%', height: 'auto' }}
+                    className={styles.image}
+                  />
+                </div>
+              ))}
+            </Slider>
+          </div>
         )}
-        {servings && (
-          <span className={styles.detailText}>
-            🍽️ {servings} {mappedLocale === 'de' ? 'Portionen' : 'servings'}
-          </span>
-        )}
-      </div>
 
-      <h2>{mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}</h2>
-      <ul className={styles.ingredientsList}>
-        {ingredients.length > 0 ? (
-          ingredients.map((ingredient, index) => (
-            <li key={index}>
-              {ingredient.name} <strong>{ingredient.quantity}</strong>
-            </li>
-          ))
-        ) : (
-          <p>
-            {mappedLocale === 'de'
-              ? 'Keine Zutaten verfügbar.'
-              : 'No ingredients available.'}
-          </p>
-        )}
-      </ul>
-      <h2>{mappedLocale === 'de' ? 'Anleitung' : 'Instructions'}</h2>
-      <div className={styles.instructions}>
-        {documentToReactComponents(instructions)}
-      </div>
-      {youTubeUrl && (
-        <div className={styles.youtubeContainer}>
-          <h2>
-            {mappedLocale === 'de'
-              ? 'Video zur Orientierung'
-              : 'Video for reference'}
-          </h2>
-          <iframe
-            width="560"
-            height="315"
-            src={youTubeUrl}
-            title="YouTube video player"
-            frameBorder="0"
-            allowFullScreen
-          ></iframe>
+        <div className={styles.description}>
+          {documentToReactComponents(description)}
         </div>
-      )}
-      {videoFile && (
-        <div className={styles.videoContainer}>
-          <h2>
-            {mappedLocale === 'de'
-              ? 'Video zur Orientierung'
-              : 'Video for reference'}
-          </h2>
-          <video controls className={styles.video}>
-            <source
-              src={`https:${videoFile.fields.file.url}`}
-              type={videoFile.fields.file.contentType}
-            />
-            Your browser does not support the video tag.
-          </video>
+        <h2>
+          {mappedLocale === 'de' ? 'Kategorie' : 'Category'}: {category}
+        </h2>
+        <div className={styles.detailTexts}>
+          {preparationTime && (
+            <span className={styles.detailText}>
+              🕒 {preparationTime} {mappedLocale === 'de' ? 'Minuten' : 'mins'}
+            </span>
+          )}
+          {servings && (
+            <span className={styles.detailText}>
+              🍽️ {servings} {mappedLocale === 'de' ? 'Portionen' : 'servings'}
+            </span>
+          )}
         </div>
-      )}
 
-      {/* Disqus 댓글 섹션 */}
-      <DisqusComments post={recipe} />
+        <h2>{mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}</h2>
+        <ul className={styles.ingredientsList}>
+          {ingredients.length > 0 ? (
+            ingredients.map((ingredient, index) => (
+              <li key={index}>
+                {ingredient.name} <strong>{ingredient.quantity}</strong>
+              </li>
+            ))
+          ) : (
+            <p>
+              {mappedLocale === 'de'
+                ? 'Keine Zutaten verfügbar.'
+                : 'No ingredients available.'}
+            </p>
+          )}
+        </ul>
+        <h2>{mappedLocale === 'de' ? 'Anleitung' : 'Instructions'}</h2>
+        <div className={styles.instructions}>
+          {documentToReactComponents(instructions)}
+        </div>
+        {youTubeUrl && (
+          <div className={styles.youtubeContainer}>
+            <h2>
+              {mappedLocale === 'de'
+                ? 'Video zur Orientierung'
+                : 'Video for reference'}
+            </h2>
+            <iframe
+              width="560"
+              height="315"
+              src={youTubeUrl}
+              title="YouTube video player"
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
+          </div>
+        )}
+        {videoFile && (
+          <div className={styles.videoContainer}>
+            <h2>
+              {mappedLocale === 'de'
+                ? 'Video zur Orientierung'
+                : 'Video for reference'}
+            </h2>
+            <video controls className={styles.video}>
+              <source
+                src={`https:${videoFile.fields.file.url}`}
+                type={videoFile.fields.file.contentType}
+              />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        )}
 
-      {/* 홈으로 돌아가는 링크 */}
-      <Link
-        href="/"
-        className={styles.backLink}
-        aria-label={
-          mappedLocale === 'de' ? 'Zurück zur Startseite' : 'Back to Home'
-        }
-      >
-        {mappedLocale === 'de' ? 'Zurück zur Startseite' : 'Back to Home'}
-      </Link>
-    </div>
+        <DisqusComments post={recipe} />
+
+        <Link
+          href="/"
+          className={styles.backLink}
+          aria-label={
+            mappedLocale === 'de' ? 'Zurück zur Startseite' : 'Back to Home'
+          }
+        >
+          {mappedLocale === 'de' ? 'Zurück zur Startseite' : 'Back to Home'}
+        </Link>
+      </div>
+    </>
   );
 };
 
