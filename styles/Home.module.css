@@ -5,13 +5,12 @@
   margin: 0 auto;
   padding: 20px;
 }
-/* styles/Home.module.css */
 
 .controlsContainer {
   display: flex;
-  justify-content: space-between; /* 양 끝으로 요소 배치 */
-  align-items: center; /* 수직 중앙 정렬 */
-  margin-bottom: 20px; /* 아래쪽에 여백 추가 */
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .searchContainer {
@@ -20,7 +19,7 @@
 }
 
 .icon {
-  margin-right: 8px; /* 아이콘과 입력 필드 사이에 간격 추가 */
+  margin-right: 8px;
   color: #666;
 }
 
@@ -29,13 +28,13 @@
   border: 1px solid #cccccc;
   border-radius: 4px;
   font-size: 16px;
-  width: 250px; /* 원하는 너비로 조정 */
+  width: 250px;
 }
 
 .filterContainer {
   display: flex;
-  flex-direction: column; /* 레이블과 셀렉트를 세로로 배치 */
-  align-items: flex-start; /* 왼쪽 정렬 */
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .filterContainer label {
@@ -73,19 +72,74 @@
   text-align: center;
   margin-bottom: 30px;
 }
+
+/* 페이지네이션 스타일 */
+.pagination {
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center;
+  margin-top: 30px;
+}
+
+.pageButton,
+.activePageButton {
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  margin: 0 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pageButton:hover {
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.activePageButton {
+  color: white;
+  background-color: #0070f3;
+  border-radius: 5px;
+}
+
+.pageButtonIcon {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #0070f3;
+}
+
+.pageButtonIcon:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
   .controlsContainer {
-    flex-direction: column; /* 세로 방향으로 레이아웃 변경 */
-    align-items: flex-start; /* 왼쪽 정렬 */
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .filterContainer {
-    align-items: flex-start; /* 셀렉트를 왼쪽으로 정렬 */
-    margin-top: 10px; /* 검색 바와 카테고리 필터 사이에 여백 추가 */
+    align-items: flex-start;
+    margin-top: 10px;
   }
 
   .searchInput,
   .categorySelect {
-    width: 100%; /* 입력 필드와 셀렉트의 너비를 100%로 확장 */
+    width: 100%;
+  }
+
+  .pageButton,
+  .activePageButton {
+    padding: 6px 8px; /* 모바일에서 버튼 크기 줄이기 */
+    font-size: 0.9rem;
+  }
+
+  .pagination {
+    gap: 2px; /* 모바일에서 페이지 버튼 간격 줄이기 */
   }
 }

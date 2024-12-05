@@ -1,4 +1,3 @@
-// pages/api/recipes.js
 import { createClient } from 'contentful';
 
 const client = createClient({
@@ -7,7 +6,14 @@ const client = createClient({
 });
 
 export default async function handler(req, res) {
-  const { page = 1, limit = 20, locale = 'en' } = req.query;
+  let { page = 1, limit = 20, locale = 'en' } = req.query;
+
+  // 로케일 매핑
+  if (locale === 'de-DE') {
+    locale = 'de';
+  } else if (locale === 'en-US') {
+    locale = 'en';
+  }
 
   console.log(
     `API Request Params - Page: ${page}, Limit: ${limit}, Locale: ${locale}`
@@ -56,7 +62,7 @@ export default async function handler(req, res) {
         titel: item.fields.titel,
         category: item.fields.category,
         youTubeUrl: item.fields.youTubeUrl || null,
-        image: imageUrl,
+        image: imageUrl || '/images/default.png',
       };
     });
 
