@@ -1,7 +1,9 @@
 // components/Footer.js
+
 import { FaInstagram } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import styles from '../styles/Footer.module.css';
+import Link from 'next/link';
 
 const Footer = () => {
   const router = useRouter();
@@ -11,7 +13,7 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
-        {/* 저작권 텍스트 */}
+        {/* Copyright */}
         <p>
           &copy; {new Date().getFullYear()}{' '}
           {mappedLocale === 'de'
@@ -19,12 +21,24 @@ const Footer = () => {
             : 'All rights reserved.'}
         </p>
 
-        {/* 작성자 텍스트 */}
+        {/* Creator */}
         <p>
           {mappedLocale === 'de' ? 'Erstellt von Joan.' : 'Created by Joan.'}
         </p>
 
-        {/* 인스타그램 버튼 */}
+        {/* Navigation Links */}
+        <ul className={styles.navList}>
+          <li>
+            <Link href="/privacy-policy" className={styles.link}>
+              {mappedLocale === 'de'
+                ? 'Datenschutzerklärung'
+                : 'Privacy Policy'}
+            </Link>
+          </li>
+          {/* Add more links here if needed */}
+        </ul>
+
+        {/* Instagram Button */}
         <a
           href="https://www.instagram.com/germanhansik"
           target="_blank"

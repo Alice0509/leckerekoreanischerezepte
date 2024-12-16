@@ -1,6 +1,7 @@
 /* Footer.module.css */
+
 .footer {
-  background-color: #f8f9fa; /* 푸터 배경색 */
+  background-color: #f8f8f8; /* 푸터 배경색 */
   padding: 10px 20px; /* 상하/좌우 여백 */
   text-align: center; /* 텍스트 가운데 정렬 */
 }
@@ -20,4 +21,27 @@
 
 .instagramLink:hover {
   color: #e1306c; /* 인스타그램 로고 색상 */
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 10px 0;
+}
+.link {
+  color: #005bb5;
+  text-decoration: underline;
+}
+
+.link:hover {
+  color: #003f7f; /* 호버 시 더 어두운 색상 */
+  text-decoration: none; /* 호버 시 밑줄 제거 */
+}
+
+.link:focus {
+  outline: 2px dashed #003f7f; /* 포커스 시 테두리 */
+  outline-offset: 4px;
 }
