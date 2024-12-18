@@ -1,17 +1,40 @@
-/* Footer.module.css */
+/* styles/Footer.module.css */
 
 .footer {
-  background-color: #f8f8f8; /* 푸터 배경색 */
-  padding: 10px 20px; /* 상하/좌우 여백 */
-  text-align: center; /* 텍스트 가운데 정렬 */
+  padding: 10px 20px; /* 패딩을 줄여서 푸터를 더 컴팩트하게 */
+  background-color: #f8f8f8; /* 배경색 유지 */
+  text-align: center;
+  font-size: 0.75rem; /* 글자 크기 작게 설정 */
+  color: #666; /* 글자 색상을 중간 회색으로 설정 */
 }
 
 .footerContent {
   display: flex;
-  justify-content: center;
+  flex-direction: row; /* 수평 배치 */
+  justify-content: center; /* 중앙 정렬 */
   align-items: center;
-  gap: 20px; /* 요소 간격 */
-  flex-wrap: wrap; /* 작은 화면에서 줄바꿈 */
+  flex-wrap: wrap;
+  gap: 10px; /* 요소 간 간격 */
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+  margin: 0;
+}
+
+.link {
+  color: #666; /* 덜 눈에 띄는 색상 */
+  text-decoration: none; /* 링크의 밑줄 제거 */
+  font-size: 0.75rem; /* 링크 글자 크기 작게 */
+}
+
+.link:hover,
+.link:focus {
+  color: #444; /* 호버 시 조금 더 어두운 색상 */
+  text-decoration: none; /* 밑줄 유지 */
 }
 
 .instagramLink {
@@ -23,25 +46,22 @@
   color: #e1306c; /* 인스타그램 로고 색상 */
 }
 
-.navList {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin: 10px 0;
-}
-.link {
-  color: #005bb5;
-  text-decoration: underline;
-}
+@media (max-width: 600px) {
+  .footerContent {
+    flex-direction: column; /* 작은 화면에서는 수직 배치 */
+    align-items: center;
+  }
 
-.link:hover {
-  color: #003f7f; /* 호버 시 더 어두운 색상 */
-  text-decoration: none; /* 호버 시 밑줄 제거 */
-}
+  .navList {
+    flex-direction: column;
+    gap: 5px;
+  }
 
-.link:focus {
-  outline: 2px dashed #003f7f; /* 포커스 시 테두리 */
-  outline-offset: 4px;
+  .link {
+    font-size: 0.7rem;
+  }
+
+  .instagramLink {
+    font-size: 0.9rem;
+  }
 }

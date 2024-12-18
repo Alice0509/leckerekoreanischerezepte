@@ -29,13 +29,28 @@ const Footer = () => {
         {/* Navigation Links */}
         <ul className={styles.navList}>
           <li>
-            <Link href="/privacy-policy" className={styles.link}>
+            <Link
+              href={
+                mappedLocale === 'de'
+                  ? '/datenschutzerklaerung'
+                  : '/privacy-policy'
+              }
+              className={styles.link}
+            >
               {mappedLocale === 'de'
                 ? 'Datenschutzerklärung'
                 : 'Privacy Policy'}
             </Link>
           </li>
-          {/* Add more links here if needed */}
+          <li>
+            <Link
+              href={mappedLocale === 'de' ? '/impressum' : '/imprint'}
+              className={styles.link}
+            >
+              {mappedLocale === 'de' ? 'Impressum' : 'Imprint'}
+            </Link>
+          </li>
+          {/* Weitere Links hier hinzufügen, falls nötig */}
         </ul>
 
         {/* Instagram Button */}
@@ -44,9 +59,13 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.instagramLink}
-          aria-label="Visit our Instagram page"
+          aria-label={
+            mappedLocale === 'de'
+              ? 'Besuchen Sie unsere Instagram-Seite'
+              : 'Visit our Instagram page'
+          }
         >
-          <FaInstagram size={24} />
+          <FaInstagram size={25} />
         </a>
       </div>
     </footer>
