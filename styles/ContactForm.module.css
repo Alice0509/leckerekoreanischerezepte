@@ -1,0 +1,62 @@
+/* styles/ContactForm.module.css */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.input,
+.textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #666;
+  outline: none;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+}
+
+.successMessage {
+  color: green;
+  font-size: 0.9rem;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.9rem;
+}

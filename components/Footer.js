@@ -50,7 +50,13 @@ const Footer = () => {
               {mappedLocale === 'de' ? 'Impressum' : 'Imprint'}
             </Link>
           </li>
-          {/* Weitere Links hier hinzufügen, falls nötig */}
+          {/* Support Link */}
+          <li>
+            <Link href="/support" className={styles.link}>
+              Support
+            </Link>
+          </li>
+          {/* Add more links here if needed */}
         </ul>
 
         {/* Instagram Button */}

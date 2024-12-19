@@ -1,0 +1,161 @@
+/* styles/Support.module.css */
+
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  color: #666; /* 중간 회색 텍스트 */
+  font-size: 0.9rem; /* 전체 글자 크기 줄이기 */
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.5rem; /* 제목 크기 */
+  color: #333;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  color: #555;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.sectionTitle {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.text {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.email {
+  color: #666;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.email:hover {
+  color: #444;
+  text-decoration: underline;
+}
+
+.faq {
+  margin-bottom: 10px;
+}
+
+.faqItem {
+  margin-bottom: 10px;
+}
+
+.question {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.answer {
+  font-size: 0.85rem;
+  margin-left: 15px;
+}
+
+.viewAll {
+  color: #666;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.viewAll:hover {
+  color: #444;
+  text-decoration: underline;
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.link {
+  color: #666;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.link:hover {
+  color: #444;
+  text-decoration: underline;
+}
+
+.reportLink {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #f0f0f0;
+  color: #666;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.reportLink:hover {
+  background-color: #e0e0e0;
+  color: #444;
+}
+
+.socialMedia {
+  display: flex;
+  gap: 15px;
+}
+
+.socialLink {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.socialLink:hover {
+  color: #444;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+
+  .links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .link {
+    font-size: 0.8rem;
+  }
+
+  .reportLink {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+}
