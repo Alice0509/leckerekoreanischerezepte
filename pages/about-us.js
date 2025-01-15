@@ -1,6 +1,6 @@
-// pages/about-us.js
 import React from 'react';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
+import Image from 'next/image';
 import styles from '../styles/AboutUs.module.css';
 import { useRouter } from 'next/router';
 
@@ -15,17 +15,39 @@ const AboutUs = () => {
       title: 'About Us | Leckere Koreanische Rezepte',
       description:
         'Learn more about us and our mission to make authentic Korean cuisine accessible in Germany.',
-      heading: 'About Us',
       sections: [
         {
           heading: 'About Us',
-          paragraph:
-            'Welcome to our website! We are passionate chefs and lovers of Korean cuisine, dedicated to sharing authentic Korean recipes using ingredients that are easily accessible in Germany.',
+          paragraph: (
+            <p className={styles.intro}>
+              Welcome to our <strong>leckere-koreanische-rezepte.de</strong>! We
+              are passionate chefs and lovers of Korean cuisine, dedicated to
+              sharing authentic Korean recipes using ingredients that are easily
+              accessible in Germany.
+            </p>
+          ),
         },
         {
           heading: 'About Me',
-          paragraph:
-            'Hello, I am Joan, a Korean living in Germany. First of all, thank you for visiting my website. I used to think that the time I spend cooking was wasted, but when I lived in Germany, my surroundings often talked about dishes that my child had eaten in Korea and wished for. This led me to constantly search for and research recipes. There are still many dishes where I fail.',
+          paragraph: (
+            <>
+              {/* Joan 이미지 추가 */}
+              <div className={styles.profileImage}>
+                <Image
+                  src="/images/my_joan.png"
+                  alt="Joan"
+                  width={150}
+                  height={150}
+                />
+              </div>
+              Hello, I am Joan, a Korean living in Germany. First of all, thank
+              you for visiting my website. I used to think that the time I spend
+              cooking was wasted, but when I lived in Germany, my surroundings
+              often talked about dishes that my child had eaten in Korea and
+              wished for. This led me to constantly search for and research
+              recipes. There are still many dishes where I fail.
+            </>
+          ),
         },
         {
           heading: 'Why This Website?',
@@ -58,23 +80,32 @@ const AboutUs = () => {
       title: 'Über Uns | Leckere Koreanische Rezepte',
       description:
         'Erfahren Sie mehr über uns und unsere Mission, authentische koreanische Küche in Deutschland zugänglich zu machen.',
-      heading: 'Über Uns',
+
       sections: [
         {
           heading: 'Über Uns',
           paragraph: (
-            <>
+            <p className={styles.intro}>
               Willkommen bei <strong>leckere-koreanische-rezepte.de</strong>!
               Hier finden Sie authentische koreanische Rezepte, die mit viel
               Liebe und Sorgfalt ausgewählt wurden, um Ihnen die echte
               koreanische Küche näherzubringen.
-            </>
+            </p>
           ),
         },
         {
           heading: 'Über Mich',
           paragraph: (
             <>
+              {/* Joan 이미지 추가 */}
+              <div className={styles.profileImage}>
+                <Image
+                  src="/images/my_joan.png"
+                  alt="Joan"
+                  width={150}
+                  height={150}
+                />
+              </div>
               Hallo, ich bin Joan, eine Koreanerin, die in Deutschland lebt.
               Zunächst einmal danke ich Ihnen, dass Sie meine Webseite besuchen.
               Früher dachte ich, dass die Zeit, die ich mit Kochen verbringe,
@@ -174,7 +205,8 @@ const AboutUs = () => {
         {currentContent.sections.map((section, index) => (
           <div key={index} className={styles.section}>
             <h2>{section.heading}</h2>
-            <p>{section.paragraph}</p>
+            {/* paragraph가 문자열이나 JSX일 수 있으므로 이를 그대로 렌더 */}
+            <div>{section.paragraph}</div>
           </div>
         ))}
       </div>
