@@ -15,10 +15,6 @@ export default async function handler(req, res) {
     locale = 'en';
   }
 
-  console.log(
-    `API Request Params - Page: ${page}, Limit: ${limit}, Locale: ${locale}`
-  );
-
   try {
     const query = {
       content_type: 'recipe',

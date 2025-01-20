@@ -1,13 +1,26 @@
-//pages/ingredients/index.js
-
+// pages/ingredients/index.js
 import React from 'react';
 import client from '../../lib/contentful';
 import IngredientCard from '../../components/IngredientCard';
 import styles from '../../styles/Ingredients.module.css';
 
+// 로케일별 재료 목록을 저장할 메모리 캐시 객체
+const ingredientsCache = {};
+
 export async function getStaticProps({ locale }) {
   try {
     const mappedLocale = locale === 'de' ? 'de' : 'en';
+
+    // 캐시에 데이터가 있으면 API 호출 없이 반환
+    if (ingredientsCache[mappedLocale]) {
+      return {
+        props: {
+          ingredients: ingredientsCache[mappedLocale],
+          mappedLocale,
+        },
+        revalidate: 60,
+      };
+    }
 
     const res = await client.getEntries({
       content_type: 'ingredient',
@@ -29,7 +42,6 @@ export async function getStaticProps({ locale }) {
       assetsMap[asset.sys.id] = asset;
     });
 
-    // description이 있는 재료만 필터링
     const ingredients = res.items
       .map((item) => {
         const imageAsset = item.fields.bild?.sys?.id
@@ -48,9 +60,12 @@ export async function getStaticProps({ locale }) {
           description: item.fields.description || null,
         };
       })
-      .filter((ingredient) => ingredient.description); // 필터링: description이 있는 재료만 포함
+      .filter((ingredient) => ingredient.description);
 
     console.log('Filtered Ingredients:', ingredients);
+
+    // 캐시에 데이터 저장
+    ingredientsCache[mappedLocale] = ingredients;
 
     return {
       props: {

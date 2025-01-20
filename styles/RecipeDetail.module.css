@@ -1,7 +1,9 @@
 /* styles/RecipeDetail.module.css */
+
+/* 컨테이너 및 기본 레이아웃 */
 .container {
-  padding: 20px;
-  max-width: 800px;
+  padding: 2rem;
+  max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -9,28 +11,45 @@
 .mainContent {
   display: flex;
   flex-direction: column;
-  align-items: center; /* 주요 콘텐츠를 중앙 정렬 */
+  align-items: center;
 }
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* 타이틀 및 텍스트 */
 .h1 {
   text-align: center;
   margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+/* 이미지 및 슬라이더 */
+.imageWrapper {
+  position: relative; /* 슬라이더 점(dot)을 위한 설정 */
+  width: 100%;
+  max-width: 600px; /* 이미지 최대 너비 제한 */
+  height: auto;
+  aspect-ratio: 4 / 3;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .image {
+  width: 100%;
+  height: auto;
   border-radius: 8px;
   object-fit: cover;
 }
 
-.imageWrapper {
-  width: 100%;
-  height: auto; /* 높이를 자동으로 조정 */
-  aspect-ratio: 4 / 3; /* 원하는 비율로 유지 */
-  overflow: hidden; /* 이미지가 넘치지 않도록 숨김 */
-}
 .slide {
   position: relative;
 }
 
+/* 콘텐츠 스타일 */
 .detail {
   margin-right: 15px;
 }
@@ -80,6 +99,7 @@
 .backLink:hover {
   text-decoration: underline;
 }
+
 .title {
   font-size: 1.5rem;
   margin: 15px 0;
@@ -97,6 +117,8 @@
   font-size: 1rem;
   color: #555;
 }
+
+/* 반응형 미디어 쿼리 */
 @media (max-width: 768px) {
   .container {
     padding: 10px;
@@ -104,24 +126,19 @@
   }
 
   .imageWrapper {
-    height: auto; /* 고정 높이 제거 */
-    width: 100%; /* 가로 너비를 화면에 맞춤 */
-  }
-
-  .mainContent {
-    align-items: flex-start; /* 주요 콘텐츠 중앙 정렬 대신 왼쪽 정렬 */
+    width: 100%;
+    height: auto;
   }
 
   .detailText,
   .instructions,
   .description {
     text-align: center;
-    font-size: 1rem; /* 글자 크기를 좀 더 작게 조정 */
-    text-align: left;
+    font-size: 1rem;
   }
 
   .ingredientsList li {
-    margin-bottom: 5px; /* 목록 간격 축소 */
+    margin-bottom: 5px;
   }
 
   .youtubeContainer iframe {
@@ -129,12 +146,13 @@
     height: auto;
   }
 }
+
 @media (max-width: 480px) {
   .h1 {
-    font-size: 1.2rem; /* 제목 폰트 크기 줄이기 */
+    font-size: 1.2rem;
   }
 
   .detailText {
-    font-size: 0.9rem; /* 세부 텍스트 크기 줄이기 */
+    font-size: 0.9rem;
   }
 }

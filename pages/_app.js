@@ -9,6 +9,7 @@ import { GA_TRACKING_ID } from '../lib/gtag';
 import { DefaultSeo } from 'next-seo';
 import ToTopButton from '../components/ToTopButton'; // ToTopButton 임포트
 import ErrorBoundary from '../components/ErrorBoundary';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

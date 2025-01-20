@@ -8,6 +8,9 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 const loadingSpinner =
   'data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAACH5BAEAAAEALAAAAAAQABAAAAIgjI+py+0Po5y02ouzPgUAOw==';
 
+// 로케일과 슬러그별로 캐시 데이터를 저장할 객체
+const ingredientCache = {};
+
 export async function getStaticPaths() {
   const res = await client.getEntries({
     content_type: 'ingredient',
@@ -21,13 +24,25 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false, // 존재하지 않는 경로는 404 페이지로 이동
+    fallback: false,
   };
 }
 
 export async function getStaticProps({ params, locale }) {
   try {
     const mappedLocale = locale === 'de' ? 'de' : 'en';
+    const cacheKey = `${mappedLocale}_${params.slug}`;
+
+    // 캐시에 데이터가 있으면 반환
+    if (ingredientCache[cacheKey]) {
+      return {
+        props: {
+          ingredient: ingredientCache[cacheKey],
+          mappedLocale,
+        },
+        revalidate: 60,
+      };
+    }
 
     const res = await client.getEntries({
       content_type: 'ingredient',
@@ -55,7 +70,8 @@ export async function getStaticProps({ params, locale }) {
       description: item.fields.description || null,
     };
 
-    console.log('Fetched Ingredient Detail:', ingredient);
+    // 캐시에 데이터 저장
+    ingredientCache[cacheKey] = ingredient;
 
     return {
       props: {

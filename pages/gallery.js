@@ -6,14 +6,27 @@ import styles from '../styles/Gallery.module.css';
 import { useRouter } from 'next/router';
 import { reverseGeocode } from '../lib/geocode'; // 올바르게 내보낸 함수 가져오기
 
+// 로케일별 갤러리 데이터를 저장할 메모리 캐시 객체
+const galleryCache = {};
+
 export async function getStaticProps({ locale }) {
   try {
     const mappedLocale = locale === 'de' ? 'de' : 'en';
 
+    // 캐시에 데이터가 있으면 API 호출 없이 반환
+    if (galleryCache[mappedLocale]) {
+      return {
+        props: {
+          galleryItems: galleryCache[mappedLocale],
+        },
+        revalidate: 60,
+      };
+    }
+
     const res = await client.getEntries({
       content_type: 'gallery',
       locale: mappedLocale,
-      include: 5, // 관련 Asset 포함
+      include: 5,
     });
 
     const assetsMap = {};
@@ -23,7 +36,6 @@ export async function getStaticProps({ locale }) {
 
     const galleryItems = await Promise.all(
       res.items.map(async (item) => {
-        // 'bild' 필드가 배열인지 단일 객체인지 확인
         let images = [];
         if (Array.isArray(item.fields.bild)) {
           images = item.fields.bild.map((img) => assetsMap[img.sys.id]);
@@ -31,7 +43,6 @@ export async function getStaticProps({ locale }) {
           images = [assetsMap[item.fields.bild.sys.id]];
         }
 
-        // 'location' 필드 처리
         let address = null;
         if (item.fields.location && typeof item.fields.location === 'object') {
           const { lat, lon } = item.fields.location;
@@ -55,14 +66,15 @@ export async function getStaticProps({ locale }) {
           titel:
             item.fields.titel ||
             (mappedLocale === 'de' ? 'Galerie Titel' : 'Gallery Title'),
-          businessName: item.fields.businessName || null, // 상호 필드 추가
-          location: address, // 주소 문자열로 설정
-          bild: images.length > 0 ? `https:${images[0].fields.file.url}` : null, // 이미지 URL 설정
+          businessName: item.fields.businessName || null,
+          location: address,
+          bild: images.length > 0 ? `https:${images[0].fields.file.url}` : null,
         };
       })
     );
 
-    console.log('Fetched gallery items:', galleryItems);
+    // 가져온 갤러리 데이터를 캐시에 저장
+    galleryCache[mappedLocale] = galleryItems;
 
     return {
       props: {
@@ -115,8 +127,6 @@ const Gallery = ({ galleryItems, error }) => {
                   fill
                   style={{ objectFit: 'cover' }}
                   className={styles.image}
-                  // placeholder="blur" // 올바른 Base64 문자열로 설정 필요 시 주석 해제
-                  // blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." // Base64 인코딩된 이미지로 변경
                 />
               </div>
             ) : (

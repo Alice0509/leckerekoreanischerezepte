@@ -1,5 +1,4 @@
 // pages/index.js
-
 import React, { useState, useMemo, useEffect } from 'react';
 import client from '../lib/contentful';
 import Fuse from 'fuse.js';
@@ -8,22 +7,34 @@ import { FaSearch } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import RecipeCard from '../components/RecipeCard';
 
+// 로케일별 레시피 데이터를 저장할 메모리 캐시 객체
+const recipesCache = {};
+
 export async function getStaticProps({ locale }) {
   try {
     const mappedLocale = locale === 'de' ? 'de' : 'en';
 
-    // 모든 레시피를 가져오기 위해 limit을 큰 값으로 설정
+    // 캐시에 데이터가 있으면 API 호출 없이 반환
+    if (recipesCache[mappedLocale]) {
+      return {
+        props: {
+          recipes: recipesCache[mappedLocale],
+        },
+        revalidate: 60, // ISR 설정: 60초 후 재생성
+      };
+    }
+
+    // 캐시에 데이터가 없을 경우 Contentful API 호출
     const res = await client.getEntries({
       content_type: 'recipe',
       locale: mappedLocale,
       include: 1,
       select:
         'fields.slug,fields.titel,fields.category,fields.image,fields.youTubeUrl,fields.description',
-      limit: 1000, // 최대한 많은 레시피를 가져옴
+      limit: 1000,
     });
 
     const assetsMap = {};
-
     res.includes.Asset?.forEach((asset) => {
       assetsMap[asset.sys.id] = asset;
     });
@@ -63,17 +74,13 @@ export async function getStaticProps({ locale }) {
         }
       }
 
-      // 카테고리 필드 매핑
       let category = 'Uncategorized';
       if (item.fields.category) {
         if (Array.isArray(item.fields.category)) {
-          // 카테고리가 배열인 경우, 각 카테고리 이름을 추출하여 쉼표로 구분된 문자열로 만듦
           category = item.fields.category.map((c) => c.fields.name).join(', ');
         } else if (typeof item.fields.category === 'object') {
-          // 카테고리가 객체(링크된 엔트리)인 경우, 이름을 추출
           category = item.fields.category.fields.name || 'Uncategorized';
         } else {
-          // 카테고리가 단일 문자열인 경우
           category = item.fields.category;
         }
       }
@@ -89,11 +96,14 @@ export async function getStaticProps({ locale }) {
       };
     });
 
+    // 가져온 레시피 데이터를 캐시에 저장
+    recipesCache[mappedLocale] = recipes;
+
     return {
       props: {
         recipes,
       },
-      revalidate: 60, // ISR 설정 (60초 후 페이지 다시 생성)
+      revalidate: 60, // ISR 설정: 60초 후 재생성
     };
   } catch (error) {
     console.error('Error fetching recipes for page:', error);
@@ -175,14 +185,13 @@ const Home = ({ recipes, error }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm, selectedCategory]);
 
-  // 디버깅을 위한 로그 추가 (필요 시 제거)
-  useEffect(() => {
-    console.log('Total Recipes:', recipes.length);
-    console.log('Categories:', categories);
-    console.log('Filtered Items:', filteredItems.length);
-    console.log('Searched Items:', searchedItems.length);
-    console.log('Paginated Items:', paginatedItems.length);
-  }, [recipes, categories, filteredItems, searchedItems, paginatedItems]);
+  useEffect(() => {}, [
+    recipes,
+    categories,
+    filteredItems,
+    searchedItems,
+    paginatedItems,
+  ]);
 
   if (error) {
     return <div className={styles.error}>{error}</div>;
@@ -234,9 +243,7 @@ const Home = ({ recipes, error }) => {
                 : 'Search recipes...'
             }
             value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className={styles.searchInput}
           />
         </div>
