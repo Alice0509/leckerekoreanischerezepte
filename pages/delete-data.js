@@ -79,7 +79,7 @@ const DeleteData = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            placeholder="joan.korean.rezepte@gmail.com"
+            placeholder="your-email@example.com"
           />
 
           <label htmlFor="message" className={styles.label}>
