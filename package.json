@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write .",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "export": "next export"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",
