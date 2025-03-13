@@ -66,7 +66,7 @@ export default function PWAGuide() {
         style={{
           display: 'none',
           padding: '10px',
-          backgroundColor: '#ff6600',
+          backgroundColor: '#8db580',
           color: 'white',
           border: 'none',
           borderRadius: '5px',
