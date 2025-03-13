@@ -56,7 +56,12 @@ const Footer = () => {
               Support
             </Link>
           </li>
-          {/* Add more links here if needed */}
+          {/* ✅ PWA 설치 안내 추가 */}
+          <li>
+            <Link href="/pwa-guide" className={styles.link}>
+              {mappedLocale === 'de' ? '📱 App installieren' : '📱 Install App'}
+            </Link>
+          </li>
         </ul>
 
         {/* Instagram Button */}

@@ -1,31 +1,41 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../styles/globals.css';
-import Layout from '../components/Layout'; // Layout 컴포넌트 임포트
+import Layout from '../components/Layout';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { GA_TRACKING_ID } from '../lib/gtag';
 import { DefaultSeo } from 'next-seo';
-import ToTopButton from '../components/ToTopButton'; // ToTopButton 임포트
+import ToTopButton from '../components/ToTopButton';
 import ErrorBoundary from '../components/ErrorBoundary';
+import CookieConsent, { getCookieConsentValue } from 'react-cookie-consent';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const [cookiesAccepted, setCookiesAccepted] = useState(false);
 
   useEffect(() => {
+    // 쿠키 동의 여부 확인
+    if (getCookieConsentValue() === 'true') {
+      setCookiesAccepted(true);
+    }
+
+    // Google Analytics 트래킹 (쿠키 동의한 경우에만 실행)
     const handleRouteChange = (url) => {
-      if (typeof window.gtag !== 'undefined') {
+      if (cookiesAccepted && typeof window.gtag !== 'undefined') {
         window.gtag('config', GA_TRACKING_ID, {
           page_path: url,
+          anonymize_ip: true, // ✅ IP 익명화 (GDPR 준수)
         });
       }
     };
+
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [router]);
+  }, [router, cookiesAccepted]);
 
   return (
     <>
@@ -46,10 +56,9 @@ function MyApp({ Component, pageProps }) {
         ]}
       />
 
-      {/* Google Analytics */}
-      {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+      {/* ✅ Google Analytics (쿠키 동의한 경우에만 실행) */}
+      {cookiesAccepted && process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
         <>
-          {/* 비동기 로드 방식 개선 */}
           <Script
             strategy="lazyOnload"
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
@@ -64,6 +73,7 @@ function MyApp({ Component, pageProps }) {
                 gtag('js', new Date());
                 gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
                   page_path: window.location.pathname,
+                  anonymize_ip: true, // ✅ IP 주소 익명화 (GDPR 준수)
                 });
               `,
             }}
@@ -73,13 +83,52 @@ function MyApp({ Component, pageProps }) {
 
       {/* ErrorBoundary로 감싸기 */}
       <ErrorBoundary>
-        {/* 레이아웃으로 감싸기 */}
         <Layout>
           <Component {...pageProps} />
-          {/* "To the Top" 버튼 추가 */}
           <ToTopButton />
         </Layout>
       </ErrorBoundary>
+
+      {/* ✅ 쿠키 동의 배너 */}
+      <CookieConsent
+        location="bottom"
+        buttonText="Akzeptieren" // ✅ "동의하기" 버튼
+        declineButtonText="Ablehnen" // ✅ "거부하기" 버튼
+        enableDeclineButton // "거부" 버튼 활성화
+        onAccept={() => setCookiesAccepted(true)} // ✅ 쿠키 동의 → Google Analytics 활성화
+        onDecline={() => setCookiesAccepted(false)} // ✅ 쿠키 거부 → Google Analytics 비활성화
+        style={{
+          background: '#222',
+          color: '#fff',
+          fontSize: '14px',
+          padding: '15px',
+        }}
+        buttonStyle={{
+          background: '#ff6600',
+          color: '#fff',
+          fontSize: '14px',
+          padding: '8px 12px',
+          border: 'none',
+          cursor: 'pointer',
+        }}
+        declineButtonStyle={{
+          background: '#999',
+          color: '#fff',
+          fontSize: '14px',
+          padding: '8px 12px',
+          border: 'none',
+          cursor: 'pointer',
+        }}
+      >
+        Diese Website verwendet Cookies, um Ihre Erfahrung zu verbessern. Durch
+        die Nutzung unserer Website stimmen Sie unseren Cookie-Richtlinien zu.{' '}
+        <a
+          href="/datenschutz"
+          style={{ color: '#ffcc00', textDecoration: 'underline' }}
+        >
+          Mehr erfahren
+        </a>
+      </CookieConsent>
     </>
   );
 }

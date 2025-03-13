@@ -6,52 +6,76 @@
   box-sizing: border-box;
 }
 
-.mainContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 주요 콘텐츠를 중앙 정렬 */
-}
-.h1 {
+/* 비주얼 중심 헤더 */
+.header {
   text-align: center;
   margin-bottom: 20px;
 }
-
-.image {
-  border-radius: 8px;
-  object-fit: cover;
+.title {
+  font-size: 1.8rem;
+  margin: 15px 0;
+}
+.summary {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 1rem;
+  color: #555;
 }
 
+/* 대표 이미지 슬라이더 */
 .imageWrapper {
   width: 100%;
-  height: auto; /* 높이를 자동으로 조정 */
-  aspect-ratio: 4 / 3; /* 원하는 비율로 유지 */
-  overflow: hidden; /* 이미지가 넘치지 않도록 숨김 */
-}
-.slide {
-  position: relative;
-}
-
-.detail {
-  margin-right: 15px;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
-.description {
+/* 2단 레이아웃: 좌측 재료 목록 & 우측 조리 과정 */
+.contentWrapper {
+  display: flex;
+  gap: 20px;
   margin-top: 20px;
-  font-size: 1em;
-  line-height: 1.6;
-  text-align: left;
 }
 
+/* 좌측: 재료 목록(Sticky) */
+.ingredientsColumn {
+  flex: 1;
+  max-width: 250px;
+  position: sticky;
+  top: 20px;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.ingredientsColumn h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
 .ingredientsList {
   list-style-type: none;
   padding-left: 0;
 }
-
-.ingredientsList li {
+.ingredientItem {
   margin-bottom: 10px;
-  font-size: 1em;
+  font-size: 1rem;
+}
+.ingredientItem label {
+  cursor: pointer;
+}
+.checked {
+  text-decoration: line-through;
+  color: #888;
 }
 
+/* 우측: 조리 과정 및 추가 설명 */
+.instructionsColumn {
+  flex: 2;
+}
+.description,
 .instructions {
   margin-top: 20px;
   font-size: 1em;
@@ -59,82 +83,137 @@
   text-align: left;
 }
 
-.youtubeContainer,
-.videoContainer {
+/* 스텝 단계 영역 */
+.stepsSection {
   margin-top: 20px;
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
-
-.error {
-  color: red;
-  text-align: center;
-  margin-top: 50px;
+.stepsSection h3 {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
 }
-
-.backLink {
-  display: inline-block;
-  margin-top: 20px;
-  color: #0070f3;
-  text-decoration: none;
+.stepList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
-.backLink:hover {
-  text-decoration: underline;
+.stepItem {
+  margin-bottom: 15px;
 }
-.title {
-  font-size: 1.5rem;
-  margin: 15px 0;
-}
-
-.details {
+.stepHeader {
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.stepNumber {
+  font-weight: bold;
+  margin-right: 8px;
+}
+.stepName {
+  font-weight: bold;
+  margin-right: 10px;
+}
+.stepTimer {
+  font-size: 0.9rem;
+  color: #888;
+}
+.stepDescription {
+  margin-bottom: 5px;
+}
+.stepImage {
   margin-top: 10px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
+/* 기존 스타일 유지 */
 .detailText {
-  text-align: left;
   font-size: 1rem;
   color: #555;
 }
+
+/* 미디어 쿼리: 태블릿 이하 */
 @media (max-width: 768px) {
   .container {
     padding: 10px;
     max-width: 100%;
   }
-
-  .imageWrapper {
-    height: auto; /* 고정 높이 제거 */
-    width: 100%; /* 가로 너비를 화면에 맞춤 */
+  .contentWrapper {
+    flex-direction: column;
   }
-
-  .mainContent {
-    align-items: flex-start; /* 주요 콘텐츠 중앙 정렬 대신 왼쪽 정렬 */
-  }
-
-  .detailText,
-  .instructions,
-  .description {
-    text-align: center;
-    font-size: 1rem; /* 글자 크기를 좀 더 작게 조정 */
-    text-align: left;
-  }
-
-  .ingredientsList li {
-    margin-bottom: 5px; /* 목록 간격 축소 */
-  }
-
-  .youtubeContainer iframe {
+  .ingredientsColumn {
+    position: relative;
+    top: 0;
+    margin-bottom: 20px;
     max-width: 100%;
+  }
+  .imageWrapper {
     height: auto;
+    width: 100%;
   }
 }
-@media (max-width: 480px) {
-  .h1 {
-    font-size: 1.2rem; /* 제목 폰트 크기 줄이기 */
-  }
 
-  .detailText {
-    font-size: 0.9rem; /* 세부 텍스트 크기 줄이기 */
+/* 미디어 쿼리: 모바일 */
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
   }
+  .detailText {
+    font-size: 0.9rem;
+  }
+}
+/* 스탭 단계 영역 (Steps Section) */
+.stepsSection {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fcfcfc; /* 부드러운 배경색 */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.stepsSection h3 {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+/* 스탭 목록 */
+.stepList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.stepItem {
+  margin-bottom: 15px;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+/* 스탭 체크박스 레이블 (체크 기능 포함) */
+.stepLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+}
+.stepNumber {
+  font-weight: bold;
+  margin-right: 8px;
+  color: #333;
+}
+.stepTimer {
+  font-size: 0.9rem;
+  color: #777;
+  margin-left: 5px;
+}
+.stepDescription {
+  margin-top: 5px;
+  font-size: 1rem;
+  color: #444;
+}
+.stepImage {
+  margin-top: 10px;
+  border-radius: 8px;
+  overflow: hidden;
 }
