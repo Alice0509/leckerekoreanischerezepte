@@ -1,5 +1,4 @@
-/* styles/Navbar.module.css */
-
+/* 기존 네비게이션 스타일 유지 */
 .navbar {
   display: flex;
   justify-content: right;
@@ -10,6 +9,7 @@
   flex-wrap: wrap;
 }
 
+/* 기본 네비게이션 링크 스타일 */
 .navLink {
   margin: 0 15px;
   text-decoration: none;
@@ -22,6 +22,27 @@
   color: #0070f3;
 }
 
+/* ✅ PWA 설치 버튼 스타일 */
+.pwaLink {
+  background-color: #8db580;
+  color: white !important;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  margin-left: 15px; /* 기존 링크와 간격 유지 */
+  text-decoration: none;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
+}
+
+.pwaLink:hover {
+  background-color: #b3f2dd;
+  transform: scale(1.05);
+}
+
+/* 언어 스위치 스타일 */
 .languageSwitcher {
   margin-left: auto;
   display: flex;
@@ -39,14 +60,23 @@
 .langLink:hover {
   color: #0070f3;
 }
-/* 모바일 화면 크기에 대한 스타일 */
+
+/* ✅ 모바일 화면 크기에서 PWA 버튼 조정 */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
+    align-items: center; /* 모바일에서는 중앙 정렬 */
   }
 
   .navLink {
     margin: 5px 0;
+  }
+
+  .pwaLink {
+    margin: 10px 0; /* 모바일에서는 버튼 간격 더 넓게 */
+    display: inline-block;
+    text-align: center;
+    width: 80%; /* 모바일에서는 더 넓게 */
   }
 
   .languageSwitcher {

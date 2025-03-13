@@ -5,6 +5,7 @@ import Image from 'next/image';
 import styles from '../../styles/RecipeDetail.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Timer from '../../components/Timer';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
 import Head from 'next/head';
@@ -377,42 +378,56 @@ const RecipeDetail = ({ recipe, error }) => {
                     .sort((a, b) => a.stepNumber - b.stepNumber)
                     .map((step, index) => (
                       <li key={index} className={styles.stepItem}>
-                        <label className={styles.stepLabel}>
+                        <div className={styles.stepHeader}>
+                          {/* 체크박스와 스텝 번호를 별도 렌더링 */}
                           <input
+                            id={`step-checkbox-${index}`}
                             type="checkbox"
                             checked={checkedSteps[index]}
                             onChange={() => handleStepCheckboxChange(index)}
+                            className={styles.stepCheckbox}
                           />
-                          <span
+                          <label
+                            htmlFor={`step-checkbox-${index}`}
+                            className={styles.stepNumber}
+                          >
+                            {step.stepNumber}.
+                          </label>
+
+                          {/* 타이머는 별도 컨테이너로, 클릭 시 이벤트 전파를 막음 */}
+                          {step.timerDuration && (
+                            <span
+                              className={styles.stepTimer}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Timer duration={step.timerDuration} />
+                            </span>
+                          )}
+                        </div>
+
+                        <div className={styles.stepContent}>
+                          <div
                             className={
                               checkedSteps[index] ? styles.checked : ''
                             }
                           >
-                            <span className={styles.stepNumber}>
-                              {step.stepNumber}.
-                            </span>
-                            {step.timerDuration && (
-                              <span className={styles.stepTimer}>
-                                ({step.timerDuration} sec)
-                              </span>
-                            )}
                             <div className={styles.stepDescription}>
                               {renderContent(step.description)}
                             </div>
-                          </span>
-                        </label>
-                        {step.image && (
-                          <div className={styles.stepImage}>
-                            <Image
-                              src={step.image}
-                              alt={`Step ${step.stepNumber} image`}
-                              width={600}
-                              height={400}
-                              loading="lazy"
-                              style={{ width: '100%', height: 'auto' }}
-                            />
                           </div>
-                        )}
+                          {step.image && (
+                            <div className={styles.stepImage}>
+                              <Image
+                                src={step.image}
+                                alt={`Step ${step.stepNumber} image`}
+                                width={600}
+                                height={400}
+                                loading="lazy"
+                                style={{ width: '100%', height: 'auto' }}
+                              />
+                            </div>
+                          )}
+                        </div>
                       </li>
                     ))}
                 </ol>

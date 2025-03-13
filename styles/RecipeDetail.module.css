@@ -217,3 +217,38 @@
   border-radius: 8px;
   overflow: hidden;
 }
+.stepTimer {
+  font-size: 0.9rem;
+  color: #0070f3; /* 부드러운 파란색 */
+  margin-left: 5px;
+}
+/* 스텝 체크박스 스타일 */
+.stepCheckbox {
+  margin-right: 8px;
+}
+
+/* 스텝 번호 레이블 */
+.stepNumber {
+  font-weight: bold;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* 타이머 영역 */
+.stepTimer {
+  font-size: 0.9rem;
+  color: #0070f3; /* 부드러운 파란색 */
+  margin-left: 5px;
+}
+
+/* 스텝 내용 (설명, 이미지 등) */
+.stepContent {
+  margin-top: 5px;
+}
+
+/* 체크된 항목 */
+.checked {
+  text-decoration: line-through;
+  color: #888;
+}
