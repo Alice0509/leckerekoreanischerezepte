@@ -23,16 +23,6 @@ class MyDocument extends Document {
             sizes="180x180"
             href="/icons/apple-touch-icon-180.png"
           />
-          <link
-            rel="apple-touch-icon"
-            sizes="192x192"
-            href="/icons/icon-192x192.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="512x512"
-            href="/icons/icon-512x512.png"
-          />
 
           {/* 일반 아이콘 */}
           <link rel="icon" href="/favicon.png" />
