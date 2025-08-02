@@ -1,10 +1,15 @@
+// next.config.js
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
 const withPWA = require('next-pwa')({
   dest: 'public',
-  disable: process.env.NODE_ENV === 'development', // 개발 모드에서 PWA 비활성화
+  disable: process.env.NODE_ENV === 'development', // 개발 환경에서는 PWA 비활성화
+  register: true, // 서비스 워커 자동 등록
+  skipWaiting: true, // 기존 워커 대기 없이 즉시 새로 적용
+  buildExcludes: [/middleware-manifest\.json$/], // Next.js 12 이상에서 발생하는 오류 방지
 });
 
 module.exports = withPWA(
@@ -26,8 +31,8 @@ module.exports = withPWA(
       ],
     },
     experimental: {
-      largePageDataBytes: 150 * 1024, // 실험적 기능
+      largePageDataBytes: 150 * 1024,
     },
-    reactStrictMode: true, // React Strict 모드 활성화
+    reactStrictMode: true,
   })
 );
