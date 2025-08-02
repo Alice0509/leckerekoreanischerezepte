@@ -52,7 +52,7 @@ const AboutUs = () => {
         {
           heading: 'Why This Website?',
           paragraph:
-            'The reason I created this website is so that my child can request my dishes in the future and I want them to remember the recipes I used. This means that only the dishes where my child gives a &quot;thumbs up&quot; and asks for the recipe will be published here.',
+            'The reason I created this website is so that my child can request my dishes in the future and I want them to remember the recipes I used. This means that only the dishes where my child gives a "thumbs up" and asks for the recipe will be published here.',
         },
         {
           heading: 'Korean Cuisine in Germany',
