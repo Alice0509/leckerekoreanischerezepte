@@ -1,163 +1,140 @@
 // pages/gallery.js
-import React from 'react';
+import { useEffect, useState } from 'react';
 import client from '../lib/contentful';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import styles from '../styles/Gallery.module.css';
 import { useRouter } from 'next/router';
-import { reverseGeocode } from '../lib/geocode'; // 올바르게 내보낸 함수 가져오기
+import { reverseGeocode } from '../lib/geocode';
 
-// 로케일별 갤러리 데이터를 저장할 메모리 캐시 객체
-const galleryCache = {};
-
+/** ─────────────────────────────────────────
+ *  1) Contentful → Static-generation
+ *  ───────────────────────────────────────── */
 export async function getStaticProps({ locale }) {
-  try {
-    const mappedLocale = locale === 'de' ? 'de' : 'en';
+  const lang = locale === 'de' ? 'de' : 'en';
 
-    // 캐시에 데이터가 있으면 API 호출 없이 반환
-    if (galleryCache[mappedLocale]) {
+  const { items, includes } = await client.getEntries({
+    content_type: 'gallery',
+    locale: lang,
+    include: 2,
+  });
+
+  const assets = {};
+  includes?.Asset?.forEach((a) => (assets[a.sys.id] = a));
+
+  const galleryItems = await Promise.all(
+    items.map(async (it) => {
+      const picRef = Array.isArray(it.fields.bild)
+        ? it.fields.bild[0]
+        : it.fields.bild;
+      const img = picRef
+        ? `https:${assets[picRef.sys.id].fields.file.url}`
+        : null;
+
+      /* 주소는 실패해도 무시 */
+      let address = null;
+      const loc = it.fields.location;
+      if (loc && typeof loc === 'object' && loc.lat && loc.lon) {
+        try {
+          address = await reverseGeocode(loc.lat, loc.lon);
+        } catch {
+          address = null;
+        }
+      } else if (typeof loc === 'string') {
+        address = loc;
+      }
+
       return {
-        props: {
-          galleryItems: galleryCache[mappedLocale],
-        },
-        revalidate: 60,
+        id: it.sys.id,
+        title: it.fields.titel || 'Untitled',
+        business: it.fields.businessName || null,
+        address,
+        img,
+        /** ★ 퍼머링크만 저장해 두면 됩니다 */
+        instagramUrl: it.fields.instagramUrl || null,
       };
-    }
+    })
+  );
 
-    const res = await client.getEntries({
-      content_type: 'gallery',
-      locale: mappedLocale,
-      include: 5,
-    });
-
-    const assetsMap = {};
-    res.includes.Asset?.forEach((asset) => {
-      assetsMap[asset.sys.id] = asset;
-    });
-
-    const galleryItems = await Promise.all(
-      res.items.map(async (item) => {
-        let images = [];
-        if (Array.isArray(item.fields.bild)) {
-          images = item.fields.bild.map((img) => assetsMap[img.sys.id]);
-        } else if (item.fields.bild) {
-          images = [assetsMap[item.fields.bild.sys.id]];
-        }
-
-        let address = null;
-        if (item.fields.location && typeof item.fields.location === 'object') {
-          const { lat, lon } = item.fields.location;
-          if (lat && lon) {
-            try {
-              address = await reverseGeocode(lat, lon);
-            } catch (geoError) {
-              console.error(
-                `Reverse geocoding failed for item ID ${item.sys.id}:`,
-                geoError
-              );
-              address = 'Unable to determine address';
-            }
-          }
-        } else if (typeof item.fields.location === 'string') {
-          address = item.fields.location;
-        }
-
-        return {
-          id: item.sys.id,
-          titel:
-            item.fields.titel ||
-            (mappedLocale === 'de' ? 'Galerie Titel' : 'Gallery Title'),
-          businessName: item.fields.businessName || null,
-          location: address,
-          bild: images.length > 0 ? `https:${images[0].fields.file.url}` : null,
-        };
-      })
-    );
-
-    // 가져온 갤러리 데이터를 캐시에 저장
-    galleryCache[mappedLocale] = galleryItems;
-
-    return {
-      props: {
-        galleryItems,
-      },
-      revalidate: 60,
-    };
-  } catch (error) {
-    console.error('Error fetching gallery items:', error);
-    return {
-      props: {
-        galleryItems: [],
-        error: 'Failed to fetch gallery items.',
-      },
-      revalidate: 60,
-    };
-  }
+  return { props: { galleryItems }, revalidate: 60 };
 }
 
-const Gallery = ({ galleryItems, error }) => {
-  const router = useRouter();
-  const { locale } = router;
-  const mappedLocale = locale === 'de' ? 'de' : 'en';
+/** 2) Instagram embed 컴포넌트 (CSR 전용) */
+const InstagramEmbed = dynamic(
+  () => import('../components/InstagramEmbed'), // 앞서 만든 컴포넌트
+  { ssr: false }
+);
 
-  if (error) {
-    return <div className={styles.error}>{error}</div>;
-  }
+/** 3) 페이지 ─────────────────────────────── */
+export default function Gallery({ galleryItems }) {
+  const t = useRouter().locale === 'de'; // 간단 다국어 플래그
+  const [unsplash, setUnsplash] = useState([]);
 
-  if (!galleryItems || galleryItems.length === 0) {
-    return (
-      <div className={styles.noGallery}>
-        {mappedLocale === 'de'
-          ? 'Keine Galerie verfügbar.'
-          : 'No gallery available.'}
-      </div>
-    );
-  }
+  /* Unsplash  – 서버 없이 fetch */
+  useEffect(() => {
+    fetch('/api/unsplash?query=korean%20food&count=12')
+      .then((r) => r.json())
+      .then(setUnsplash)
+      .catch(() => {});
+  }, []);
 
   return (
-    <div className={styles.container}>
-      <h1>{mappedLocale === 'de' ? 'Galerie' : 'Gallery'}</h1>
-      <div className={styles.galleryGrid}>
-        {galleryItems.map((item) => (
-          <div key={item.id} className={styles.galleryItem}>
-            {item.bild ? (
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={item.bild}
-                  alt={`${item.titel} - ${item.businessName ? item.businessName : 'Gallery Image'}`}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  className={styles.image}
-                />
-              </div>
-            ) : (
-              <div className={styles.placeholder}>
-                {mappedLocale === 'de' ? 'Kein Bild' : 'No Image'}
-              </div>
-            )}
-            <h3>{item.titel}</h3>
-            <p>
-              {item.location &&
-                item.location !== 'N/A' &&
-                item.location !== 'Unable to determine address' && (
-                  <span>
-                    {mappedLocale === 'de' ? 'Standort: ' : 'Location: '}
-                    {item.location}
-                  </span>
-                )}
-              {item.businessName && (
-                <span>
-                  {item.location ? <br /> : null}
-                  {mappedLocale === 'de' ? 'Unternehmen: ' : 'Business: '}
-                  {item.businessName}
-                </span>
-              )}
-              {!item.location && !item.businessName && 'N/A'}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+    <main className={styles.container}>
+      <h1 className={styles.title}>{t ? 'Galerie' : 'Gallery'}</h1>
 
-export default Gallery;
+      {/* ───── ① Instagram 영역 ───── */}
+      <section className={styles.section}>
+        <div className={styles.grid}>
+          {galleryItems
+            .filter((g) => g.instagramUrl)
+            .map((g) => (
+              <InstagramEmbed key={g.id} url={g.instagramUrl} />
+            ))}
+        </div>
+      </section>
+
+      {/* ───── ② Contentful 카드 ───── */}
+      <section className={styles.section}>
+        <div className={styles.grid}>
+          {galleryItems
+            .filter((g) => !g.instagramUrl && g.img)
+            .map((g) => (
+              <article key={g.id} className={styles.card}>
+                <div className={styles.imgWrap}>
+                  <Image
+                    src={g.img}
+                    alt={g.title}
+                    fill
+                    sizes="(max-width:768px) 100vw, 33vw"
+                    className={styles.photo}
+                  />
+                </div>
+                <header className={styles.caption}>
+                  <h3>{g.title}</h3>
+                  {g.business && <p>{g.business}</p>}
+                  {g.address && <p>{g.address}</p>}
+                </header>
+              </article>
+            ))}
+        </div>
+      </section>
+
+      {/* ───── ③ Unsplash Masonry ───── */}
+      {unsplash.length > 0 && (
+        <section className={styles.section}>
+          <div className={styles.grid}>
+            {unsplash.map((p) => (
+              <img
+                key={p.id}
+                src={p.urls.small}
+                alt={p.alt_description || ''}
+                className={styles.photo}
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </section>
+      )}
+    </main>
+  );
+}
