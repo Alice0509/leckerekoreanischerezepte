@@ -11,14 +11,14 @@ import { useRouter } from 'next/router';
 export async function getStaticProps({ locale }) {
   const lang = locale === 'de' ? 'de' : 'en';
 
-  // ── 기존 사진 갤러리 ─────────────────────────────
+  // ── Gallery items ─────────────────────────────
   const galleryRes = await client.getEntries({
     content_type: 'gallery',
     locale: lang,
     include: 2,
   });
 
-  // ── 즐겨찾기 메모 아이템 ─────────────────────────
+  // ── Favorite items ────────────────────────────
   const favRes = await client.getEntries({
     content_type: 'favoriteItem',
     include: 1,
@@ -39,13 +39,9 @@ export async function getStaticProps({ locale }) {
     };
   });
 
-  /* --------------------------------------------------------
-     FAVORITES (Localization OFF → 항상 전역 값만 가져오면 됨)
-  -------------------------------------------------------- */
   const favorites = favRes.items.map((it) => {
     const base = it.fields;
 
-    // ⚡ 여기서 100% 정확히 links 배열을 가져온다
     const rawLinks = Array.isArray(base.links)
       ? base.links
       : base.link
@@ -81,19 +77,17 @@ export default function Gallery({ galleryItems, favorites }) {
   const isDE = router.locale === 'de';
 
   /* -----------------------------------------------------------
-     Unsplash 자동 로딩 + 무한 스크롤
+     Unsplash Infinite Scroll
   ----------------------------------------------------------- */
   const [unsplash, setUnsplash] = useState([]);
   const [page, setPage] = useState(1);
   const loadMoreRef = useRef(null);
 
-  // ---- Unsplash Fetch 수정 ----
   const fetchUnsplash = async (pageNum) => {
     try {
       const res = await fetch(
         `/api/unsplash?query=korean%20food&count=12&page=${pageNum}`
       );
-
       if (!res.ok) return;
 
       const data = await res.json();
@@ -122,7 +116,7 @@ export default function Gallery({ galleryItems, favorites }) {
   }, []);
 
   /* -----------------------------------------------------------
-     Dead Link Checker (여러 구매처 중 죽은 링크 숨기기)
+     Favorite Links Checker
   ----------------------------------------------------------- */
   const [validLinks, setValidLinks] = useState({});
 
@@ -133,7 +127,6 @@ export default function Gallery({ galleryItems, favorites }) {
 
         fetch(url, { method: 'HEAD' })
           .then((r) => {
-            // 400~499 중에서 "404,410" 등만 실제 죽은 링크로 처리
             const dead = r.status === 404 || r.status === 410;
 
             setValidLinks((prev) => ({
@@ -142,7 +135,6 @@ export default function Gallery({ galleryItems, favorites }) {
             }));
           })
           .catch(() => {
-            // 네트워크 오류일 때는 죽은 링크로 처리하지 않음(=살아있다고 처리)
             setValidLinks((prev) => ({
               ...prev,
               [f.id]: { ...(prev[f.id] || {}), [idx]: true },
@@ -157,7 +149,7 @@ export default function Gallery({ galleryItems, favorites }) {
   ----------------------------------------------------------- */
   return (
     <main className={styles.container}>
-      {/* A. FAVORITES — Post-it */}
+      {/* A. FAVORITES */}
       <section className={styles.section}>
         <h2 className={styles.subtitle}>{isDE ? 'Favoriten' : 'Favorites'}</h2>
 
@@ -226,7 +218,7 @@ export default function Gallery({ galleryItems, favorites }) {
         </div>
       </section>
 
-      {/* B. GALLERY — Polaroid style */}
+      {/* B. GALLERY (Polaroid style) */}
       <section className={styles.section}>
         <h2 className={styles.subtitle}>{isDE ? 'Fotos' : 'Photos'}</h2>
 
@@ -261,9 +253,11 @@ export default function Gallery({ galleryItems, favorites }) {
         <div className={styles.grid}>
           {unsplash.map((p) => (
             <div key={p.id} className={styles.unsplashCard}>
-              <img
+              <Image
                 src={p.urls.small}
                 alt={p.alt_description || ''}
+                width={300}
+                height={200}
                 className={styles.unsplashImg}
                 loading="lazy"
               />

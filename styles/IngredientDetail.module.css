@@ -1,9 +1,11 @@
+/* 전체 컨테이너 */
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 40px 20px;
 }
 
+/* 타이틀 중앙 정렬 */
 .title {
   text-align: center;
   font-size: 2.2rem;
@@ -11,18 +13,26 @@
   margin-bottom: 24px;
 }
 
+/* 이미지 wrapper – 모바일에서 완전 중앙 정렬 */
 .imageWrapper {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
-  margin-bottom: 20px;
+  margin: 0 auto 24px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* 실제 이미지 */
 .image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 12px;
 }
 
+/* 부위 텍스트 (있는 경우) */
 .meatCut {
   text-align: center;
   font-size: 1.1rem;
@@ -30,19 +40,46 @@
   margin-bottom: 20px;
 }
 
+/* 설명 텍스트 */
 .description {
   line-height: 1.7;
   font-size: 1rem;
   color: #444;
   margin-top: 20px;
+  padding: 0 4px;
 }
 
+/* 재료 텍스트 정리 */
+.ingredientsBox {
+  padding-left: 10px;
+}
+
+/* 에러 메시지 */
 .error,
 .noIngredient {
   text-align: center;
   color: red;
   margin-top: 50px;
 }
-.ingredientsBox {
-  padding-left: 10px;
+
+/* 모바일 최적화 */
+@media (max-width: 480px) {
+  .container {
+    padding: 28px 16px;
+  }
+
+  .title {
+    font-size: 1.7rem;
+    margin-bottom: 18px;
+  }
+
+  .imageWrapper {
+    aspect-ratio: 1 / 1;
+    margin-bottom: 18px;
+  }
+
+  .description {
+    font-size: 0.97rem;
+    line-height: 1.6;
+  }
 }

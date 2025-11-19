@@ -36,3 +36,24 @@
     height: 45px;
   }
 }
+/* styles/Header.module.css */
+
+/* 모바일 전용 */
+@media (max-width: 480px) {
+  .header {
+    padding: 10px 12px;
+  }
+
+  .logo h1 {
+    font-size: 1.3rem;
+  }
+
+  .nav {
+    gap: 18px; /* 메뉴 간격 */
+  }
+
+  .installBtn {
+    font-size: 0.9rem;
+    padding: 8px 14px;
+  }
+}
