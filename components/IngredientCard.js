@@ -3,7 +3,6 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/IngredientCard.module.css';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 const IngredientCard = ({ ingredient }) => {
   const { name, slug, germanMeatCut, bild, description } = ingredient;
