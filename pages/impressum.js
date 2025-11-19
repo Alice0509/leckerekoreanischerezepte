@@ -31,7 +31,7 @@ const Impressum = () => (
       <p className={styles.paragraph}>
         E-Mail:{' '}
         <a href="mailto:[Ihre E-Mail-Adresse]" className={styles.link}>
-          [joan.korean.rezepte@gmail.com]
+          joan.korean.rezepte@gmail.com
         </a>
       </p>
 

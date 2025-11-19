@@ -1,5 +1,3 @@
-// components/Footer.js
-
 import { FaInstagram } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import styles from '../styles/Footer.module.css';
@@ -14,16 +12,11 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
         {/* Copyright */}
-        <p>
-          &copy; {new Date().getFullYear()}{' '}
+        <p className={styles.copyText}>
+          © {new Date().getFullYear()} Joan —{' '}
           {mappedLocale === 'de'
             ? 'Alle Rechte vorbehalten.'
             : 'All rights reserved.'}
-        </p>
-
-        {/* Creator */}
-        <p>
-          {mappedLocale === 'de' ? 'Erstellt von Joan.' : 'Created by Joan.'}
         </p>
 
         {/* Navigation Links */}
@@ -37,11 +30,10 @@ const Footer = () => {
               }
               className={styles.link}
             >
-              {mappedLocale === 'de'
-                ? 'Datenschutzerklärung'
-                : 'Privacy Policy'}
+              {mappedLocale === 'de' ? 'Datenschutz' : 'Privacy Policy'}
             </Link>
           </li>
+
           <li>
             <Link
               href={mappedLocale === 'de' ? '/impressum' : '/imprint'}
@@ -50,13 +42,13 @@ const Footer = () => {
               {mappedLocale === 'de' ? 'Impressum' : 'Imprint'}
             </Link>
           </li>
-          {/* Support Link */}
+
           <li>
             <Link href="/support" className={styles.link}>
               Support
             </Link>
           </li>
-          {/* ✅ PWA 설치 안내 추가 */}
+
           <li>
             <Link href="/pwa-guide" className={styles.link}>
               {mappedLocale === 'de' ? '📱 App installieren' : '📱 Install App'}
@@ -64,7 +56,7 @@ const Footer = () => {
           </li>
         </ul>
 
-        {/* Instagram Button */}
+        {/* Instagram Icon */}
         <a
           href="https://www.instagram.com/germanhansik"
           target="_blank"
@@ -78,6 +70,13 @@ const Footer = () => {
         >
           <FaInstagram size={25} />
         </a>
+
+        {/* Developed By */}
+        <p className={styles.madeBy}>
+          {mappedLocale === 'de'
+            ? 'Design & Entwicklung von Joan.'
+            : 'Designed & developed by Joan.'}
+        </p>
       </div>
     </footer>
   );

@@ -203,16 +203,9 @@ const Home = ({ recipes, error }) => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.h1}>
-        {mappedLocale === 'de-DE' ? 'Rezeptliste' : 'Recipe List'}
-      </h1>
-
       <div className={styles.controlsContainer}>
         {/* 카테고리 필터 */}
         <div className={styles.filterContainer}>
-          <label htmlFor="categorySelect">
-            {mappedLocale === 'de-DE' ? 'Kategorie:' : 'Category:'}
-          </label>
           <select
             id="categorySelect"
             value={selectedCategory}
@@ -222,7 +215,7 @@ const Home = ({ recipes, error }) => {
             className={styles.categorySelect}
           >
             <option value="">
-              {mappedLocale === 'de-DE' ? 'Alle' : 'All'}
+              {mappedLocale === 'de-DE' ? 'Kategorie' : 'Category'}
             </option>
             {categories.map((category, index) => (
               <option key={index} value={category}>

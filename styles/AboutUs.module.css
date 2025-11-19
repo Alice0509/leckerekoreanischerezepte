@@ -1,48 +1,66 @@
 .container {
-  padding: 20px;
-}
-
-.section {
-  margin-bottom: 20px;
-}
-.intro {
-  font-size: 1.2rem; /* 기본 단락보다 크게 */
-  line-height: 1.8;
-  margin-bottom: 20px;
-}
-
-.profileImage {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 40px 20px;
   text-align: center;
-  margin-bottom: 20px;
+  color: #444;
 }
 
-.profileImage img {
-  border-radius: 50%;
-  object-fit: cover;
+.title {
+  font-size: 2.3rem;
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: 700;
 }
 
-.h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+.logoWrapper {
+  margin-bottom: 25px;
 }
 
-.h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
+.logo {
+  border-radius: 12px;
 }
 
-.p {
-  font-size: 1.2rem;
+.intro {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.messageBox {
+  margin: 40px auto;
+  padding: 20px 25px;
+  border-radius: 12px;
+  background: #fff2f7;
+  border: 1px solid #ffb6d2;
+  max-width: 600px;
+}
+
+.messageTitle {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #d04d78;
+}
+
+.message {
+  font-size: 1.05rem;
   line-height: 1.6;
+  margin-top: 10px;
+  color: #333;
+  font-style: italic;
 }
 
-.a {
-  color: #0070f3; /* 원하는 색상으로 변경 */
+.contact {
+  margin-top: 30px;
+  font-size: 1rem;
+}
+
+.contact a {
+  color: #0070f3;
   text-decoration: none;
-  transition: color 0.3s ease;
 }
 
-.a:hover {
-  color: #005bb5; /* 호버 시 색상 변경 */
+.contact a:hover {
   text-decoration: underline;
 }

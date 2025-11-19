@@ -18,7 +18,8 @@ const Datenschutzerklaerung = () => (
     <div className={styles.container}>
       <h1 className={styles.heading1}>Datenschutzerklärung</h1>
       <p className={styles.paragraph}>
-        Zuletzt aktualisiert: 16. Dezember 2024
+        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand vom 18.
+        November 2025.
       </p>
 
       {/* Abschnitt 1: Verantwortlicher */}

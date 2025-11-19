@@ -134,6 +134,9 @@
   font-size: 1rem;
   color: #555;
 }
+.detail-body {
+  margin-bottom: 60px;
+}
 
 /* 미디어 쿼리: 태블릿 이하 */
 @media (max-width: 768px) {

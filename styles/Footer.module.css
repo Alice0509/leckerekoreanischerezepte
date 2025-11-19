@@ -1,67 +1,67 @@
-/* styles/Footer.module.css */
-
 .footer {
-  padding: 10px 20px; /* 패딩을 줄여서 푸터를 더 컴팩트하게 */
-  background-color: #f8f8f8; /* 배경색 유지 */
+  padding: 20px 20px;
+  background-color: #fafafa;
+  color: #777;
+  font-size: 0.8rem;
+  border-top: 1px solid #e5e5e5;
   text-align: center;
-  font-size: 0.75rem; /* 글자 크기 작게 설정 */
-  color: #666; /* 글자 색상을 중간 회색으로 설정 */
+  margin-top: 40px;
 }
 
+/* 전체 레이아웃 정리 */
 .footerContent {
   display: flex;
-  flex-direction: row; /* 수평 배치 */
-  justify-content: center; /* 중앙 정렬 */
+  flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px; /* 요소 간 간격 */
+  gap: 12px;
 }
 
+/* 저작권 텍스트 */
+.copyText {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* 링크 리스트 */
 .navList {
   list-style: none;
-  padding: 0;
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  padding: 0;
   margin: 0;
 }
 
 .link {
-  color: #666; /* 덜 눈에 띄는 색상 */
-  text-decoration: none; /* 링크의 밑줄 제거 */
-  font-size: 0.75rem; /* 링크 글자 크기 작게 */
+  color: #777;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.link:hover,
-.link:focus {
-  color: #444; /* 호버 시 조금 더 어두운 색상 */
-  text-decoration: none; /* 밑줄 유지 */
+.link:hover {
+  color: #444;
 }
 
-.instagramLink {
-  color: #000; /* 인스타그램 아이콘 색상 */
-  text-decoration: none; /* 밑줄 제거 */
+/* 마지막 문구 (디자인/개발) */
+.madeBy {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #777;
 }
 
-.instagramLink:hover {
-  color: #e1306c; /* 인스타그램 로고 색상 */
-}
-
+/* 모바일 최적화 */
 @media (max-width: 600px) {
-  .footerContent {
-    flex-direction: column; /* 작은 화면에서는 수직 배치 */
-    align-items: center;
-  }
-
   .navList {
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
   }
 
-  .link {
-    font-size: 0.7rem;
+  .footer {
+    padding: 16px 10px;
   }
 
-  .instagramLink {
-    font-size: 0.9rem;
+  .copyText,
+  .madeBy {
+    font-size: 0.75rem;
   }
 }

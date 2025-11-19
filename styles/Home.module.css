@@ -1,145 +1,153 @@
-/* styles/Home.module.css */
-
+/* 전체 컨테이너 */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
+/*** -----------------------------
+    제목 (Recipe List / Rezeptliste)
+--------------------------------*/
+.h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  margin-top: 30px;
+}
+
+/*** -----------------------------
+    Category + Search
+--------------------------------*/
 .controlsContainer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  align-items: center; /* ← ★ 추가! 두 요소를 수직 가운데 정렬 */
 }
 
-.searchContainer {
-  display: flex;
-  align-items: center;
-}
-
-.icon {
-  margin-right: 8px;
-  color: #666;
-}
-
-.searchInput {
-  padding: 6px 10px;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  font-size: 16px;
-  width: 250px;
-}
-
+/* 카테고리 박스 */
 .filterContainer {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.9rem;
 }
 
-.filterContainer label {
-  margin-bottom: 4px;
-  font-size: 14px;
-  color: #333;
+/* Select + Input 공통 스타일 */
+.categorySelect,
+.searchInput {
+  height: 44px !important;
+  padding: 0 14px !important;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #fff;
+  outline: none;
+  box-sizing: border-box;
 }
 
+/* Select 화살표 커스텀 */
 .categorySelect {
-  padding: 6px 10px;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  font-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%238C8C8C' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px;
 }
 
+/* 검색 바 */
+.searchContainer {
+  position: relative;
+  width: 280px;
+}
+
+.icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: #999;
+}
+
+.searchInput {
+  padding-left: 40px !important;
+}
+
+/*** -----------------------------
+    Recipe Grid
+--------------------------------*/
 .menuGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  justify-content: center;
 }
 
-.noResults {
-  text-align: center;
-  color: #888888;
-  font-size: 18px;
-}
-
-.error {
-  text-align: center;
-  color: red;
-  font-size: 18px;
-}
-
-.h1 {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-/* 페이지네이션 스타일 */
+/*** -----------------------------
+    Pagination
+--------------------------------*/
 .pagination {
   display: flex;
-  justify-content: center; /* 중앙 정렬 */
-  align-items: center;
+  justify-content: center;
   margin-top: 30px;
+  gap: 8px;
 }
 
 .pageButton,
 .activePageButton {
-  border: none;
-  background-color: transparent;
-  font-size: 1rem;
-  margin: 0 5px;
-  padding: 8px 12px;
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.pageButton:hover {
-  background-color: #f0f0f0;
-  border-radius: 5px;
 }
 
 .activePageButton {
-  color: white;
-  background-color: #0070f3;
-  border-radius: 5px;
+  background: #333;
+  color: #fff;
+  border-color: #333;
 }
 
-.pageButtonIcon {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  color: #0070f3;
+/*** -----------------------------
+    No Results
+--------------------------------*/
+.noResults {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 1.1rem;
+  color: #555;
 }
 
-.pageButtonIcon:disabled {
-  color: #aaa;
-  cursor: not-allowed;
-}
-
+/*** -----------------------------
+    Mobile Optimized
+--------------------------------*/
 @media (max-width: 768px) {
   .controlsContainer {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .searchContainer {
+    width: 90%;
   }
 
   .filterContainer {
-    align-items: flex-start;
-    margin-top: 10px;
+    width: 90%;
   }
 
-  .searchInput,
   .categorySelect {
     width: 100%;
   }
 
-  .pageButton,
-  .activePageButton {
-    padding: 6px 8px; /* 모바일에서 버튼 크기 줄이기 */
-    font-size: 0.9rem;
-  }
-
-  .pagination {
-    gap: 2px; /* 모바일에서 페이지 버튼 간격 줄이기 */
+  .searchInput {
+    width: 100%;
   }
 }

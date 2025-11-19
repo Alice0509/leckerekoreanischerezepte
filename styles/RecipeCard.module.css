@@ -1,31 +1,33 @@
-/* styles/RecipeCard.module.css */
 .card {
-  border: 1px solid #e7e7e7;
-  border-radius: 8px;
-  overflow: hidden; /* 이미지가 카드 밖으로 벗어나지 않도록 설정 */
-  transition: transform 0.2s;
-  width: 300px;
-  margin: 10px;
+  border: 1px solid #eaeaea;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+  cursor: pointer;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
 }
 
-.link {
-  text-decoration: none;
-  color: inherit;
-  display: block; /* 전체 영역 클릭 가능하도록 설정 */
-}
-
+/* 이미지 높이를 완전 고정 → 카드 그리드가 전부 같다 */
 .image {
-  object-fit: cover;
   width: 100%;
-  height: auto;
+  height: 220px; /* 🌟 통일된 높이 */
+  object-fit: cover; /* 이미지를 꽉 채움 */
+  display: block;
 }
 
-.h3 {
-  text-align: center;
-  padding: 10px 0;
-  font-size: 1.2em;
+/* 제목 스타일 */
+.h2 {
+  padding: 14px 14px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.35;
+  min-height: 3.9em; /* 🌟 높이 통일 (2~3줄 맞춰줌) */
 }

@@ -16,7 +16,7 @@ const PrivacyPolicy = () => (
     </Head>
     <div className={styles.container}>
       <h1 className={styles.heading1}>Privacy Policy</h1>
-      <p className={styles.paragraph}>Last updated: December 16, 2024</p>
+      <p className={styles.paragraph}>Last updated: November 18, 2025</p>
       <p className={styles.paragraph}>
         This Privacy Policy describes Our policies and procedures on the
         collection, use, and disclosure of Your information when You use the

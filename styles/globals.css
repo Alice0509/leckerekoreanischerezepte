@@ -1,11 +1,33 @@
 /* styles/globals.css */
 
+:root {
+  --bg: #fafafa;
+  --card-bg: #ffffff;
+  --text: #333333;
+  --text-light: #777777;
+  --accent: #8db580;
+  --accent-light: #b3f2dd;
+
+  --radius-card: 14px;
+  --radius-input: 10px;
+  --radius-button: 8px;
+
+  --shadow-card: 0 4px 14px rgba(0, 0, 0, 0.07);
+  --shadow-card-hover: 0 8px 22px rgba(0, 0, 0, 0.12);
+
+  --space-xs: 8px;
+  --space-s: 12px;
+  --space-m: 20px;
+  --space-l: 32px;
+  --space-xl: 48px;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
+  font-family: 'Inter', 'Noto Sans', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 a {
@@ -16,14 +38,8 @@ a {
 * {
   box-sizing: border-box;
 }
-:root {
-  --primary-color: #ff6347;
-  --secondary-color: #333;
-  --background-color: #f9f9f9;
-  --font-family: 'Roboto', sans-serif;
-}
 
-/* 슬라이더 점(dot) 글로벌 스타일 */
+/* Slick slider dots */
 .slick-dots {
   position: absolute;
   bottom: 10px;
@@ -38,7 +54,11 @@ a {
   color: white;
   opacity: 0.75;
 }
+
 .slick-dots li.slick-active button:before {
   opacity: 1;
   color: #fff;
+}
+footer {
+  margin-top: 40px;
 }

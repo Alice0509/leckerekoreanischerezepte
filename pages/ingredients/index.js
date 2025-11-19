@@ -103,7 +103,6 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
 
   return (
     <div className={styles.container}>
-      <h1>{mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}</h1>
       <div className={styles.grid}>
         {ingredients.map((ingredient) => (
           <IngredientCard key={ingredient.id} ingredient={ingredient} />

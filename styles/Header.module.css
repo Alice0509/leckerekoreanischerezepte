@@ -2,18 +2,37 @@
 
 .header {
   background-color: #f8f8f8;
-  color: #555555;
   padding: 15px 20px;
-  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #eee;
 }
 
-.logo {
+.logoContainer {
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  color: #555555;
+  gap: 10px;
 }
 
-.logo h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  text-align: center;
+.logoImage {
+  border-radius: 50%;
+}
+
+.brandName {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #333; /* 약간 진한 것 */
+}
+
+@media (max-width: 600px) {
+  .brandName {
+    font-size: 1.4rem;
+  }
+
+  .logoImage {
+    width: 45px;
+    height: 45px;
+  }
 }

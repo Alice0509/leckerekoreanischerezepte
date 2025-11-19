@@ -1,85 +1,107 @@
-/* 기존 네비게이션 스타일 유지 */
+/* ===== NAVBAR BASE ===== */
 .navbar {
   display: flex;
-  justify-content: right;
   align-items: center;
+  justify-content: center; /* 기본은 가운데 정렬 */
   background-color: #f8f8f8;
   padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  flex-wrap: wrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  flex-wrap: nowrap; /* ✅ 큰 화면에서는 한 줄 강제 */
+  gap: 20px;
 }
 
-/* 기본 네비게이션 링크 스타일 */
-.navLink {
-  margin: 0 15px;
-  text-decoration: none;
-  color: #333;
+/* Left – Brand / Home */
+.left {
+  flex: 1;
+}
+.brand {
   font-size: 1.1rem;
-  transition: color 0.3s ease;
+  font-weight: 600;
+  color: #333;
+  text-decoration: none;
+}
+
+/* Center – Navigation */
+.center {
+  display: flex;
+  gap: 22px;
+  flex: 2;
+  justify-content: center;
+}
+
+.navLink {
+  text-decoration: none;
+  font-size: 1rem;
+  margin: 0 10px;
+  color: #444;
+  transition: color 0.25s ease;
 }
 
 .navLink:hover {
   color: #0070f3;
 }
 
-/* ✅ PWA 설치 버튼 스타일 */
+/* Right – PWA button + language */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+/* PWA CTA */
 .pwaLink {
-  background-color: #8db580;
+  background-color: #7fad8b;
   color: white !important;
-  font-weight: bold;
-  border-radius: 5px;
-  padding: 8px 12px;
-  font-size: 1rem;
-  margin-left: 15px; /* 기존 링크와 간격 유지 */
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
   text-decoration: none;
-  transition:
-    background 0.3s ease,
-    transform 0.2s ease;
+  transition: 0.25s ease;
 }
 
 .pwaLink:hover {
-  background-color: #b3f2dd;
+  background-color: #9cdab5;
   transform: scale(1.05);
 }
 
-/* 언어 스위치 스타일 */
-.languageSwitcher {
-  margin-left: auto;
+/* Language Switcher */
+.langSwitch {
   display: flex;
   align-items: center;
+  gap: 6px;
+}
+
+.langDivider {
+  color: #aaa;
 }
 
 .langLink {
-  margin: 0 5px;
   text-decoration: none;
-  color: #333;
-  font-size: 1rem;
-  transition: color 0.3s ease;
+  font-size: 0.9rem;
+  color: #555;
 }
 
 .langLink:hover {
   color: #0070f3;
 }
 
-/* ✅ 모바일 화면 크기에서 PWA 버튼 조정 */
-@media (max-width: 768px) {
+/* ===== MOBILE ===== */
+/* 모바일에서만 줄바꿈 허용 */
+@media (max-width: 900px) {
   .navbar {
-    flex-direction: column;
-    align-items: center; /* 모바일에서는 중앙 정렬 */
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
-  .navLink {
-    margin: 5px 0;
+  .center {
+    gap: 16px;
   }
 
   .pwaLink {
-    margin: 10px 0; /* 모바일에서는 버튼 간격 더 넓게 */
-    display: inline-block;
+    width: 100%;
     text-align: center;
-    width: 80%; /* 모바일에서는 더 넓게 */
-  }
-
-  .languageSwitcher {
-    margin-top: 15px;
   }
 }
