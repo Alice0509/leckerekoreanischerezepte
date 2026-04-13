@@ -15,26 +15,32 @@ const RecipeCard = ({ recipe }) => {
     } else if (recipe.youTubeUrl) {
       const ytThumbnail = getYouTubeThumbnail(recipe.youTubeUrl);
       setThumbnail(ytThumbnail || '/images/default.png');
+    } else {
+      setThumbnail('/images/default.png');
     }
   }, [recipe]);
 
-  const titel = recipe.titel || recipe.title;
+  const titel = recipe.titel || recipe.title || 'Untitled recipe';
 
   return (
-    <div className={styles.card}>
+    <article className={styles.card}>
       <Link href={`/recipes/${recipe.slug}`} className={styles.link}>
-        <Image
-          src={thumbnail}
-          alt={`${titel} Thumbnail`}
-          width={600}
-          height={600}
-          className={styles.image}
-          priority={false}
-        />
+        <div className={styles.imageWrap}>
+          <Image
+            src={thumbnail}
+            alt={`${titel} Thumbnail`}
+            width={600}
+            height={600}
+            className={styles.image}
+            priority={false}
+          />
+        </div>
 
-        <h2>{titel}</h2>
+        <div className={styles.content}>
+          <h2 className={styles.title}>{titel}</h2>
+        </div>
       </Link>
-    </div>
+    </article>
   );
 };
 

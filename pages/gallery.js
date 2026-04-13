@@ -119,7 +119,7 @@ export default function Gallery({ galleryItems, favorites }) {
      Favorite Links Checker
   ----------------------------------------------------------- */
   const [validLinks, setValidLinks] = useState({});
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     favorites.forEach((f) => {
       (f.links || []).forEach((url, idx) => {

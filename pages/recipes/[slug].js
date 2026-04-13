@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import client from '../../lib/contentful';
 import Image from 'next/image';
@@ -16,12 +16,55 @@ const DisqusComments = dynamic(
 );
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
-// 헬퍼 함수: rich text가 문자열이면 그대로, 객체이면 변환
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://leckere-koreanische-rezepte.de';
+
 const renderContent = (content) => {
   if (!content) return null;
   if (typeof content === 'string') return content;
   if (content.nodeType) return documentToReactComponents(content);
   return content;
+};
+
+const richTextToPlainText = (content) => {
+  if (!content) return '';
+  if (typeof content === 'string') return content.trim();
+
+  if (content.content && Array.isArray(content.content)) {
+    return content.content
+      .map((block) => {
+        if (!block?.content) return '';
+        return block.content.map((node) => node.value || '').join('');
+      })
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  return '';
+};
+
+const stripHtmlLikeWhitespace = (text) =>
+  (text || '').replace(/\s+/g, ' ').trim();
+
+const truncateText = (text, maxLength = 155) => {
+  const clean = stripHtmlLikeWhitespace(text);
+  if (!clean) return '';
+  if (clean.length <= maxLength) return clean;
+  return `${clean.slice(0, maxLength - 3).trim()}...`;
+};
+
+const formatDurationISO = (minutes) => {
+  const num = Number(minutes);
+  if (!Number.isFinite(num) || num <= 0) return undefined;
+  return `PT${Math.round(num)}M`;
+};
+
+const getCategoryLabel = (category) => {
+  if (Array.isArray(category)) return category.join(', ');
+  if (typeof category === 'string') return category;
+  if (category?.fields?.name) return category.fields.name;
+  return 'Uncategorized';
 };
 
 export async function getStaticPaths() {
@@ -33,14 +76,16 @@ export async function getStaticPaths() {
       const res = await client.getEntries({
         content_type: 'recipe',
         select: 'fields.slug',
-        locale: locale,
+        locale,
         limit: 1000,
       });
 
-      const localePaths = res.items.map((item) => ({
-        params: { slug: item.fields.slug.toLowerCase() },
-        locale: locale,
-      }));
+      const localePaths = res.items
+        .filter((item) => item.fields.slug)
+        .map((item) => ({
+          params: { slug: item.fields.slug.toLowerCase() },
+          locale,
+        }));
 
       paths = paths.concat(localePaths);
     }
@@ -81,7 +126,6 @@ export async function getStaticProps({ params, locale }) {
       assetsMap[asset.sys.id] = asset;
     });
 
-    // 재료 데이터 처리
     const recipeIngredientEntries =
       res.includes.Entry?.filter(
         (entry) => entry.sys.contentType.sys.id === 'recipeIngredient'
@@ -91,9 +135,21 @@ export async function getStaticProps({ params, locale }) {
       res.includes.Entry?.filter(
         (entry) => entry.sys.contentType.sys.id === 'ingredient'
       ) || [];
+
     const ingredientMap = {};
     ingredientEntries.forEach((entry) => {
-      ingredientMap[entry.sys.id] = entry.fields.name;
+      const ingredientImageAsset = entry.fields.bild?.sys?.id
+        ? assetsMap[entry.fields.bild.sys.id]
+        : null;
+
+      ingredientMap[entry.sys.id] = {
+        name: entry.fields.name || 'Unknown Ingredient',
+        slug: entry.fields.slug || null,
+        description: entry.fields.description || null,
+        bild: ingredientImageAsset?.fields?.file?.url
+          ? `https:${ingredientImageAsset.fields.file.url}`
+          : null,
+      };
     });
 
     const ingredients =
@@ -105,25 +161,31 @@ export async function getStaticProps({ params, locale }) {
           if (!recipeIngredient) return null;
 
           const ingredientRef = recipeIngredient.fields.ingredient;
-          const ingredientName = ingredientRef?.sys?.id
+          const ingredientInfo = ingredientRef?.sys?.id
             ? ingredientMap[ingredientRef.sys.id]
-            : 'Unknown Ingredient';
+            : {
+                name: 'Unknown Ingredient',
+                slug: null,
+                description: null,
+                bild: null,
+              };
 
           return {
             id: recipeIngredient.sys.id,
-            name: ingredientName,
+            name: ingredientInfo?.name || 'Unknown Ingredient',
+            slug: ingredientInfo?.slug || null,
             quantity: recipeIngredient.fields.quantity || '',
+            description: ingredientInfo?.description || null,
+            bild: ingredientInfo?.bild || null,
           };
         })
         .filter(Boolean) || [];
 
-    // 이미지 처리
     const images =
       recipeEntry.fields.image?.map(
         (img) => `https:${assetsMap[img.sys.id].fields.file.url}`
       ) || [];
 
-    // 스텝 단계 데이터 처리 (스텝이 없는 경우도 고려)
     const stepEntries =
       res.includes.Entry?.filter(
         (entry) => entry.sys.contentType.sys.id === 'step'
@@ -136,9 +198,9 @@ export async function getStaticProps({ params, locale }) {
             (entry) => entry.sys.id === s.sys.id
           );
           if (!stepEntry) return null;
+
           return {
             stepNumber: stepEntry.fields.stepNumber,
-            // stepName은 필요 없으므로 생략합니다.
             description: stepEntry.fields.description,
             image: stepEntry.fields.image?.sys?.id
               ? `https:${assetsMap[stepEntry.fields.image.sys.id]?.fields?.file?.url}`
@@ -148,6 +210,8 @@ export async function getStaticProps({ params, locale }) {
         })
         .filter(Boolean) || [];
 
+    const categoryLabel = getCategoryLabel(recipeEntry.fields.category);
+
     const finalRecipe = {
       id: recipeEntry.sys.id,
       titel: recipeEntry.fields.titel || 'Default Recipe Title',
@@ -155,9 +219,9 @@ export async function getStaticProps({ params, locale }) {
         recipeEntry.fields.description ||
         'Default description: Find delicious recipes and tips.',
       images,
-      category: recipeEntry.fields.category || 'Uncategorized',
-      preparationTime: recipeEntry.fields.preparationTime || 'N/A',
-      servings: recipeEntry.fields.servings || 'N/A',
+      category: categoryLabel,
+      preparationTime: recipeEntry.fields.preparationTime || null,
+      servings: recipeEntry.fields.servings || null,
       ingredients,
       instructions:
         recipeEntry.fields.instructions || 'No instructions provided.',
@@ -166,7 +230,7 @@ export async function getStaticProps({ params, locale }) {
       slug: recipeEntry.fields.slug.toLowerCase(),
       title: recipeEntry.fields.titel || 'Default Recipe Title',
       locale: mappedLocale,
-      steps, // 스텝 단계 추가
+      steps,
     };
 
     return {
@@ -189,28 +253,22 @@ export async function getStaticProps({ params, locale }) {
 
 const RecipeDetail = ({ recipe, error }) => {
   const router = useRouter();
-  const { locale } = router;
+  const { locale, asPath } = router;
   const mappedLocale = locale === 'de' ? 'de' : 'en';
 
-  // 항상 최상단에서 훅 호출
-  const [checkedIngredients, setCheckedIngredients] = useState(
-    recipe?.ingredients ? recipe.ingredients.map(() => false) : []
-  );
-  const [checkedSteps, setCheckedSteps] = useState(
-    recipe?.steps ? recipe.steps.map(() => false) : []
-  );
-
-  if (error) {
-    return <div className={styles.error}>{error}</div>;
-  }
-
-  if (!recipe) {
-    return (
-      <div className={styles.error}>
-        {mappedLocale === 'de' ? 'Rezept nicht gefunden.' : 'Recipe not found.'}
-      </div>
-    );
-  }
+  const safeRecipe = recipe || {
+    titel: '',
+    description: null,
+    images: [],
+    category: '',
+    preparationTime: null,
+    servings: null,
+    ingredients: [],
+    instructions: null,
+    videoFile: null,
+    youTubeUrl: null,
+    steps: [],
+  };
 
   const {
     titel,
@@ -224,7 +282,14 @@ const RecipeDetail = ({ recipe, error }) => {
     videoFile,
     youTubeUrl,
     steps,
-  } = recipe;
+  } = safeRecipe;
+
+  const [checkedIngredients, setCheckedIngredients] = useState(
+    safeRecipe.ingredients ? safeRecipe.ingredients.map(() => false) : []
+  );
+  const [checkedSteps, setCheckedSteps] = useState(
+    safeRecipe.steps ? safeRecipe.steps.map(() => false) : []
+  );
 
   const handleIngredientCheckboxChange = (index) => {
     setCheckedIngredients((prevState) => {
@@ -255,35 +320,168 @@ const RecipeDetail = ({ recipe, error }) => {
     adaptiveHeight: true,
   };
 
+  const ingredientCards = ingredients
+    .filter((ingredient) => {
+      const hasUsefulDetail =
+        (typeof ingredient.description === 'string' &&
+          ingredient.description.trim() !== '') ||
+        (ingredient.description && typeof ingredient.description === 'object');
+
+      const hasRealImage =
+        ingredient.bild && ingredient.bild !== '/images/default.png';
+
+      return ingredient.slug && (hasUsefulDetail || hasRealImage);
+    })
+    .slice(0, 6);
+
+  const descriptionText = useMemo(() => {
+    const fromDescription = richTextToPlainText(description);
+    const fromInstructions = richTextToPlainText(instructions);
+
+    const generated =
+      mappedLocale === 'de'
+        ? `${titel || 'Dieses Rezept'} ist ein koreanisches Rezept aus der Kategorie ${category || 'Korean Food'}. ${
+            preparationTime
+              ? `Zubereitungszeit: ${preparationTime} Minuten. `
+              : ''
+          }${servings ? `Für ${servings} Portionen. ` : ''}Schritt-für-Schritt erklärt mit Zutaten und praktischen Tipps.`
+        : `${titel || 'This recipe'} is a Korean recipe in the ${category || 'Korean Food'} category. ${
+            preparationTime
+              ? `Preparation time: ${preparationTime} minutes. `
+              : ''
+          }${servings ? `Serves ${servings}. ` : ''}Step-by-step instructions, ingredients, and practical tips for everyday cooking.`;
+
+    return truncateText(fromDescription || fromInstructions || generated, 160);
+  }, [
+    description,
+    instructions,
+    titel,
+    category,
+    preparationTime,
+    servings,
+    mappedLocale,
+  ]);
+
+  const pageTitle =
+    mappedLocale === 'de'
+      ? `${titel || 'Rezept'} Rezept | ${category || 'Korean Food'} | Hansik Young`
+      : `${titel || 'Recipe'} Recipe | ${category || 'Korean Food'} | Hansik Young`;
+
+  const canonicalUrl = `${SITE_URL}${asPath === '/' ? '' : asPath.split('?')[0]}`;
+  const ogImage = images[0] || thumbnailUrl || `${SITE_URL}/images/default.png`;
+
+  const schemaInstructions =
+    steps && steps.length > 0
+      ? [...steps]
+          .sort((a, b) => a.stepNumber - b.stepNumber)
+          .map((step) => ({
+            '@type': 'HowToStep',
+            name:
+              mappedLocale === 'de'
+                ? `Schritt ${step.stepNumber}`
+                : `Step ${step.stepNumber}`,
+            text: stripHtmlLikeWhitespace(
+              richTextToPlainText(step.description)
+            ),
+            image: step.image || undefined,
+          }))
+      : [
+          {
+            '@type': 'HowToStep',
+            text: stripHtmlLikeWhitespace(richTextToPlainText(instructions)),
+          },
+        ];
+
+  const recipeSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Recipe',
+    name: titel || 'Recipe',
+    description: descriptionText,
+    image: images.length > 0 ? images : [ogImage],
+    recipeCategory: category || 'Korean Food',
+    inLanguage: mappedLocale,
+    prepTime: formatDurationISO(preparationTime),
+    totalTime: formatDurationISO(preparationTime),
+    recipeYield: servings ? `${servings}` : undefined,
+    recipeIngredient: ingredients.map(
+      (ingredient) =>
+        `${ingredient.name}${ingredient.quantity ? ` - ${ingredient.quantity}` : ''}`
+    ),
+    recipeInstructions: schemaInstructions,
+    video: youTubeUrl
+      ? {
+          '@type': 'VideoObject',
+          name: `${titel || 'Recipe'} video`,
+          embedUrl: youTubeUrl,
+          thumbnailUrl: thumbnailUrl,
+        }
+      : undefined,
+  };
+
+  if (error) {
+    return <div className={styles.error}>{error}</div>;
+  }
+
+  if (!recipe) {
+    return (
+      <div className={styles.error}>
+        {mappedLocale === 'de' ? 'Rezept nicht gefunden.' : 'Recipe not found.'}
+      </div>
+    );
+  }
+
   return (
     <>
       <Head>
-        <title>{`${titel} - ${
-          mappedLocale === 'de' ? 'Einfaches Rezept' : 'Easy Recipe'
-        }`}</title>
+        <title>{pageTitle}</title>
+        <meta name="description" content={descriptionText} />
+        <link rel="canonical" href={canonicalUrl} />
+
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={descriptionText} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:site_name" content="Hansik Young" />
         <meta
-          name="description"
-          content={description || 'Find delicious recipes here!'}
+          property="og:locale"
+          content={mappedLocale === 'de' ? 'de_DE' : 'en_US'}
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={descriptionText} />
+        <meta name="twitter:image" content={ogImage} />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(recipeSchema),
+          }}
         />
       </Head>
+
       <div className={styles.container}>
-        {/* 비주얼 중심 헤더 */}
         <header className={styles.header}>
           <h1 className={styles.title}>{titel}</h1>
           <div className={styles.summary}>
             <span>
               {mappedLocale === 'de' ? 'Kategorie' : 'Category'}: {category}
             </span>
-            <span>
-              🕒 {preparationTime} {mappedLocale === 'de' ? 'Minuten' : 'mins'}
-            </span>
-            <span>
-              🍽️ {servings} {mappedLocale === 'de' ? 'Portionen' : 'servings'}
-            </span>
+            {preparationTime && (
+              <span>
+                🕒 {preparationTime}{' '}
+                {mappedLocale === 'de' ? 'Minuten' : 'mins'}
+              </span>
+            )}
+            {servings && (
+              <span>
+                🍽️ {servings} {mappedLocale === 'de' ? 'Portionen' : 'servings'}
+              </span>
+            )}
           </div>
         </header>
 
-        {/* 대표 이미지 슬라이더 */}
         {images.length > 0 || youTubeUrl ? (
           <div className={styles.imageWrapper}>
             <Slider {...sliderSettings}>
@@ -328,9 +526,7 @@ const RecipeDetail = ({ recipe, error }) => {
           </div>
         )}
 
-        {/* 2단 레이아웃: 좌측 재료 목록 & 우측 조리 과정 */}
         <div className={styles.contentWrapper}>
-          {/* 좌측: Sticky 재료 목록 (체크박스 포함) */}
           <aside className={styles.ingredientsColumn}>
             <h3>{mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}</h3>
             {ingredients.length > 0 ? (
@@ -348,7 +544,17 @@ const RecipeDetail = ({ recipe, error }) => {
                           checkedIngredients[index] ? styles.checked : ''
                         }
                       >
-                        {ingredient.name} <strong>{ingredient.quantity}</strong>
+                        {ingredient.slug ? (
+                          <Link
+                            href={`/ingredients/${ingredient.slug}`}
+                            className={styles.ingredientLink}
+                          >
+                            {ingredient.name}
+                          </Link>
+                        ) : (
+                          ingredient.name
+                        )}{' '}
+                        <strong>{ingredient.quantity}</strong>
                       </span>
                     </label>
                   </li>
@@ -363,23 +569,20 @@ const RecipeDetail = ({ recipe, error }) => {
             )}
           </aside>
 
-          {/* 우측: 조리 과정 및 추가 설명 */}
           <section className={styles.instructionsColumn}>
             <div className={styles.description}>
               {renderContent(description)}
             </div>
 
-            {/* 스텝 단계가 있으면 우선 렌더링 (체크 기능 포함) */}
             {steps && steps.length > 0 ? (
               <div className={styles.stepsSection}>
                 <h3>{mappedLocale === 'de' ? 'Schritte' : 'Steps'}</h3>
                 <ol className={styles.stepList}>
-                  {steps
+                  {[...steps]
                     .sort((a, b) => a.stepNumber - b.stepNumber)
                     .map((step, index) => (
                       <li key={index} className={styles.stepItem}>
                         <div className={styles.stepHeader}>
-                          {/* 체크박스와 스텝 번호를 별도 렌더링 */}
                           <input
                             id={`step-checkbox-${index}`}
                             type="checkbox"
@@ -394,7 +597,6 @@ const RecipeDetail = ({ recipe, error }) => {
                             {step.stepNumber}.
                           </label>
 
-                          {/* 타이머는 별도 컨테이너로, 클릭 시 이벤트 전파를 막음 */}
                           {step.timerDuration && (
                             <span
                               className={styles.stepTimer}
@@ -437,6 +639,43 @@ const RecipeDetail = ({ recipe, error }) => {
                 <h3>{mappedLocale === 'de' ? 'Anleitung' : 'Instructions'}</h3>
                 {renderContent(instructions)}
               </div>
+            )}
+
+            {ingredientCards.length > 0 && (
+              <section className={styles.usedIngredientsSection}>
+                <h3 className={styles.usedIngredientsTitle}>
+                  {mappedLocale === 'de'
+                    ? 'Verwendete Zutaten'
+                    : 'Ingredients used in this recipe'}
+                </h3>
+
+                <div className={styles.usedIngredientsGrid}>
+                  {ingredientCards.map((ingredient) => (
+                    <Link
+                      key={`${ingredient.id}-${ingredient.slug}`}
+                      href={`/ingredients/${ingredient.slug}`}
+                      className={styles.usedIngredientCard}
+                    >
+                      <div className={styles.usedIngredientImageWrap}>
+                        <Image
+                          src={ingredient.bild || '/images/default.png'}
+                          alt={ingredient.name}
+                          fill
+                          className={styles.usedIngredientImage}
+                        />
+                      </div>
+                      <div className={styles.usedIngredientContent}>
+                        <h4>{ingredient.name}</h4>
+                        {ingredient.quantity && (
+                          <p className={styles.usedIngredientQty}>
+                            {ingredient.quantity}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
             )}
 
             {youTubeUrl && (

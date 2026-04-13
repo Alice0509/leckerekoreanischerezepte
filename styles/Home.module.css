@@ -1,24 +1,261 @@
-/* 전체 컨테이너 */
+/* ==============================
+   Base Layout
+============================== */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/*** -----------------------------
-    제목 (Recipe List / Rezeptliste)
---------------------------------*/
+.error {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* 기존 h1 클래스 유지용 */
 .h1 {
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 40px;
-  margin-top: 30px;
+  margin: 30px 0 40px;
 }
 
-/*** -----------------------------
-    Category + Search
---------------------------------*/
+/* ==============================
+   Hero Section
+============================== */
+.heroSection {
+  position: relative;
+  overflow: hidden;
+  margin: 1.2rem 0 2.5rem;
+  padding: 2.4rem 1.5rem;
+  border-radius: 24px;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(149, 183, 124, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(243, 231, 163, 0.18),
+      transparent 30%
+    ),
+    linear-gradient(180deg, #f8f5ef 0%, #f3efe7 100%);
+}
+
+.heroSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.08) 0,
+      rgba(255, 255, 255, 0.08) 2px,
+      transparent 2px,
+      transparent 8px
+    );
+}
+
+.heroText {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 2.3rem;
+  line-height: 1.2;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.heroDescription {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: #555;
+  margin-bottom: 1.35rem;
+}
+
+.heroButtons {
+  display: flex;
+  justify-content: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.heroPrimaryButton,
+.heroSecondaryButton {
+  display: inline-block;
+  padding: 0.82rem 1.2rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition:
+    0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.heroPrimaryButton {
+  background: #95b77c;
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(149, 183, 124, 0.22);
+}
+
+.heroPrimaryButton:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+.heroSecondaryButton {
+  background: #fff7cf;
+  color: #4d4a33;
+  border: 1px solid rgba(190, 175, 105, 0.4);
+}
+
+.heroSecondaryButton:hover {
+  background: #f9edaf;
+  transform: translateY(-1px);
+}
+
+/* ==============================
+   Preview Sections
+============================== */
+.previewSection {
+  margin-bottom: 2.5rem;
+}
+
+.previewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.previewTitle {
+  font-size: 1.85rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.previewLink {
+  text-decoration: none;
+  font-weight: 600;
+  color: #6b8d56;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  background: #eef5e8;
+  transition: 0.2s ease;
+  white-space: nowrap;
+  margin-bottom: 0.15rem;
+}
+
+.previewLink:hover {
+  background: #dfead5;
+}
+
+.previewNotice {
+  font-size: 0.88rem;
+  color: #666;
+  margin-bottom: 0.9rem;
+}
+
+/* ==============================
+   Favorites Preview Cards
+============================== */
+.favoritesPreviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+
+.favoritePreviewCard {
+  position: relative;
+  padding: 1rem;
+  border-radius: 14px;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+  transform: rotate(-1deg);
+}
+
+.memoYellow {
+  background: #fff9c4;
+}
+
+.memoPink {
+  background: #ffe4ec;
+}
+
+.memoBlue {
+  background: #e8f4ff;
+}
+
+.favoritePreviewCard::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 18px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.favoritePreviewImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f4f4f4;
+  margin-bottom: 0.8rem;
+}
+
+.favoritePreviewImage {
+  object-fit: contain;
+}
+
+.favoritePreviewContent h3 {
+  font-size: 1.02rem;
+  margin-bottom: 0.3rem;
+  line-height: 1.3;
+}
+
+.favoritePreviewContent p {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #444;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==============================
+   Featured Recipes
+============================== */
+.featuredGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.allRecipesSection {
+  margin-top: 1rem;
+}
+
+/* ==============================
+   Category + Search
+============================== */
 .controlsContainer {
   display: flex;
   justify-content: center;
@@ -26,10 +263,9 @@
   margin-top: 20px;
   margin-bottom: 32px;
   flex-wrap: wrap;
-  align-items: center; /* ← ★ 추가! 두 요소를 수직 가운데 정렬 */
+  align-items: center;
 }
 
-/* 카테고리 박스 */
 .filterContainer {
   display: flex;
   flex-direction: column;
@@ -37,7 +273,6 @@
   font-size: 0.9rem;
 }
 
-/* Select + Input 공통 스타일 */
 .categorySelect,
 .searchInput {
   height: 44px !important;
@@ -50,7 +285,6 @@
   box-sizing: border-box;
 }
 
-/* Select 화살표 커스텀 */
 .categorySelect {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -61,7 +295,6 @@
   background-size: 12px;
 }
 
-/* 검색 바 */
 .searchContainer {
   position: relative;
   width: 280px;
@@ -80,9 +313,9 @@
   padding-left: 40px !important;
 }
 
-/*** -----------------------------
-    Recipe Grid
---------------------------------*/
+/* ==============================
+   Recipe Grid
+============================== */
 .menuGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -90,9 +323,9 @@
   justify-content: center;
 }
 
-/*** -----------------------------
-    Pagination
---------------------------------*/
+/* ==============================
+   Pagination
+============================== */
 .pagination {
   display: flex;
   justify-content: center;
@@ -115,9 +348,9 @@
   border-color: #333;
 }
 
-/*** -----------------------------
-    No Results
---------------------------------*/
+/* ==============================
+   No Results
+============================== */
 .noResults {
   text-align: center;
   padding: 40px 0;
@@ -125,28 +358,141 @@
   color: #555;
 }
 
-/*** -----------------------------
-    Mobile Optimized
---------------------------------*/
+/* ==============================
+   Dark Mode
+============================== */
+@media (prefers-color-scheme: dark) {
+  .heroSection {
+    background:
+      radial-gradient(
+        circle at top left,
+        rgba(149, 183, 124, 0.12),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at bottom right,
+        rgba(243, 231, 163, 0.12),
+        transparent 30%
+      ),
+      linear-gradient(180deg, #2b2b2d 0%, #232326 100%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .heroSection {
+      background: linear-gradient(180deg, #2b2b2d 0%, #232326 100%);
+    }
+
+    /* hero는 어두운 배경이라 밝은 글자 유지 */
+    .heroTitle {
+      color: #f1f1f2;
+    }
+
+    .heroDescription {
+      color: #c9c9cd;
+    }
+
+    /* 나머지 섹션은 흰 배경이라 어두운 글자 유지 */
+    .previewTitle {
+      color: #2d2d2d;
+    }
+
+    .previewNotice {
+      color: #666;
+    }
+
+    .heroSecondaryButton {
+      color: #222;
+    }
+
+    .favoritePreviewCard,
+    .favoritePreviewCard h3,
+    .favoritePreviewCard p {
+      color: #333;
+    }
+
+    .favoritePreviewCard::before {
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .previewLink {
+      background: #eef5e8;
+      color: #4d6a3c;
+    }
+
+    .previewLink:hover {
+      background: #dfead5;
+    }
+  }
+  .heroSecondaryButton {
+    color: #222;
+  }
+
+  .favoritePreviewCard,
+  .favoritePreviewCard h3,
+  .favoritePreviewCard p {
+    color: #333 !important;
+  }
+
+  .favoritePreviewCard::before {
+    background: rgba(255, 255, 255, 0.75);
+  }
+
+  .previewLink {
+    background: #eef5e8;
+    color: #4d6a3c;
+  }
+
+  .previewLink:hover {
+    background: #dfead5;
+  }
+}
+
+/* ==============================
+   Mobile
+============================== */
 @media (max-width: 768px) {
+  .heroSection {
+    padding: 2rem 1rem;
+    margin: 1rem 0 2.2rem;
+  }
+
+  .heroTitle {
+    font-size: 1.7rem;
+  }
+
+  .heroDescription {
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .heroButtons {
+    gap: 0.7rem;
+  }
+
+  .heroPrimaryButton,
+  .heroSecondaryButton {
+    width: 100%;
+    max-width: 260px;
+    text-align: center;
+  }
+
+  .previewHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .controlsContainer {
     flex-direction: column;
     align-items: center;
     gap: 15px;
   }
 
-  .searchContainer {
-    width: 90%;
-  }
-
+  .searchContainer,
   .filterContainer {
     width: 90%;
   }
 
-  .categorySelect {
-    width: 100%;
-  }
-
+  .categorySelect,
   .searchInput {
     width: 100%;
   }

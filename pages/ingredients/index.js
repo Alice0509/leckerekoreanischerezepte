@@ -1,4 +1,5 @@
-// pages/ingredients/index.js
+//pages/ingredients/index.js
+
 import React from 'react';
 import client from '../../lib/contentful';
 import IngredientCard from '../../components/IngredientCard';
@@ -11,7 +12,6 @@ export async function getStaticProps({ locale }) {
   try {
     const mappedLocale = locale === 'de' ? 'de' : 'en';
 
-    // 캐시에 데이터가 있으면 API 호출 없이 반환
     if (ingredientsCache[mappedLocale]) {
       return {
         props: {
@@ -26,9 +26,8 @@ export async function getStaticProps({ locale }) {
       content_type: 'ingredient',
       locale: mappedLocale,
       include: 1,
+      limit: 1000,
     });
-
-    console.log('Contentful API Response:', JSON.stringify(res, null, 2));
 
     if (!res.items) {
       console.warn(
@@ -42,29 +41,24 @@ export async function getStaticProps({ locale }) {
       assetsMap[asset.sys.id] = asset;
     });
 
-    const ingredients = res.items
-      .map((item) => {
-        const imageAsset = item.fields.bild?.sys?.id
-          ? assetsMap[item.fields.bild.sys.id]
-          : null;
-        const imageUrl = imageAsset
-          ? `https:${imageAsset.fields.file.url}`
-          : null;
+    const ingredients = res.items.map((item) => {
+      const imageAsset = item.fields.bild?.sys?.id
+        ? assetsMap[item.fields.bild.sys.id]
+        : null;
+      const imageUrl = imageAsset
+        ? `https:${imageAsset.fields.file.url}`
+        : null;
 
-        return {
-          id: item.sys.id,
-          name: item.fields.name,
-          slug: item.fields.slug,
-          germanMeatCut: item.fields.germanMeatCut || null,
-          bild: imageUrl,
-          description: item.fields.description || null,
-        };
-      })
-      .filter((ingredient) => ingredient.description);
+      return {
+        id: item.sys.id,
+        name: item.fields.name || '',
+        slug: item.fields.slug || '',
+        germanMeatCut: item.fields.germanMeatCut || null,
+        bild: imageUrl,
+        description: item.fields.description || null,
+      };
+    });
 
-    console.log('Filtered Ingredients:', ingredients);
-
-    // 캐시에 데이터 저장
     ingredientsCache[mappedLocale] = ingredients;
 
     return {
@@ -80,6 +74,7 @@ export async function getStaticProps({ locale }) {
       props: {
         ingredients: [],
         error: 'Failed to fetch ingredients.',
+        mappedLocale: locale === 'de' ? 'de' : 'en',
       },
       revalidate: 60,
     };

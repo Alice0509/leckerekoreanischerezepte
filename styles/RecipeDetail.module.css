@@ -1,26 +1,28 @@
-/* styles/RecipeDetail.module.css */
 .container {
   padding: 20px;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   box-sizing: border-box;
 }
 
-/* 비주얼 중심 헤더 */
+/* 헤더 */
 .header {
   text-align: center;
   margin-bottom: 20px;
 }
+
 .title {
   font-size: 1.8rem;
   margin: 15px 0;
 }
+
 .summary {
   display: flex;
   justify-content: center;
   gap: 15px;
   font-size: 1rem;
   color: #555;
+  flex-wrap: wrap;
 }
 
 /* 대표 이미지 슬라이더 */
@@ -33,14 +35,21 @@
   margin-bottom: 20px;
 }
 
-/* 2단 레이아웃: 좌측 재료 목록 & 우측 조리 과정 */
+.image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* 2단 레이아웃 */
 .contentWrapper {
   display: flex;
   gap: 20px;
   margin-top: 20px;
+  align-items: flex-start;
 }
 
-/* 좌측: 재료 목록(Sticky) */
+/* 좌측 재료 목록 */
 .ingredientsColumn {
   flex: 1;
   max-width: 250px;
@@ -49,209 +58,306 @@
   background: #f9f9f9;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
 }
+
 .ingredientsColumn h3 {
   margin-bottom: 10px;
   font-size: 1.2rem;
 }
+
 .ingredientsList {
-  list-style-type: none;
-  padding-left: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
+
 .ingredientItem {
   margin-bottom: 10px;
   font-size: 1rem;
 }
+
 .ingredientItem label {
   cursor: pointer;
-}
-.checked {
-  text-decoration: line-through;
-  color: #888;
-}
-
-/* 우측: 조리 과정 및 추가 설명 */
-.instructionsColumn {
-  flex: 2;
-}
-.description,
-.instructions {
-  margin-top: 20px;
-  font-size: 1em;
-  line-height: 1.6;
-  text-align: left;
-}
-
-/* 스텝 단계 영역 */
-.stepsSection {
-  margin-top: 20px;
-  padding: 15px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-.stepsSection h3 {
-  margin-bottom: 10px;
-  font-size: 1.3rem;
-}
-.stepList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.stepItem {
-  margin-bottom: 15px;
-}
-.stepHeader {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-.stepNumber {
-  font-weight: bold;
-  margin-right: 8px;
-}
-.stepName {
-  font-weight: bold;
-  margin-right: 10px;
-}
-.stepTimer {
-  font-size: 0.9rem;
-  color: #888;
-}
-.stepDescription {
-  margin-bottom: 5px;
-}
-.stepImage {
-  margin-top: 10px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-/* 기존 스타일 유지 */
-.detailText {
-  font-size: 1rem;
-  color: #555;
-}
-.detail-body {
-  margin-bottom: 60px;
-}
-
-/* 미디어 쿼리: 태블릿 이하 */
-@media (max-width: 768px) {
-  .container {
-    padding: 10px;
-    max-width: 100%;
-  }
-  .contentWrapper {
-    flex-direction: column;
-  }
-  .ingredientsColumn {
-    position: relative;
-    top: 0;
-    margin-bottom: 20px;
-    max-width: 100%;
-  }
-  .imageWrapper {
-    height: auto;
-    width: 100%;
-  }
-}
-
-/* 미디어 쿼리: 모바일 */
-@media (max-width: 480px) {
-  .title {
-    font-size: 1.5rem;
-  }
-  .detailText {
-    font-size: 0.9rem;
-  }
-}
-/* 스탭 단계 영역 (Steps Section) */
-.stepsSection {
-  margin-top: 20px;
-  padding: 15px;
-  background: #fcfcfc; /* 부드러운 배경색 */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-.stepsSection h3 {
-  margin-bottom: 10px;
-  font-size: 1.3rem;
-}
-
-/* 스탭 목록 */
-.stepList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.stepItem {
-  margin-bottom: 15px;
-  padding: 8px;
-  border-bottom: 1px solid #eee;
-}
-
-/* 스탭 체크박스 레이블 (체크 기능 포함) */
-.stepLabel {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  cursor: pointer;
-}
-.stepNumber {
-  font-weight: bold;
-  margin-right: 8px;
-  color: #333;
-}
-.stepTimer {
-  font-size: 0.9rem;
-  color: #777;
-  margin-left: 5px;
-}
-.stepDescription {
-  margin-top: 5px;
-  font-size: 1rem;
-  color: #444;
-}
-.stepImage {
-  margin-top: 10px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-.stepTimer {
-  font-size: 0.9rem;
-  color: #0070f3; /* 부드러운 파란색 */
-  margin-left: 5px;
-}
-/* 스텝 체크박스 스타일 */
-.stepCheckbox {
-  margin-right: 8px;
 }
 
-/* 스텝 번호 레이블 */
-.stepNumber {
-  font-weight: bold;
-  margin-right: 10px;
-  cursor: pointer;
-  color: #333;
+/* 재료 링크 추가 */
+.ingredientLink {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 500;
 }
 
-/* 타이머 영역 */
-.stepTimer {
-  font-size: 0.9rem;
-  color: #0070f3; /* 부드러운 파란색 */
-  margin-left: 5px;
-}
-
-/* 스텝 내용 (설명, 이미지 등) */
-.stepContent {
-  margin-top: 5px;
+.ingredientLink:hover {
+  opacity: 0.8;
 }
 
 /* 체크된 항목 */
 .checked {
   text-decoration: line-through;
   color: #888;
+}
+
+/* 우측 조리 과정 */
+.instructionsColumn {
+  flex: 2;
+  min-width: 0;
+}
+
+.description,
+.instructions {
+  margin-top: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* Steps */
+.stepsSection {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fcfcfc;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.stepsSection h3 {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.stepList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stepItem {
+  margin-bottom: 15px;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.stepCheckbox {
+  margin-right: 2px;
+}
+
+.stepNumber {
+  font-weight: bold;
+  margin-right: 4px;
+  cursor: pointer;
+  color: #333;
+}
+
+.stepTimer {
+  font-size: 0.9rem;
+  color: #0070f3;
+  margin-left: 5px;
+}
+
+.stepContent {
+  margin-top: 5px;
+}
+
+.stepDescription {
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #444;
+}
+
+.stepImage {
+  margin-top: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 기타 */
+.detailText {
+  font-size: 1rem;
+  color: #555;
+}
+
+.detail-body {
+  margin-bottom: 60px;
+}
+
+.youtubeContainer,
+.videoContainer {
+  margin-top: 24px;
+}
+
+.video {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.backLink {
+  display: inline-block;
+  margin-top: 30px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.error,
+.noIngredient {
+  text-align: center;
+  padding: 40px 0;
+}
+
+/* 태블릿 이하 */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .contentWrapper {
+    flex-direction: column;
+  }
+
+  .ingredientsColumn {
+    position: relative;
+    top: 0;
+    margin-bottom: 20px;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .imageWrapper {
+    height: auto;
+    width: 100%;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .detailText {
+    font-size: 0.9rem;
+  }
+
+  .summary {
+    font-size: 0.92rem;
+    gap: 10px;
+  }
+
+  .stepDescription {
+    font-size: 0.95rem;
+  }
+}
+.usedIngredientsSection {
+  margin-top: 32px;
+}
+
+.usedIngredientsTitle {
+  font-size: 1.3rem;
+  margin-bottom: 14px;
+}
+
+.usedIngredientsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.usedIngredientCard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.usedIngredientCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
+}
+
+.usedIngredientImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #f4f4f4;
+}
+
+.usedIngredientImage {
+  object-fit: contain;
+}
+
+.usedIngredientContent {
+  padding: 12px;
+}
+
+.usedIngredientContent h4 {
+  font-size: 1rem;
+  line-height: 1.35;
+  margin: 0 0 4px;
+}
+
+.usedIngredientQty {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #666;
+}
+
+@media (prefers-color-scheme: dark) {
+  .usedIngredientCard {
+    background: #1f1f21;
+  }
+
+  .usedIngredientQty {
+    color: #c9c9cd;
+  }
+}
+.usedIngredientContent {
+  padding: 12px;
+  background: #fff;
+}
+
+.usedIngredientContent h4 {
+  margin: 0 0 4px;
+  color: #222;
+}
+
+.usedIngredientQty {
+  margin: 0;
+  color: #666;
+}
+
+@media (prefers-color-scheme: dark) {
+  .usedIngredientCard {
+    background: #1f1f21;
+  }
+
+  .usedIngredientContent {
+    background: #1f1f21;
+  }
+
+  .usedIngredientContent h4 {
+    color: #f2f2f3 !important;
+  }
+
+  .usedIngredientQty {
+    color: #d2d2d6 !important;
+  }
 }
