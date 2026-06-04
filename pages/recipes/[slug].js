@@ -67,6 +67,224 @@ const getCategoryLabel = (category) => {
   return 'Uncategorized';
 };
 
+const hasAnyKeyword = (value, keywords) => {
+  const haystack = `${value || ''}`.toLowerCase();
+  return keywords.some((keyword) => haystack.includes(keyword.toLowerCase()));
+};
+
+const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
+  const combined = `${title || ''} ${slug || ''} ${ingredients
+    .map((ingredient) => ingredient.name)
+    .join(' ')}`;
+  const isGerman = mappedLocale === 'de';
+
+  const defaultGuide = isGerman
+    ? {
+        eyebrow: 'Koreanisch kochen in Deutschland',
+        introTitle: 'Warum dieses Rezept gut für den Alltag funktioniert',
+        intro:
+          'Dieses Rezept ist für die Küche zu Hause gedacht: mit klaren Schritten, verlinkten Zutaten und möglichst realistischen Einkaufsmöglichkeiten in Deutschland.',
+        shoppingTitle: 'Zutaten in Deutschland finden',
+        shoppingText:
+          'Viele koreanische Grundzutaten findest du im Asia-Markt oder online. Einzelne frische Zutaten lassen sich oft durch Produkte aus REWE, Edeka oder dem Wochenmarkt ersetzen.',
+        tips: [
+          'Lies zuerst die Zutatenliste und klicke unbekannte Zutaten an.',
+          'Bereite Sauce und geschnittenes Gemüse vor, bevor du mit dem Kochen beginnst.',
+          'Schmecke am Ende vorsichtig mit Salz, Sojasauce, Zucker oder Sesamöl ab.',
+        ],
+        faq: [
+          {
+            question: isGerman
+              ? 'Kann ich das Rezept auch als Anfänger kochen?'
+              : 'Can beginners make this recipe?',
+            answer: isGerman
+              ? 'Ja. Lies die Schritte einmal komplett durch und bereite die Zutaten vor, bevor du beginnst.'
+              : 'Yes. Read the steps once and prepare the ingredients before you start cooking.',
+          },
+          {
+            question: isGerman
+              ? 'Wo finde ich koreanische Zutaten in Deutschland?'
+              : 'Where can I find Korean ingredients?',
+            answer: isGerman
+              ? 'Am einfachsten im Asia-Markt, in koreanischen Online-Shops oder teilweise in großen Supermärkten mit Asia-Regal.'
+              : 'The easiest options are Asian grocery stores, Korean online shops, or large supermarkets with an Asian food section.',
+          },
+        ],
+      }
+    : {
+        eyebrow: 'Korean cooking at home',
+        introTitle: 'Why this recipe works for everyday cooking',
+        intro:
+          'This recipe is designed for home cooking with clear steps, linked ingredients, and practical shopping notes.',
+        shoppingTitle: 'Finding the ingredients',
+        shoppingText:
+          'Many Korean pantry ingredients are easiest to find in Asian grocery stores or online. Fresh ingredients can often be replaced with supermarket options.',
+        tips: [
+          'Read the ingredient list first and open unfamiliar ingredients.',
+          'Prepare sauces and vegetables before you start cooking.',
+          'Adjust the final flavor with soy sauce, salt, sugar, or sesame oil.',
+        ],
+        faq: [
+          {
+            question: 'Can beginners make this recipe?',
+            answer:
+              'Yes. Read the steps once and prepare the ingredients before you start cooking.',
+          },
+          {
+            question: 'Where can I find Korean ingredients?',
+            answer:
+              'Asian grocery stores, Korean online shops, and large supermarkets with an Asian section are the easiest places to start.',
+          },
+        ],
+      };
+
+  if (
+    hasAnyKeyword(combined, [
+      'kimchi jjigae',
+      'kimchi-jjigae',
+      'kimchijjigae',
+      '김치찌개',
+    ])
+  ) {
+    return isGerman
+      ? {
+          eyebrow: 'Koreanischer Eintopf',
+          introTitle: 'Kimchi Jjigae einfach zu Hause kochen',
+          intro:
+            'Kimchi Jjigae ist ein herzhafter koreanischer Kimchi-Eintopf. Besonders gut wird er mit reiferem, leicht saurem Kimchi und einer kleinen Menge Fett oder Brühe für mehr Tiefe.',
+          shoppingTitle: 'Was du in Deutschland dafür brauchst',
+          shoppingText:
+            'Kimchi, Gochugaru, Tofu und Sesamöl findest du meist im Asia-Markt oder online. Schweinebauch kannst du durch Speck, Bauchspeck oder eine vegetarische Variante mit Pilzen ersetzen.',
+          tips: [
+            'Saueres Kimchi eignet sich besser zum Kochen als ganz frisches Kimchi.',
+            'Brate Kimchi kurz an, bevor Flüssigkeit dazukommt – das macht den Geschmack runder.',
+            'Tofu erst gegen Ende zugeben, damit er nicht zerfällt.',
+          ],
+          faq: [
+            {
+              question: 'Welches Kimchi eignet sich für Kimchi Jjigae?',
+              answer:
+                'Am besten funktioniert reiferes, leicht saures Kimchi. Ganz frisches Kimchi schmeckt milder und braucht oft etwas mehr Würze.',
+            },
+            {
+              question: 'Kann ich Kimchi Jjigae vegetarisch kochen?',
+              answer:
+                'Ja. Lass Fleisch weg und nutze Pilze, Tofu und eine Gemüsebrühe oder Dashima-Brühe.',
+            },
+          ],
+        }
+      : defaultGuide;
+  }
+
+  if (hasAnyKeyword(combined, ['bibimbap', '비빔밥'])) {
+    return isGerman
+      ? {
+          eyebrow: 'Koreanische Reis-Bowl',
+          introTitle: 'Bibimbap mit Zutaten aus Deutschland',
+          intro:
+            'Bibimbap ist ideal, wenn du Reis, Gemüse, Ei und eine würzige Sauce kombinieren möchtest. Das Rezept lässt sich sehr gut mit saisonalem Gemüse aus deutschen Supermärkten anpassen.',
+          shoppingTitle: 'Was du gut ersetzen kannst',
+          shoppingText:
+            'Für Bibimbap brauchst du nicht immer exakt koreanisches Gemüse. Karotten, Spinat, Zucchini, Pilze, Gurke und Sojasprossen funktionieren sehr gut.',
+          tips: [
+            'Gemüse getrennt anbraten oder blanchieren, damit jede Zutat ihren eigenen Geschmack behält.',
+            'Gochujang-Sauce mit Wasser, Essig, Zucker und Sesamöl cremig rühren.',
+            'Reis nicht zu weich kochen, damit die Bowl nicht matschig wird.',
+          ],
+          faq: [
+            {
+              question: 'Kann ich Bibimbap ohne Gochujang machen?',
+              answer:
+                'Ja, aber der typische Geschmack fehlt. Eine milde Alternative ist Sojasauce mit Sesamöl, etwas Zucker und Knoblauch.',
+            },
+            {
+              question: 'Welches Gemüse passt zu Bibimbap?',
+              answer:
+                'Karotten, Spinat, Zucchini, Pilze, Gurke, Sojasprossen und Reste aus dem Kühlschrank passen gut.',
+            },
+          ],
+        }
+      : defaultGuide;
+  }
+
+  if (hasAnyKeyword(combined, ['tteokbokki', '떡볶이'])) {
+    return isGerman
+      ? {
+          eyebrow: 'Koreanisches Street Food',
+          introTitle: 'Tteokbokki zu Hause machen',
+          intro:
+            'Tteokbokki besteht aus Reiskuchen in einer süß-scharfen Gochujang-Sauce. Wichtig ist, die Sauce langsam einkochen zu lassen, bis sie glänzend und dick wird.',
+          shoppingTitle: 'Reiskuchen und Sauce in Deutschland kaufen',
+          shoppingText:
+            'Tteokbokki-Reiskuchen findest du meist tiefgekühlt oder vakuumverpackt im Asia-Markt oder online. Gochujang und Gochugaru sind für den typischen Geschmack sehr hilfreich.',
+          tips: [
+            'Gefrorene Reiskuchen vorher kurz in Wasser einweichen.',
+            'Die Sauce bei mittlerer Hitze einkochen lassen und regelmäßig rühren.',
+            'Für eine mildere Version weniger Gochugaru verwenden und mit etwas Zucker ausbalancieren.',
+          ],
+          faq: [
+            {
+              question: 'Warum sind meine Reiskuchen hart?',
+              answer:
+                'Sie waren wahrscheinlich nicht lange genug eingeweicht oder gekocht. Gib etwas Wasser dazu und köchle sie weiter.',
+            },
+            {
+              question: 'Kann ich Tteokbokki weniger scharf machen?',
+              answer:
+                'Ja. Nimm weniger Gochugaru, wähle mildes Gochujang und runde die Sauce mit Zucker oder etwas Sirup ab.',
+            },
+          ],
+        }
+      : defaultGuide;
+  }
+
+  if (hasAnyKeyword(combined, ['kimbap', 'gimbap', '김밥'])) {
+    return isGerman
+      ? {
+          eyebrow: 'Koreanische Reisrollen',
+          introTitle: 'Kimbap einfach rollen',
+          intro:
+            'Kimbap ist perfekt für Lunchboxen, Picknick oder Meal Prep. Entscheidend sind gut gewürzter Reis, trockene Füllungen und ein sauberes, festes Rollen.',
+          shoppingTitle: 'Reis, Gim und Füllungen',
+          shoppingText:
+            'Kimbap-Gim und eingelegter Rettich sind im Asia-Markt am einfachsten zu finden. Für den Reis funktionieren Sushi-Reis oder Milchreis oft besser als lockerer Langkornreis.',
+          tips: [
+            'Den Reis warm mit Sesamöl und Salz würzen, aber vor dem Rollen leicht abkühlen lassen.',
+            'Füllungen nicht zu nass machen, sonst reißt das Algenblatt.',
+            'Das Messer vor dem Schneiden leicht anfeuchten oder einölen.',
+          ],
+          faq: [
+            {
+              question: 'Welcher Reis ist gut für Kimbap?',
+              answer:
+                'Kurzkornreis, Sushi-Reis oder notfalls Milchreis funktionieren gut, weil sie klebriger sind als Langkornreis.',
+            },
+            {
+              question: 'Warum fällt mein Kimbap auseinander?',
+              answer:
+                'Oft ist zu viel Füllung oder zu nasser Reis der Grund. Rolle fester und verwende weniger Füllung.',
+            },
+          ],
+        }
+      : defaultGuide;
+  }
+
+  return defaultGuide;
+};
+
+const getRecipeFaqSchema = (faq) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+});
+
 export async function getStaticPaths() {
   try {
     const locales = ['de', 'en'];
@@ -392,6 +610,15 @@ const RecipeDetail = ({ recipe, error }) => {
           },
         ];
 
+  const guide = getRecipeGuide({
+    title: titel,
+    slug: safeRecipe.slug,
+    ingredients,
+    mappedLocale,
+  });
+
+  const faqSchema = getRecipeFaqSchema(guide.faq);
+
   const recipeSchema = {
     '@context': 'https://schema.org',
     '@type': 'Recipe',
@@ -457,6 +684,12 @@ const RecipeDetail = ({ recipe, error }) => {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(recipeSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
           }}
         />
       </Head>
@@ -526,6 +759,12 @@ const RecipeDetail = ({ recipe, error }) => {
           </div>
         )}
 
+        <section className={styles.recipeGuideIntro}>
+          <p className={styles.guideEyebrow}>{guide.eyebrow}</p>
+          <h2>{guide.introTitle}</h2>
+          <p>{guide.intro}</p>
+        </section>
+
         <div className={styles.contentWrapper}>
           <aside className={styles.ingredientsColumn}>
             <h3>{mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}</h3>
@@ -573,6 +812,21 @@ const RecipeDetail = ({ recipe, error }) => {
             <div className={styles.description}>
               {renderContent(description)}
             </div>
+
+            <section className={styles.practicalInfoGrid}>
+              <article className={styles.practicalInfoCard}>
+                <h3>{guide.shoppingTitle}</h3>
+                <p>{guide.shoppingText}</p>
+              </article>
+              <article className={styles.practicalInfoCard}>
+                <h3>{mappedLocale === 'de' ? 'Kleine Tipps' : 'Quick tips'}</h3>
+                <ul>
+                  {guide.tips.map((tip) => (
+                    <li key={tip}>{tip}</li>
+                  ))}
+                </ul>
+              </article>
+            </section>
 
             {steps && steps.length > 0 ? (
               <div className={styles.stepsSection}>
@@ -714,6 +968,24 @@ const RecipeDetail = ({ recipe, error }) => {
             )}
           </section>
         </div>
+
+        {guide.faq.length > 0 && (
+          <section className={styles.recipeFaqSection}>
+            <h2>
+              {mappedLocale === 'de'
+                ? 'Häufige Fragen zum Rezept'
+                : 'Recipe FAQ'}
+            </h2>
+            <div className={styles.recipeFaqList}>
+              {guide.faq.map((item) => (
+                <article key={item.question} className={styles.recipeFaqItem}>
+                  <h3>{item.question}</h3>
+                  <p>{item.answer}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
 
         <DisqusComments post={recipe} />
 

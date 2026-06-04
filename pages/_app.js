@@ -40,13 +40,16 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <DefaultSeo
-        title="Korean Recipes"
-        description="A multilingual Korean recipes website."
+        title="Leckere Koreanische Rezepte"
+        description="Einfache koreanische Hausmannskost mit Zutaten, die du in Deutschland findest: Rezepte, Zutaten-Tipps und Küchenbasics."
         openGraph={{
           type: 'website',
-          locale: 'de',
+          locale: 'de_DE',
           url: 'https://www.leckere-koreanische-rezepte.de/',
           site_name: 'Leckere Koreanische Rezepte',
+          title: 'Leckere Koreanische Rezepte',
+          description:
+            'Einfache koreanische Hausmannskost mit Zutaten, die du in Deutschland findest: Rezepte, Zutaten-Tipps und Küchenbasics.',
         }}
         additionalMetaTags={[
           {

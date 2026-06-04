@@ -361,3 +361,103 @@
     color: #d2d2d6 !important;
   }
 }
+
+.recipeGuideIntro {
+  margin: 26px 0 20px;
+  padding: 24px;
+  border: 1px solid rgba(80, 55, 35, 0.1);
+  border-radius: 22px;
+  background: #fff8ef;
+  box-shadow: 0 10px 22px rgba(42, 25, 12, 0.05);
+}
+
+.guideEyebrow {
+  margin: 0 0 8px;
+  color: #8b4a20;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.recipeGuideIntro h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.recipeGuideIntro p:last-child {
+  margin-bottom: 0;
+  color: #4f4540;
+  line-height: 1.7;
+}
+
+.practicalInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 22px 0;
+}
+
+.practicalInfoCard {
+  padding: 18px;
+  border: 1px solid rgba(80, 55, 35, 0.1);
+  border-radius: 18px;
+  background: #fffdfa;
+}
+
+.practicalInfoCard h3 {
+  margin: 0 0 10px;
+  font-size: 1.08rem;
+}
+
+.practicalInfoCard p,
+.practicalInfoCard li {
+  color: #4f4540;
+  line-height: 1.65;
+}
+
+.practicalInfoCard ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.recipeFaqSection {
+  margin-top: 34px;
+  padding: 24px;
+  border: 1px solid rgba(80, 55, 35, 0.1);
+  border-radius: 22px;
+  background: #fffdfa;
+}
+
+.recipeFaqSection h2 {
+  margin: 0 0 16px;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.recipeFaqList {
+  display: grid;
+  gap: 12px;
+}
+
+.recipeFaqItem {
+  padding: 16px;
+  border-radius: 16px;
+  background: #fff8ef;
+}
+
+.recipeFaqItem h3 {
+  margin: 0 0 8px;
+  font-size: 1.02rem;
+}
+
+.recipeFaqItem p {
+  margin: 0;
+  color: #4f4540;
+  line-height: 1.65;
+}
+
+@media (max-width: 768px) {
+  .practicalInfoGrid {
+    grid-template-columns: 1fr;
+  }
+}

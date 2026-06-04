@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import RecipeCard from '../components/RecipeCard';
+import Head from 'next/head';
 
 // 로케일별 데이터 캐시
 const recipesCache = {};
@@ -201,6 +202,58 @@ const Home = ({ recipes, favorites, error }) => {
 
   const featuredRecipes = useMemo(() => recipes.slice(0, 3), [recipes]);
 
+  const seoCopy =
+    mappedLocale === 'de-DE'
+      ? {
+          title:
+            'Koreanische Rezepte in Deutschland | Leckere Koreanische Rezepte',
+          description:
+            'Einfache koreanische Hausmannskost mit Zutaten, die du in Deutschland findest: Rezepte, Zutaten-Tipps und ehrliche Küchenbasics.',
+        }
+      : {
+          title:
+            'Korean recipes with ingredients you can find in Germany | Leckere Koreanische Rezepte',
+          description:
+            'Easy Korean home cooking with ingredients you can find in Germany: practical recipes, ingredient tips, and warm family meals.',
+        };
+
+  const startHereCards =
+    mappedLocale === 'de-DE'
+      ? [
+          {
+            title: 'Koreanisch kochen in Deutschland',
+            text: 'Starte mit einfachen Gerichten und Zutaten, die du wirklich finden kannst.',
+            href: '#all-recipes',
+          },
+          {
+            title: 'Zutaten verstehen',
+            text: 'Gochujang, Gochugaru, Reis, Kimchi und mehr – mit Alltagstipps für Deutschland.',
+            href: '/ingredients',
+          },
+          {
+            title: 'Ehrliche Favoriten',
+            text: 'Produkte und Küchenbasics, die ich selbst im Alltag benutze.',
+            href: '/gallery',
+          },
+        ]
+      : [
+          {
+            title: 'Cook Korean food in Germany',
+            text: 'Start with simple dishes and ingredients you can actually find.',
+            href: '#all-recipes',
+          },
+          {
+            title: 'Understand Korean ingredients',
+            text: 'Gochujang, gochugaru, rice, kimchi, and more — with practical Germany-based tips.',
+            href: '/ingredients',
+          },
+          {
+            title: 'Honest favorites',
+            text: 'Products and kitchen basics I actually use in daily life.',
+            href: '/gallery',
+          },
+        ];
+
   useEffect(() => {
     if (currentPage !== 1) {
       handlePageChange(1);
@@ -217,196 +270,242 @@ const Home = ({ recipes, favorites, error }) => {
   };
 
   return (
-    <div className={styles.container}>
-      {/* HERO */}
-      <section className={styles.heroSection}>
-        <div className={styles.heroText}>
-          <h1 className={styles.heroTitle}>
-            {mappedLocale === 'de-DE'
-              ? 'Koreanische Hausmannskost mit Zutaten, die ich wirklich benutze'
-              : 'Korean home cooking with ingredients I actually use'}
-          </h1>
+    <>
+      <Head>
+        <title>{seoCopy.title}</title>
+        <meta name="description" content={seoCopy.description} />
+        <meta property="og:title" content={seoCopy.title} />
+        <meta property="og:description" content={seoCopy.description} />
+      </Head>
 
-          <p className={styles.heroDescription}>
-            {mappedLocale === 'de-DE'
-              ? 'Einfache Rezepte, Lieblingszutaten und Küchenbasics aus meinem Alltag – ehrlich, praktisch und persönlich gesammelt.'
-              : 'Simple recipes, favorite ingredients, and kitchen basics from daily life — honest, practical, and personally curated.'}
-          </p>
+      <div className={styles.container}>
+        {/* HERO */}
+        <section className={styles.heroSection}>
+          <div className={styles.heroText}>
+            <p className={styles.heroEyebrow}>
+              {mappedLocale === 'de-DE'
+                ? 'Koreanisch kochen in Deutschland'
+                : 'Korean cooking in Germany'}
+            </p>
 
-          <div className={styles.heroButtons}>
-            <a href="#all-recipes" className={styles.heroPrimaryButton}>
-              {mappedLocale === 'de-DE' ? 'Rezepte ansehen' : 'Browse recipes'}
-            </a>
-            <Link href="/gallery" className={styles.heroSecondaryButton}>
-              {mappedLocale === 'de-DE' ? 'Favoriten ansehen' : 'See favorites'}
-            </Link>
-          </div>
-        </div>
-      </section>
+            <h1 className={styles.heroTitle}>
+              {mappedLocale === 'de-DE'
+                ? 'Koreanische Hausmannskost mit Zutaten, die du in Deutschland findest'
+                : 'Korean home cooking with ingredients you can find in Germany'}
+            </h1>
 
-      {/* FAVORITES PREVIEW */}
-      {favorites.length > 0 && (
-        <section className={styles.previewSection}>
-          <div className={styles.previewHeader}>
-            <h2 className={styles.previewTitle}>
-              {mappedLocale === 'de-DE' ? 'Meine Favoriten' : 'My Favorites'}
-            </h2>
-            <Link href="/gallery" className={styles.previewLink}>
-              {mappedLocale === 'de-DE' ? 'Alle ansehen' : 'View all'}
-            </Link>
-          </div>
+            <p className={styles.heroDescription}>
+              {mappedLocale === 'de-DE'
+                ? 'Einfache koreanische Rezepte, ehrliche Zutaten-Tipps und warme Familiengerichte – gekocht in Deutschland, mit koreanischem Herzen.'
+                : 'Easy Korean recipes, honest ingredient tips, and warm family meals — cooked in Germany with a Korean heart.'}
+            </p>
 
-          <p className={styles.previewNotice}>
-            {mappedLocale === 'de-DE'
-              ? 'Hinweis: Das sind keine Werbelinks, sondern Produkte, die ich im Alltag wirklich benutze.'
-              : 'Note: These are not ads — just products I actually use in daily life.'}
-          </p>
-
-          <div className={styles.favoritesPreviewGrid}>
-            {favorites.map((item, index) => {
-              const colorClass =
-                index % 3 === 0
-                  ? styles.memoYellow
-                  : index % 3 === 1
-                    ? styles.memoPink
-                    : styles.memoBlue;
-
-              return (
-                <article
-                  key={item.id}
-                  className={`${styles.favoritePreviewCard} ${colorClass}`}
-                >
-                  {item.image && (
-                    <div className={styles.favoritePreviewImageWrap}>
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        className={styles.favoritePreviewImage}
-                      />
-                    </div>
-                  )}
-
-                  <div className={styles.favoritePreviewContent}>
-                    <h3>{item.title}</h3>
-                    <p>{item.memo}</p>
-                  </div>
-                </article>
-              );
-            })}
+            <div className={styles.heroButtons}>
+              <a href="#all-recipes" className={styles.heroPrimaryButton}>
+                {mappedLocale === 'de-DE'
+                  ? 'Rezepte entdecken'
+                  : 'Discover recipes'}
+              </a>
+              <Link href="/ingredients" className={styles.heroSecondaryButton}>
+                {mappedLocale === 'de-DE'
+                  ? 'Zutaten-Guide lesen'
+                  : 'Read ingredient guide'}
+              </Link>
+            </div>
           </div>
         </section>
-      )}
 
-      {/* FEATURED RECIPES */}
-      {featuredRecipes.length > 0 && (
-        <section className={styles.previewSection}>
+        {/* START HERE */}
+        <section
+          className={styles.startHereSection}
+          aria-labelledby="start-here-title"
+        >
           <div className={styles.previewHeader}>
-            <h2 className={styles.previewTitle}>
-              {mappedLocale === 'de-DE'
-                ? 'Beliebte Rezepte'
-                : 'Featured Recipes'}
+            <h2 id="start-here-title" className={styles.previewTitle}>
+              {mappedLocale === 'de-DE' ? 'Hier anfangen' : 'Start here'}
             </h2>
           </div>
 
-          <div className={styles.featuredGrid}>
-            {featuredRecipes.map((item) => (
-              <RecipeCard key={item.id} recipe={item} />
+          <div className={styles.startHereGrid}>
+            {startHereCards.map((card) => (
+              <Link
+                key={card.title}
+                href={card.href}
+                className={styles.startHereCard}
+              >
+                <h3>{card.title}</h3>
+                <p>{card.text}</p>
+              </Link>
             ))}
           </div>
         </section>
-      )}
 
-      {/* ALL RECIPES */}
-      <section id="all-recipes" className={styles.allRecipesSection}>
-        <div className={styles.previewHeader}>
-          <h2 className={styles.previewTitle}>
-            {mappedLocale === 'de-DE' ? 'Alle Rezepte' : 'All Recipes'}
-          </h2>
-        </div>
+        {/* FAVORITES PREVIEW */}
+        {favorites.length > 0 && (
+          <section className={styles.previewSection}>
+            <div className={styles.previewHeader}>
+              <h2 className={styles.previewTitle}>
+                {mappedLocale === 'de-DE'
+                  ? 'Koreanische Zutaten in Deutschland'
+                  : 'Korean ingredients in Germany'}
+              </h2>
+              <Link href="/gallery" className={styles.previewLink}>
+                {mappedLocale === 'de-DE' ? 'Alle ansehen' : 'View all'}
+              </Link>
+            </div>
 
-        <div className={styles.controlsContainer}>
-          <div className={styles.filterContainer}>
-            <select
-              id="categorySelect"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className={styles.categorySelect}
-            >
-              <option value="">
-                {mappedLocale === 'de-DE' ? 'Kategorie' : 'Category'}
-              </option>
-              {categories.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className={styles.searchContainer}>
-            <FaSearch className={styles.icon} />
-            <input
-              type="text"
-              placeholder={
-                mappedLocale === 'de-DE'
-                  ? 'Rezept suchen...'
-                  : 'Search recipes...'
-              }
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className={styles.searchInput}
-            />
-          </div>
-        </div>
-
-        <div className={styles.menuGrid}>
-          {paginatedItems.length > 0 ? (
-            paginatedItems.map((item) => (
-              <RecipeCard key={item.id} recipe={item} />
-            ))
-          ) : (
-            <p className={styles.noResults}>
+            <p className={styles.previewNotice}>
               {mappedLocale === 'de-DE'
-                ? 'Keine Rezepte gefunden.'
-                : 'No recipes found.'}
+                ? 'Praktische Lieblingszutaten und Küchenbasics aus meinem Alltag – besonders hilfreich, wenn du koreanisch kochen möchtest und in Deutschland einkaufst.'
+                : 'Practical favorite ingredients and kitchen basics from my daily life — especially useful when you cook Korean food and shop in Germany.'}
             </p>
-          )}
-        </div>
 
-        <div className={styles.pagination}>
-          {currentPage > 1 && (
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              className={styles.pageButton}
-            >
-              &laquo;
-            </button>
-          )}
-          {Array.from({ length: computedTotalPages }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
-              className={
-                currentPage === index + 1
-                  ? styles.activePageButton
-                  : styles.pageButton
-              }
-            >
-              {index + 1}
-            </button>
-          ))}
-          {currentPage < computedTotalPages && (
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              className={styles.pageButton}
-            >
-              &raquo;
-            </button>
-          )}
-        </div>
-      </section>
-    </div>
+            <div className={styles.favoritesPreviewGrid}>
+              {favorites.map((item, index) => {
+                const colorClass =
+                  index % 3 === 0
+                    ? styles.memoYellow
+                    : index % 3 === 1
+                      ? styles.memoPink
+                      : styles.memoBlue;
+
+                return (
+                  <article
+                    key={item.id}
+                    className={`${styles.favoritePreviewCard} ${colorClass}`}
+                  >
+                    {item.image && (
+                      <div className={styles.favoritePreviewImageWrap}>
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          className={styles.favoritePreviewImage}
+                        />
+                      </div>
+                    )}
+
+                    <div className={styles.favoritePreviewContent}>
+                      <h3>{item.title}</h3>
+                      <p>{item.memo}</p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {/* FEATURED RECIPES */}
+        {featuredRecipes.length > 0 && (
+          <section className={styles.previewSection}>
+            <div className={styles.previewHeader}>
+              <h2 className={styles.previewTitle}>
+                {mappedLocale === 'de-DE'
+                  ? 'Beliebte koreanische Rezepte'
+                  : 'Featured Korean recipes'}
+              </h2>
+            </div>
+
+            <div className={styles.featuredGrid}>
+              {featuredRecipes.map((item) => (
+                <RecipeCard key={item.id} recipe={item} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ALL RECIPES */}
+        <section id="all-recipes" className={styles.allRecipesSection}>
+          <div className={styles.previewHeader}>
+            <h2 className={styles.previewTitle}>
+              {mappedLocale === 'de-DE' ? 'Alle Rezepte' : 'All Recipes'}
+            </h2>
+          </div>
+
+          <div className={styles.controlsContainer}>
+            <div className={styles.filterContainer}>
+              <select
+                id="categorySelect"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className={styles.categorySelect}
+              >
+                <option value="">
+                  {mappedLocale === 'de-DE' ? 'Kategorie' : 'Category'}
+                </option>
+                {categories.map((category, index) => (
+                  <option key={index} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className={styles.searchContainer}>
+              <FaSearch className={styles.icon} />
+              <input
+                type="text"
+                placeholder={
+                  mappedLocale === 'de-DE'
+                    ? 'Rezept suchen...'
+                    : 'Search recipes...'
+                }
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className={styles.searchInput}
+              />
+            </div>
+          </div>
+
+          <div className={styles.menuGrid}>
+            {paginatedItems.length > 0 ? (
+              paginatedItems.map((item) => (
+                <RecipeCard key={item.id} recipe={item} />
+              ))
+            ) : (
+              <p className={styles.noResults}>
+                {mappedLocale === 'de-DE'
+                  ? 'Keine Rezepte gefunden.'
+                  : 'No recipes found.'}
+              </p>
+            )}
+          </div>
+
+          <div className={styles.pagination}>
+            {currentPage > 1 && (
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                className={styles.pageButton}
+              >
+                &laquo;
+              </button>
+            )}
+            {Array.from({ length: computedTotalPages }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                className={
+                  currentPage === index + 1
+                    ? styles.activePageButton
+                    : styles.pageButton
+                }
+              >
+                {index + 1}
+              </button>
+            ))}
+            {currentPage < computedTotalPages && (
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                className={styles.pageButton}
+              >
+                &raquo;
+              </button>
+            )}
+          </div>
+        </section>
+      </div>
+    </>
   );
 };
 

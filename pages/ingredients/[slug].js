@@ -40,6 +40,318 @@ const truncateText = (text, maxLength = 160) => {
   return `${clean.slice(0, maxLength - 3).trim()}...`;
 };
 
+const stripParentheses = (name = '') =>
+  name.replace(/\s*\([^)]*\)\s*/g, '').trim();
+
+const hasAnyKeyword = (value, keywords) => {
+  const haystack = `${value || ''}`.toLowerCase();
+  return keywords.some((keyword) => haystack.includes(keyword.toLowerCase()));
+};
+
+const getIngredientGuide = ({ mainTitle, subTitle, slug, mappedLocale }) => {
+  const label = mainTitle || 'Zutat';
+  const cleanLabel = stripParentheses(label);
+  const combined = `${label} ${subTitle || ''} ${slug || ''}`;
+  const isGerman = mappedLocale === 'de';
+
+  const defaultGuide = isGerman
+    ? {
+        eyebrow: 'Koreanische Zutat in Deutschland',
+        headline: `${cleanLabel} kaufen und richtig verwenden`,
+        intro: `${cleanLabel} gehört zu den Zutaten, die koreanisches Essen zu Hause einfacher machen. Hier findest du eine praktische Übersicht: wofür man die Zutat verwendet, wo du sie in Deutschland findest und welche Rezepte dazu passen.`,
+        buyPlaces: [
+          'Asia-Markt',
+          'Koreanischer Online-Shop',
+          'Große Supermärkte mit Asia-Regal',
+        ],
+        uses: [
+          'Koreanische Hausmannskost',
+          'Banchan und Beilagen',
+          'Einfache Alltagsgerichte',
+        ],
+        tips: [
+          'Achte auf die Zutatenliste und den Geschmack.',
+          'Kaufe am Anfang lieber eine kleine Packung.',
+          'Lagere die Zutat nach dem Öffnen so, wie es auf der Verpackung steht.',
+        ],
+        substitute:
+          'Wenn du die Zutat nicht findest, nutze lieber eine einfache Alternative und passe den Geschmack vorsichtig an. Bei fermentierten Zutaten ist der Geschmack oft schwer exakt zu ersetzen.',
+      }
+    : {
+        eyebrow: 'Korean ingredient guide',
+        headline: `How to buy and use ${cleanLabel}`,
+        intro: `${cleanLabel} is one of those ingredients that makes Korean cooking at home easier. This guide explains how to use it, where to find it, and which recipes work well with it.`,
+        buyPlaces: [
+          'Asian grocery store',
+          'Korean online shop',
+          'Large supermarkets with an Asian food section',
+        ],
+        uses: [
+          'Korean home cooking',
+          'Banchan and side dishes',
+          'Easy everyday meals',
+        ],
+        tips: [
+          'Check the ingredient list and flavor.',
+          'Start with a small package if you are new to it.',
+          'Store it according to the package instructions after opening.',
+        ],
+        substitute:
+          'If you cannot find it, use a simple alternative and adjust the flavor carefully. Fermented ingredients are often hard to replace exactly.',
+      };
+
+  if (hasAnyKeyword(combined, ['gochujang', '고추장'])) {
+    return isGerman
+      ? {
+          eyebrow: 'Scharfe koreanische Würzpaste',
+          headline:
+            'Gochujang kaufen in Deutschland: Geschmack, Verwendung und Ersatz',
+          intro:
+            'Gochujang ist eine koreanische Chilipaste mit Schärfe, Süße und fermentierter Tiefe. In Deutschland findest du sie meist im Asia-Markt, in koreanischen Online-Shops oder manchmal im gut sortierten Supermarkt.',
+          buyPlaces: [
+            'Asia-Markt',
+            'Koreanischer Online-Shop',
+            'Manche REWE- oder Edeka-Filialen mit großem Asia-Regal',
+          ],
+          uses: [
+            'Bibimbap-Sauce',
+            'Tteokbokki',
+            'Jeyuk Bokkeum',
+            'Marinaden',
+            'Chogochujang',
+            'Saucen für Gemüse und Bowls',
+          ],
+          tips: [
+            'Wähle für den Anfang eine milde oder mittlere Schärfe.',
+            'Nach dem Öffnen gut verschließen und im Kühlschrank lagern.',
+            'Für Saucen immer mit etwas Wasser, Essig, Zucker oder Sesamöl ausbalancieren.',
+          ],
+          substitute:
+            'Gochujang lässt sich nicht perfekt ersetzen. Für eine schnelle Notlösung kannst du Misopaste mit etwas Chili, Zucker und Sojasauce mischen. Der fermentierte, süß-scharfe Geschmack wird aber anders sein.',
+        }
+      : {
+          eyebrow: 'Spicy Korean fermented paste',
+          headline: 'Where to buy gochujang and how to use it',
+          intro:
+            'Gochujang is a Korean chili paste with heat, sweetness, and fermented depth. It is one of the most useful Korean pantry ingredients for quick sauces, marinades, and stews.',
+          buyPlaces: [
+            'Asian grocery store',
+            'Korean online shop',
+            'Some large supermarkets with a broad Asian food section',
+          ],
+          uses: [
+            'Bibimbap sauce',
+            'Tteokbokki',
+            'Jeyuk bokkeum',
+            'Marinades',
+            'Chogochujang',
+            'Vegetable and rice bowl sauces',
+          ],
+          tips: [
+            'Start with mild or medium heat if you are new to it.',
+            'Keep it well sealed in the fridge after opening.',
+            'Balance it with water, vinegar, sugar, or sesame oil when making sauces.',
+          ],
+          substitute:
+            'Gochujang is difficult to replace exactly. For a quick workaround, mix miso paste with chili, sugar, and soy sauce, but the flavor will not be identical.',
+        };
+  }
+
+  if (hasAnyKeyword(combined, ['gochugaru', '고춧가루', 'chilipulver'])) {
+    return isGerman
+      ? {
+          eyebrow: 'Koreanisches Chilipulver',
+          headline:
+            'Gochugaru kaufen in Deutschland: welches Chilipulver für Kimchi?',
+          intro:
+            'Gochugaru ist koreanisches Chilipulver mit fruchtiger Schärfe. Es ist wichtig für Kimchi, Suppen, Eintöpfe und viele scharfe koreanische Gerichte.',
+          buyPlaces: [
+            'Asia-Markt',
+            'Koreanischer Online-Shop',
+            'Online-Marktplätze mit koreanischen Lebensmitteln',
+          ],
+          uses: [
+            'Kimchi',
+            'Kimchi Jjigae',
+            'Scharfe Suppen',
+            'Banchan',
+            'Marinaden',
+          ],
+          tips: [
+            'Achte auf koreanisches Chilipulver, nicht auf geräuchertes Paprikapulver.',
+            'Für Kimchi ist grobes Gochugaru oft praktischer.',
+            'Kühl, trocken und dunkel lagern, damit Farbe und Aroma bleiben.',
+          ],
+          substitute:
+            'Normales Chilipulver ist oft schärfer oder bitterer. Für Kimchi lohnt es sich, echtes Gochugaru zu kaufen.',
+        }
+      : defaultGuide;
+  }
+
+  if (hasAnyKeyword(combined, ['kimchi', '김치'])) {
+    return isGerman
+      ? {
+          eyebrow: 'Fermentierter koreanischer Kohl',
+          headline: 'Kimchi kaufen und verwenden: frisch, sauer oder gekocht',
+          intro:
+            'Kimchi ist fermentiertes Gemüse und eines der wichtigsten Lebensmittel in der koreanischen Küche. Es schmeckt als Beilage, in gebratenem Reis, in Pfannkuchen oder in Eintöpfen.',
+          buyPlaces: [
+            'Asia-Markt',
+            'Koreanischer Online-Shop',
+            'Manche Bio- oder Feinkostläden',
+          ],
+          uses: [
+            'Beilage zu Reis',
+            'Kimchi Jjigae',
+            'Kimchi Fried Rice',
+            'Kimchi Pancake',
+            'Nudeln und Bowls',
+          ],
+          tips: [
+            'Frisches Kimchi schmeckt milder und knackiger.',
+            'Saueres Kimchi eignet sich besonders gut zum Kochen.',
+            'Immer mit sauberem Besteck entnehmen und gekühlt lagern.',
+          ],
+          substitute:
+            'Kimchi ist schwer zu ersetzen. Für manche Gerichte kann Sauerkraut mit Chili eine Notlösung sein, aber der koreanische Geschmack ist anders.',
+        }
+      : defaultGuide;
+  }
+
+  if (hasAnyKeyword(combined, ['sesamöl', 'sesame oil', '참기름'])) {
+    return isGerman
+      ? {
+          eyebrow: 'Geröstetes Aroma für koreanische Gerichte',
+          headline: 'Sesamöl für koreanische Küche: worauf du achten solltest',
+          intro:
+            'Geröstetes Sesamöl gibt vielen koreanischen Gerichten den typischen nussigen Duft. Schon eine kleine Menge reicht oft aus.',
+          buyPlaces: [
+            'Asia-Markt',
+            'Koreanischer Online-Shop',
+            'Manche Supermärkte',
+          ],
+          uses: ['Banchan', 'Bibimbap', 'Suppen-Finish', 'Marinaden', 'Dips'],
+          tips: [
+            'Achte auf geröstetes Sesamöl.',
+            'Nicht stark erhitzen, sondern eher am Ende zugeben.',
+            'Kühl und dunkel lagern.',
+          ],
+          substitute:
+            'Ein anderes Öl ersetzt das Aroma nicht. Wenn du kein Sesamöl hast, lass es lieber weg und würze mit etwas mehr Sojasauce oder geröstetem Sesam.',
+        }
+      : defaultGuide;
+  }
+
+  if (hasAnyKeyword(combined, ['doenjang', '된장', 'soybean paste'])) {
+    return isGerman
+      ? {
+          eyebrow: 'Koreanische Sojabohnenpaste',
+          headline:
+            'Doenjang kaufen und verwenden: koreanische Paste für Eintöpfe',
+          intro:
+            'Doenjang ist eine kräftige koreanische Sojabohnenpaste. Sie ist salzig, fermentiert und besonders wichtig für koreanische Suppen und Eintöpfe.',
+          buyPlaces: [
+            'Asia-Markt',
+            'Koreanischer Online-Shop',
+            'Koreanische Lebensmittelgeschäfte',
+          ],
+          uses: [
+            'Doenjang Jjigae',
+            'Suppen',
+            'Ssamjang',
+            'Marinaden',
+            'Gemüsegerichte',
+          ],
+          tips: [
+            'Der Geschmack ist kräftiger und herzhafter als viele milde Misopasten.',
+            'Für den Anfang reicht eine kleine Packung.',
+            'Nach dem Öffnen gut verschlossen im Kühlschrank lagern.',
+          ],
+          substitute:
+            'Miso kann manchmal helfen, schmeckt aber milder und anders. Für Doenjang Jjigae ist echtes Doenjang deutlich besser.',
+        }
+      : defaultGuide;
+  }
+
+  if (hasAnyKeyword(combined, ['reis', 'rice', '쌀', 'milchreis', 'sushi'])) {
+    return isGerman
+      ? {
+          eyebrow: 'Reis für koreanische Alltagsküche',
+          headline: 'Welcher Reis passt zu koreanischem Essen?',
+          intro:
+            'Für viele koreanische Gerichte passt Rundkornreis oder Sushi-Reis gut. In Deutschland ist auch Milchreis als einfache Alltagslösung oft nützlich, wenn er ungesüßt gekocht wird.',
+          buyPlaces: [
+            'Asia-Markt',
+            'Koreanischer Online-Shop',
+            'REWE, Edeka oder andere Supermärkte',
+          ],
+          uses: [
+            'Bibimbap',
+            'Kimbap',
+            'Kimchi Fried Rice',
+            'Reisbeilage',
+            'Jumeokbap',
+          ],
+          tips: [
+            'Reis vor dem Kochen waschen, bis das Wasser klarer wird.',
+            'Für Kimbap sollte der Reis klebrig genug sein.',
+            'Gekochten Reis für Fried Rice am besten abkühlen lassen.',
+          ],
+          substitute:
+            'Langkornreis funktioniert für manche Bowls, ist aber für Kimbap oft zu locker. Für koreanische Reisrollen besser Rundkorn- oder Sushi-Reis wählen.',
+        }
+      : defaultGuide;
+  }
+
+  return defaultGuide;
+};
+
+const getFaqItems = ({ guide, mainTitle, mappedLocale }) => {
+  const label = stripParentheses(mainTitle || 'diese Zutat');
+
+  if (mappedLocale === 'de') {
+    return [
+      {
+        question: `Wo kann ich ${label} in Deutschland kaufen?`,
+        answer: `Meist findest du ${label} im Asia-Markt, in koreanischen Online-Shops oder in größeren Supermärkten mit gutem Asia-Regal.`,
+      },
+      {
+        question: `Wofür verwendet man ${label}?`,
+        answer: guide.uses.join(', '),
+      },
+      {
+        question: `Kann ich ${label} ersetzen?`,
+        answer: guide.substitute,
+      },
+      {
+        question: `Wie lagere ich ${label}?`,
+        answer:
+          'Orientiere dich immer an der Verpackung. Viele koreanische Pasten und geöffnete Produkte bleiben gut verschlossen im Kühlschrank am besten.',
+      },
+    ];
+  }
+
+  return [
+    {
+      question: `Where can I buy ${label}?`,
+      answer: `You can usually find ${label} in Asian grocery stores, Korean online shops, or larger supermarkets with a good Asian food section.`,
+    },
+    {
+      question: `How do I use ${label}?`,
+      answer: guide.uses.join(', '),
+    },
+    {
+      question: `Can I substitute ${label}?`,
+      answer: guide.substitute,
+    },
+    {
+      question: `How should I store ${label}?`,
+      answer:
+        'Always follow the package instructions. Many Korean pastes and opened products keep best sealed in the fridge.',
+    },
+  ];
+};
+
 export async function getStaticPaths({ locales }) {
   try {
     const allPaths = [];
@@ -296,26 +608,28 @@ const IngredientDetail = ({
   const match = name ? name.match(/^([^(]+)\((.+)\)$/) : null;
   const mainTitle = match ? match[1].trim() : name;
   const subTitle = match ? match[2].trim() : '';
+  const isGerman = mappedLocale === 'de';
+  const guide = useMemo(
+    () => getIngredientGuide({ mainTitle, subTitle, slug, mappedLocale }),
+    [mainTitle, mappedLocale, slug, subTitle]
+  );
+  const faqItems = useMemo(
+    () => getFaqItems({ guide, mainTitle, mappedLocale }),
+    [guide, mainTitle, mappedLocale]
+  );
 
   const descriptionText = useMemo(() => {
     const fromDescription = richTextToPlainText(description);
+    return truncateText(fromDescription || guide.intro, 160);
+  }, [description, guide.intro]);
 
-    const generated =
-      mappedLocale === 'de'
-        ? `${mainTitle || 'Diese Zutat'} ist eine koreanische Zutat. Erfahre, wie sie verwendet wird, entdecke passende Produkte und finde Rezepte mit dieser Zutat.`
-        : `${mainTitle || 'This ingredient'} is a Korean ingredient. Learn how it is used, discover products I use, and find recipes that include this ingredient.`;
-
-    return truncateText(fromDescription || generated, 160);
-  }, [description, mainTitle, mappedLocale]);
-
-  const pageTitle =
-    mappedLocale === 'de'
-      ? `${mainTitle || 'Zutat'} | Koreanische Zutat erklärt | Hansik Young`
-      : `${mainTitle || 'Ingredient'} | Korean Ingredient Guide | Hansik Young`;
+  const pageTitle = isGerman
+    ? `${guide.headline} | Hansik Young`
+    : `${guide.headline} | Hansik Young`;
 
   const currentPath = router.asPath
     ? router.asPath.split('?')[0]
-    : `/${mappedLocale === 'de' ? 'de' : 'en'}/ingredients/${slug}`;
+    : `/${isGerman ? 'de' : 'en'}/ingredients/${slug}`;
 
   const canonicalUrl = `${SITE_URL}${currentPath}`;
   const ogImage = bild || `${SITE_URL}/images/default.png`;
@@ -342,6 +656,19 @@ const IngredientDetail = ({
     },
   };
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+
   if (error) {
     return <div className={styles.error}>{error}</div>;
   }
@@ -349,9 +676,7 @@ const IngredientDetail = ({
   if (!ingredient) {
     return (
       <div className={styles.noIngredient}>
-        {mappedLocale === 'de'
-          ? 'Zutat nicht gefunden.'
-          : 'Ingredient not found.'}
+        {isGerman ? 'Zutat nicht gefunden.' : 'Ingredient not found.'}
       </div>
     );
   }
@@ -369,10 +694,7 @@ const IngredientDetail = ({
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content={ogImage} />
         <meta property="og:site_name" content="Hansik Young" />
-        <meta
-          property="og:locale"
-          content={mappedLocale === 'de' ? 'de_DE' : 'en_US'}
-        />
+        <meta property="og:locale" content={isGerman ? 'de_DE' : 'en_US'} />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
@@ -391,49 +713,135 @@ const IngredientDetail = ({
             __html: JSON.stringify(webpageSchema),
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
+          }}
+        />
       </Head>
 
       <div className={styles.container}>
-        <header className={styles.titleHeader}>
-          <h1 className={styles.title}>{mainTitle}</h1>
+        <header className={styles.hero}>
+          <p className={styles.eyebrow}>{guide.eyebrow}</p>
+          <h1 className={styles.title}>{guide.headline}</h1>
           {subTitle && <p className={styles.subtitle}>{subTitle}</p>}
+          <p className={styles.heroText}>{guide.intro}</p>
+          <div className={styles.heroActions}>
+            <Link href="/ingredients" className={styles.secondaryButton}>
+              {isGerman ? 'Alle Zutaten ansehen' : 'View all ingredients'}
+            </Link>
+            {relatedRecipes.length > 0 && (
+              <a href="#recipes" className={styles.primaryButton}>
+                {isGerman ? 'Rezepte damit finden' : 'Find recipes'}
+              </a>
+            )}
+          </div>
         </header>
 
-        {bild && (
-          <div className={styles.imageWrapper}>
-            <Image
-              src={bild}
-              alt={name}
-              width={600}
-              height={400}
-              className={styles.image}
-              placeholder="blur"
-              blurDataURL={loadingSpinner}
-            />
+        <section
+          className={styles.overviewGrid}
+          aria-label="Ingredient overview"
+        >
+          {bild && (
+            <div className={styles.imageWrapper}>
+              <Image
+                src={bild}
+                alt={name}
+                width={600}
+                height={400}
+                className={styles.image}
+                placeholder="blur"
+                blurDataURL={loadingSpinner}
+              />
+            </div>
+          )}
+
+          <div className={styles.quickFacts}>
+            <h2>{isGerman ? 'Kurz gesagt' : 'At a glance'}</h2>
+            <ul>
+              <li>
+                <strong>{isGerman ? 'Kaufen:' : 'Buy:'}</strong>{' '}
+                {guide.buyPlaces.slice(0, 2).join(', ')}
+              </li>
+              <li>
+                <strong>{isGerman ? 'Verwendung:' : 'Use for:'}</strong>{' '}
+                {guide.uses.slice(0, 3).join(', ')}
+              </li>
+              <li>
+                <strong>{isGerman ? 'Tipp:' : 'Tip:'}</strong> {guide.tips[0]}
+              </li>
+              {germanMeatCut && (
+                <li>
+                  <strong>{isGerman ? 'Stück:' : 'Cut:'}</strong>{' '}
+                  {germanMeatCut}
+                </li>
+              )}
+            </ul>
           </div>
-        )}
+        </section>
 
-        {germanMeatCut && (
-          <p className={styles.meatCut}>
-            {mappedLocale === 'de' ? 'Stück:' : 'Cut:'} {germanMeatCut}
-          </p>
-        )}
+        <section className={styles.guideSection}>
+          <h2>
+            {isGerman ? 'Was ist diese Zutat?' : 'What is this ingredient?'}
+          </h2>
+          <div className={styles.description}>
+            {description
+              ? documentToReactComponents(description)
+              : isGerman
+                ? 'Keine Beschreibung verfügbar.'
+                : 'No description available.'}
+          </div>
+        </section>
 
-        <div className={styles.description}>
-          {description
-            ? documentToReactComponents(description)
-            : mappedLocale === 'de'
-              ? 'Keine Beschreibung verfügbar.'
-              : 'No description available.'}
-        </div>
+        <section className={styles.guideGrid}>
+          <article className={styles.infoCard}>
+            <h2>{isGerman ? 'Wo kaufen?' : 'Where to buy it'}</h2>
+            <ul>
+              {guide.buyPlaces.map((place) => (
+                <li key={place}>{place}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className={styles.infoCard}>
+            <h2>{isGerman ? 'Wofür verwenden?' : 'How to use it'}</h2>
+            <ul>
+              {guide.uses.map((use) => (
+                <li key={use}>{use}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className={styles.infoCard}>
+            <h2>{isGerman ? 'Worauf achten?' : 'What to check'}</h2>
+            <ul>
+              {guide.tips.map((tip) => (
+                <li key={tip}>{tip}</li>
+              ))}
+            </ul>
+          </article>
+        </section>
+
+        <section className={styles.guideSection}>
+          <h2>
+            {isGerman ? 'Kann man es ersetzen?' : 'Can you substitute it?'}
+          </h2>
+          <p className={styles.substituteText}>{guide.substitute}</p>
+        </section>
 
         {favoriteProducts.length > 0 && (
           <section className={styles.favoriteSection}>
             <h2 className={styles.favoriteTitle}>
-              {mappedLocale === 'de'
+              {isGerman
                 ? 'Meine empfohlenen Produkte für diese Zutat'
                 : 'My favorite products for this ingredient'}
             </h2>
+            <p className={styles.sectionIntro}>
+              {isGerman
+                ? 'Hier sammle ich Produkte, die ich für koreanische Alltagsküche praktisch finde.'
+                : 'Here are products I find useful for everyday Korean cooking.'}
+            </p>
 
             <div className={styles.favoriteGrid}>
               {favoriteProducts.map((product, index) => {
@@ -474,7 +882,7 @@ const IngredientDetail = ({
                                 rel="noreferrer"
                                 className={styles.favoriteLink}
                               >
-                                {mappedLocale === 'de'
+                                {isGerman
                                   ? `Kaufoption ${idx + 1}`
                                   : `Buy option ${idx + 1}`}
                               </a>
@@ -491,9 +899,9 @@ const IngredientDetail = ({
         )}
 
         {relatedRecipes.length > 0 && (
-          <section className={styles.relatedSection}>
+          <section id="recipes" className={styles.relatedSection}>
             <h2 className={styles.relatedTitle}>
-              {mappedLocale === 'de'
+              {isGerman
                 ? 'Rezepte mit dieser Zutat'
                 : 'Recipes using this ingredient'}
             </h2>
@@ -521,6 +929,18 @@ const IngredientDetail = ({
             </div>
           </section>
         )}
+
+        <section className={styles.faqSection}>
+          <h2>{isGerman ? 'Häufige Fragen' : 'Frequently asked questions'}</h2>
+          <div className={styles.faqList}>
+            {faqItems.map((item) => (
+              <article key={item.question} className={styles.faqItem}>
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
     </>
   );

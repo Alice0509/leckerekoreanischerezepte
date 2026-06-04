@@ -3,7 +3,8 @@ import { DefaultSeoProps } from 'next-seo';
 
 const SEO: DefaultSeoProps = {
   title: 'Leckere Koreanische Rezepte',
-  description: 'A multilingual Korean recipes website.',
+  description:
+    'Einfache koreanische Hausmannskost mit Zutaten, die du in Deutschland findest: Rezepte, Zutaten-Tipps und Küchenbasics.',
   openGraph: {
     type: 'website',
     locale: 'de_DE',

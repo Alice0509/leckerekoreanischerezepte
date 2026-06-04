@@ -14,7 +14,7 @@
   color: #555;
 }
 
-/* 기존 h1 클래스 유지용 */
+/* 湲곗〈 h1 �대옒�� �좎��� */
 .h1 {
   text-align: center;
   font-size: 2rem;
@@ -359,6 +359,68 @@
 }
 
 /* ==============================
+   Start Here / SEO Guidance Cards
+============================== */
+.heroEyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 0.85rem;
+  padding: 0.36rem 0.78rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #6b8d56;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.startHereSection {
+  margin-bottom: 2.6rem;
+}
+
+.startHereGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.startHereCard {
+  display: block;
+  min-height: 150px;
+  padding: 1.25rem;
+  border: 1px solid rgba(149, 183, 124, 0.24);
+  border-radius: 18px;
+  background: #fffdf8;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 10px 22px rgba(58, 48, 30, 0.06);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.startHereCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(149, 183, 124, 0.55);
+  box-shadow: 0 14px 28px rgba(58, 48, 30, 0.09);
+}
+
+.startHereCard h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+
+.startHereCard p {
+  margin: 0;
+  color: #5f5b52;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+/* ==============================
    Dark Mode
 ============================== */
 @media (prefers-color-scheme: dark) {
@@ -382,7 +444,7 @@
       background: linear-gradient(180deg, #2b2b2d 0%, #232326 100%);
     }
 
-    /* hero는 어두운 배경이라 밝은 글자 유지 */
+    /* hero�� �대몢�� 諛곌꼍�대씪 諛앹� 湲��� �좎� */
     .heroTitle {
       color: #f1f1f2;
     }
@@ -391,7 +453,12 @@
       color: #c9c9cd;
     }
 
-    /* 나머지 섹션은 흰 배경이라 어두운 글자 유지 */
+    .heroEyebrow {
+      background: rgba(255, 255, 255, 0.12);
+      color: #dcebd1;
+    }
+
+    /* �섎㉧吏� �뱀뀡�� �� 諛곌꼍�대씪 �대몢�� 湲��� �좎� */
     .previewTitle {
       color: #2d2d2d;
     }
@@ -425,6 +492,12 @@
   }
   .heroSecondaryButton {
     color: #222;
+  }
+
+  .startHereCard,
+  .startHereCard h3,
+  .startHereCard p {
+    color: #333;
   }
 
   .favoritePreviewCard,
@@ -479,6 +552,14 @@
   .previewHeader {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .heroEyebrow {
+    font-size: 0.82rem;
+  }
+
+  .startHereCard {
+    min-height: auto;
   }
 
   .controlsContainer {
