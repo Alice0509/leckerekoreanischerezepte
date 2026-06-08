@@ -457,3 +457,68 @@
     flex-direction: column;
   }
 }
+
+/* Mobile/PWA fix: keep ingredient detail cards readable in dark mode */
+@media (prefers-color-scheme: dark) {
+  .container,
+  .container * {
+    color-scheme: light;
+  }
+
+  .quickFacts,
+  .infoCard,
+  .guideSection,
+  .faqSection {
+    background: #fffdfa !important;
+    color: #2f2a26 !important;
+    border-color: rgba(80, 55, 35, 0.1) !important;
+  }
+
+  .quickFacts h2,
+  .infoCard h2,
+  .guideSection h2,
+  .faqSection h2,
+  .faqItem h3,
+  .relatedTitle,
+  .favoriteTitle {
+    color: #2f2a26 !important;
+  }
+
+  .quickFacts li,
+  .infoCard li,
+  .description,
+  .description p,
+  .substituteText,
+  .sectionIntro,
+  .faqItem p {
+    color: #4a423c !important;
+  }
+
+  .subtitle,
+  .heroText {
+    color: #6b625c !important;
+  }
+
+  .relatedCard,
+  .relatedContent {
+    background: #ffffff !important;
+    color: #2f2a26 !important;
+  }
+
+  .relatedContent h3 {
+    color: #222222 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroText,
+  .subtitle,
+  .description,
+  .substituteText,
+  .sectionIntro,
+  .quickFacts li,
+  .infoCard li,
+  .faqItem p {
+    opacity: 1;
+  }
+}
