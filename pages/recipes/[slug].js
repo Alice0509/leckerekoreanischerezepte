@@ -154,11 +154,11 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
             'Kimchi Jjigae ist ein herzhafter koreanischer Kimchi-Eintopf. Besonders gut wird er mit reiferem, leicht saurem Kimchi und einer kleinen Menge Fett oder Brühe für mehr Tiefe.',
           shoppingTitle: 'Was du in Deutschland dafür brauchst',
           shoppingText:
-            'Kimchi, Gochugaru, Tofu und Sesamöl findest du meist im Asia-Markt oder online. Schweinebauch kannst du durch Speck, Bauchspeck oder eine vegetarische Variante mit Pilzen ersetzen.',
+            'Kimchi, Schweinefleisch oder Thunfisch und Zwiebeln findest du gut in Deutschland. Reiswasser ist ideal, normales Wasser funktioniert aber auch. Tofu ist nicht Teil dieses Grundrezepts, kann aber optional gegen Ende mitgekocht werden.',
           tips: [
             'Saueres Kimchi eignet sich besser zum Kochen als ganz frisches Kimchi.',
-            'Brate Kimchi kurz an, bevor Flüssigkeit dazukommt – das macht den Geschmack runder.',
-            'Tofu erst gegen Ende zugeben, damit er nicht zerfällt.',
+            'Brate Zwiebel, Fleisch oder Thunfisch und Kimchi kurz an, bevor Flüssigkeit dazukommt – das macht den Geschmack runder.',
+            'Tofu ist optional. Wenn du ihn verwenden möchtest, gib ihn erst gegen Ende dazu, damit er nicht zerfällt.',
           ],
           faq: [
             {
@@ -169,7 +169,7 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
             {
               question: 'Kann ich Kimchi Jjigae vegetarisch kochen?',
               answer:
-                'Ja. Lass Fleisch weg und nutze Pilze, Tofu und eine Gemüsebrühe oder Dashima-Brühe.',
+                'Ja. Lass Fleisch oder Thunfisch weg und nutze Pilze, Tofu optional und eine Gemüsebrühe oder Dashima-Brühe.',
             },
           ],
         }
@@ -880,65 +880,78 @@ const RecipeDetail = ({ recipe, error }) => {
             </section>
 
             {steps && steps.length > 0 ? (
-              <div className={styles.stepsSection}>
-                <h3>{mappedLocale === 'de' ? 'Schritte' : 'Steps'}</h3>
-                <ol className={styles.stepList}>
-                  {[...steps]
-                    .sort((a, b) => a.stepNumber - b.stepNumber)
-                    .map((step, index) => (
-                      <li key={index} className={styles.stepItem}>
-                        <div className={styles.stepHeader}>
-                          <input
-                            id={`step-checkbox-${index}`}
-                            type="checkbox"
-                            checked={checkedSteps[index]}
-                            onChange={() => handleStepCheckboxChange(index)}
-                            className={styles.stepCheckbox}
-                          />
-                          <label
-                            htmlFor={`step-checkbox-${index}`}
-                            className={styles.stepNumber}
-                          >
-                            {step.stepNumber}.
-                          </label>
-
-                          {step.timerDuration && (
-                            <span
-                              className={styles.stepTimer}
-                              onClick={(e) => e.stopPropagation()}
+              <>
+                <div className={styles.stepsSection}>
+                  <h3>{mappedLocale === 'de' ? 'Schritte' : 'Steps'}</h3>
+                  <ol className={styles.stepList}>
+                    {[...steps]
+                      .sort((a, b) => a.stepNumber - b.stepNumber)
+                      .map((step, index) => (
+                        <li key={index} className={styles.stepItem}>
+                          <div className={styles.stepHeader}>
+                            <input
+                              id={`step-checkbox-${index}`}
+                              type="checkbox"
+                              checked={checkedSteps[index]}
+                              onChange={() => handleStepCheckboxChange(index)}
+                              className={styles.stepCheckbox}
+                            />
+                            <label
+                              htmlFor={`step-checkbox-${index}`}
+                              className={styles.stepNumber}
                             >
-                              <Timer duration={step.timerDuration} />
-                            </span>
-                          )}
-                        </div>
+                              {step.stepNumber}.
+                            </label>
 
-                        <div className={styles.stepContent}>
-                          <div
-                            className={
-                              checkedSteps[index] ? styles.checked : ''
-                            }
-                          >
-                            <div className={styles.stepDescription}>
-                              {renderContent(step.description)}
-                            </div>
+                            {step.timerDuration && (
+                              <span
+                                className={styles.stepTimer}
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <Timer duration={step.timerDuration} />
+                              </span>
+                            )}
                           </div>
-                          {step.image && (
-                            <div className={styles.stepImage}>
-                              <Image
-                                src={step.image}
-                                alt={`Step ${step.stepNumber} image`}
-                                width={600}
-                                height={400}
-                                loading="lazy"
-                                style={{ width: '100%', height: 'auto' }}
-                              />
+
+                          <div className={styles.stepContent}>
+                            <div
+                              className={
+                                checkedSteps[index] ? styles.checked : ''
+                              }
+                            >
+                              <div className={styles.stepDescription}>
+                                {renderContent(step.description)}
+                              </div>
                             </div>
-                          )}
-                        </div>
-                      </li>
-                    ))}
-                </ol>
-              </div>
+                            {step.image && (
+                              <div className={styles.stepImage}>
+                                <Image
+                                  src={step.image}
+                                  alt={`Step ${step.stepNumber} image`}
+                                  width={600}
+                                  height={400}
+                                  loading="lazy"
+                                  style={{ width: '100%', height: 'auto' }}
+                                />
+                              </div>
+                            )}
+                          </div>
+                        </li>
+                      ))}
+                  </ol>
+                </div>
+
+                {instructions && (
+                  <div className={styles.instructions}>
+                    <h3>
+                      {mappedLocale === 'de'
+                        ? 'Varianten und Hinweise'
+                        : 'Variations and notes'}
+                    </h3>
+                    {renderContent(instructions)}
+                  </div>
+                )}
+              </>
             ) : (
               <div className={styles.instructions}>
                 <h3>{mappedLocale === 'de' ? 'Anleitung' : 'Instructions'}</h3>
