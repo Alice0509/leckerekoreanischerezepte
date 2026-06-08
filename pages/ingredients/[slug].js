@@ -355,6 +355,31 @@ const getFaqItems = ({ guide, mainTitle, mappedLocale }) => {
   ];
 };
 
+const PRIORITY_INGREDIENT_SLUG_KEYWORDS = [
+  'gochujang',
+  'gochugaru',
+  'kimchi',
+  'reis',
+  'rice',
+  'tofu',
+  'sesam',
+  'sesame',
+  'doenjang',
+  'sojasauce',
+  'soy',
+  'nori',
+  'gim',
+  'dangmyeon',
+  'tteok',
+];
+
+const isPriorityIngredientSlug = (slug = '') => {
+  const normalized = `${slug}`.toLowerCase();
+  return PRIORITY_INGREDIENT_SLUG_KEYWORDS.some((keyword) =>
+    normalized.includes(keyword)
+  );
+};
+
 export async function getStaticPaths({ locales }) {
   try {
     const allPaths = [];
@@ -372,6 +397,7 @@ export async function getStaticPaths({ locales }) {
 
       const localePaths = res.items
         .filter((item) => item.fields.slug)
+        .filter((item) => isPriorityIngredientSlug(item.fields.slug))
         .map((item) => ({
           params: { slug: item.fields.slug },
           locale,
@@ -382,13 +408,13 @@ export async function getStaticPaths({ locales }) {
 
     return {
       paths: allPaths,
-      fallback: false,
+      fallback: 'blocking',
     };
   } catch (error) {
     console.error('Error fetching ingredient slugs:', error);
     return {
       paths: [],
-      fallback: false,
+      fallback: 'blocking',
     };
   }
 }
