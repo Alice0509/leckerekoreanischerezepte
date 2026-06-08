@@ -285,38 +285,69 @@ const getRecipeFaqSchema = (faq) => ({
   })),
 });
 
-export async function getStaticPaths() {
+const PRIORITY_RECIPE_SLUG_KEYWORDS = [
+  'kimchi',
+  'tteokbokki',
+  'bibimbap',
+  'kimbap',
+  'gimbap',
+  'bulgogi',
+  'japchae',
+  'doenjang',
+  'miyeokguk',
+  'mandu',
+  'tonkatsu',
+  'ssamjang',
+  'chogochujang',
+  'gochujang',
+  'salad-dressing',
+  'spicy',
+  'eomuk',
+  'kongnamul',
+];
+
+const isPriorityRecipeSlug = (slug = '') => {
+  const normalized = `${slug}`.toLowerCase();
+  return PRIORITY_RECIPE_SLUG_KEYWORDS.some((keyword) =>
+    normalized.includes(keyword)
+  );
+};
+
+export async function getStaticPaths({ locales }) {
   try {
-    const locales = ['de', 'en'];
-    let paths = [];
+    const allPaths = [];
 
     for (const locale of locales) {
+      const mappedLocale = locale === 'de' ? 'de' : 'en';
+
       const res = await client.getEntries({
         content_type: 'recipe',
         select: 'fields.slug',
-        locale,
+        locale: mappedLocale,
+        include: 0,
         limit: 1000,
       });
 
       const localePaths = res.items
         .filter((item) => item.fields.slug)
+        .filter((item) => isPriorityRecipeSlug(item.fields.slug))
         .map((item) => ({
           params: { slug: item.fields.slug.toLowerCase() },
           locale,
         }));
 
-      paths = paths.concat(localePaths);
+      allPaths.push(...localePaths);
     }
 
     return {
-      paths,
-      fallback: false,
+      paths: allPaths,
+      fallback: 'blocking',
     };
   } catch (error) {
     console.error('Error fetching recipe slugs:', error);
     return {
       paths: [],
-      fallback: false,
+      fallback: 'blocking',
     };
   }
 }
