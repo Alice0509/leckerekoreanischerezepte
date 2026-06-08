@@ -461,3 +461,58 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Mobile fix: recipe rich text description */
+@media (max-width: 600px) {
+  .instructionsColumn {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .description {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .description ul,
+  .description ol {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 1.25rem 0;
+    padding-left: 1.15rem;
+  }
+
+  .description li {
+    max-width: 100%;
+    margin-bottom: 1rem;
+    padding-left: 0.15rem;
+    line-height: 1.65;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  .description p {
+    max-width: 100%;
+    margin: 0 0 1rem 0;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  .description a {
+    overflow-wrap: anywhere;
+  }
+
+  .contentWrapper {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+}
