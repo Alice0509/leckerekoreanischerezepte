@@ -449,6 +449,10 @@ export async function getStaticProps({ params, locale }) {
       title: recipeEntry.fields.titel || 'Default Recipe Title',
       locale: mappedLocale,
       steps,
+      seoTitle: recipeEntry.fields.seoTitle || null,
+      seoDescription: recipeEntry.fields.seoDescription || null,
+      updatedDate:
+        recipeEntry.fields.updatedDate || recipeEntry.sys.updatedAt || null,
     };
 
     return {
@@ -486,6 +490,9 @@ const RecipeDetail = ({ recipe, error }) => {
     videoFile: null,
     youTubeUrl: null,
     steps: [],
+    seoTitle: null,
+    seoDescription: null,
+    updatedDate: null,
   };
 
   const {
@@ -500,6 +507,9 @@ const RecipeDetail = ({ recipe, error }) => {
     videoFile,
     youTubeUrl,
     steps,
+    seoTitle,
+    seoDescription,
+    updatedDate,
   } = safeRecipe;
 
   const [checkedIngredients, setCheckedIngredients] = useState(
@@ -553,6 +563,7 @@ const RecipeDetail = ({ recipe, error }) => {
     .slice(0, 6);
 
   const descriptionText = useMemo(() => {
+    const fromSeoDescription = stripHtmlLikeWhitespace(seoDescription);
     const fromDescription = richTextToPlainText(description);
     const fromInstructions = richTextToPlainText(instructions);
 
@@ -569,8 +580,12 @@ const RecipeDetail = ({ recipe, error }) => {
               : ''
           }${servings ? `Serves ${servings}. ` : ''}Step-by-step instructions, ingredients, and practical tips for everyday cooking.`;
 
-    return truncateText(fromDescription || fromInstructions || generated, 160);
+    return truncateText(
+      fromSeoDescription || fromDescription || fromInstructions || generated,
+      160
+    );
   }, [
+    seoDescription,
     description,
     instructions,
     titel,
@@ -580,10 +595,14 @@ const RecipeDetail = ({ recipe, error }) => {
     mappedLocale,
   ]);
 
-  const pageTitle =
+  const fallbackPageTitle =
     mappedLocale === 'de'
       ? `${titel || 'Rezept'} Rezept | ${category || 'Korean Food'} | Hansik Young`
       : `${titel || 'Recipe'} Recipe | ${category || 'Korean Food'} | Hansik Young`;
+
+  const pageTitle = seoTitle
+    ? `${stripHtmlLikeWhitespace(seoTitle)} | Hansik Young`
+    : fallbackPageTitle;
 
   const canonicalUrl = `${SITE_URL}${asPath === '/' ? '' : asPath.split('?')[0]}`;
   const ogImage = images[0] || thumbnailUrl || `${SITE_URL}/images/default.png`;
@@ -635,6 +654,7 @@ const RecipeDetail = ({ recipe, error }) => {
         `${ingredient.name}${ingredient.quantity ? ` - ${ingredient.quantity}` : ''}`
     ),
     recipeInstructions: schemaInstructions,
+    dateModified: updatedDate || undefined,
     video: youTubeUrl
       ? {
           '@type': 'VideoObject',

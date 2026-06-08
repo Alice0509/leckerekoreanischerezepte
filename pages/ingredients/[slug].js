@@ -7,6 +7,9 @@ import { useRouter } from 'next/router';
 import styles from '../../styles/IngredientDetail.module.css';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
+const stripHtmlLikeWhitespace = (text) =>
+  (text || '').replace(/\s+/g, ' ').trim();
+
 const loadingSpinner =
   'data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAACH5BAEAAAEALAAAAAAQABAAAAIgjI+py+0Po5y02ouzPgUAOw==';
 
@@ -435,6 +438,8 @@ export async function getStaticProps({ params, locale }) {
       germanMeatCut: item.fields.germanMeatCut || null,
       bild: imageUrl,
       description: item.fields.description || null,
+      seoTitle: item.fields.seoTitle || null,
+      seoDescription: item.fields.seoDescription || null,
     };
 
     let favoriteRes = await client.getEntries({
@@ -601,9 +606,19 @@ const IngredientDetail = ({
     bild: null,
     description: null,
     slug: '',
+    seoTitle: null,
+    seoDescription: null,
   };
 
-  const { name, germanMeatCut, bild, description, slug } = safeIngredient;
+  const {
+    name,
+    germanMeatCut,
+    bild,
+    description,
+    slug,
+    seoTitle,
+    seoDescription,
+  } = safeIngredient;
 
   const match = name ? name.match(/^([^(]+)\((.+)\)$/) : null;
   const mainTitle = match ? match[1].trim() : name;
@@ -619,12 +634,16 @@ const IngredientDetail = ({
   );
 
   const descriptionText = useMemo(() => {
+    const fromSeoDescription = stripHtmlLikeWhitespace(seoDescription);
     const fromDescription = richTextToPlainText(description);
-    return truncateText(fromDescription || guide.intro, 160);
-  }, [description, guide.intro]);
+    return truncateText(
+      fromSeoDescription || fromDescription || guide.intro,
+      160
+    );
+  }, [description, guide.intro, seoDescription]);
 
-  const pageTitle = isGerman
-    ? `${guide.headline} | Hansik Young`
+  const pageTitle = seoTitle
+    ? `${stripHtmlLikeWhitespace(seoTitle)} | Hansik Young`
     : `${guide.headline} | Hansik Young`;
 
   const currentPath = router.asPath
