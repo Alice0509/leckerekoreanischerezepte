@@ -1164,16 +1164,57 @@ const RecipeDetail = ({ recipe, error }) => {
 
         <DisqusComments post={recipe} />
 
-        <Link
-          href="/"
-          className={styles.backLink}
+        <nav
+          className={styles.recipeNextLinks}
           aria-label={
-            mappedLocale === 'de' ? 'Zurück zur Startseite' : 'Back to Home'
+            mappedLocale === 'de' ? 'Weiter stöbern' : 'Keep browsing'
           }
-          tabIndex="0"
         >
-          {mappedLocale === 'de' ? 'Zurück zur Startseite' : 'Back to Home'}
-        </Link>
+          <p className={styles.recipeNextEyebrow}>
+            {mappedLocale === 'de' ? 'Weiter stöbern' : 'Keep browsing'}
+          </p>
+          <h2>
+            {mappedLocale === 'de'
+              ? 'Was möchtest du als Nächstes ansehen?'
+              : 'What would you like to explore next?'}
+          </h2>
+          <div className={styles.recipeNextGrid}>
+            <Link href="/#all-recipes" className={styles.recipeNextCard}>
+              <span>
+                {mappedLocale === 'de' ? 'Alle Rezepte' : 'All recipes'}
+              </span>
+              <small>
+                {mappedLocale === 'de'
+                  ? 'Zurück zur Rezeptübersicht'
+                  : 'Back to the recipe overview'}
+              </small>
+            </Link>
+
+            <Link href="/ingredients" className={styles.recipeNextCard}>
+              <span>
+                {mappedLocale === 'de' ? 'Zutaten-Guide' : 'Ingredient guide'}
+              </span>
+              <small>
+                {mappedLocale === 'de'
+                  ? 'Koreanische Zutaten besser verstehen'
+                  : 'Learn more about Korean ingredients'}
+              </small>
+            </Link>
+
+            <Link href="/gallery" className={styles.recipeNextCard}>
+              <span>
+                {mappedLocale === 'de'
+                  ? 'Meine Einkaufsliste'
+                  : 'My shopping list'}
+              </span>
+              <small>
+                {mappedLocale === 'de'
+                  ? 'Produkte und Küchenbasics aus meinem Alltag'
+                  : 'Products and kitchen basics from my everyday cooking'}
+              </small>
+            </Link>
+          </div>
+        </nav>
       </div>
     </>
   );
