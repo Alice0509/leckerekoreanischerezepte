@@ -1,39 +1,107 @@
 // components/DisqusComments.js
 
-import React from 'react';
+import React, { useState } from 'react';
 import { DiscussionEmbed } from 'disqus-react';
 import { useRouter } from 'next/router';
 
 const DisqusComments = ({ post }) => {
   const router = useRouter();
-  const { asPath } = router;
+  const { asPath, locale } = router;
+  const isGerman = locale === 'de';
+  const [isOpen, setIsOpen] = useState(false);
 
   const disqusShortname = process.env.NEXT_PUBLIC_DISQUS_SHORTNAME;
 
-  // 환경 변수 검증
-  if (!disqusShortname) {
-    console.error(
-      'Disqus shortname is not defined. Please set NEXT_PUBLIC_DISQUS_SHORTNAME in .env.local'
-    );
+  if (!disqusShortname || !post || !post.id || !post.title) {
     return null;
   }
 
-  // post 객체 검증
-  if (!post || !post.id || !post.title) {
-    console.error('Post data is incomplete. Ensure post has id and title.');
-    return null;
-  }
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    'https://www.leckere-koreanische-rezepte.de';
 
   const disqusConfig = {
     url:
       process.env.NODE_ENV === 'development'
         ? `http://localhost:3000${asPath}`
-        : `${process.env.NEXT_PUBLIC_SITE_URL}${asPath}`,
+        : `${siteUrl}${asPath}`,
     identifier: post.id,
     title: post.title,
   };
 
-  return <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />;
+  return (
+    <section className="recipe-comments">
+      <div className="recipe-comments__intro">
+        <h2>
+          {isGerman
+            ? 'Hast du dieses Rezept ausprobiert?'
+            : 'Did you try this recipe?'}
+        </h2>
+        <p>
+          {isGerman
+            ? 'Wenn du eine Frage hast oder dir eine kleine Notiz zum Rezept merken möchtest, kannst du hier die Kommentare öffnen.'
+            : 'If you have a question or want to leave a small note about this recipe, you can open the comments here.'}
+        </p>
+
+        {!isOpen && (
+          <button
+            type="button"
+            className="recipe-comments__button"
+            onClick={() => setIsOpen(true)}
+          >
+            {isGerman ? 'Kommentare öffnen' : 'Open comments'}
+          </button>
+        )}
+      </div>
+
+      {isOpen && (
+        <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+      )}
+
+      <style jsx>{`
+        .recipe-comments {
+          margin-top: 40px;
+          padding: 22px;
+          border-radius: 16px;
+          background: #fffaf4;
+          border: 1px solid rgba(120, 80, 45, 0.14);
+        }
+
+        .recipe-comments__intro h2 {
+          margin: 0 0 8px;
+          font-size: 1.25rem;
+          color: #2f241f;
+        }
+
+        .recipe-comments__intro p {
+          margin: 0 0 14px;
+          color: #6d5d55;
+          line-height: 1.6;
+        }
+
+        .recipe-comments__button {
+          border: none;
+          border-radius: 999px;
+          padding: 0.75rem 1.1rem;
+          background: #2f241f;
+          color: #fff;
+          font-weight: 700;
+          cursor: pointer;
+        }
+
+        .recipe-comments__button:hover {
+          opacity: 0.9;
+        }
+
+        @media (max-width: 600px) {
+          .recipe-comments {
+            padding: 18px;
+            border-radius: 14px;
+          }
+        }
+      `}</style>
+    </section>
+  );
 };
 
 export default DisqusComments;
