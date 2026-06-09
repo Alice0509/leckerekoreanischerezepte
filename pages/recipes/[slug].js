@@ -912,7 +912,11 @@ const RecipeDetail = ({ recipe, error }) => {
 
         <div className={styles.contentWrapper}>
           <aside className={styles.ingredientsColumn}>
-            <h3>{mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}</h3>
+            <h3>
+              {mappedLocale === 'de'
+                ? 'Zutaten zum Mitkochen'
+                : 'Ingredients to cook with'}
+            </h3>
             {ingredients.length > 0 ? (
               <ul className={styles.ingredientsList}>
                 {ingredients.map((ingredient, index) => (
@@ -976,7 +980,11 @@ const RecipeDetail = ({ recipe, error }) => {
             {steps && steps.length > 0 ? (
               <>
                 <div className={styles.stepsSection}>
-                  <h3>{mappedLocale === 'de' ? 'Schritte' : 'Steps'}</h3>
+                  <h3>
+                    {mappedLocale === 'de'
+                      ? 'So koche ich es'
+                      : 'How I cook it'}
+                  </h3>
                   <ol className={styles.stepList}>
                     {[...steps]
                       .sort((a, b) => a.stepNumber - b.stepNumber)
@@ -1039,8 +1047,8 @@ const RecipeDetail = ({ recipe, error }) => {
                   <div className={styles.instructions}>
                     <h3>
                       {mappedLocale === 'de'
-                        ? 'Varianten und Hinweise'
-                        : 'Variations and notes'}
+                        ? 'Kleine Hinweise'
+                        : 'Small notes'}
                     </h3>
                     {renderContent(instructions)}
                   </div>
@@ -1057,8 +1065,8 @@ const RecipeDetail = ({ recipe, error }) => {
               <section className={styles.usedIngredientsSection}>
                 <h3 className={styles.usedIngredientsTitle}>
                   {mappedLocale === 'de'
-                    ? 'Verwendete Zutaten'
-                    : 'Ingredients used in this recipe'}
+                    ? 'Zutaten, die du anklicken kannst'
+                    : 'Ingredients you can open and learn about'}
                 </h3>
 
                 <div className={styles.usedIngredientsGrid}>
@@ -1131,8 +1139,8 @@ const RecipeDetail = ({ recipe, error }) => {
           <section className={styles.recipeFaqSection}>
             <h2>
               {mappedLocale === 'de'
-                ? 'Häufige Fragen zum Rezept'
-                : 'Recipe FAQ'}
+                ? 'Kleine Fragen, die oft auftauchen'
+                : 'Small questions that often come up'}
             </h2>
             <div className={styles.recipeFaqList}>
               {guide.faq.map((item) => (
