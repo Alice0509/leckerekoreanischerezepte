@@ -781,6 +781,9 @@ const IngredientDetail = ({
                 {isGerman ? 'Rezepte damit finden' : 'Find recipes'}
               </a>
             )}
+            <Link href="/gallery" className={styles.secondaryButton}>
+              {isGerman ? 'Meine Einkaufsliste' : 'My shopping list'}
+            </Link>
           </div>
         </header>
 
@@ -879,13 +882,13 @@ const IngredientDetail = ({
           <section className={styles.favoriteSection}>
             <h2 className={styles.favoriteTitle}>
               {isGerman
-                ? 'Meine empfohlenen Produkte für diese Zutat'
-                : 'My favorite products for this ingredient'}
+                ? 'Meine Einkaufsliste zu dieser Zutat'
+                : 'My shopping notes for this ingredient'}
             </h2>
             <p className={styles.sectionIntro}>
               {isGerman
-                ? 'Hier sammle ich Produkte, die ich für koreanische Alltagsküche praktisch finde.'
-                : 'Here are products I find useful for everyday Korean cooking.'}
+                ? 'Hier sammle ich Produkte, die ich selbst kaufe oder im Alltag benutze.'
+                : 'I keep products here that I buy myself or use in everyday cooking.'}
             </p>
 
             <div className={styles.favoriteGrid}>
@@ -928,8 +931,8 @@ const IngredientDetail = ({
                                 className={styles.favoriteLink}
                               >
                                 {isGerman
-                                  ? `Kaufoption ${idx + 1}`
-                                  : `Buy option ${idx + 1}`}
+                                  ? `Link ${idx + 1}`
+                                  : `Link ${idx + 1}`}
                               </a>
                             </li>
                           ))}
