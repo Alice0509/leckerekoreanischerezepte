@@ -148,6 +148,18 @@ export default function Gallery({ galleryItems, favorites }) {
       />
 
       <main className={styles.container}>
+        <header className={styles.pageHero}>
+          <p className={styles.heroEyebrow}>
+            {isDE ? 'Persönliche Notizen' : 'Personal notes'}
+          </p>
+          <h1 className={styles.title}>{isDE ? 'Favoriten' : 'Favorites'}</h1>
+          <p className={styles.heroText}>
+            {isDE
+              ? 'Meine persönliche Einkaufsliste und kleine Küchennotizen — Produkte, Zutaten und Fotos, die ich im Alltag wirklich benutze oder festhalten möchte.'
+              : 'My personal shopping list and small kitchen notes — products, ingredients, and photos I actually use or want to remember.'}
+          </p>
+        </header>
+
         {/* A. FAVORITES */}
         <section className={styles.section}>
           <h2 className={styles.subtitle}>
@@ -205,8 +217,8 @@ export default function Gallery({ galleryItems, favorites }) {
                               className={styles.memoLink}
                             >
                               {isDE
-                                ? `Kaufoption ${linkIdx + 1}`
-                                : `Buy option ${linkIdx + 1}`}
+                                ? `Link ${linkIdx + 1}`
+                                : `Link ${linkIdx + 1}`}
                             </a>
                           </li>
                         ))}
