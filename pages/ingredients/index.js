@@ -1,6 +1,7 @@
 // pages/ingredients/index.js
 
 import React from 'react';
+import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import client from '../../lib/contentful';
 import IngredientCard from '../../components/IngredientCard';
@@ -271,6 +272,29 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
               </p>
             </div>
           </div>
+        </section>
+
+        <section className={styles.shoppingListCta}>
+          <div>
+            <p className={styles.kicker}>
+              {isGerman
+                ? 'Persönliche Einkaufsliste'
+                : 'Personal shopping list'}
+            </p>
+            <h2>
+              {isGerman
+                ? 'Du suchst konkrete Produkte?'
+                : 'Looking for actual products?'}
+            </h2>
+            <p>
+              {isGerman
+                ? 'In meiner Einkaufsliste sammle ich Zutaten, Produkte und Küchenbasics, die ich selbst kaufe oder im Alltag benutze.'
+                : 'In my shopping list, I collect ingredients, products, and kitchen basics I buy myself or use in everyday cooking.'}
+            </p>
+          </div>
+          <Link href="/gallery" className={styles.ctaButton}>
+            {isGerman ? 'Meine Einkaufsliste ansehen' : 'View my shopping list'}
+          </Link>
         </section>
 
         <section className={styles.section}>
