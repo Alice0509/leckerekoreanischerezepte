@@ -80,60 +80,54 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
 
   const defaultGuide = isGerman
     ? {
-        eyebrow: 'Koreanisch kochen in Deutschland',
-        introTitle: 'Warum dieses Rezept gut für den Alltag funktioniert',
+        eyebrow: 'Aus meiner Küche',
+        introTitle: 'So koche ich dieses Gericht zu Hause',
         intro:
-          'Dieses Rezept ist für die Küche zu Hause gedacht: mit klaren Schritten, verlinkten Zutaten und möglichst realistischen Einkaufsmöglichkeiten in Deutschland.',
-        shoppingTitle: 'Zutaten in Deutschland finden',
+          'Ich halte dieses Rezept bewusst alltagstauglich: mit klaren Schritten, verlinkten Zutaten und kleinen Hinweisen, damit du es auch in Deutschland realistisch nachkochen kannst.',
+        shoppingTitle: 'Zutaten realistisch einkaufen',
         shoppingText:
-          'Viele koreanische Grundzutaten findest du im Asia-Markt oder online. Einzelne frische Zutaten lassen sich oft durch Produkte aus REWE, Edeka oder dem Wochenmarkt ersetzen.',
+          'Unbekannte Zutaten kannst du direkt anklicken. Viele koreanische Basics findest du im Asia-Markt oder online, frische Zutaten ersetze ich im Alltag aber oft pragmatisch mit dem, was es hier gibt.',
         tips: [
-          'Lies zuerst die Zutatenliste und klicke unbekannte Zutaten an.',
-          'Bereite Sauce und geschnittenes Gemüse vor, bevor du mit dem Kochen beginnst.',
-          'Schmecke am Ende vorsichtig mit Salz, Sojasauce, Zucker oder Sesamöl ab.',
+          'Lies die Zutaten und Schritte einmal durch, bevor du anfängst.',
+          'Bereite Sauce, Gemüse und Beilagen vor, damit das Kochen entspannter bleibt.',
+          'Schmecke am Ende vorsichtig ab — oft reichen ein wenig Sojasauce, Salz, Zucker oder Sesamöl.',
         ],
         faq: [
           {
-            question: isGerman
-              ? 'Kann ich das Rezept auch als Anfänger kochen?'
-              : 'Can beginners make this recipe?',
-            answer: isGerman
-              ? 'Ja. Lies die Schritte einmal komplett durch und bereite die Zutaten vor, bevor du beginnst.'
-              : 'Yes. Read the steps once and prepare the ingredients before you start cooking.',
+            question: 'Kann ich das Rezept auch als Anfänger kochen?',
+            answer:
+              'Ja. Lies die Schritte einmal komplett durch und bereite die Zutaten vor. Dann ist das Rezept deutlich entspannter.',
           },
           {
-            question: isGerman
-              ? 'Wo finde ich koreanische Zutaten in Deutschland?'
-              : 'Where can I find Korean ingredients?',
-            answer: isGerman
-              ? 'Am einfachsten im Asia-Markt, in koreanischen Online-Shops oder teilweise in großen Supermärkten mit Asia-Regal.'
-              : 'The easiest options are Asian grocery stores, Korean online shops, or large supermarkets with an Asian food section.',
+            question: 'Wo finde ich koreanische Zutaten in Deutschland?',
+            answer:
+              'Viele Basics findest du im Asia-Markt, in koreanischen Online-Shops oder teilweise in großen Supermärkten mit Asia-Regal.',
           },
         ],
       }
     : {
-        eyebrow: 'Korean cooking at home',
-        introTitle: 'Why this recipe works for everyday cooking',
+        eyebrow: 'From my kitchen',
+        introTitle: 'How I cook this at home',
         intro:
-          'This recipe is designed for home cooking with clear steps, linked ingredients, and practical shopping notes.',
+          'I keep this recipe practical for everyday cooking: clear steps, linked ingredients, and small notes from my kitchen so you can make it realistically in Germany too.',
         shoppingTitle: 'Finding the ingredients',
         shoppingText:
-          'Many Korean pantry ingredients are easiest to find in Asian grocery stores or online. Fresh ingredients can often be replaced with supermarket options.',
+          'You can open unfamiliar ingredients directly from the list. Many Korean pantry basics are easiest to find in Asian grocery stores or online, while fresh ingredients can often be handled more flexibly.',
         tips: [
-          'Read the ingredient list first and open unfamiliar ingredients.',
-          'Prepare sauces and vegetables before you start cooking.',
-          'Adjust the final flavor with soy sauce, salt, sugar, or sesame oil.',
+          'Read the ingredients and steps once before you start.',
+          'Prepare the sauce, vegetables, and toppings first so cooking feels calmer.',
+          'Adjust the final flavor gently with soy sauce, salt, sugar, or sesame oil.',
         ],
         faq: [
           {
             question: 'Can beginners make this recipe?',
             answer:
-              'Yes. Read the steps once and prepare the ingredients before you start cooking.',
+              'Yes. Read through the steps once and prepare the ingredients first. That makes the recipe much easier to follow.',
           },
           {
             question: 'Where can I find Korean ingredients?',
             answer:
-              'Asian grocery stores, Korean online shops, and large supermarkets with an Asian section are the easiest places to start.',
+              'Asian grocery stores, Korean online shops, and larger supermarkets with an Asian section are usually the easiest places to start.',
           },
         ],
       };
@@ -149,16 +143,16 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
     return isGerman
       ? {
           eyebrow: 'Koreanischer Eintopf',
-          introTitle: 'Kimchi Jjigae einfach zu Hause kochen',
+          introTitle: 'Kimchi Jjigae, wie ich ihn zu Hause koche',
           intro:
-            'Kimchi Jjigae ist ein herzhafter koreanischer Kimchi-Eintopf. Besonders gut wird er mit reiferem, leicht saurem Kimchi und einer kleinen Menge Fett oder Brühe für mehr Tiefe.',
+            'Kimchi Jjigae ist für mich ein ehrlicher, wärmender Eintopf. Am besten schmeckt er mit reiferem Kimchi, etwas Fett oder Brühe und genug Zeit, damit der Geschmack rund wird.',
           shoppingTitle: 'Was du in Deutschland dafür brauchst',
           shoppingText:
-            'Kimchi, Schweinefleisch oder Thunfisch und Zwiebeln findest du gut in Deutschland. Reiswasser ist ideal, normales Wasser funktioniert aber auch. Tofu ist nicht Teil dieses Grundrezepts, kann aber optional gegen Ende mitgekocht werden.',
+            'Kimchi, Zwiebeln, Schweinefleisch oder Thunfisch findest du gut in Deutschland. Reiswasser ist ideal, normales Wasser funktioniert aber auch. Tofu ist optional und kommt bei mir eher gegen Ende dazu.',
           tips: [
-            'Saueres Kimchi eignet sich besser zum Kochen als ganz frisches Kimchi.',
-            'Brate Zwiebel, Fleisch oder Thunfisch und Kimchi kurz an, bevor Flüssigkeit dazukommt – das macht den Geschmack runder.',
-            'Tofu ist optional. Wenn du ihn verwenden möchtest, gib ihn erst gegen Ende dazu, damit er nicht zerfällt.',
+            'Leicht saures Kimchi eignet sich besser zum Kochen als ganz frisches Kimchi.',
+            'Brate Zwiebel, Fleisch oder Thunfisch und Kimchi kurz an, bevor Flüssigkeit dazukommt.',
+            'Wenn du Tofu verwendest, gib ihn erst gegen Ende dazu, damit er nicht zerfällt.',
           ],
           faq: [
             {
@@ -169,20 +163,45 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
             {
               question: 'Kann ich Kimchi Jjigae vegetarisch kochen?',
               answer:
-                'Ja. Lass Fleisch oder Thunfisch weg und nutze Pilze, Tofu optional und eine Gemüsebrühe oder Dashima-Brühe.',
+                'Ja. Lass Fleisch oder Thunfisch weg und nutze Pilze, optional Tofu und Gemüsebrühe oder Dashima-Brühe.',
             },
           ],
         }
-      : defaultGuide;
+      : {
+          eyebrow: 'Korean stew',
+          introTitle: 'Kimchi Jjigae the way I cook it at home',
+          intro:
+            'Kimchi Jjigae is one of those warm, honest stews I want to keep in my family recipe archive. It tastes best with slightly sour kimchi and a little time for the broth to become deeper.',
+          shoppingTitle: 'What you need in Germany',
+          shoppingText:
+            'Kimchi, onion, pork, or canned tuna are easy enough to find in Germany. Rice water is ideal, but plain water also works. Tofu is optional and I usually add it near the end.',
+          tips: [
+            'Slightly sour kimchi works better for stew than very fresh kimchi.',
+            'Briefly stir-fry the onion, pork or tuna, and kimchi before adding water.',
+            'If you use tofu, add it near the end so it keeps its shape.',
+          ],
+          faq: [
+            {
+              question: 'What kind of kimchi is best for Kimchi Jjigae?',
+              answer:
+                'Slightly aged, sour kimchi works best. Fresh kimchi tastes milder and often needs a little more seasoning.',
+            },
+            {
+              question: 'Can I make Kimchi Jjigae vegetarian?',
+              answer:
+                'Yes. Leave out pork or tuna and use mushrooms, optional tofu, and vegetable or dashima broth.',
+            },
+          ],
+        };
   }
 
   if (hasAnyKeyword(combined, ['bibimbap', '비빔밥'])) {
     return isGerman
       ? {
           eyebrow: 'Koreanische Reis-Bowl',
-          introTitle: 'Bibimbap mit Zutaten aus Deutschland',
+          introTitle: 'Bibimbap mit dem, was gerade da ist',
           intro:
-            'Bibimbap ist ideal, wenn du Reis, Gemüse, Ei und eine würzige Sauce kombinieren möchtest. Das Rezept lässt sich sehr gut mit saisonalem Gemüse aus deutschen Supermärkten anpassen.',
+            'Bibimbap ist eines dieser Gerichte, die ich gerne mache, wenn Reis, Gemüse und ein Ei da sind. Es muss nicht perfekt aussehen — wichtig ist, dass die Mischung aus Reis, Gemüse und Sauce am Ende gut schmeckt.',
           shoppingTitle: 'Was du gut ersetzen kannst',
           shoppingText:
             'Für Bibimbap brauchst du nicht immer exakt koreanisches Gemüse. Karotten, Spinat, Zucchini, Pilze, Gurke und Sojasprossen funktionieren sehr gut.',
@@ -204,16 +223,41 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
             },
           ],
         }
-      : defaultGuide;
+      : {
+          eyebrow: 'Korean rice bowl',
+          introTitle: 'Bibimbap with what you have at home',
+          intro:
+            'Bibimbap is one of the easiest Korean meals to make from rice, vegetables, an egg, and a good sauce. It does not have to look perfect — the balance of rice, vegetables, and gochujang sauce matters most.',
+          shoppingTitle: 'What you can substitute',
+          shoppingText:
+            'You do not always need exact Korean vegetables. Carrots, spinach, zucchini, mushrooms, cucumber, and bean sprouts all work well.',
+          tips: [
+            'Cook or blanch the vegetables separately so each one keeps its own flavor.',
+            'Mix gochujang sauce with water, vinegar, sugar, and sesame oil until smooth.',
+            'Do not cook the rice too soft, or the bowl can become mushy.',
+          ],
+          faq: [
+            {
+              question: 'Can I make Bibimbap without gochujang?',
+              answer:
+                'Yes, but it will taste less typical. A mild alternative is soy sauce with sesame oil, a little sugar, and garlic.',
+            },
+            {
+              question: 'Which vegetables work well for Bibimbap?',
+              answer:
+                'Carrots, spinach, zucchini, mushrooms, cucumber, bean sprouts, and leftover vegetables all work well.',
+            },
+          ],
+        };
   }
 
   if (hasAnyKeyword(combined, ['tteokbokki', '떡볶이'])) {
     return isGerman
       ? {
           eyebrow: 'Koreanisches Street Food',
-          introTitle: 'Tteokbokki zu Hause machen',
+          introTitle: 'Tteokbokki mit Geduld einkochen',
           intro:
-            'Tteokbokki besteht aus Reiskuchen in einer süß-scharfen Gochujang-Sauce. Wichtig ist, die Sauce langsam einkochen zu lassen, bis sie glänzend und dick wird.',
+            'Tteokbokki ist einfach, aber die Sauce braucht etwas Geduld. Ich lasse sie lieber langsam einkochen, bis sie glänzend wird und gut an den Reiskuchen haftet.',
           shoppingTitle: 'Reiskuchen und Sauce in Deutschland kaufen',
           shoppingText:
             'Tteokbokki-Reiskuchen findest du meist tiefgekühlt oder vakuumverpackt im Asia-Markt oder online. Gochujang und Gochugaru sind für den typischen Geschmack sehr hilfreich.',
@@ -235,16 +279,41 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
             },
           ],
         }
-      : defaultGuide;
+      : {
+          eyebrow: 'Korean street food',
+          introTitle: 'Tteokbokki needs a little patience',
+          intro:
+            'Tteokbokki is simple, but the sauce makes the dish. I like to let it simmer until it turns glossy and clings to the rice cakes instead of staying watery.',
+          shoppingTitle: 'Buying rice cakes and sauce ingredients',
+          shoppingText:
+            'Tteokbokki rice cakes are usually frozen or vacuum-packed at Asian grocery stores or online. Gochujang and gochugaru are very helpful for the classic flavor.',
+          tips: [
+            'Soak frozen rice cakes briefly in water before cooking.',
+            'Let the sauce simmer over medium heat and stir regularly.',
+            'For a milder version, use less gochugaru and balance the sauce with a little sugar.',
+          ],
+          faq: [
+            {
+              question: 'Why are my rice cakes still hard?',
+              answer:
+                'They probably need more soaking or cooking time. Add a little water and simmer them longer.',
+            },
+            {
+              question: 'Can I make Tteokbokki less spicy?',
+              answer:
+                'Yes. Use less gochugaru, choose a milder gochujang, and balance the sauce with sugar or syrup.',
+            },
+          ],
+        };
   }
 
   if (hasAnyKeyword(combined, ['kimbap', 'gimbap', '김밥'])) {
     return isGerman
       ? {
           eyebrow: 'Koreanische Reisrollen',
-          introTitle: 'Kimbap einfach rollen',
+          introTitle: 'Kimbap, das beim Schneiden hält',
           intro:
-            'Kimbap ist perfekt für Lunchboxen, Picknick oder Meal Prep. Entscheidend sind gut gewürzter Reis, trockene Füllungen und ein sauberes, festes Rollen.',
+            'Kimbap sieht schlicht aus, aber die kleinen Details machen viel aus: gut gewürzter Reis, nicht zu nasse Füllungen und ein festes Rollen.',
           shoppingTitle: 'Reis, Gim und Füllungen',
           shoppingText:
             'Kimbap-Gim und eingelegter Rettich sind im Asia-Markt am einfachsten zu finden. Für den Reis funktionieren Sushi-Reis oder Milchreis oft besser als lockerer Langkornreis.',
@@ -266,7 +335,32 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
             },
           ],
         }
-      : defaultGuide;
+      : {
+          eyebrow: 'Korean rice rolls',
+          introTitle: 'Kimbap that holds together when sliced',
+          intro:
+            'Kimbap looks simple, but the small details matter: well-seasoned rice, fillings that are not too wet, and a firm roll.',
+          shoppingTitle: 'Rice, gim, and fillings',
+          shoppingText:
+            'Kimbap gim and pickled radish are easiest to find at Asian grocery stores. For the rice, sushi rice or short-grain rice works better than loose long-grain rice.',
+          tips: [
+            'Season the warm rice with sesame oil and salt, then let it cool slightly before rolling.',
+            'Do not make the fillings too wet, or the seaweed sheet may tear.',
+            'Lightly wet or oil the knife before slicing.',
+          ],
+          faq: [
+            {
+              question: 'Which rice is good for Kimbap?',
+              answer:
+                'Short-grain rice, sushi rice, or similar sticky rice works better than long-grain rice.',
+            },
+            {
+              question: 'Why does my Kimbap fall apart?',
+              answer:
+                'Usually there is too much filling or the rice is too wet. Roll more firmly and use a little less filling.',
+            },
+          ],
+        };
   }
 
   return defaultGuide;
