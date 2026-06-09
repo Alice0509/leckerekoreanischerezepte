@@ -958,9 +958,18 @@ const RecipeDetail = ({ recipe, error }) => {
           </aside>
 
           <section className={styles.instructionsColumn}>
-            <div className={styles.description}>
-              {renderContent(description)}
-            </div>
+            {description && (
+              <section className={styles.recipeNotes}>
+                <h3>
+                  {mappedLocale === 'de'
+                    ? 'Meine Notizen zu diesem Rezept'
+                    : 'My notes for this recipe'}
+                </h3>
+                <div className={styles.description}>
+                  {renderContent(description)}
+                </div>
+              </section>
+            )}
 
             <section className={styles.practicalInfoGrid}>
               <article className={styles.practicalInfoCard}>

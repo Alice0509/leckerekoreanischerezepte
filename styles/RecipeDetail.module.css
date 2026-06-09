@@ -516,3 +516,29 @@
     min-width: 0;
   }
 }
+
+.recipeNotes {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 14px;
+  background: #fffaf4;
+  border: 1px solid rgba(120, 80, 45, 0.14);
+  box-shadow: 0 8px 22px rgba(60, 40, 25, 0.05);
+}
+
+.recipeNotes h3 {
+  margin: 0 0 12px;
+  color: #2f241f;
+  font-size: 1.18rem;
+}
+
+.recipeNotes .description {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .recipeNotes {
+    padding: 15px;
+    border-radius: 12px;
+  }
+}
