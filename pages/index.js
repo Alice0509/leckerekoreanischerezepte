@@ -402,8 +402,8 @@ const Home = ({ recipes, favorites, error }) => {
             <div className={styles.previewHeader}>
               <h2 className={styles.previewTitle}>
                 {mappedLocale === 'de-DE'
-                  ? 'Beliebte koreanische Rezepte'
-                  : 'Featured Korean recipes'}
+                  ? 'Rezepte aus meiner Küche'
+                  : 'Recipes from My Kitchen'}
               </h2>
             </div>
 
