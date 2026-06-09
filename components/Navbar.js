@@ -23,7 +23,7 @@ const Navbar = () => {
           {mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}
         </Link>
         <Link href="/gallery" className={styles.navLink}>
-          {mappedLocale === 'de' ? 'Galerie' : 'Gallery'}
+          {mappedLocale === 'de' ? 'Favoriten' : 'Favorites'}
         </Link>
         <Link href="/about-us" className={styles.navLink}>
           {mappedLocale === 'de' ? 'Über uns' : 'About Us'}

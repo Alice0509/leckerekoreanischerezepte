@@ -1,5 +1,5 @@
 // pages/gallery.js
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import client from '../lib/contentful';
 import Image from 'next/image';
 import styles from '../styles/Gallery.module.css';
@@ -77,45 +77,6 @@ export default function Gallery({ galleryItems, favorites }) {
   const isDE = router.locale === 'de';
 
   /* -----------------------------------------------------------
-     Unsplash Infinite Scroll
-  ----------------------------------------------------------- */
-  const [unsplash, setUnsplash] = useState([]);
-  const [page, setPage] = useState(1);
-  const loadMoreRef = useRef(null);
-
-  const fetchUnsplash = async (pageNum) => {
-    try {
-      const res = await fetch(
-        `/api/unsplash?query=korean%20food&count=12&page=${pageNum}`
-      );
-      if (!res.ok) return;
-
-      const data = await res.json();
-      setUnsplash((prev) => [...prev, ...data]);
-    } catch (e) {
-      console.log('Unsplash fetch failed:', e);
-    }
-  };
-
-  useEffect(() => {
-    fetchUnsplash(page);
-  }, [page]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setPage((prev) => prev + 1);
-        }
-      },
-      { threshold: 1 }
-    );
-
-    if (loadMoreRef.current) observer.observe(loadMoreRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  /* -----------------------------------------------------------
      Favorite Links Checker
   ----------------------------------------------------------- */
   const [validLinks, setValidLinks] = useState({});
@@ -151,12 +112,14 @@ export default function Gallery({ galleryItems, favorites }) {
     <main className={styles.container}>
       {/* A. FAVORITES */}
       <section className={styles.section}>
-        <h2 className={styles.subtitle}>{isDE ? 'Favoriten' : 'Favorites'}</h2>
+        <h2 className={styles.subtitle}>
+          {isDE ? 'Meine Einkaufsliste' : 'My Shopping List'}
+        </h2>
 
         <p className={styles.notice}>
           {isDE
-            ? '※ Hinweis: Diese Links sind keine Werbung oder Affiliate-Links. Es sind einfach Produkte, die ich im Alltag oft verwende.'
-            : '※ Note: These links are not ads or affiliate links – just products I personally use in daily life.'}
+            ? '※ Hinweis: Diese Links sind keine Werbung oder Affiliate-Links. Das ist meine persönliche Einkaufsliste mit Produkten, die ich im Alltag oft verwende.'
+            : '※ Note: These links are not ads or affiliate links — this is my personal shopping list with products I often use in daily life.'}
         </p>
 
         <div className={styles.memoGrid}>
@@ -220,7 +183,15 @@ export default function Gallery({ galleryItems, favorites }) {
 
       {/* B. GALLERY (Polaroid style) */}
       <section className={styles.section}>
-        <h2 className={styles.subtitle}>{isDE ? 'Fotos' : 'Photos'}</h2>
+        <h2 className={styles.subtitle}>
+          {isDE ? 'Aus meiner Küche' : 'From My Kitchen'}
+        </h2>
+
+        <p className={styles.notice}>
+          {isDE
+            ? 'Kleine Fotos und Notizen aus meinem Alltag — selbst gekocht, ausprobiert oder für später festgehalten.'
+            : 'Small photos and notes from my everyday kitchen — cooked, tested, or saved for later.'}
+        </p>
 
         <div className={styles.grid}>
           {galleryItems.map((g) => (
@@ -244,28 +215,6 @@ export default function Gallery({ galleryItems, favorites }) {
             </article>
           ))}
         </div>
-      </section>
-
-      {/* C. UNSPLASH — Infinite scroll */}
-      <section className={styles.section}>
-        <h2 className={styles.subtitle}>Unsplash</h2>
-
-        <div className={styles.grid}>
-          {unsplash.map((p) => (
-            <div key={p.id} className={styles.unsplashCard}>
-              <Image
-                src={p.urls.small}
-                alt={p.alt_description || ''}
-                width={300}
-                height={200}
-                className={styles.unsplashImg}
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
-
-        <div ref={loadMoreRef} style={{ height: 40 }} />
       </section>
     </main>
   );
