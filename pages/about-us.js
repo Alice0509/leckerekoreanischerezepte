@@ -13,22 +13,26 @@ const AboutUs = () => {
     en: {
       title: 'About Us | Hansik Young',
       description:
-        'Hansik Young — Korean home-cooking inspired by everyday life in Germany.',
+        'Hansik Young is my personal archive of Korean home cooking — recipes I truly love, cook myself, and want to leave behind for my child.',
       h1: 'About Us',
       intro:
-        'Korean home-cooking inspired by everyday life in Germany. Simple recipes made with familiar ingredients — warm, honest, and made at home.',
+        'Hansik Young is my personal archive of Korean home cooking. I share recipes I truly enjoy, cook myself, and want to preserve for my child and anyone who loves honest Korean food.',
+      secondParagraph:
+        'These are not random recipes collected for trends. They are dishes that taste like home to me — from familiar Korean classics to everyday meals, side dishes, sauces, and ingredients I actually use in Germany.',
       messageTitle: 'A message to my child',
       message:
         '"I collect these recipes so that one day, if you miss my cooking, you can always find your favorite dishes again."',
       contact: 'Contact',
     },
     de: {
-      title: 'Über Uns | Hansik Young',
+      title: 'Über uns | Hansik Young',
       description:
-        'Hansik Young — Koreanische Hausküche, inspiriert vom Alltag in Deutschland.',
-      h1: 'Über Uns',
+        'Hansik Young ist mein persönliches Archiv koreanischer Hausmannskost — Rezepte, die ich selbst liebe, koche und für mein Kind bewahren möchte.',
+      h1: 'Über uns',
       intro:
-        'Koreanische Hausküche – einfach, ehrlich und mit Zutaten, die man in Deutschland leicht findet.',
+        'Hansik Young ist mein persönliches Archiv koreanischer Hausmannskost. Ich teile hier Rezepte, die ich selbst gerne koche, wirklich lecker finde und für mein Kind bewahren möchte.',
+      secondParagraph:
+        'Das sind keine zufällig gesammelten Trend-Rezepte. Es sind Gerichte, die für mich nach Zuhause schmecken – von bekannten koreanischen Klassikern bis zu kleinen Alltagsgerichten, Beilagen, Saucen und Zutaten, die ich in Deutschland wirklich benutze.',
       messageTitle: 'Eine Nachricht an mein Kind',
       message:
         '„Ich sammle diese Rezepte, damit du eines Tages, wenn du mein Essen vermisst, deine Lieblingsgerichte wiederfinden kannst.“',
@@ -37,14 +41,27 @@ const AboutUs = () => {
   };
 
   const t = content[lang];
+  const baseUrl = 'https://www.leckere-koreanische-rezepte.de';
+  const canonicalUrl = `${baseUrl}/${lang}/about-us`;
 
   return (
     <>
       <NextSeo
         title={t.title}
         description={t.description}
+        canonical={canonicalUrl}
+        languageAlternates={[
+          {
+            hrefLang: 'de',
+            href: `${baseUrl}/de/about-us`,
+          },
+          {
+            hrefLang: 'en',
+            href: `${baseUrl}/en/about-us`,
+          },
+        ]}
         openGraph={{
-          url: 'https://www.leckere-koreanische-rezepte.de/about-us',
+          url: canonicalUrl,
           title: t.title,
           description: t.description,
           images: [
@@ -58,7 +75,7 @@ const AboutUs = () => {
       />
 
       <ArticleJsonLd
-        url="https://www.leckere-koreanische-rezepte.de/about-us"
+        url={canonicalUrl}
         title={t.title}
         images={[
           'https://www.leckere-koreanische-rezepte.de/images/about-us-og-image.png',
@@ -83,6 +100,7 @@ const AboutUs = () => {
         </div>
 
         <p className={styles.intro}>{t.intro}</p>
+        <p className={styles.intro}>{t.secondParagraph}</p>
 
         <div className={styles.messageBox}>
           <h2 className={styles.messageTitle}>💛 {t.messageTitle}</h2>
