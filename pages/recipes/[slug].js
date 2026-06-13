@@ -673,18 +673,20 @@ const RecipeDetail = ({ recipe, error }) => {
     adaptiveHeight: true,
   };
 
+  const shouldLinkIngredient = (ingredient) => {
+    const hasUsefulDetail =
+      (typeof ingredient.description === 'string' &&
+        ingredient.description.trim() !== '') ||
+      (ingredient.description && typeof ingredient.description === 'object');
+
+    const hasRealImage =
+      ingredient.bild && ingredient.bild !== '/images/default.png';
+
+    return ingredient.slug && (hasUsefulDetail || hasRealImage);
+  };
+
   const ingredientCards = ingredients
-    .filter((ingredient) => {
-      const hasUsefulDetail =
-        (typeof ingredient.description === 'string' &&
-          ingredient.description.trim() !== '') ||
-        (ingredient.description && typeof ingredient.description === 'object');
-
-      const hasRealImage =
-        ingredient.bild && ingredient.bild !== '/images/default.png';
-
-      return ingredient.slug && (hasUsefulDetail || hasRealImage);
-    })
+    .filter((ingredient) => shouldLinkIngredient(ingredient))
     .slice(0, 6);
 
   const descriptionText = useMemo(() => {
@@ -932,7 +934,7 @@ const RecipeDetail = ({ recipe, error }) => {
                           checkedIngredients[index] ? styles.checked : ''
                         }
                       >
-                        {ingredient.slug ? (
+                        {shouldLinkIngredient(ingredient) ? (
                           <Link
                             href={`/ingredients/${ingredient.slug}`}
                             className={styles.ingredientLink}
