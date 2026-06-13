@@ -14,6 +14,224 @@ import Head from 'next/head';
 const recipesCache = {};
 const favoritesCache = {};
 
+const RECIPE_CATEGORY_LABELS = {
+  soups: {
+    de: 'Eintöpfe & Suppen',
+    en: 'Stews & soups',
+  },
+  riceNoodles: {
+    de: 'Reis & Nudeln',
+    en: 'Rice & noodles',
+  },
+  sideDishes: {
+    de: 'Beilagen',
+    en: 'Side dishes',
+  },
+  mainDishes: {
+    de: 'Hauptgerichte',
+    en: 'Main dishes',
+  },
+  streetFood: {
+    de: 'Street Food',
+    en: 'Street food',
+  },
+  saucesBasics: {
+    de: 'Saucen & Basics',
+    en: 'Sauces & basics',
+  },
+  sweetsBaking: {
+    de: 'Süßes & Gebäck',
+    en: 'Sweets & baking',
+  },
+};
+
+const RECIPE_CATEGORY_ORDER = [
+  'soups',
+  'riceNoodles',
+  'sideDishes',
+  'mainDishes',
+  'streetFood',
+  'saucesBasics',
+  'sweetsBaking',
+];
+
+const getRecipeCategoryLocale = (locale) => (locale === 'de' ? 'de' : 'en');
+
+const getRecipeCategoryLabel = (categoryKey, locale) => {
+  const language = getRecipeCategoryLocale(locale);
+  return (
+    RECIPE_CATEGORY_LABELS[categoryKey]?.[language] ||
+    RECIPE_CATEGORY_LABELS.mainDishes[language]
+  );
+};
+
+const hasAnyRecipeKeyword = (value, keywords) => {
+  const haystack = `${value || ''}`.toLowerCase();
+  return keywords.some((keyword) => haystack.includes(keyword.toLowerCase()));
+};
+
+const getRecipeCategoryKey = ({ title, slug, category }) => {
+  const value = `${title || ''} ${slug || ''} ${category || ''}`;
+
+  if (
+    hasAnyRecipeKeyword(value, [
+      'jjigae',
+      'guk',
+      'soup',
+      'stew',
+      'miyeokguk',
+      'yukgaejang',
+      'kimchi-udon',
+      'mandu-guk',
+      'tteokguk',
+      '잔치국수',
+      '국',
+      '찌개',
+      '육개장',
+      '미역국',
+    ])
+  ) {
+    return 'soups';
+  }
+
+  if (
+    hasAnyRecipeKeyword(value, [
+      'rice',
+      'fried-rice',
+      'bibimbap',
+      'kimbap',
+      'gimbap',
+      'japchae',
+      'noodle',
+      'noodles',
+      'guksu',
+      'udon',
+      'pasta',
+      'bap',
+      '밥',
+      '김밥',
+      '잡채',
+      '국수',
+      '우동',
+      '파스타',
+    ])
+  ) {
+    return 'riceNoodles';
+  }
+
+  if (
+    hasAnyRecipeKeyword(value, [
+      'namul',
+      'muchim',
+      'jorim',
+      'jangjorim',
+      'eomuk',
+      'eggplant',
+      'spinach',
+      'kongnamul',
+      'sukju',
+      'gyeranjjim',
+      'side dish',
+      '나물',
+      '무침',
+      '조림',
+      '계란찜',
+      '어묵',
+      '가지',
+      '콩나물',
+      '숙주',
+      '시금치',
+    ])
+  ) {
+    return 'sideDishes';
+  }
+
+  if (
+    hasAnyRecipeKeyword(value, [
+      'sauce',
+      'ssamjang',
+      'chogochujang',
+      'dressing',
+      'jjajang-sauce',
+      'tonkatsu-sauce',
+      'marinade',
+      '초고추장',
+      '쌈장',
+      '소스',
+      '드레싱',
+      '짜장',
+    ])
+  ) {
+    return 'saucesBasics';
+  }
+
+  if (
+    hasAnyRecipeKeyword(value, [
+      'hotteok',
+      'waffle',
+      'pecan',
+      'pie',
+      'soboro',
+      'cookie',
+      'danpatbbang',
+      'bread',
+      'cake',
+      'sweet',
+      '호떡',
+      '와플',
+      '파이',
+      '쿠키',
+      '빵',
+      '단팥빵',
+    ])
+  ) {
+    return 'sweetsBaking';
+  }
+
+  if (
+    hasAnyRecipeKeyword(value, [
+      'tteokbokki',
+      'toast',
+      'street',
+      'snack',
+      'boiled-potatoes',
+      'jeon',
+      'pancake',
+      '떡볶이',
+      '토스트',
+      '감자',
+      '전',
+      '김치전',
+    ])
+  ) {
+    return 'streetFood';
+  }
+
+  if (
+    hasAnyRecipeKeyword(value, [
+      'bulgogi',
+      'pork',
+      'ribs',
+      'squid',
+      'chicken',
+      'tonkatsu',
+      'jicoba',
+      'beef',
+      'main',
+      '불고기',
+      '돼지갈비',
+      '오징어',
+      '치킨',
+      '돈가스',
+      '고기',
+    ])
+  ) {
+    return 'mainDishes';
+  }
+
+  return 'mainDishes';
+};
+
 export async function getStaticProps({ locale }) {
   try {
     const mappedLocale = locale === 'de' ? 'de' : 'en';
@@ -97,11 +315,21 @@ export async function getStaticProps({ locale }) {
         }
       }
 
+      const categoryKey = getRecipeCategoryKey({
+        title: item.fields.titel,
+        slug: item.fields.slug,
+        category,
+      });
+
+      const displayCategory = getRecipeCategoryLabel(categoryKey, locale);
+
       return {
         id: item.sys.id,
         slug: item.fields.slug,
         titel: item.fields.titel,
-        category,
+        category: displayCategory,
+        categoryKey,
+        originalCategory: category,
         youTubeUrl: item.fields.youTubeUrl || null,
         image: imageUrl || '/images/default.png',
         descriptionText,
@@ -166,20 +394,18 @@ const Home = ({ recipes, favorites, error }) => {
   );
 
   const categories = useMemo(() => {
-    return [
-      ...new Set(
-        recipes
-          .map((item) => item.category)
-          .flatMap((category) => category.split(', '))
-          .filter(Boolean)
-      ),
-    ];
-  }, [recipes]);
+    const presentCategories = new Set(recipes.map((item) => item.categoryKey));
+
+    return RECIPE_CATEGORY_ORDER.map((categoryKey) => ({
+      key: categoryKey,
+      label: getRecipeCategoryLabel(categoryKey, locale),
+    })).filter((category) => presentCategories.has(category.key));
+  }, [recipes, locale]);
 
   const filteredItems = useMemo(() => {
     return recipes.filter((item) => {
       const matchesCategory = selectedCategory
-        ? item.category.split(', ').includes(selectedCategory)
+        ? item.categoryKey === selectedCategory
         : true;
       return matchesCategory;
     });
@@ -434,9 +660,9 @@ const Home = ({ recipes, favorites, error }) => {
                 <option value="">
                   {mappedLocale === 'de-DE' ? 'Kategorie' : 'Category'}
                 </option>
-                {categories.map((category, index) => (
-                  <option key={index} value={category}>
-                    {category}
+                {categories.map((category) => (
+                  <option key={category.key} value={category.key}>
+                    {category.label}
                   </option>
                 ))}
               </select>
