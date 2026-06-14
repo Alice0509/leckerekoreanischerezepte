@@ -11,28 +11,28 @@ const AboutUs = () => {
 
   const content = {
     en: {
-      title: 'About Us | Hansik Young',
+      title: 'About Hansik Young – Korean Home Cooking in Germany',
       description:
-        'Hansik Young is my personal archive of Korean home cooking — recipes I truly love, cook myself, and want to leave behind for my child.',
-      h1: 'About Us',
+        'Hansik Young is my personal archive of Korean home cooking in Germany, with recipes, ingredient notes, and dishes I actually cook at home.',
+      h1: 'About Hansik Young',
       intro:
-        'Hansik Young is my personal archive of Korean home cooking. I share recipes I truly enjoy, cook myself, and want to preserve for my child and anyone who loves honest Korean food.',
+        'Hansik Young is my personal archive of Korean home cooking in Germany. I collect the dishes I really cook at home — everyday meals, soups, stews, side dishes, sauces, and small kitchen basics.',
       secondParagraph:
-        'These are not random recipes collected for trends. They are dishes that taste like home to me — from familiar Korean classics to everyday meals, side dishes, sauces, and ingredients I actually use in Germany.',
-      messageTitle: 'A message to my child',
+        'Because I live in Germany, I also write down which ingredients I can actually find and use here. Sometimes they come from an Asian market, sometimes from a regular supermarket, and sometimes a recipe just needs a small adjustment.',
+      messageTitle: 'A note to my child',
       message:
-        '"I collect these recipes so that one day, if you miss my cooking, you can always find your favorite dishes again."',
+        '“I collect these recipes so that one day, when you miss my cooking, you can find your favorite dishes again.”',
       contact: 'Contact',
     },
     de: {
-      title: 'Über uns | Hansik Young',
+      title: 'Über Hansik Young – Koreanische Hausmannskost in Deutschland',
       description:
-        'Hansik Young ist mein persönliches Archiv koreanischer Hausmannskost — Rezepte, die ich selbst liebe, koche und für mein Kind bewahren möchte.',
-      h1: 'Über uns',
+        'Hansik Young ist ein persönliches Archiv für koreanische Hausmannskost in Deutschland – mit Rezepten, Zutaten-Notizen und Gerichten, die ich wirklich zu Hause koche.',
+      h1: 'Über Hansik Young',
       intro:
-        'Hansik Young ist mein persönliches Archiv koreanischer Hausmannskost. Ich teile hier Rezepte, die ich selbst gerne koche, wirklich lecker finde und für mein Kind bewahren möchte.',
+        'Hansik Young ist mein persönliches Archiv für koreanische Hausmannskost in Deutschland. Ich sammle hier Gerichte, die ich zu Hause wirklich koche — Alltagsgerichte, Suppen, Eintöpfe, Beilagen, Saucen und kleine Küchenbasics.',
       secondParagraph:
-        'Das sind keine zufällig gesammelten Trend-Rezepte. Es sind Gerichte, die für mich nach Zuhause schmecken – von bekannten koreanischen Klassikern bis zu kleinen Alltagsgerichten, Beilagen, Saucen und Zutaten, die ich in Deutschland wirklich benutze.',
+        'Da ich in Deutschland lebe, schreibe ich auch auf, welche Zutaten ich hier wirklich finde und benutze. Manchmal kommen sie aus dem Asia-Markt, manchmal aus dem normalen Supermarkt, und manchmal braucht ein Rezept einfach eine kleine Anpassung.',
       messageTitle: 'Eine Nachricht an mein Kind',
       message:
         '„Ich sammle diese Rezepte, damit du eines Tages, wenn du mein Essen vermisst, deine Lieblingsgerichte wiederfinden kannst.“',
@@ -80,7 +80,7 @@ const AboutUs = () => {
         images={[
           'https://www.leckere-koreanische-rezepte.de/images/about-us-og-image.png',
         ]}
-        authorName="Joan"
+        authorName="Joan von Hansik Young"
         publisherName="Hansik Young"
         publisherLogo="https://www.leckere-koreanische-rezepte.de/images/logo.png"
         description={t.description}
