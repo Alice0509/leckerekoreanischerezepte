@@ -61,24 +61,28 @@ module.exports = withPWA(
           has: [{ type: 'host', value: 'hansikyoung.de' }],
           destination: 'https://www.leckere-koreanische-rezepte.de/:path*',
           permanent: true,
+          locale: false,
         },
         {
           source: '/:path*',
           has: [{ type: 'host', value: 'www.hansikyoung.de' }],
           destination: 'https://www.leckere-koreanische-rezepte.de/:path*',
           permanent: true,
+          locale: false,
         },
         {
           source: '/:path*',
           has: [{ type: 'host', value: 'hansikyoung.com' }],
           destination: 'https://www.leckere-koreanische-rezepte.de/:path*',
           permanent: true,
+          locale: false,
         },
         {
           source: '/:path*',
           has: [{ type: 'host', value: 'www.hansikyoung.com' }],
           destination: 'https://www.leckere-koreanische-rezepte.de/:path*',
           permanent: true,
+          locale: false,
         },
       ];
     },
