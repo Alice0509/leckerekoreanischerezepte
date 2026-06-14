@@ -5,9 +5,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 // ───────────────────────────────────────────────────────────
 // PWA 설정
-//  - dev 환경(disable) : true → 서비스워커 미등록
-//  - prod/preview      : false → 서비스워커 등록 + 캐싱
-//  - runtimeCaching    : Unsplash·Instagram 이미지 CacheFirst
 // ───────────────────────────────────────────────────────────
 const withPWA = require('next-pwa')({
   dest: 'public',
@@ -41,19 +38,49 @@ module.exports = withPWA(
       locales: ['de', 'en'],
       defaultLocale: 'en',
     },
+
     images: {
       remotePatterns: [
         { protocol: 'https', hostname: 'images.ctfassets.net' },
         { protocol: 'https', hostname: 'img.youtube.com' },
-        // 🔹 Unsplash 원본 도메인 추가
         { protocol: 'https', hostname: 'images.unsplash.com' },
-        // 🔹 Instagram CDN(릴스·썸네일) 추가 (옵셔널)
         { protocol: 'https', hostname: 'scontent.cdninstagram.com' },
       ],
     },
+
     experimental: {
-      largePageDataBytes: 150 * 1024, // 150 KB
+      largePageDataBytes: 150 * 1024,
     },
+
     reactStrictMode: true,
+
+    async redirects() {
+      return [
+        {
+          source: '/:path*',
+          has: [{ type: 'host', value: 'hansikyoung.de' }],
+          destination: 'https://www.leckere-koreanische-rezepte.de/:path*',
+          permanent: true,
+        },
+        {
+          source: '/:path*',
+          has: [{ type: 'host', value: 'www.hansikyoung.de' }],
+          destination: 'https://www.leckere-koreanische-rezepte.de/:path*',
+          permanent: true,
+        },
+        {
+          source: '/:path*',
+          has: [{ type: 'host', value: 'hansikyoung.com' }],
+          destination: 'https://www.leckere-koreanische-rezepte.de/:path*',
+          permanent: true,
+        },
+        {
+          source: '/:path*',
+          has: [{ type: 'host', value: 'www.hansikyoung.com' }],
+          destination: 'https://www.leckere-koreanische-rezepte.de/:path*',
+          permanent: true,
+        },
+      ];
+    },
   })
 );
