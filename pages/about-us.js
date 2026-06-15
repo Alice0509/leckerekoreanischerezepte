@@ -23,6 +23,23 @@ const AboutUs = () => {
       message:
         '“I collect these recipes so that one day, when you miss my cooking, you can find your favorite dishes again.”',
       contact: 'Contact',
+      projectsTitle: 'Other projects by Joan',
+      projectsIntro:
+        'Besides Hansik Young, Joan also works on small digital projects that make everyday life in Germany a little easier.',
+      projects: [
+        {
+          name: 'Schulferienklar',
+          href: 'https://www.schulferienklar.de/',
+          description:
+            'German school holidays, public holidays and free days by federal state.',
+        },
+        {
+          name: 'Germany Travel Checker',
+          href: 'https://germanytravelchecker.com/',
+          description:
+            'A simple travel checker for visitors planning a trip around German holidays, Sundays and possible disruptions.',
+        },
+      ],
     },
     de: {
       title: 'Über Hansik Young – Koreanische Hausmannskost in Deutschland',
@@ -37,6 +54,23 @@ const AboutUs = () => {
       message:
         '„Ich sammle diese Rezepte, damit du eines Tages, wenn du mein Essen vermisst, deine Lieblingsgerichte wiederfinden kannst.“',
       contact: 'Kontakt',
+      projectsTitle: 'Weitere Projekte von Joan',
+      projectsIntro:
+        'Neben Hansik Young arbeitet Joan auch an kleinen digitalen Projekten, die den Alltag in Deutschland ein bisschen einfacher machen.',
+      projects: [
+        {
+          name: 'Schulferienklar',
+          href: 'https://www.schulferienklar.de/',
+          description:
+            'Schulferien, Feiertage und freie Tage in Deutschland übersichtlich nach Bundesland.',
+        },
+        {
+          name: 'Germany Travel Checker',
+          href: 'https://germanytravelchecker.com/',
+          description:
+            'Ein einfacher Reise-Checker für Besucher, die ihre Deutschlandreise rund um Feiertage, Sonntage und mögliche Einschränkungen planen.',
+        },
+      ],
     },
   };
 
@@ -106,6 +140,29 @@ const AboutUs = () => {
           <h2 className={styles.messageTitle}>💛 {t.messageTitle}</h2>
           <p className={styles.message}>{t.message}</p>
         </div>
+
+        <section className={styles.projectsSection}>
+          <p className={styles.projectsEyebrow}>
+            {lang === 'de' ? 'Joans Projekte' : 'Joan’s projects'}
+          </p>
+          <h2>{t.projectsTitle}</h2>
+          <p className={styles.projectsIntro}>{t.projectsIntro}</p>
+
+          <div className={styles.projectsGrid}>
+            {t.projects.map((project) => (
+              <a
+                key={project.href}
+                href={project.href}
+                className={styles.projectCard}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>{project.name}</span>
+                <small>{project.description}</small>
+              </a>
+            ))}
+          </div>
+        </section>
 
         <p className={styles.contact}>
           📧 {t.contact}:{' '}
