@@ -427,7 +427,7 @@ export async function getStaticProps({ params, locale }) {
     if (ingredientCache[cacheKey]) {
       return {
         props: ingredientCache[cacheKey],
-        revalidate: 60,
+        revalidate: 60 * 60 * 12,
       };
     }
 
@@ -600,7 +600,7 @@ export async function getStaticProps({ params, locale }) {
 
     return {
       props,
-      revalidate: 60,
+      revalidate: 60 * 60 * 12,
     };
   } catch (error) {
     console.error('Error fetching ingredient:', error);
@@ -612,7 +612,7 @@ export async function getStaticProps({ params, locale }) {
         error: 'Failed to fetch ingredient.',
         mappedLocale: locale === 'de' ? 'de' : 'en',
       },
-      revalidate: 60,
+      revalidate: 60 * 60 * 12,
     };
   }
 }

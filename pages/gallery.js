@@ -66,7 +66,7 @@ export async function getStaticProps({ locale }) {
 
   return {
     props: { galleryItems, favorites },
-    revalidate: 60,
+    revalidate: 60 * 60 * 12,
   };
 }
 

@@ -584,7 +584,7 @@ export async function getStaticProps({ params, locale }) {
       props: {
         recipe: finalRecipe,
       },
-      revalidate: 60,
+      revalidate: 60 * 60 * 12,
     };
   } catch (error) {
     console.error('Error fetching recipe:', error);
@@ -593,7 +593,7 @@ export async function getStaticProps({ params, locale }) {
         recipe: null,
         error: 'Failed to fetch recipe.',
       },
-      revalidate: 60,
+      revalidate: 60 * 60 * 12,
     };
   }
 }
