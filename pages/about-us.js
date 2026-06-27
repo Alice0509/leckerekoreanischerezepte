@@ -22,6 +22,9 @@ const AboutUs = () => {
       messageTitle: 'A note to my child',
       message:
         '“I collect these recipes so that one day, when you miss my cooking, you can find your favorite dishes again.”',
+      musicTitle: 'Kitchen music',
+      musicText:
+        'I also made the little kitchen music on this website myself. To me, it belongs to Hansik Young like the smell of rice, soup, and freshly cooked food.',
       contact: 'Contact',
       projectsTitle: 'Other projects by Joan',
       projectsIntro:
@@ -53,6 +56,9 @@ const AboutUs = () => {
       messageTitle: 'Eine Nachricht an mein Kind',
       message:
         '„Ich sammle diese Rezepte, damit du eines Tages, wenn du mein Essen vermisst, deine Lieblingsgerichte wiederfinden kannst.“',
+      musicTitle: 'Küchenmusik',
+      musicText:
+        'Auch die kleine Küchenmusik auf dieser Website habe ich selbst gemacht. Sie gehört für mich zu Hansik Young wie der Duft von Reis, Suppe und frisch gekochtem Essen.',
       contact: 'Kontakt',
       projectsTitle: 'Weitere Projekte von Joan',
       projectsIntro:
@@ -139,6 +145,11 @@ const AboutUs = () => {
         <div className={styles.messageBox}>
           <h2 className={styles.messageTitle}>💛 {t.messageTitle}</h2>
           <p className={styles.message}>{t.message}</p>
+        </div>
+
+        <div className={styles.messageBox}>
+          <h2 className={styles.messageTitle}>♪ {t.musicTitle}</h2>
+          <p className={styles.message}>{t.musicText}</p>
         </div>
 
         <section className={styles.projectsSection}>
