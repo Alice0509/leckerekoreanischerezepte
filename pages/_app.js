@@ -9,6 +9,7 @@ import { GA_TRACKING_ID } from '../lib/gtag';
 import { DefaultSeo } from 'next-seo';
 import ToTopButton from '../components/ToTopButton';
 import ErrorBoundary from '../components/ErrorBoundary';
+import SiteMusicPlayer from '../components/SiteMusicPlayer';
 import CookieConsent, { getCookieConsentValue } from 'react-cookie-consent';
 
 function MyApp({ Component, pageProps }) {
@@ -89,6 +90,7 @@ function MyApp({ Component, pageProps }) {
         <Layout>
           <Component {...pageProps} />
           <ToTopButton />
+          <SiteMusicPlayer />
         </Layout>
       </ErrorBoundary>
 
