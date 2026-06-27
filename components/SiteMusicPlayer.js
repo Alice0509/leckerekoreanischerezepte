@@ -22,10 +22,10 @@ export default function SiteMusicPlayer() {
   const visibleText = isGerman
     ? isPlaying
       ? '♪ Pause'
-      : '♪ Küchenmusik'
+      : '♪ Musik'
     : isPlaying
       ? '♪ Pause'
-      : '♪ Kitchen music';
+      : '♪ Music';
 
   const toggleMusic = async () => {
     if (!audioRef.current) return;
@@ -85,7 +85,7 @@ export default function SiteMusicPlayer() {
       <style jsx>{`
         .musicPlayer {
           position: fixed;
-          right: 16px;
+          left: 16px;
           bottom: 16px;
           z-index: 1000;
         }
@@ -119,13 +119,13 @@ export default function SiteMusicPlayer() {
 
         @media (max-width: 640px) {
           .musicPlayer {
-            right: 12px;
-            bottom: 12px;
+            left: 10px;
+            bottom: 10px;
           }
 
           button {
-            padding: 8px 12px;
-            font-size: 13px;
+            padding: 7px 11px;
+            font-size: 12.5px;
           }
         }
       `}</style>
