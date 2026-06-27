@@ -10,6 +10,7 @@ import { DefaultSeo } from 'next-seo';
 import ToTopButton from '../components/ToTopButton';
 import ErrorBoundary from '../components/ErrorBoundary';
 import SiteMusicPlayer from '../components/SiteMusicPlayer';
+import ErrorBoundary from '../components/ErrorBoundary';
 import CookieConsent, { getCookieConsentValue } from 'react-cookie-consent';
 
 function MyApp({ Component, pageProps }) {
