@@ -22,6 +22,7 @@ export async function getStaticProps({ locale }) {
   // ── Favorite items ────────────────────────────
   const favRes = await client.getEntries({
     content_type: 'favoriteItem',
+    locale: lang,
     include: 1,
   });
 
