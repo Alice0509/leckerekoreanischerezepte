@@ -6,108 +6,163 @@ import styles from '../styles/Datenschutzerklaerung.module.css';
 const Datenschutzerklaerung = () => (
   <>
     <Head>
-      <title>
-        Datenschutzerklärung - Leckere Koreanische Rezepte &amp;
-        HansikYoungRecipes
-      </title>
+      <title>Datenschutzerklärung - Hansik Young</title>
       <meta
         name="description"
-        content="Lesen Sie unsere Datenschutzerklärung, um zu verstehen, wie wir Ihre persönlichen Daten bei Leckere Koreanische Rezepte und HansikYoungRecipes verarbeiten."
+        content="Datenschutzerklärung für Hansik Young, eine Website für koreanische Hausmannskost, Rezepte und Zutaten-Notizen in Deutschland."
       />
     </Head>
+
     <div className={styles.container}>
       <h1 className={styles.heading1}>Datenschutzerklärung</h1>
+
       <p className={styles.paragraph}>
-        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand vom 18.
-        November 2025.
+        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand vom 27.
+        Juni 2026.
       </p>
 
-      {/* Abschnitt 1: Verantwortlicher */}
+      <p className={styles.paragraph}>
+        Diese Datenschutzerklärung erklärt, wie personenbezogene Daten
+        verarbeitet werden, wenn Sie diese Website besuchen.
+      </p>
+
+      <p className={styles.paragraph}>
+        Hansik Young ist eine persönliche Website für koreanische Hausmannskost
+        in Deutschland, mit Rezepten, Zutaten-Notizen und kleinen Küchenbasics.
+      </p>
+
       <h2 className={styles.heading2}>1. Verantwortlicher</h2>
+
       <p className={styles.paragraph}>
         Verantwortlich für die Datenverarbeitung auf dieser Website ist:
       </p>
+
       <p className={styles.paragraph}>
-        [Soojin Lee]
+        Soojin Lee
         <br />
-        [Pentenrieder Str.30]
+        Angaben siehe Impressum
         <br />
-        [82152 Krailling]
-        <br />
-        [joan.korean.rezepte@gmail.com]
-      </p>
-      <p className={styles.paragraph}>
-        Bei Fragen zum Datenschutz wenden Sie sich bitte an die oben genannte
-        Adresse.
+        E-Mail:{' '}
+        <a href="mailto:joan.korean.rezepte@gmail.com" className={styles.link}>
+          joan.korean.rezepte@gmail.com
+        </a>
       </p>
 
-      {/* Abschnitt 2: Erhebung und Speicherung personenbezogener Daten sowie Art und Zweck von deren Verwendung */}
+      <p className={styles.paragraph}>
+        Bei Fragen zum Datenschutz können Sie sich per E-Mail an die oben
+        genannte Adresse wenden.
+      </p>
+
+      <h2 className={styles.heading2}>2. Allgemeine Nutzung der Website</h2>
+
+      <p className={styles.paragraph}>
+        Sie können diese Website grundsätzlich ohne Benutzerkonto nutzen. Hansik
+        Young bietet keine Benutzerkonten, keine sozialen Logins, keine
+        Nutzerprofile und keine standortbasierten Funktionen an.
+      </p>
+
+      <p className={styles.paragraph}>
+        Über diese Website werden nicht absichtlich besondere Kategorien
+        personenbezogener Daten erhoben.
+      </p>
+
+      <h2 className={styles.heading2}>3. Zugriffsdaten und Server-Logfiles</h2>
+
+      <p className={styles.paragraph}>
+        Beim Aufruf dieser Website werden automatisch technische Daten
+        verarbeitet, damit die Website sicher und korrekt ausgeliefert werden
+        kann. Dazu können insbesondere gehören:
+      </p>
+
+      <ul className={styles.list}>
+        <li>IP-Adresse</li>
+        <li>Datum und Uhrzeit des Zugriffs</li>
+        <li>Aufgerufene Seite oder Datei</li>
+        <li>Browsertyp und Browserversion</li>
+        <li>Verwendetes Betriebssystem</li>
+        <li>Referrer-URL</li>
+        <li>Statuscodes und technische Fehlerinformationen</li>
+      </ul>
+
+      <p className={styles.paragraph}>
+        Die Verarbeitung erfolgt, um die Website bereitzustellen, die Sicherheit
+        zu gewährleisten und technische Fehler zu beheben. Rechtsgrundlage ist
+        unser berechtigtes Interesse am sicheren und funktionsfähigen Betrieb
+        der Website gemäß Art. 6 Abs. 1 lit. f DSGVO.
+      </p>
+
+      <h2 className={styles.heading2}>4. Hosting</h2>
+
+      <p className={styles.paragraph}>
+        Diese Website wird bei Vercel gehostet. Vercel kann technische
+        Zugriffsdaten und Server-Logdaten verarbeiten, um Hosting, Sicherheit
+        und Auslieferung der Website bereitzustellen.
+      </p>
+
+      <p className={styles.paragraph}>
+        Anbieter: Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA.
+      </p>
+
       <h2 className={styles.heading2}>
-        2. Erhebung und Speicherung personenbezogener Daten sowie Art und Zweck
-        von deren Verwendung
+        5. Content-Management und Medienauslieferung
       </h2>
 
-      {/* Unterabschnitt a: Server-Logfiles */}
-      <h3 className={styles.heading3}>a) Server-Logfiles</h3>
       <p className={styles.paragraph}>
-        Bei jedem Zugriff auf diese Website werden automatisch Informationen
-        erfasst, die Ihr Browser automatisch übermittelt. Dazu gehören in der
-        Regel:
-      </p>
-      <ul className={styles.list}>
-        <li>IP-Adresse (anonymisiert, sofern technisch möglich)</li>
-        <li>Datum und Uhrzeit des Zugriffs</li>
-        <li>Name und URL der abgerufenen Datei</li>
-        <li>Referrer-URL (die zuvor besuchte Seite)</li>
-        <li>
-          Verwendeter Browser, Betriebssystem sowie der Name Ihres
-          Access-Providers
-        </li>
-      </ul>
-      <p className={styles.paragraph}>
-        Diese Daten werden ausschließlich zum Zweck der technischen
-        Bereitstellung, Sicherheit und Stabilität des Webangebots erhoben (Art.
-        6 Abs. 1 lit. f DSGVO).
+        Rezepte, Zutaten-Texte und einige Medieninhalte dieser Website werden
+        über Contentful verwaltet. Beim Laden von Seiten oder Medien können
+        technische Anfragedaten verarbeitet werden, um diese Inhalte
+        auszuliefern.
       </p>
 
-      {/* Unterabschnitt b: Cookies */}
-      <h3 className={styles.heading3}>b) Cookies</h3>
       <p className={styles.paragraph}>
-        Diese Website verwendet Cookies, um bestimmte Funktionen bereitzustellen
-        und die Benutzerfreundlichkeit zu verbessern.
-      </p>
-      <p className={styles.paragraph}>
-        Technisch notwendige Cookies werden aufgrund unseres berechtigten
-        Interesses (Art. 6 Abs. 1 lit. f DSGVO) gesetzt.
-      </p>
-      <p className={styles.paragraph}>
-        Soweit wir nicht-technisch notwendige Cookies (z. B. für Analysezwecke)
-        nutzen, erfolgt dies nur auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1
-        lit. a DSGVO). Sie können Ihre Einwilligung jederzeit über unsere
-        Cookie-Einstellungen widerrufen.
+        Anbieter: Contentful GmbH, Max-Urich-Straße 3, 13355 Berlin,
+        Deutschland.
       </p>
 
-      {/* Abschnitt 3: Verwendung von Google Analytics */}
-      <h2 className={styles.heading2}>3. Verwendung von Google Analytics</h2>
+      <h2 className={styles.heading2}>6. Cookies und Einwilligung</h2>
+
       <p className={styles.paragraph}>
-        Diese Website nutzt Google Analytics, einen Webanalysedienst der Google
-        Ireland Limited (&quot;Google&quot;), Gordon House, Barrow Street,
-        Dublin 4, Irland.
+        Diese Website verwendet ein Cookie-Banner. Das Banner speichert, ob Sie
+        optionale Cookies akzeptiert oder abgelehnt haben.
       </p>
+
       <p className={styles.paragraph}>
-        Google Analytics verwendet Cookies, die eine Analyse Ihrer Benutzung der
-        Website ermöglichen. Die durch das Cookie erzeugten Informationen (inkl.
-        Ihrer gekürzten IP-Adresse) werden in der Regel an einen Server von
-        Google in den USA übertragen und dort gespeichert.
+        Technisch notwendige Speicherung kann verwendet werden, um Ihre
+        Cookie-Auswahl zu merken und grundlegende Website-Funktionen
+        bereitzustellen. Optionale Analyse-Cookies werden nur nach Ihrer
+        Einwilligung eingesetzt.
       </p>
+
+      <h2 className={styles.heading2}>7. Google Analytics</h2>
+
       <p className={styles.paragraph}>
-        Wir haben die IP-Anonymisierung aktiviert, sodass Ihre IP-Adresse
-        innerhalb der EU/EWR gekürzt wird.
+        Wenn Sie Cookies akzeptieren, nutzt diese Website Google Analytics.
+        Damit möchten wir besser verstehen, wie Besucherinnen und Besucher die
+        Website nutzen. Dies hilft uns, Rezepte, Zutaten-Seiten und die Struktur
+        der Website zu verbessern.
       </p>
+
       <p className={styles.paragraph}>
-        Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie
-        können diese jederzeit über die Cookie-Einstellungen widerrufen.
+        Google Analytics kann Informationen wie Seitenaufrufe, ungefähre
+        Standortinformationen, Browserinformationen, Geräteinformationen und
+        Interaktionsdaten verarbeiten. Google erklärt, dass Google Analytics
+        keine einzelnen IP-Adressen von Nutzerinnen und Nutzern aus der EU, der
+        Schweiz oder dem Vereinigten Königreich protokolliert oder speichert.
       </p>
+
+      <p className={styles.paragraph}>
+        Anbieter: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4,
+        Irland.
+      </p>
+
+      <p className={styles.paragraph}>
+        Google Analytics wird nur nach Ihrer Einwilligung geladen.
+        Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Sie können die Analyse
+        verhindern, indem Sie Cookies ablehnen, Cookies in Ihrem Browser löschen
+        oder entsprechende Datenschutz-Einstellungen und Browser-Erweiterungen
+        verwenden.
+      </p>
+
       <p className={styles.paragraph}>
         Weitere Informationen zum Datenschutz bei Google finden Sie unter:{' '}
         <a
@@ -120,52 +175,53 @@ const Datenschutzerklaerung = () => (
         </a>
       </p>
 
-      {/* Abschnitt 4: Verwendung von Disqus (Kommentar-Funktion) */}
-      <h2 className={styles.heading2}>
-        4. Verwendung von Disqus (Kommentar-Funktion)
-      </h2>
+      <h2 className={styles.heading2}>8. Favoriten und Einkaufsliste</h2>
+
       <p className={styles.paragraph}>
-        Wir verwenden auf dieser Website die Kommentarfunktion des Dienstes
-        Disqus, bereitgestellt von Disqus, Inc., 717 Market St, San Francisco,
-        CA 94103, USA.
+        Wenn Sie Funktionen wie Favoriten oder eine Einkaufsliste nutzen, werden
+        diese Daten lokal in Ihrem Browser auf Ihrem eigenen Gerät gespeichert.
+        Diese Informationen sind nicht mit einem Benutzerkonto verbunden und
+        werden nicht absichtlich an Hansik Young übermittelt.
       </p>
 
-      <h3 className={styles.heading3}>Art der erhobenen Daten:</h3>
       <p className={styles.paragraph}>
-        Wenn Sie einen Kommentar über Disqus hinterlassen, werden in der Regel
-        Ihr eingegebener Name oder Nutzername, Ihre E-Mail-Adresse, Ihre
-        IP-Adresse sowie der Inhalt des Kommentars verarbeitet. Disqus kann
-        zudem Cookies setzen und weitere technische Informationen über Ihr
-        Gerät, Browser etc. erfassen.
+        Sie können diese Daten entfernen, indem Sie die Browserdaten oder
+        Website-Daten für diese Domain löschen.
       </p>
 
-      <h3 className={styles.heading3}>Zweck der Datenverarbeitung:</h3>
+      <h2 className={styles.heading2}>9. Musik-Player</h2>
+
       <p className={styles.paragraph}>
-        Die Daten werden erhoben, um die Kommentarfunktion bereitzustellen, Spam
-        und Missbrauch zu verhindern sowie die Interaktion mit den Nutzern zu
-        ermöglichen.
+        Diese Website enthält einen optionalen Musik-Player. Die Musik startet
+        nicht automatisch. Sie wird nur abgespielt, wenn Sie den Musik-Button
+        aktiv anklicken.
       </p>
 
-      <h3 className={styles.heading3}>Rechtsgrundlage:</h3>
       <p className={styles.paragraph}>
-        Die Verarbeitung erfolgt auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1
-        lit. a DSGVO), die Sie durch die aktive Nutzung der Kommentarfunktion
-        erteilen.
-      </p>
-      <p className={styles.paragraph}>
-        Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie keine
-        weiteren Kommentare mehr abgeben und bestehende Cookies in Ihrem Browser
-        löschen. Die bereits erfolgte Verarbeitung bleibt hiervon unberührt.
+        Der Musik-Player erstellt kein Benutzerkonto und wird nicht verwendet,
+        um Sie zu identifizieren.
       </p>
 
-      <h3 className={styles.heading3}>Datenübermittlung in Drittländer:</h3>
+      <h2 className={styles.heading2}>10. Kommentarfunktion mit Disqus</h2>
+
       <p className={styles.paragraph}>
-        Die Daten können an Server von Disqus in den USA übertragen werden. Wir
-        weisen darauf hin, dass in den USA eventuell kein mit der EU
-        vergleichbares Datenschutzniveau besteht. Disqus erklärt, dass es
-        angemessene Schutzmaßnahmen (z. B. Standardvertragsklauseln) trifft.
-        Weitere Informationen hierzu finden Sie in der Datenschutzerklärung von
-        Disqus:{' '}
+        Auf einigen Seiten kann eine Kommentarfunktion von Disqus eingebunden
+        sein. Die Kommentare werden nicht automatisch für jede Nutzung der
+        Website benötigt. Wenn Sie die Kommentarfunktion laden oder aktiv
+        verwenden, können Daten an Disqus übertragen werden.
+      </p>
+
+      <p className={styles.paragraph}>
+        Dabei können je nach Nutzung technische Daten, Browserinformationen,
+        IP-Adresse, Cookies sowie die von Ihnen eingegebenen Kommentarinhalte
+        verarbeitet werden. Wenn Sie sich bei Disqus anmelden oder über Disqus
+        kommentieren, gelten zusätzlich die Datenschutzbestimmungen von Disqus.
+      </p>
+
+      <p className={styles.paragraph}>Anbieter: Disqus, Inc., USA.</p>
+
+      <p className={styles.paragraph}>
+        Weitere Informationen finden Sie in der Datenschutzerklärung von Disqus:{' '}
         <a
           href="https://help.disqus.com/en/articles/1717103-disqus-privacy-policy"
           target="_blank"
@@ -176,97 +232,89 @@ const Datenschutzerklaerung = () => (
         </a>
       </p>
 
-      <h3 className={styles.heading3}>Speicherdauer:</h3>
+      <h2 className={styles.heading2}>11. Kontakt per E-Mail</h2>
+
       <p className={styles.paragraph}>
-        Die Daten werden so lange gespeichert, wie dies für den Zweck der
-        Bereitstellung der Kommentar-Funktion erforderlich ist oder gesetzliche
-        Aufbewahrungsfristen bestehen.
+        Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die von Ihnen
+        übermittelten Informationen, zum Beispiel Ihre E-Mail-Adresse, Ihre
+        Nachricht und freiwillig angegebene weitere Informationen.
       </p>
 
-      {/* Abschnitt 5: Empfänger von Daten */}
-      <h2 className={styles.heading2}>5. Empfänger von Daten</h2>
       <p className={styles.paragraph}>
-        Eine Übermittlung Ihrer personenbezogenen Daten an Dritte erfolgt nur,
-        wenn
+        Diese Daten verwenden wir nur, um Ihre Nachricht zu beantworten,
+        Feedback zu bearbeiten, mögliche Fehler zu korrigieren oder Fragen zu
+        beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO und, soweit
+        anwendbar, Art. 6 Abs. 1 lit. b DSGVO.
       </p>
+
+      <h2 className={styles.heading2}>12. Externe Links</h2>
+
+      <p className={styles.paragraph}>
+        Diese Website kann Links zu externen Websites enthalten, zum Beispiel zu
+        anderen Projekten von Joan oder zu Social-Media-Seiten. Wenn Sie einen
+        externen Link anklicken, gilt die Datenschutzerklärung der jeweiligen
+        externen Website.
+      </p>
+
+      <h2 className={styles.heading2}>13. Speicherdauer</h2>
+
+      <p className={styles.paragraph}>
+        Personenbezogene Daten werden nur so lange gespeichert, wie dies für die
+        in dieser Datenschutzerklärung genannten Zwecke erforderlich ist oder
+        gesetzliche Aufbewahrungspflichten bestehen.
+      </p>
+
+      <p className={styles.paragraph}>
+        E-Mail-Nachrichten können so lange aufbewahrt werden, wie dies für die
+        Bearbeitung der Anfrage und eine angemessene Dokumentation erforderlich
+        ist. Technische Protokolldaten werden in der Regel nur für einen
+        begrenzten Zeitraum durch Hosting- und Dienstanbieter gespeichert.
+      </p>
+
+      <h2 className={styles.heading2}>14. Ihre Rechte</h2>
+
+      <p className={styles.paragraph}>
+        Nach der DSGVO können Ihnen insbesondere folgende Rechte zustehen:
+      </p>
+
       <ul className={styles.list}>
+        <li>Recht auf Auskunft</li>
+        <li>Recht auf Berichtigung</li>
+        <li>Recht auf Löschung</li>
+        <li>Recht auf Einschränkung der Verarbeitung</li>
+        <li>Recht auf Datenübertragbarkeit</li>
+        <li>Recht auf Widerspruch gegen die Verarbeitung</li>
         <li>
-          Sie Ihre ausdrückliche Einwilligung erteilt haben (Art. 6 Abs. 1 lit.
-          a DSGVO),
+          Recht auf Widerruf einer Einwilligung mit Wirkung für die Zukunft
         </li>
-        <li>
-          dies zur Erfüllung eines Vertrags mit Ihnen erforderlich ist (Art. 6
-          Abs. 1 lit. b DSGVO),
-        </li>
-        <li>
-          eine rechtliche Verpflichtung besteht (Art. 6 Abs. 1 lit. c DSGVO),
-          oder
-        </li>
-        <li>
-          ein berechtigtes Interesse unsererseits besteht und kein überwiegendes
-          schutzwürdiges Interesse Ihrerseits entgegensteht (Art. 6 Abs. 1 lit.
-          f DSGVO).
-        </li>
+        <li>Recht auf Beschwerde bei einer Datenschutzaufsichtsbehörde</li>
       </ul>
 
-      {/* Abschnitt 6: Speicherdauer */}
-      <h2 className={styles.heading2}>6. Speicherdauer</h2>
       <p className={styles.paragraph}>
-        Personenbezogene Daten werden nur so lange gespeichert, wie es für die
-        genannten Zwecke erforderlich ist, es sei denn, gesetzliche
-        Aufbewahrungsfristen stehen einer Löschung entgegen.
+        Zur Ausübung Ihrer Rechte können Sie uns per E-Mail kontaktieren:
       </p>
 
-      {/* Abschnitt 7: Rechte der betroffenen Personen */}
-      <h2 className={styles.heading2}>7. Rechte der betroffenen Personen</h2>
-      <p className={styles.paragraph}>Sie haben das Recht:</p>
-      <ul className={styles.list}>
-        <li>
-          gemäß Art. 15 DSGVO Auskunft über Ihre bei uns verarbeiteten
-          personenbezogenen Daten zu verlangen,
-        </li>
-        <li>
-          gemäß Art. 16 DSGVO unverzüglich die Berichtigung unrichtiger
-          personenbezogener Daten zu verlangen,
-        </li>
-        <li>
-          gemäß Art. 17 DSGVO die Löschung Ihrer bei uns gespeicherten
-          personenbezogenen Daten zu verlangen, sofern keine gesetzlichen
-          Aufbewahrungsfristen oder andere legitime Gründe dagegen sprechen,
-        </li>
-        <li>
-          gemäß Art. 18 DSGVO die Einschränkung der Verarbeitung Ihrer
-          personenbezogenen Daten zu verlangen,
-        </li>
-        <li>
-          gemäß Art. 20 DSGVO Ihre personenbezogenen Daten in einem
-          strukturierten, gängigen und maschinenlesbaren Format zu erhalten,
-        </li>
-        <li>
-          gemäß Art. 21 DSGVO Widerspruch gegen die Verarbeitung einzulegen,
-          sofern diese auf Art. 6 Abs. 1 lit. f DSGVO beruht,
-        </li>
-        <li>
-          gemäß Art. 7 Abs. 3 DSGVO Ihre einmal erteilte Einwilligung jederzeit
-          mit Wirkung für die Zukunft zu widerrufen,
-        </li>
-        <li>
-          gemäß Art. 77 DSGVO bei einer Aufsichtsbehörde Beschwerde
-          einzureichen, wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer
-          personenbezogenen Daten rechtswidrig erfolgt.
-        </li>
-      </ul>
+      <p className={styles.paragraph}>
+        <a href="mailto:joan.korean.rezepte@gmail.com" className={styles.link}>
+          joan.korean.rezepte@gmail.com
+        </a>
+      </p>
 
-      {/* Abschnitt 8: Aktualität und Änderung dieser Datenschutzerklärung */}
+      <h2 className={styles.heading2}>15. Kinder</h2>
+
+      <p className={styles.paragraph}>
+        Diese Website richtet sich nicht gezielt an Kinder und erhebt nicht
+        wissentlich personenbezogene Daten von Kindern.
+      </p>
+
       <h2 className={styles.heading2}>
-        8. Aktualität und Änderung dieser Datenschutzerklärung
+        16. Aktualität und Änderung dieser Datenschutzerklärung
       </h2>
+
       <p className={styles.paragraph}>
-        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand [Datum
-        einfügen]. Durch technische Weiterentwicklungen oder gesetzliche
-        Änderungen kann es notwendig werden, diese Datenschutzerklärung
-        anzupassen. Die jeweils aktuelle Fassung kann jederzeit auf unserer
-        Website abgerufen und ausgedruckt werden.
+        Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren,
+        zum Beispiel wenn sich die Website oder rechtliche Anforderungen ändern.
+        Die jeweils aktuelle Version ist auf dieser Seite verfügbar.
       </p>
     </div>
   </>
