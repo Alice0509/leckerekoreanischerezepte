@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.leckere-koreanische-rezepte.de
+Host: https://www.hansikyoung.com
 
 # Sitemaps
-Sitemap: https://www.leckere-koreanische-rezepte.de/sitemap.xml
+Sitemap: https://www.hansikyoung.com/sitemap.xml
