@@ -509,13 +509,13 @@ const Home = ({ recipes, favorites, error }) => {
           <div className={styles.heroText}>
             <p className={styles.heroEyebrow}>
               {mappedLocale === 'de-DE'
-                ? 'Koreanisch kochen mit Hansik Young'
+                ? 'Koreanisch kochen in Deutschland'
                 : 'Korean home cooking with Hansik Young'}
             </p>
 
             <h1 className={styles.heroTitle}>
               {mappedLocale === 'de-DE'
-                ? 'Koreanische Rezepte für den Alltag'
+                ? 'Koreanische Hausmannskost mit Zutaten, die du in Deutschland findest'
                 : 'Warm Korean recipes for everyday home cooking'}
             </h1>
 
