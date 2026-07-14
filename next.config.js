@@ -37,6 +37,17 @@ module.exports = withPWA(
     i18n: {
       locales: ['de', 'en'],
       defaultLocale: 'en',
+      localeDetection: false,
+      domains: [
+        {
+          domain: 'www.hansikyoung.com',
+          defaultLocale: 'en',
+        },
+        {
+          domain: 'www.leckere-koreanische-rezepte.de',
+          defaultLocale: 'de',
+        },
+      ],
     },
 
     images: {
@@ -73,13 +84,13 @@ module.exports = withPWA(
         {
           source: '/:path*',
           has: [{ type: 'host', value: 'hansikyoung.com' }],
-          destination: 'https://www.leckere-koreanische-rezepte.de/:path*',
+          destination: 'https://www.hansikyoung.com/:path*',
           permanent: true,
           locale: false,
         },
         {
           source: '/:path*',
-          has: [{ type: 'host', value: 'www.hansikyoung.com' }],
+          has: [{ type: 'host', value: 'leckere-koreanische-rezepte.de' }],
           destination: 'https://www.leckere-koreanische-rezepte.de/:path*',
           permanent: true,
           locale: false,
