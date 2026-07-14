@@ -2,9 +2,20 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+
+    return {
+      ...initialProps,
+      locale: ctx.locale || 'en',
+    };
+  }
+
   render() {
+    const lang = this.props.locale === 'de' ? 'de' : 'en';
+
     return (
-      <Html>
+      <Html lang={lang}>
         <Head>
           {/* Inter Font Import */}
           <link
