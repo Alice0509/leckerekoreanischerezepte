@@ -204,10 +204,10 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
             'Bibimbap ist eines dieser Gerichte, die ich gerne mache, wenn Reis, Gemüse und ein Ei da sind. Es muss nicht perfekt aussehen — wichtig ist, dass die Mischung aus Reis, Gemüse und Sauce am Ende gut schmeckt.',
           shoppingTitle: 'Was du gut ersetzen kannst',
           shoppingText:
-            'Für Bibimbap brauchst du nicht immer exakt koreanisches Gemüse. Karotten, Spinat, Zucchini, Pilze, Gurke und Sojasprossen funktionieren sehr gut.',
+            'Für Bibimbap brauchst du nicht immer exakt koreanisches Gemüse. Karotten, Zucchini, Spinat, Pilze, Gurke, Mungbohnensprossen oder Sojasprossen funktionieren sehr gut.',
           tips: [
             'Gemüse getrennt anbraten oder blanchieren, damit jede Zutat ihren eigenen Geschmack behält.',
-            'Gochujang-Sauce mit Wasser, Essig, Zucker und Sesamöl cremig rühren.',
+            'Für eine einfache Version reichen Gochujang und etwas Sesamöl. Bokkeum Gochujang ist optional.',
             'Reis nicht zu weich kochen, damit die Bowl nicht matschig wird.',
           ],
           faq: [
@@ -219,7 +219,7 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
             {
               question: 'Welches Gemüse passt zu Bibimbap?',
               answer:
-                'Karotten, Spinat, Zucchini, Pilze, Gurke, Sojasprossen und Reste aus dem Kühlschrank passen gut.',
+                'Karotten, Zucchini, Spinat, Pilze, Gurke, Mungbohnensprossen, Sojasprossen und Reste aus dem Kühlschrank passen gut.',
             },
           ],
         }
@@ -230,10 +230,10 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
             'Bibimbap is one of the easiest Korean meals to make from rice, vegetables, an egg, and a good sauce. It does not have to look perfect — the balance of rice, vegetables, and gochujang sauce matters most.',
           shoppingTitle: 'What you can substitute',
           shoppingText:
-            'You do not always need exact Korean vegetables. Carrots, spinach, zucchini, mushrooms, cucumber, and bean sprouts all work well.',
+            'You do not always need exact Korean vegetables. Carrots, zucchini, spinach, mushrooms, cucumber, mung bean sprouts, or soybean sprouts all work well.',
           tips: [
             'Cook or blanch the vegetables separately so each one keeps its own flavor.',
-            'Mix gochujang sauce with water, vinegar, sugar, and sesame oil until smooth.',
+            'For a simple version, gochujang and a little sesame oil are enough. Bokkeum gochujang is optional.',
             'Do not cook the rice too soft, or the bowl can become mushy.',
           ],
           faq: [
@@ -245,7 +245,7 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
             {
               question: 'Which vegetables work well for Bibimbap?',
               answer:
-                'Carrots, spinach, zucchini, mushrooms, cucumber, bean sprouts, and leftover vegetables all work well.',
+                'Carrots, zucchini, spinach, mushrooms, cucumber, mung bean sprouts, soybean sprouts, and leftover vegetables all work well.',
             },
           ],
         };
