@@ -437,17 +437,16 @@ const Home = ({ recipes, favorites, error }) => {
             'Einfache koreanische Hausmannskost mit Zutaten, die du in Deutschland findest: Rezepte, Zutaten-Tipps und ehrliche Küchenbasics.',
         }
       : {
-          title:
-            'Korean recipes with ingredients you can find in Germany | Leckere Koreanische Rezepte',
+          title: 'Hansik Young | Korean Home Cooking Recipes',
           description:
-            'Easy Korean home cooking with ingredients you can find in Germany: practical recipes, ingredient tips, and warm family meals.',
+            'Warm Korean home cooking recipes, honest ingredient tips, and family-style dishes for everyday kitchens.',
         };
 
   const startHereCards =
     mappedLocale === 'de-DE'
       ? [
           {
-            title: 'Koreanisch kochen in Deutschland',
+            title: 'Koreanisch kochen mit Hansik Young',
             text: 'Starte mit einfachen Gerichten und Zutaten, die du wirklich finden kannst.',
             href: '#all-recipes',
           },
@@ -464,13 +463,13 @@ const Home = ({ recipes, favorites, error }) => {
         ]
       : [
           {
-            title: 'Cook Korean food in Germany',
-            text: 'Start with simple dishes and ingredients you can actually find.',
+            title: 'Start with Korean home cooking',
+            text: 'Start with simple, warm Korean dishes for everyday home cooking.',
             href: '#all-recipes',
           },
           {
             title: 'Understand Korean ingredients',
-            text: 'Gochujang, gochugaru, rice, kimchi, and more — with practical Germany-based tips.',
+            text: 'Gochujang, gochugaru, rice, kimchi, and more — with practical notes for everyday cooking.',
             href: '/ingredients',
           },
           {
@@ -510,20 +509,20 @@ const Home = ({ recipes, favorites, error }) => {
           <div className={styles.heroText}>
             <p className={styles.heroEyebrow}>
               {mappedLocale === 'de-DE'
-                ? 'Koreanisch kochen in Deutschland'
-                : 'Korean cooking in Germany'}
+                ? 'Koreanisch kochen mit Hansik Young'
+                : 'Korean home cooking with Hansik Young'}
             </p>
 
             <h1 className={styles.heroTitle}>
               {mappedLocale === 'de-DE'
-                ? 'Koreanische Hausmannskost mit Zutaten, die du in Deutschland findest'
-                : 'Korean home cooking with ingredients you can find in Germany'}
+                ? 'Koreanische Rezepte für den Alltag'
+                : 'Warm Korean recipes for everyday home cooking'}
             </h1>
 
             <p className={styles.heroDescription}>
               {mappedLocale === 'de-DE'
                 ? 'Einfache koreanische Rezepte, ehrliche Zutaten-Tipps und warme Familiengerichte – gekocht in Deutschland, mit koreanischem Herzen.'
-                : 'Easy Korean recipes, honest ingredient tips, and warm family meals — cooked in Germany with a Korean heart.'}
+                : 'Simple Korean recipes, honest ingredient tips, and family-style dishes — made for real kitchens, wherever you live.'}
             </p>
 
             <div className={styles.heroButtons}>
@@ -573,7 +572,7 @@ const Home = ({ recipes, favorites, error }) => {
               <h2 className={styles.previewTitle}>
                 {mappedLocale === 'de-DE'
                   ? 'Koreanische Zutaten in Deutschland'
-                  : 'Korean ingredients in Germany'}
+                  : 'Korean ingredients'}
               </h2>
               <Link href="/gallery" className={styles.previewLink}>
                 {mappedLocale === 'de-DE' ? 'Alle ansehen' : 'View all'}
@@ -583,7 +582,7 @@ const Home = ({ recipes, favorites, error }) => {
             <p className={styles.previewNotice}>
               {mappedLocale === 'de-DE'
                 ? 'Praktische Lieblingszutaten und Küchenbasics aus meinem Alltag – besonders hilfreich, wenn du koreanisch kochen möchtest und in Deutschland einkaufst.'
-                : 'Practical favorite ingredients and kitchen basics from my daily life — especially useful when you cook Korean food and shop in Germany.'}
+                : 'Practical favorite ingredients and kitchen basics from my daily life — especially useful when you cook Korean food at home.'}
             </p>
 
             <div className={styles.favoritesPreviewGrid}>
