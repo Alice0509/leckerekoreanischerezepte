@@ -5,6 +5,7 @@ import Image from 'next/image';
 import styles from '../styles/Gallery.module.css';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
+import { getSeoUrls } from '../lib/siteUrls';
 
 /* -----------------------------------------------------------
    1) STATIC CONTENTFUL FETCH (Gallery + Favorite Items)
@@ -78,8 +79,8 @@ export default function Gallery({ galleryItems, favorites }) {
   const router = useRouter();
   const isDE = router.locale === 'de';
   const lang = isDE ? 'de' : 'en';
-  const baseUrl = 'https://www.leckere-koreanische-rezepte.de';
-  const canonicalUrl = `${baseUrl}/${lang}/gallery`;
+  const seoUrls = getSeoUrls({ locale: lang, path: '/gallery' });
+  const canonicalUrl = seoUrls.canonicalUrl;
 
   const seo = isDE
     ? {
@@ -134,11 +135,11 @@ export default function Gallery({ galleryItems, favorites }) {
         languageAlternates={[
           {
             hrefLang: 'de',
-            href: `${baseUrl}/de/gallery`,
+            href: seoUrls.alternateUrls.de,
           },
           {
             hrefLang: 'en',
-            href: `${baseUrl}/en/gallery`,
+            href: seoUrls.alternateUrls.en,
           },
         ]}
         openGraph={{

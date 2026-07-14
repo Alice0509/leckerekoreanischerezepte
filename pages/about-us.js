@@ -1,5 +1,6 @@
 import React from 'react';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
+import { getSeoUrls } from '../lib/siteUrls';
 import styles from '../styles/AboutUs.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -81,8 +82,8 @@ const AboutUs = () => {
   };
 
   const t = content[lang];
-  const baseUrl = 'https://www.leckere-koreanische-rezepte.de';
-  const canonicalUrl = `${baseUrl}/${lang}/about-us`;
+  const seoUrls = getSeoUrls({ locale: lang, path: '/about-us' });
+  const canonicalUrl = seoUrls.canonicalUrl;
 
   return (
     <>
@@ -93,11 +94,11 @@ const AboutUs = () => {
         languageAlternates={[
           {
             hrefLang: 'de',
-            href: `${baseUrl}/de/about-us`,
+            href: seoUrls.alternateUrls.de,
           },
           {
             hrefLang: 'en',
-            href: `${baseUrl}/en/about-us`,
+            href: seoUrls.alternateUrls.en,
           },
         ]}
         openGraph={{
@@ -117,12 +118,10 @@ const AboutUs = () => {
       <ArticleJsonLd
         url={canonicalUrl}
         title={t.title}
-        images={[
-          'https://www.leckere-koreanische-rezepte.de/images/about-us-og-image.png',
-        ]}
+        images={[`${seoUrls.siteOrigin}/images/about-us-og-image.png`]}
         authorName="Joan von Hansik Young"
         publisherName="Hansik Young"
-        publisherLogo="https://www.leckere-koreanische-rezepte.de/images/logo.png"
+        publisherLogo={`${seoUrls.siteOrigin}/images/logo.png`}
         description={t.description}
       />
 
