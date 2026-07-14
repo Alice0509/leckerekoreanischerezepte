@@ -2,20 +2,20 @@
 import { DefaultSeoProps } from 'next-seo';
 
 const SEO: DefaultSeoProps = {
-  title: 'Leckere Koreanische Rezepte',
+  title: 'Hansik Young',
   description:
     'Einfache koreanische Hausmannskost mit Zutaten, die du in Deutschland findest: Rezepte, Zutaten-Tipps und Küchenbasics.',
   openGraph: {
     type: 'website',
     locale: 'de_DE',
     url: 'https://www.leckere-koreanische-rezepte.de/',
-    site_name: 'Leckere Koreanische Rezepte',
+    site_name: 'Hansik Young',
     images: [
       {
-        url: '/images/default-og-image.png',
+        url: '/images/default.png',
         width: 800,
         height: 600,
-        alt: 'Leckere Koreanische Rezepte',
+        alt: 'Hansik Young',
       },
     ],
   },
