@@ -613,3 +613,28 @@
     grid-template-columns: 1fr;
   }
 }
+/* Make links inside recipe notes clearly visible */
+.recipeNotes .description :global(a) {
+  color: #9a4f1f;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  overflow-wrap: anywhere;
+}
+
+.recipeNotes .description :global(a:hover) {
+  color: #6f3514;
+}
+
+/* Make linked topping lists easier to scan */
+.recipeNotes .description :global(ul),
+.recipeNotes .description :global(ol) {
+  margin: 0.75rem 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.recipeNotes .description :global(li) {
+  margin: 0.35rem 0;
+  line-height: 1.7;
+}
