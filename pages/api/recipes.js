@@ -38,21 +38,28 @@ export default async function handler(req, res) {
       });
     }
 
-    const recipes = resEntries.items.map((item) => {
-      const imageAsset = item.fields.image;
-      let imageUrl = null;
+    const resolveImageUrl = (imageField) => {
+      const image = Array.isArray(imageField) ? imageField[0] : imageField;
+      if (!image) return null;
 
-      if (imageAsset) {
-        if (Array.isArray(imageAsset)) {
-          const firstImage = imageAsset[0];
-
-          if (firstImage?.sys?.id && assetsMap[firstImage.sys.id]) {
-            imageUrl = `https:${assetsMap[firstImage.sys.id].fields.file.url}`;
-          }
-        } else if (imageAsset.sys?.id && assetsMap[imageAsset.sys.id]) {
-          imageUrl = `https:${assetsMap[imageAsset.sys.id].fields.file.url}`;
-        }
+      const directUrl = image.fields?.file?.url;
+      if (directUrl) {
+        return directUrl.startsWith('//') ? `https:${directUrl}` : directUrl;
       }
+
+      const assetUrl = image.sys?.id
+        ? assetsMap[image.sys.id]?.fields?.file?.url
+        : null;
+
+      if (assetUrl) {
+        return assetUrl.startsWith('//') ? `https:${assetUrl}` : assetUrl;
+      }
+
+      return null;
+    };
+
+    const recipes = resEntries.items.map((item) => {
+      const imageUrl = resolveImageUrl(item.fields.image);
 
       return {
         id: item.sys.id,

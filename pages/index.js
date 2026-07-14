@@ -269,25 +269,28 @@ export async function getStaticProps({ locale }) {
       assetsMap[asset.sys.id] = asset;
     });
 
-    const recipes = recipeRes.items.map((item) => {
-      let imageUrl = null;
+    const resolveImageUrl = (imageField) => {
+      const image = Array.isArray(imageField) ? imageField[0] : imageField;
+      if (!image) return null;
 
-      if (item.fields.image) {
-        if (Array.isArray(item.fields.image)) {
-          const firstImage = item.fields.image[0];
-          if (firstImage?.sys?.id) {
-            const imageAsset = assetsMap[firstImage.sys.id];
-            if (imageAsset?.fields?.file?.url) {
-              imageUrl = `https:${imageAsset.fields.file.url}`;
-            }
-          }
-        } else if (item.fields.image.sys?.id) {
-          const imageAsset = assetsMap[item.fields.image.sys.id];
-          if (imageAsset?.fields?.file?.url) {
-            imageUrl = `https:${imageAsset.fields.file.url}`;
-          }
-        }
+      const directUrl = image.fields?.file?.url;
+      if (directUrl) {
+        return directUrl.startsWith('//') ? `https:${directUrl}` : directUrl;
       }
+
+      const assetUrl = image.sys?.id
+        ? assetsMap[image.sys.id]?.fields?.file?.url
+        : null;
+
+      if (assetUrl) {
+        return assetUrl.startsWith('//') ? `https:${assetUrl}` : assetUrl;
+      }
+
+      return null;
+    };
+
+    const recipes = recipeRes.items.map((item) => {
+      const imageUrl = resolveImageUrl(item.fields.image);
 
       let descriptionText = '';
       if (item.fields.description?.content) {
