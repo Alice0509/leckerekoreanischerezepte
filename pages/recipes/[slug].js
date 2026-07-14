@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import client from '../../lib/contentful';
 import Image from 'next/image';
 import styles from '../../styles/RecipeDetail.module.css';
+import { getSeoUrls } from '../../lib/siteUrls';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Timer from '../../components/Timer';
@@ -15,9 +16,6 @@ const DisqusComments = dynamic(
   { ssr: false }
 );
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://leckere-koreanische-rezepte.de';
 
 const renderContent = (content) => {
   if (!content) return null;
@@ -731,8 +729,13 @@ const RecipeDetail = ({ recipe, error }) => {
     ? `${stripHtmlLikeWhitespace(seoTitle)} | Hansik Young`
     : fallbackPageTitle;
 
-  const canonicalUrl = `${SITE_URL}${asPath === '/' ? '' : asPath.split('?')[0]}`;
-  const ogImage = images[0] || thumbnailUrl || `${SITE_URL}/images/default.png`;
+  const seoUrls = getSeoUrls({
+    locale: mappedLocale,
+    path: asPath === '/' ? '/recipes' : asPath,
+  });
+  const canonicalUrl = seoUrls.canonicalUrl;
+  const ogImage =
+    images[0] || thumbnailUrl || `${seoUrls.siteOrigin}/images/default.png`;
 
   const schemaInstructions =
     steps && steps.length > 0
@@ -810,6 +813,13 @@ const RecipeDetail = ({ recipe, error }) => {
         <title>{pageTitle}</title>
         <meta name="description" content={descriptionText} />
         <link rel="canonical" href={canonicalUrl} />
+        <link rel="alternate" hrefLang="de" href={seoUrls.alternateUrls.de} />
+        <link rel="alternate" hrefLang="en" href={seoUrls.alternateUrls.en} />
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href={seoUrls.alternateUrls.xDefault}
+        />
 
         <meta property="og:type" content="article" />
         <meta property="og:title" content={pageTitle} />

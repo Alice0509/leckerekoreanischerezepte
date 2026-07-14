@@ -3,6 +3,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import client from '../lib/contentful';
 import Fuse from 'fuse.js';
 import styles from '../styles/Home.module.css';
+import { getSeoUrls } from '../lib/siteUrls';
 import { FaSearch } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -442,6 +443,11 @@ const Home = ({ recipes, favorites, error }) => {
             'Warm Korean home cooking recipes, honest ingredient tips, and family-style dishes for everyday kitchens.',
         };
 
+  const seoUrls = getSeoUrls({
+    locale: mappedLocale === 'de-DE' ? 'de' : 'en',
+    path: '/',
+  });
+
   const startHereCards =
     mappedLocale === 'de-DE'
       ? [
@@ -499,8 +505,17 @@ const Home = ({ recipes, favorites, error }) => {
       <Head>
         <title>{seoCopy.title}</title>
         <meta name="description" content={seoCopy.description} />
+        <link rel="canonical" href={seoUrls.canonicalUrl} />
+        <link rel="alternate" hrefLang="de" href={seoUrls.alternateUrls.de} />
+        <link rel="alternate" hrefLang="en" href={seoUrls.alternateUrls.en} />
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href={seoUrls.alternateUrls.xDefault}
+        />
         <meta property="og:title" content={seoCopy.title} />
         <meta property="og:description" content={seoCopy.description} />
+        <meta property="og:url" content={seoUrls.canonicalUrl} />
       </Head>
 
       <div className={styles.container}>

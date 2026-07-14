@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styles from '../../styles/IngredientDetail.module.css';
+import { getSeoUrls } from '../../lib/siteUrls';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 const stripHtmlLikeWhitespace = (text) =>
@@ -12,9 +13,6 @@ const stripHtmlLikeWhitespace = (text) =>
 
 const loadingSpinner =
   'data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAACH5BAEAAAEALAAAAAAQABAAAAIgjI+py+0Po5y02ouzPgUAOw==';
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://leckere-koreanische-rezepte.de';
 
 const ingredientCache = {};
 
@@ -676,8 +674,12 @@ const IngredientDetail = ({
     ? router.asPath.split('?')[0]
     : `/${isGerman ? 'de' : 'en'}/ingredients/${slug}`;
 
-  const canonicalUrl = `${SITE_URL}${currentPath}`;
-  const ogImage = bild || `${SITE_URL}/images/default.png`;
+  const seoUrls = getSeoUrls({
+    locale: mappedLocale,
+    path: currentPath,
+  });
+  const canonicalUrl = seoUrls.canonicalUrl;
+  const ogImage = bild || `${seoUrls.siteOrigin}/images/default.png`;
 
   const ingredientSchema = {
     '@context': 'https://schema.org',
@@ -685,7 +687,7 @@ const IngredientDetail = ({
     name: mainTitle || 'Ingredient',
     description: descriptionText,
     url: canonicalUrl,
-    inDefinedTermSet: `${SITE_URL}/ingredients`,
+    inDefinedTermSet: `${seoUrls.siteOrigin}/ingredients`,
   };
 
   const webpageSchema = {
@@ -732,6 +734,13 @@ const IngredientDetail = ({
         <title>{pageTitle}</title>
         <meta name="description" content={descriptionText} />
         <link rel="canonical" href={canonicalUrl} />
+        <link rel="alternate" hrefLang="de" href={seoUrls.alternateUrls.de} />
+        <link rel="alternate" hrefLang="en" href={seoUrls.alternateUrls.en} />
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href={seoUrls.alternateUrls.xDefault}
+        />
 
         <meta property="og:type" content="article" />
         <meta property="og:title" content={pageTitle} />
