@@ -85,11 +85,7 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
         shoppingTitle: 'Zutaten realistisch einkaufen',
         shoppingText:
           'Unbekannte Zutaten kannst du direkt anklicken. Viele koreanische Basics findest du im Asia-Markt oder online, frische Zutaten ersetze ich im Alltag aber oft pragmatisch mit dem, was es hier gibt.',
-        tips: [
-          'Lies die Zutaten und Schritte einmal durch, bevor du anfängst.',
-          'Bereite Sauce, Gemüse und Beilagen vor, damit das Kochen entspannter bleibt.',
-          'Schmecke am Ende vorsichtig ab — oft reichen ein wenig Sojasauce, Salz, Zucker oder Sesamöl.',
-        ],
+        tips: [],
         faq: [
           {
             question: 'Kann ich das Rezept auch als Anfänger kochen?',
@@ -107,15 +103,11 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
         eyebrow: 'From my kitchen',
         introTitle: 'How I cook this at home',
         intro:
-          'I keep this recipe practical for everyday cooking: clear steps, linked ingredients, and small notes from my kitchen so you can make it realistically in Germany too.',
+          'I keep this recipe practical for everyday cooking, with clear steps, helpful ingredient notes, and small tips from my own kitchen.',
         shoppingTitle: 'Finding the ingredients',
         shoppingText:
           'You can open unfamiliar ingredients directly from the list. Many Korean pantry basics are easiest to find in Asian grocery stores or online, while fresh ingredients can often be handled more flexibly.',
-        tips: [
-          'Read the ingredients and steps once before you start.',
-          'Prepare the sauce, vegetables, and toppings first so cooking feels calmer.',
-          'Adjust the final flavor gently with soy sauce, salt, sugar, or sesame oil.',
-        ],
+        tips: [],
         faq: [
           {
             question: 'Can beginners make this recipe?',
@@ -170,9 +162,9 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
           introTitle: 'Kimchi Jjigae the way I cook it at home',
           intro:
             'Kimchi Jjigae is one of those warm, honest stews I want to keep in my family recipe archive. It tastes best with slightly sour kimchi and a little time for the broth to become deeper.',
-          shoppingTitle: 'What you need in Germany',
+          shoppingTitle: 'Finding the ingredients',
           shoppingText:
-            'Kimchi, onion, pork, or canned tuna are easy enough to find in Germany. Rice water is ideal, but plain water also works. Tofu is optional and I usually add it near the end.',
+            'Kimchi, onion, pork, and canned tuna are available in many Asian grocery stores and larger supermarkets. Rice-rinsing water is ideal, but plain water also works. Tofu is optional, and I usually add it near the end.',
           tips: [
             'Slightly sour kimchi works better for stew than very fresh kimchi.',
             'Briefly stir-fry the onion, pork or tuna, and kimchi before adding water.',
@@ -364,47 +356,6 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
   return defaultGuide;
 };
 
-const getRecipeFaqSchema = (faq) => ({
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faq.map((item) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.answer,
-    },
-  })),
-});
-
-const PRIORITY_RECIPE_SLUG_KEYWORDS = [
-  'kimchi',
-  'tteokbokki',
-  'bibimbap',
-  'kimbap',
-  'gimbap',
-  'bulgogi',
-  'japchae',
-  'doenjang',
-  'miyeokguk',
-  'mandu',
-  'tonkatsu',
-  'ssamjang',
-  'chogochujang',
-  'gochujang',
-  'salad-dressing',
-  'spicy',
-  'eomuk',
-  'kongnamul',
-];
-
-const isPriorityRecipeSlug = (slug = '') => {
-  const normalized = `${slug}`.toLowerCase();
-  return PRIORITY_RECIPE_SLUG_KEYWORDS.some((keyword) =>
-    normalized.includes(keyword)
-  );
-};
-
 export async function getStaticPaths({ locales }) {
   try {
     const allPaths = [];
@@ -422,7 +373,6 @@ export async function getStaticPaths({ locales }) {
 
       const localePaths = res.items
         .filter((item) => item.fields.slug)
-        .filter((item) => isPriorityRecipeSlug(item.fields.slug))
         .map((item) => ({
           params: { slug: item.fields.slug.toLowerCase() },
           locale,
@@ -534,15 +484,15 @@ export async function getStaticProps({ params, locale }) {
 
     const steps =
       recipeEntry.fields.steps
-        ?.map((s) => {
+        ?.map((s, index) => {
           const stepEntry = stepEntries.find(
             (entry) => entry.sys.id === s.sys.id
           );
           if (!stepEntry) return null;
 
           return {
-            stepNumber: stepEntry.fields.stepNumber,
-            description: stepEntry.fields.description,
+            stepNumber: stepEntry.fields.stepNumber ?? index + 1,
+            description: stepEntry.fields.description ?? null,
             image: stepEntry.fields.image?.sys?.id
               ? `https:${assetsMap[stepEntry.fields.image.sys.id]?.fields?.file?.url}`
               : null,
@@ -766,8 +716,6 @@ const RecipeDetail = ({ recipe, error }) => {
     mappedLocale,
   });
 
-  const faqSchema = getRecipeFaqSchema(guide.faq);
-
   const recipeSchema = {
     '@context': 'https://schema.org',
     '@type': 'Recipe',
@@ -841,12 +789,6 @@ const RecipeDetail = ({ recipe, error }) => {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(recipeSchema),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqSchema),
           }}
         />
       </Head>
@@ -988,14 +930,18 @@ const RecipeDetail = ({ recipe, error }) => {
                 <h3>{guide.shoppingTitle}</h3>
                 <p>{guide.shoppingText}</p>
               </article>
-              <article className={styles.practicalInfoCard}>
-                <h3>{mappedLocale === 'de' ? 'Kleine Tipps' : 'Quick tips'}</h3>
-                <ul>
-                  {guide.tips.map((tip) => (
-                    <li key={tip}>{tip}</li>
-                  ))}
-                </ul>
-              </article>
+              {guide.tips.length > 0 && (
+                <article className={styles.practicalInfoCard}>
+                  <h3>
+                    {mappedLocale === 'de' ? 'Kleine Tipps' : 'Quick tips'}
+                  </h3>
+                  <ul>
+                    {guide.tips.map((tip) => (
+                      <li key={tip}>{tip}</li>
+                    ))}
+                  </ul>
+                </article>
+              )}
             </section>
 
             {steps && steps.length > 0 ? (
@@ -1155,24 +1101,6 @@ const RecipeDetail = ({ recipe, error }) => {
             )}
           </section>
         </div>
-
-        {guide.faq.length > 0 && (
-          <section className={styles.recipeFaqSection}>
-            <h2>
-              {mappedLocale === 'de'
-                ? 'Kleine Fragen, die oft auftauchen'
-                : 'Small questions that often come up'}
-            </h2>
-            <div className={styles.recipeFaqList}>
-              {guide.faq.map((item) => (
-                <article key={item.question} className={styles.recipeFaqItem}>
-                  <h3>{item.question}</h3>
-                  <p>{item.answer}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-        )}
 
         <DisqusComments post={recipe} />
 

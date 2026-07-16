@@ -25,7 +25,7 @@ const mapRecipeForCard = (item) => ({
   id: item.sys.id,
   slug: item.fields.slug || null,
   titel: item.fields.titel || '',
-  title: item.fields.title || item.fields.titel || '',
+  title: item.fields.titel || '',
   category: item.fields.category || null,
   youTubeUrl: item.fields.youTubeUrl || null,
   image: getCardImageUrl(item.fields.image),
@@ -180,7 +180,7 @@ export async function getStaticProps({ params, locale }) {
       locale: contentfulLocale,
       include: 2,
       select:
-        'fields.slug,fields.titel,fields.title,fields.category,fields.image,fields.youTubeUrl',
+        'fields.slug,fields.titel,fields.category,fields.image,fields.youTubeUrl',
       skip: (currentPage - 1) * ITEMS_PER_PAGE,
       limit: ITEMS_PER_PAGE,
       order: '-sys.createdAt',

@@ -4,20 +4,25 @@ import Link from 'next/link';
 import styles from '../styles/RecipeCard.module.css';
 import { getYouTubeThumbnail } from '../lib/getYouTubeThumbnail';
 
+const getRecipeThumbnail = (recipe) => {
+  if (recipe.image && recipe.image !== '/images/default.png') {
+    return recipe.image.startsWith('//')
+      ? `https:${recipe.image}`
+      : recipe.image;
+  }
+
+  if (recipe.youTubeUrl) {
+    return getYouTubeThumbnail(recipe.youTubeUrl) || '/images/default.png';
+  }
+
+  return '/images/default.png';
+};
+
 const RecipeCard = ({ recipe }) => {
-  const [thumbnail, setThumbnail] = useState('/images/default.png');
+  const [thumbnail, setThumbnail] = useState(() => getRecipeThumbnail(recipe));
 
   useEffect(() => {
-    if (recipe.image && recipe.image !== '/images/default.png') {
-      setThumbnail(
-        recipe.image.startsWith('//') ? `https:${recipe.image}` : recipe.image
-      );
-    } else if (recipe.youTubeUrl) {
-      const ytThumbnail = getYouTubeThumbnail(recipe.youTubeUrl);
-      setThumbnail(ytThumbnail || '/images/default.png');
-    } else {
-      setThumbnail('/images/default.png');
-    }
+    setThumbnail(getRecipeThumbnail(recipe));
   }, [recipe]);
 
   const titel = recipe.titel || recipe.title || 'Untitled recipe';
