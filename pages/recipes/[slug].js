@@ -78,6 +78,7 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
 
   const defaultGuide = isGerman
     ? {
+        isDefault: true,
         eyebrow: 'Aus meiner Küche',
         introTitle: 'So koche ich dieses Gericht zu Hause',
         intro:
@@ -100,6 +101,7 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
         ],
       }
     : {
+        isDefault: true,
         eyebrow: 'From my kitchen',
         introTitle: 'How I cook this at home',
         intro:
@@ -858,33 +860,44 @@ const RecipeDetail = ({ recipe, error }) => {
           </div>
         )}
 
-        <section className={styles.recipeGuideIntro}>
-          <p className={styles.guideEyebrow}>{guide.eyebrow}</p>
-          <h2>{guide.introTitle}</h2>
-          <p>{guide.intro}</p>
-        </section>
+        {!guide.isDefault && (
+          <section className={styles.recipeGuideIntro}>
+            <p className={styles.guideEyebrow}>{guide.eyebrow}</p>
+            <h2>{guide.introTitle}</h2>
+            <p>{guide.intro}</p>
+          </section>
+        )}
 
         <div className={styles.contentWrapper}>
           <aside className={styles.ingredientsColumn}>
             <h3>
               {mappedLocale === 'de'
-                ? 'Zutaten zum Mitkochen'
-                : 'Ingredients to cook with'}
+                ? 'Zutaten-Checkliste'
+                : 'Ingredients checklist'}
             </h3>
             {ingredients.length > 0 ? (
-              <ul className={styles.ingredientsList}>
-                {ingredients.map((ingredient, index) => (
-                  <li key={ingredient.id} className={styles.ingredientItem}>
-                    <label>
+              <>
+                {ingredients.some(shouldLinkIngredient) && (
+                  <p className={styles.ingredientsHelp}>
+                    {mappedLocale === 'de'
+                      ? 'Unterstrichene Zutaten kannst du öffnen, um mehr darüber zu erfahren.'
+                      : 'Open underlined ingredients to learn more about them.'}
+                  </p>
+                )}
+                <ul className={styles.ingredientsList}>
+                  {ingredients.map((ingredient, index) => (
+                    <li key={ingredient.id} className={styles.ingredientItem}>
                       <input
+                        id={`ingredient-checkbox-${index}`}
                         type="checkbox"
                         checked={checkedIngredients[index]}
                         onChange={() => handleIngredientCheckboxChange(index)}
+                        className={styles.ingredientCheckbox}
                       />
-                      <span
-                        className={
+                      <div
+                        className={`${styles.ingredientContent} ${
                           checkedIngredients[index] ? styles.checked : ''
-                        }
+                        }`}
                       >
                         {shouldLinkIngredient(ingredient) ? (
                           <Link
@@ -894,14 +907,16 @@ const RecipeDetail = ({ recipe, error }) => {
                             {ingredient.name}
                           </Link>
                         ) : (
-                          ingredient.name
+                          <label htmlFor={`ingredient-checkbox-${index}`}>
+                            {ingredient.name}
+                          </label>
                         )}{' '}
                         <strong>{ingredient.quantity}</strong>
-                      </span>
-                    </label>
-                  </li>
-                ))}
-              </ul>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
             ) : (
               <p>
                 {mappedLocale === 'de'
@@ -925,26 +940,30 @@ const RecipeDetail = ({ recipe, error }) => {
               </section>
             )}
 
-            <section className={styles.practicalInfoGrid}>
-              <article className={styles.practicalInfoCard}>
-                <h3>{guide.shoppingTitle}</h3>
-                <p>{guide.shoppingText}</p>
-              </article>
-              {guide.tips.length > 0 && (
-                <article className={styles.practicalInfoCard}>
-                  <h3>
-                    {mappedLocale === 'de' ? 'Kleine Tipps' : 'Quick tips'}
-                  </h3>
-                  <ul>
-                    {guide.tips.map((tip) => (
-                      <li key={tip}>{tip}</li>
-                    ))}
-                  </ul>
-                </article>
-              )}
-            </section>
+            {!guide.isDefault && (
+              <section className={styles.practicalInfoGrid}>
+                {guide.shoppingText && (
+                  <article className={styles.practicalInfoCard}>
+                    <h3>{guide.shoppingTitle}</h3>
+                    <p>{guide.shoppingText}</p>
+                  </article>
+                )}
+                {guide.tips.length > 0 && (
+                  <article className={styles.practicalInfoCard}>
+                    <h3>
+                      {mappedLocale === 'de' ? 'Kleine Tipps' : 'Quick tips'}
+                    </h3>
+                    <ul>
+                      {guide.tips.map((tip) => (
+                        <li key={tip}>{tip}</li>
+                      ))}
+                    </ul>
+                  </article>
+                )}
+              </section>
+            )}
 
-            {steps && steps.length > 0 ? (
+            {steps?.some((step) => step?.description) ? (
               <>
                 <div className={styles.stepsSection}>
                   <h3>
@@ -954,7 +973,8 @@ const RecipeDetail = ({ recipe, error }) => {
                   </h3>
                   <ol className={styles.stepList}>
                     {[...steps]
-                      .sort((a, b) => a.stepNumber - b.stepNumber)
+                      .filter((step) => step?.description)
+                      .sort((a, b) => (a.stepNumber ?? 0) - (b.stepNumber ?? 0))
                       .map((step, index) => (
                         <li key={index} className={styles.stepItem}>
                           <div className={styles.stepHeader}>
@@ -1009,17 +1029,6 @@ const RecipeDetail = ({ recipe, error }) => {
                       ))}
                   </ol>
                 </div>
-
-                {instructions && (
-                  <div className={styles.instructions}>
-                    <h3>
-                      {mappedLocale === 'de'
-                        ? 'Kleine Hinweise'
-                        : 'Small notes'}
-                    </h3>
-                    {renderContent(instructions)}
-                  </div>
-                )}
               </>
             ) : (
               <div className={styles.instructions}>
