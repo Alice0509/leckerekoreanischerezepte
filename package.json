@@ -16,7 +16,8 @@
     "audit:recipes:categories": "node scripts/audit-recipe-categories.mjs",
     "audit:recipes": "npm run audit:recipes:en && npm run audit:recipes:de && npm run audit:recipes:categories",
     "audit:ingredients:slugs": "node scripts/audit-ingredient-slugs.mjs",
-    "migrate:ingredients:priority": "node scripts/migrate-priority-ingredients.mjs"
+    "migrate:ingredients:priority": "node scripts/migrate-priority-ingredients.mjs",
+    "migrate:ingredients:secondary": "node scripts/migrate-secondary-ingredients.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",
