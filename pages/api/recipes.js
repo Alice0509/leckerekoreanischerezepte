@@ -1,4 +1,5 @@
 import { createClient } from 'contentful';
+import { getRecipeCategoryFromFields } from '../../lib/recipeCategories';
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
@@ -23,7 +24,7 @@ export default async function handler(req, res) {
       locale,
       include: 1,
       select:
-        'fields.slug,fields.titel,fields.category,fields.image,fields.youTubeUrl',
+        'fields.slug,fields.titel,fields.category,fields.categories,fields.image,fields.youTubeUrl',
       skip: (parsedPage - 1) * parsedLimit,
       limit: parsedLimit,
     };
@@ -79,12 +80,14 @@ export default async function handler(req, res) {
     const recipes = await Promise.all(
       resEntries.items.map(async (item) => {
         const imageUrl = await resolveImageUrl(item.fields.image);
+        const categoryData = getRecipeCategoryFromFields(item.fields, locale);
 
         return {
           id: item.sys.id,
           slug: item.fields.slug,
           titel: item.fields.titel,
-          category: item.fields.category || null,
+          category: categoryData.label,
+          categoryKey: categoryData.key,
           youTubeUrl: item.fields.youTubeUrl || null,
           image: imageUrl || '/images/default.png',
         };
