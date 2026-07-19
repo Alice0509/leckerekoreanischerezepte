@@ -15,6 +15,26 @@ import CookieConsent, { getCookieConsentValue } from 'react-cookie-consent';
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
+  const mappedLocale = router.locale === 'de' ? 'de' : 'en';
+
+  const cookieCopy =
+    mappedLocale === 'de'
+      ? {
+          accept: 'Akzeptieren',
+          decline: 'Ablehnen',
+          message:
+            'Diese Website verwendet optionale Analyse-Cookies, um die Nutzung der Website besser zu verstehen.',
+          learnMore: 'Mehr erfahren',
+          privacyUrl: '/datenschutzerklaerung',
+        }
+      : {
+          accept: 'Accept',
+          decline: 'Decline',
+          message:
+            'This website uses optional analytics cookies to help us understand how the site is used.',
+          learnMore: 'Learn more',
+          privacyUrl: '/privacy-policy',
+        };
 
   useEffect(() => {
     // 쿠키 동의 여부 확인
@@ -91,8 +111,8 @@ function MyApp({ Component, pageProps }) {
       {/* ✅ 쿠키 동의 배너 */}
       <CookieConsent
         location="bottom"
-        buttonText="Akzeptieren" // ✅ "동의하기" 버튼
-        declineButtonText="Ablehnen" // ✅ "거부하기" 버튼
+        buttonText={cookieCopy.accept}
+        declineButtonText={cookieCopy.decline}
         enableDeclineButton // "거부" 버튼 활성화
         onAccept={() => setCookiesAccepted(true)} // ✅ 쿠키 동의 → Google Analytics 활성화
         onDecline={() => setCookiesAccepted(false)} // ✅ 쿠키 거부 → Google Analytics 비활성화
@@ -119,13 +139,12 @@ function MyApp({ Component, pageProps }) {
           cursor: 'pointer',
         }}
       >
-        Diese Website verwendet Cookies, um Ihre Erfahrung zu verbessern. Durch
-        die Nutzung unserer Website stimmen Sie unseren Cookie-Richtlinien zu.{' '}
+        {cookieCopy.message}{' '}
         <a
-          href="/datenschutz"
+          href={cookieCopy.privacyUrl}
           style={{ color: '#ffcc00', textDecoration: 'underline' }}
         >
-          Mehr erfahren
+          {cookieCopy.learnMore}
         </a>
       </CookieConsent>
     </>

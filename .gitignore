@@ -41,3 +41,10 @@ next-env.d.ts
 
 # .gitignore
 .env.local
+
+# generated localized SEO assets
+/lib/generated-localized-routes.json
+/public/robots-de.txt
+/public/robots-en.txt
+/public/sitemap-de.xml
+/public/sitemap-en.xml
