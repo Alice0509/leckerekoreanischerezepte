@@ -847,16 +847,25 @@ const IngredientDetail = ({
           {subTitle && <p className={styles.subtitle}>{subTitle}</p>}
           <p className={styles.heroText}>{guide.intro}</p>
           <div className={styles.heroActions}>
-            <Link href="/ingredients" className={styles.secondaryButton}>
-              {isGerman ? 'Alle Zutaten ansehen' : 'View all ingredients'}
-            </Link>
             {relatedRecipes.length > 0 && (
               <a href="#recipes" className={styles.primaryButton}>
                 {isGerman ? 'Rezepte damit finden' : 'Find recipes'}
               </a>
             )}
-            <Link href="/gallery" className={styles.secondaryButton}>
-              {isGerman ? 'Meine Einkaufsliste' : 'My shopping list'}
+            <Link
+              href="/ingredients"
+              className={
+                relatedRecipes.length > 0
+                  ? styles.secondaryButton
+                  : styles.primaryButton
+              }
+            >
+              {isGerman ? 'Alle Zutaten ansehen' : 'View all ingredients'}
+            </Link>
+            <Link href="/gallery" className={styles.tertiaryLink}>
+              {isGerman
+                ? 'Meine Einkaufsliste öffnen'
+                : 'Open my shopping list'}
             </Link>
           </div>
         </header>
@@ -1056,10 +1065,10 @@ const IngredientDetail = ({
           <h2>{isGerman ? 'Häufige Fragen' : 'Frequently asked questions'}</h2>
           <div className={styles.faqList}>
             {faqItems.map((item) => (
-              <article key={item.question} className={styles.faqItem}>
-                <h3>{item.question}</h3>
+              <details key={item.question} className={styles.faqItem}>
+                <summary>{item.question}</summary>
                 <p>{item.answer}</p>
-              </article>
+              </details>
             ))}
           </div>
         </section>
