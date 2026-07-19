@@ -13,6 +13,10 @@ class MyDocument extends Document {
 
   render() {
     const lang = this.props.locale === 'de' ? 'de' : 'en';
+    const appTitle =
+      lang === 'de'
+        ? 'Hansik Young – Koreanisch kochen'
+        : 'Hansik Young – Korean Home Cooking';
 
     return (
       <Html lang={lang}>
@@ -32,7 +36,7 @@ class MyDocument extends Document {
             name="apple-mobile-web-app-status-bar-style"
             content="default"
           />
-          <meta name="apple-mobile-web-app-title" content="젊은한식" />
+          <meta name="apple-mobile-web-app-title" content={appTitle} />
           <link
             rel="apple-touch-icon"
             sizes="180x180"

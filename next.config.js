@@ -146,6 +146,28 @@ module.exports = withPWA(
       return {
         beforeFiles: [
           {
+            source: '/en/manifest.json',
+            has: [
+              {
+                type: 'host',
+                value: 'www.hansikyoung.com',
+              },
+            ],
+            destination: '/en/manifest-en.json',
+            locale: false,
+          },
+          {
+            source: '/de/manifest.json',
+            has: [
+              {
+                type: 'host',
+                value: 'www.leckere-koreanische-rezepte.de',
+              },
+            ],
+            destination: '/de/manifest-de.json',
+            locale: false,
+          },
+          {
             source: '/en/robots.txt',
             has: [
               {
