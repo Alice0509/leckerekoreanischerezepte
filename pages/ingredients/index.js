@@ -4,6 +4,10 @@ import React from 'react';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import client from '../../lib/contentful';
+import {
+  getCanonicalIngredientEntryId,
+  getCanonicalIngredientSlug,
+} from '../../lib/ingredientSlugs';
 import IngredientCard from '../../components/IngredientCard';
 import styles from '../../styles/Ingredients.module.css';
 
@@ -87,7 +91,9 @@ export async function getStaticProps({ locale }) {
       assetsMap[asset.sys.id] = asset;
     });
 
-    const ingredients = res.items.map((item) => {
+    const ingredientsByCanonicalSlug = new Map();
+
+    for (const item of res.items) {
       const imageAsset = item.fields.bild?.sys?.id
         ? assetsMap[item.fields.bild.sys.id]
         : null;
@@ -95,15 +101,36 @@ export async function getStaticProps({ locale }) {
         ? `https:${imageAsset.fields.file.url}`
         : null;
 
-      return {
+      const canonicalSlug = getCanonicalIngredientSlug({
+        entryId: item.sys.id,
+        fallbackSlug: item.fields.slug || '',
+      });
+
+      const candidate = {
         id: item.sys.id,
         name: item.fields.name || '',
-        slug: item.fields.slug || '',
+        slug: canonicalSlug,
         germanMeatCut: item.fields.germanMeatCut || null,
         bild: imageUrl,
         description: item.fields.description || null,
       };
-    });
+
+      const existing = ingredientsByCanonicalSlug.get(canonicalSlug);
+
+      const isPrimaryEntry =
+        getCanonicalIngredientEntryId(item.sys.id) === item.sys.id;
+
+      if (!existing || (isPrimaryEntry && !existing.isPrimaryEntry)) {
+        ingredientsByCanonicalSlug.set(canonicalSlug, {
+          ingredient: candidate,
+          isPrimaryEntry,
+        });
+      }
+    }
+
+    const ingredients = [...ingredientsByCanonicalSlug.values()].map(
+      ({ ingredient }) => ingredient
+    );
 
     ingredientsCache[mappedLocale] = ingredients;
 

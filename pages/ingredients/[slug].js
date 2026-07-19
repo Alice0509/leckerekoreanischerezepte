@@ -6,6 +6,11 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styles from '../../styles/IngredientDetail.module.css';
 import { getSeoUrls } from '../../lib/siteUrls';
+import {
+  getCanonicalIngredientEntryId,
+  getCanonicalIngredientSlug,
+  resolveIngredientSlug,
+} from '../../lib/ingredientSlugs';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 const stripHtmlLikeWhitespace = (text) =>
@@ -393,11 +398,26 @@ export async function getStaticPaths({ locales }) {
         limit: 1000,
       });
 
+      const seenSlugs = new Set();
+
       const localePaths = res.items
         .filter((item) => item.fields.slug)
-        .filter((item) => isPriorityIngredientSlug(item.fields.slug))
         .map((item) => ({
-          params: { slug: item.fields.slug },
+          item,
+          slug: getCanonicalIngredientSlug({
+            entryId: item.sys.id,
+            fallbackSlug: item.fields.slug,
+          }),
+        }))
+        .filter(({ slug }) => isPriorityIngredientSlug(slug))
+        .filter(({ slug }) => {
+          if (seenSlugs.has(slug)) return false;
+
+          seenSlugs.add(slug);
+          return true;
+        })
+        .map(({ slug }) => ({
+          params: { slug },
           locale,
         }));
 
@@ -420,7 +440,20 @@ export async function getStaticPaths({ locales }) {
 export async function getStaticProps({ params, locale }) {
   try {
     const mappedLocale = locale === 'de' ? 'de' : 'en';
-    const cacheKey = `${mappedLocale}_${params.slug}`;
+    const requestedSlug = params.slug;
+    const slugResolution = resolveIngredientSlug(requestedSlug);
+
+    if (slugResolution?.shouldRedirect) {
+      return {
+        redirect: {
+          destination: `/ingredients/${slugResolution.slug}`,
+          permanent: true,
+        },
+      };
+    }
+
+    const canonicalSlug = slugResolution?.slug || requestedSlug;
+    const cacheKey = `${mappedLocale}_${canonicalSlug}`;
 
     if (ingredientCache[cacheKey]) {
       return {
@@ -429,22 +462,44 @@ export async function getStaticProps({ params, locale }) {
       };
     }
 
-    let ingredientRes = await client.getEntries({
-      content_type: 'ingredient',
-      'fields.slug': params.slug,
-      locale: mappedLocale,
-      include: 1,
-      limit: 1,
-    });
+    let ingredientRes;
 
-    if (!ingredientRes.items.length && mappedLocale === 'de') {
+    if (slugResolution?.primaryEntryId) {
       ingredientRes = await client.getEntries({
         content_type: 'ingredient',
-        'fields.slug': params.slug,
-        locale: 'en',
+        'sys.id': slugResolution.primaryEntryId,
+        locale: mappedLocale,
         include: 1,
         limit: 1,
       });
+    } else {
+      ingredientRes = await client.getEntries({
+        content_type: 'ingredient',
+        'fields.slug': requestedSlug,
+        locale: mappedLocale,
+        include: 1,
+        limit: 1,
+      });
+    }
+
+    if (!ingredientRes.items.length && mappedLocale === 'de') {
+      if (slugResolution?.primaryEntryId) {
+        ingredientRes = await client.getEntries({
+          content_type: 'ingredient',
+          'sys.id': slugResolution.primaryEntryId,
+          locale: 'en',
+          include: 1,
+          limit: 1,
+        });
+      } else {
+        ingredientRes = await client.getEntries({
+          content_type: 'ingredient',
+          'fields.slug': requestedSlug,
+          locale: 'en',
+          include: 1,
+          limit: 1,
+        });
+      }
     }
 
     if (!ingredientRes.items.length) {
@@ -458,7 +513,10 @@ export async function getStaticProps({ params, locale }) {
     const ingredient = {
       id: item.sys.id,
       name: item.fields.name || '',
-      slug: item.fields.slug || '',
+      slug: getCanonicalIngredientSlug({
+        entryId: item.sys.id,
+        fallbackSlug: item.fields.slug || '',
+      }),
       germanMeatCut: item.fields.germanMeatCut || null,
       bild: imageUrl,
       description: item.fields.description || null,
@@ -534,7 +592,11 @@ export async function getStaticProps({ params, locale }) {
     ingredientEntries.forEach((entry) => {
       ingredientNameMap[entry.sys.id] = {
         name: entry.fields.name || '',
-        slug: entry.fields.slug || '',
+        slug: getCanonicalIngredientSlug({
+          entryId: entry.sys.id,
+          fallbackSlug: entry.fields.slug || '',
+        }),
+        canonicalEntryId: getCanonicalIngredientEntryId(entry.sys.id),
       };
     });
 
@@ -554,7 +616,10 @@ export async function getStaticProps({ params, locale }) {
           const linkedIngredient = ingredientNameMap[ingredientRef.sys.id];
           if (!linkedIngredient) return false;
 
-          return linkedIngredient.slug === ingredient.slug;
+          return (
+            linkedIngredient.canonicalEntryId ===
+            getCanonicalIngredientEntryId(ingredient.id)
+          );
         });
       })
       .map((recipe) => {

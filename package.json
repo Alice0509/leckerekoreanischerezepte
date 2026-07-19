@@ -14,7 +14,8 @@
     "audit:recipes:en": "node scripts/audit-english-recipes.mjs",
     "audit:recipes:de": "node scripts/audit-german-recipes.mjs",
     "audit:recipes:categories": "node scripts/audit-recipe-categories.mjs",
-    "audit:recipes": "npm run audit:recipes:en && npm run audit:recipes:de && npm run audit:recipes:categories"
+    "audit:recipes": "npm run audit:recipes:en && npm run audit:recipes:de && npm run audit:recipes:categories",
+    "audit:ingredients:slugs": "node scripts/audit-ingredient-slugs.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",

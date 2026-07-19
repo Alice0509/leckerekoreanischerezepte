@@ -8,6 +8,7 @@ import {
   getRecipeCategoryEntryId,
   getRecipeCategoryFromFields,
 } from '../../lib/recipeCategories';
+import { getCanonicalIngredientSlug } from '../../lib/ingredientSlugs';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Timer from '../../components/Timer';
@@ -505,7 +506,10 @@ export async function getStaticProps({ params, locale }) {
 
       ingredientMap[entry.sys.id] = {
         name: entry.fields.name || 'Unknown Ingredient',
-        slug: entry.fields.slug || null,
+        slug: getCanonicalIngredientSlug({
+          entryId: entry.sys.id,
+          fallbackSlug: entry.fields.slug || null,
+        }),
         description: entry.fields.description || null,
         bild: ingredientImageAsset?.fields?.file?.url
           ? `https:${ingredientImageAsset.fields.file.url}`
