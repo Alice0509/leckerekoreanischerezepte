@@ -15,7 +15,8 @@
     "audit:recipes:de": "node scripts/audit-german-recipes.mjs",
     "audit:recipes:categories": "node scripts/audit-recipe-categories.mjs",
     "audit:recipes": "npm run audit:recipes:en && npm run audit:recipes:de && npm run audit:recipes:categories",
-    "audit:ingredients:slugs": "node scripts/audit-ingredient-slugs.mjs"
+    "audit:ingredients:slugs": "node scripts/audit-ingredient-slugs.mjs",
+    "migrate:ingredients:priority": "node scripts/migrate-priority-ingredients.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",
@@ -46,6 +47,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "contentful-management": "^12.8.0",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.0.3",
     "eslint-config-prettier": "^9.1.0",
