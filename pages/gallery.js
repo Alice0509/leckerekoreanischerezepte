@@ -98,29 +98,43 @@ export default function Gallery({ galleryItems, favorites }) {
      Favorite Links Checker
   ----------------------------------------------------------- */
   const [validLinks, setValidLinks] = useState({});
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
-    favorites.forEach((f) => {
-      (f.links || []).forEach((url, idx) => {
-        if (validLinks[f.id] && validLinks[f.id][idx] !== undefined) return;
+    const controller = new AbortController();
 
-        fetch(url, { method: 'HEAD' })
-          .then((r) => {
-            const dead = r.status === 404 || r.status === 410;
+    favorites.forEach((favorite) => {
+      (favorite.links || []).forEach((url, index) => {
+        fetch(url, {
+          method: 'HEAD',
+          signal: controller.signal,
+        })
+          .then((response) => {
+            const isAvailable =
+              response.status !== 404 && response.status !== 410;
 
-            setValidLinks((prev) => ({
-              ...prev,
-              [f.id]: { ...(prev[f.id] || {}), [idx]: !dead },
+            setValidLinks((previous) => ({
+              ...previous,
+              [favorite.id]: {
+                ...(previous[favorite.id] || {}),
+                [index]: isAvailable,
+              },
             }));
           })
-          .catch(() => {
-            setValidLinks((prev) => ({
-              ...prev,
-              [f.id]: { ...(prev[f.id] || {}), [idx]: true },
+          .catch((error) => {
+            if (error.name === 'AbortError') return;
+
+            setValidLinks((previous) => ({
+              ...previous,
+              [favorite.id]: {
+                ...(previous[favorite.id] || {}),
+                [index]: true,
+              },
             }));
           });
       });
     });
+
+    return () => controller.abort();
   }, [favorites]);
 
   /* -----------------------------------------------------------
