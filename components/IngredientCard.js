@@ -1,9 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from '../styles/IngredientCard.module.css';
 
 const IngredientCard = ({ ingredient }) => {
+  const router = useRouter();
+  const isGerman = router.locale === 'de';
   const { name, slug, germanMeatCut, bild, description } = ingredient;
 
   // 설명 없는 재료는 카드 목록에 노출하지 않음
@@ -43,7 +46,9 @@ const IngredientCard = ({ ingredient }) => {
         {subTitle && <p className={styles.subtitle}>{subTitle}</p>}
 
         {germanMeatCut && (
-          <p className={styles.meatCut}>부위: {germanMeatCut}</p>
+          <p className={styles.meatCut}>
+            {isGerman ? 'Stück:' : 'Cut:'} {germanMeatCut}
+          </p>
         )}
 
         <p className={styles.preview}>{shortDesc}</p>

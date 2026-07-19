@@ -165,11 +165,11 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
 
   const seoTitle = isGerman
     ? 'Koreanische Zutaten in Deutschland kaufen | Leckere Koreanische Rezepte'
-    : 'Korean Ingredients in Germany | Leckere Koreanische Rezepte';
+    : 'Korean Ingredients Guide | Hansik Young';
 
   const seoDescription = isGerman
     ? 'Ein praktischer Guide für koreanische Zutaten in Deutschland: Gochujang, Kimchi, Reis, Sesamöl, Doenjang und mehr – mit Tipps zum Kaufen, Ersetzen und Kochen.'
-    : 'A practical guide to Korean ingredients in Germany: gochujang, kimchi, rice, sesame oil, doenjang and more, with buying, substitution and cooking tips.';
+    : 'A practical guide to Korean pantry ingredients: gochujang, kimchi, rice, sesame oil, doenjang and more, with shopping, substitution and cooking tips.';
 
   if (error) {
     return <div className={styles.error}>{error}</div>;
@@ -195,13 +195,16 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
           <h1>
             {isGerman
               ? 'Koreanische Zutaten in Deutschland kaufen und richtig verwenden'
-              : 'Korean ingredients in Germany: what to buy and how to use them'}
+              : 'Korean ingredients: what to buy and how to use them'}
           </h1>
           <p className={styles.heroText}>
             {isGerman
               ? 'Hier findest du koreanische Grundzutaten, ehrliche Einkaufstipps und einfache Erklärungen für die Küche in Deutschland – von Gochujang und Kimchi bis Reis, Sesamöl und Doenjang.'
-              : 'Find the Korean pantry basics I use in Germany, with practical shopping tips, substitutions and recipe ideas for everyday Korean cooking.'}
+              : 'Find practical guides to Korean pantry basics, with shopping tips, substitutions and recipe ideas for everyday Korean cooking.'}
           </p>
+          <a href="#all-ingredients" className={styles.jumpLink}>
+            {isGerman ? 'Alle Zutaten durchsuchen' : 'Browse all ingredients'}
+          </a>
         </section>
 
         <section
@@ -223,7 +226,7 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
             <p>
               {isGerman
                 ? 'Viele Zutaten findest du im Asia-Markt oder online. Für Gemüse, Reis und Basics funktionieren oft auch REWE, Edeka, Lidl oder Alnatura.'
-                : 'Many ingredients are easiest at Asian supermarkets or online, while vegetables, rice and pantry basics often work from regular German supermarkets.'}
+                : 'Many ingredients are easiest at Asian supermarkets or online, while vegetables, rice and pantry basics are often available at regular supermarkets.'}
             </p>
           </article>
           <article className={styles.introCard}>
@@ -265,7 +268,7 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
         <section className={styles.shoppingSection}>
           <div>
             <p className={styles.kicker}>
-              {isGerman ? 'Einkaufen in Deutschland' : 'Shopping in Germany'}
+              {isGerman ? 'Einkaufen in Deutschland' : 'Where to shop'}
             </p>
             <h2>
               {isGerman
@@ -283,11 +286,13 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
               </p>
             </div>
             <div>
-              <h3>REWE / Edeka / Lidl</h3>
+              <h3>
+                {isGerman ? 'REWE / Edeka / Lidl' : 'Regular supermarkets'}
+              </h3>
               <p>
                 {isGerman
                   ? 'Gut für Reis, Gemüse, Tofu, Eier, Fleisch, Frühlingszwiebeln und einfache Ersatzprodukte.'
-                  : 'Useful for rice, vegetables, tofu, eggs, meat, spring onions and simple substitutes.'}
+                  : 'Useful for rice, vegetables, tofu, eggs, meat, spring onions and everyday substitutes.'}
               </p>
             </div>
             <div>
@@ -322,7 +327,10 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
           </Link>
         </section>
 
-        <section className={styles.section}>
+        <section
+          id="all-ingredients"
+          className={`${styles.section} ${styles.allIngredients}`}
+        >
           <div className={styles.sectionHeader}>
             <p className={styles.kicker}>
               {isGerman ? 'Alle Zutaten' : 'All ingredients'}
