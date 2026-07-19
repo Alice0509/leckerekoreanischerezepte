@@ -716,6 +716,8 @@ const RecipeDetail = ({ recipe, error }) => {
     mappedLocale,
   });
 
+  const hasStructuredSteps = Boolean(steps?.some((step) => step?.description));
+
   const recipeSchema = {
     '@context': 'https://schema.org',
     '@type': 'Recipe',
@@ -796,18 +798,26 @@ const RecipeDetail = ({ recipe, error }) => {
       <div className={styles.container}>
         <header className={styles.header}>
           <h1 className={styles.title}>{titel}</h1>
-          <div className={styles.summary}>
-            <span>
-              {mappedLocale === 'de' ? 'Kategorie' : 'Category'}: {category}
+
+          <div
+            className={styles.summary}
+            aria-label={
+              mappedLocale === 'de' ? 'Rezeptübersicht' : 'Recipe overview'
+            }
+          >
+            <span className={`${styles.summaryChip} ${styles.categoryChip}`}>
+              {category}
             </span>
+
             {preparationTime && (
-              <span>
+              <span className={styles.summaryChip}>
                 🕒 {preparationTime}{' '}
                 {mappedLocale === 'de' ? 'Minuten' : 'mins'}
               </span>
             )}
+
             {servings && (
-              <span>
+              <span className={styles.summaryChip}>
                 🍽️ {servings} {mappedLocale === 'de' ? 'Portionen' : 'servings'}
               </span>
             )}
@@ -824,7 +834,8 @@ const RecipeDetail = ({ recipe, error }) => {
                     alt={`${titel} image ${index + 1}`}
                     width={600}
                     height={400}
-                    loading="lazy"
+                    priority={index === 0}
+                    loading={index === 0 ? 'eager' : 'lazy'}
                     style={{ width: '100%', height: 'auto' }}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                     className={styles.image}
@@ -838,6 +849,7 @@ const RecipeDetail = ({ recipe, error }) => {
                     alt={`${titel} YouTube thumbnail`}
                     width={600}
                     height={400}
+                    priority
                     style={{ width: '100%', height: 'auto' }}
                     className={styles.image}
                   />
@@ -852,11 +864,29 @@ const RecipeDetail = ({ recipe, error }) => {
               alt="Default Image"
               width={600}
               height={400}
+              priority
               style={{ width: '100%', height: 'auto' }}
               className={styles.image}
             />
           </div>
         )}
+
+        <nav
+          className={styles.recipeJumpNav}
+          aria-label={
+            mappedLocale === 'de'
+              ? 'Zum Rezeptabschnitt springen'
+              : 'Jump to recipe section'
+          }
+        >
+          <a href="#ingredients" className={styles.recipeJumpLink}>
+            {mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}
+          </a>
+
+          <a href="#instructions" className={styles.recipeJumpLink}>
+            {mappedLocale === 'de' ? 'Zubereitung' : 'Instructions'}
+          </a>
+        </nav>
 
         {!guide.isDefault && (
           <section className={styles.recipeGuideIntro}>
@@ -867,7 +897,7 @@ const RecipeDetail = ({ recipe, error }) => {
         )}
 
         <div className={styles.contentWrapper}>
-          <aside className={styles.ingredientsColumn}>
+          <aside id="ingredients" className={styles.ingredientsColumn}>
             <h3>
               {mappedLocale === 'de'
                 ? 'Zutaten-Checkliste'
@@ -925,7 +955,7 @@ const RecipeDetail = ({ recipe, error }) => {
           </aside>
 
           <section className={styles.instructionsColumn}>
-            {description && (
+            {description && !hasStructuredSteps && (
               <section className={styles.recipeNotes}>
                 <h3>
                   {mappedLocale === 'de'
@@ -961,9 +991,9 @@ const RecipeDetail = ({ recipe, error }) => {
               </section>
             )}
 
-            {steps?.some((step) => step?.description) ? (
+            {hasStructuredSteps ? (
               <>
-                <div className={styles.stepsSection}>
+                <div id="instructions" className={styles.stepsSection}>
                   <h3>
                     {mappedLocale === 'de'
                       ? 'So koche ich es'
@@ -1029,7 +1059,7 @@ const RecipeDetail = ({ recipe, error }) => {
                 </div>
               </>
             ) : (
-              <div className={styles.instructions}>
+              <div id="instructions" className={styles.instructions}>
                 <h3>{mappedLocale === 'de' ? 'Anleitung' : 'Instructions'}</h3>
                 {renderContent(instructions)}
               </div>
