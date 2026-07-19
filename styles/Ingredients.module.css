@@ -226,3 +226,85 @@
     width: 100%;
   }
 }
+
+.jumpLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 20px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: #2a1f1a;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 22px rgba(42, 31, 26, 0.16);
+}
+
+.allIngredients {
+  scroll-margin-top: 20px;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 24px 14px 46px;
+  }
+
+  .hero {
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 10vw, 2.65rem);
+    line-height: 1.08;
+  }
+
+  .heroText {
+    margin-top: 14px;
+    line-height: 1.62;
+  }
+
+  .jumpLink {
+    width: 100%;
+    margin-top: 18px;
+  }
+
+  .introGrid {
+    display: flex;
+    gap: 12px;
+    margin: 26px -14px 36px;
+    padding: 0 14px 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .introGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .introCard {
+    flex: 0 0 min(82vw, 310px);
+    padding: 18px;
+    scroll-snap-align: start;
+  }
+
+  .introCard span {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 10px;
+  }
+
+  .section {
+    margin-top: 42px;
+  }
+
+  .grid {
+    gap: 12px;
+  }
+
+  .shoppingSection {
+    margin-top: 42px;
+  }
+}
