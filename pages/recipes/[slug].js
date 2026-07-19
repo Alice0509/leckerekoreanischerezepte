@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import client from '../../lib/contentful';
 import Image from 'next/image';
 import styles from '../../styles/RecipeDetail.module.css';
-import { getSeoUrls } from '../../lib/siteUrls';
+import { getRecipeSeoUrls } from '../../lib/localizedRoutes';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Timer from '../../components/Timer';
@@ -550,7 +550,7 @@ export async function getStaticProps({ params, locale }) {
 
 const RecipeDetail = ({ recipe, error }) => {
   const router = useRouter();
-  const { locale, asPath } = router;
+  const { locale } = router;
   const mappedLocale = locale === 'de' ? 'de' : 'en';
 
   const safeRecipe = recipe || {
@@ -681,9 +681,10 @@ const RecipeDetail = ({ recipe, error }) => {
     ? `${stripHtmlLikeWhitespace(seoTitle)} | Hansik Young`
     : fallbackPageTitle;
 
-  const seoUrls = getSeoUrls({
+  const seoUrls = getRecipeSeoUrls({
     locale: mappedLocale,
-    path: asPath === '/' ? '/recipes' : asPath,
+    entryId: safeRecipe.id,
+    currentSlug: safeRecipe.slug,
   });
   const canonicalUrl = seoUrls.canonicalUrl;
   const ogImage =
