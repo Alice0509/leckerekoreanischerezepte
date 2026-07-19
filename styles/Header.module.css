@@ -57,3 +57,23 @@
     padding: 8px 14px;
   }
 }
+
+@media (max-width: 640px) {
+  .header {
+    justify-content: flex-start;
+    padding: 8px 12px;
+  }
+
+  .logoContainer {
+    gap: 8px;
+  }
+
+  .logoImage {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brandName {
+    font-size: 1.25rem;
+  }
+}
