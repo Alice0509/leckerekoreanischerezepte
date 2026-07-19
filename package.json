@@ -18,7 +18,8 @@
     "audit:ingredients:slugs": "node scripts/audit-ingredient-slugs.mjs",
     "migrate:ingredients:priority": "node scripts/migrate-priority-ingredients.mjs",
     "migrate:ingredients:secondary": "node scripts/migrate-secondary-ingredients.mjs",
-    "migrate:ingredients:high-usage": "node scripts/migrate-high-usage-ingredients.mjs"
+    "migrate:ingredients:high-usage": "node scripts/migrate-high-usage-ingredients.mjs",
+    "migrate:ingredients:final-used": "node scripts/migrate-final-used-ingredients.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",
