@@ -4,6 +4,7 @@ import client from '../../lib/contentful';
 import Image from 'next/image';
 import styles from '../../styles/RecipeDetail.module.css';
 import { getRecipeSeoUrls } from '../../lib/localizedRoutes';
+import { getRecipeCategoryFromFields } from '../../lib/recipeCategories';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Timer from '../../components/Timer';
@@ -56,13 +57,6 @@ const formatDurationISO = (minutes) => {
   const num = Number(minutes);
   if (!Number.isFinite(num) || num <= 0) return undefined;
   return `PT${Math.round(num)}M`;
-};
-
-const getCategoryLabel = (category) => {
-  if (Array.isArray(category)) return category.join(', ');
-  if (typeof category === 'string') return category;
-  if (category?.fields?.name) return category.fields.name;
-  return 'Uncategorized';
 };
 
 const hasAnyKeyword = (value, keywords) => {
@@ -503,7 +497,10 @@ export async function getStaticProps({ params, locale }) {
         })
         .filter(Boolean) || [];
 
-    const categoryLabel = getCategoryLabel(recipeEntry.fields.category);
+    const categoryLabel = getRecipeCategoryFromFields(
+      recipeEntry.fields,
+      mappedLocale
+    ).label;
 
     const finalRecipe = {
       id: recipeEntry.sys.id,

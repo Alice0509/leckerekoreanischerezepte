@@ -4,6 +4,7 @@ import styles from '../../styles/Home.module.css';
 import { useRouter } from 'next/router';
 import RecipeCard from '../../components/RecipeCard';
 import client from '../../lib/contentful';
+import { getRecipeCategoryFromFields } from '../../lib/recipeCategories';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -21,15 +22,20 @@ const getCardImageUrl = (imageField) => {
   return url ? `https:${url}` : '/images/default.png';
 };
 
-const mapRecipeForCard = (item) => ({
-  id: item.sys.id,
-  slug: item.fields.slug || null,
-  titel: item.fields.titel || '',
-  title: item.fields.titel || '',
-  category: item.fields.category || null,
-  youTubeUrl: item.fields.youTubeUrl || null,
-  image: getCardImageUrl(item.fields.image),
-});
+const mapRecipeForCard = (item, locale) => {
+  const categoryData = getRecipeCategoryFromFields(item.fields, locale);
+
+  return {
+    id: item.sys.id,
+    slug: item.fields.slug || null,
+    titel: item.fields.titel || '',
+    title: item.fields.titel || '',
+    category: categoryData.label,
+    categoryKey: categoryData.key,
+    youTubeUrl: item.fields.youTubeUrl || null,
+    image: getCardImageUrl(item.fields.image),
+  };
+};
 
 const PaginatedPage = ({
   recipes = [],
@@ -180,13 +186,15 @@ export async function getStaticProps({ params, locale }) {
       locale: contentfulLocale,
       include: 2,
       select:
-        'fields.slug,fields.titel,fields.category,fields.image,fields.youTubeUrl',
+        'fields.slug,fields.titel,fields.category,fields.categories,fields.image,fields.youTubeUrl',
       skip: (currentPage - 1) * ITEMS_PER_PAGE,
       limit: ITEMS_PER_PAGE,
       order: '-sys.createdAt',
     });
 
-    const recipes = res.items.map(mapRecipeForCard);
+    const recipes = res.items.map((item) =>
+      mapRecipeForCard(item, contentfulLocale)
+    );
     const totalPages = Math.max(
       Math.ceil((res.total || 0) / ITEMS_PER_PAGE),
       1
