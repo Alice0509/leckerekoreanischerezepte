@@ -830,3 +830,112 @@
     margin-top: 14px;
   }
 }
+
+/* Related recipes from the same canonical category */
+.relatedRecipesSection {
+  margin-top: 42px;
+  padding: 24px;
+  border: 1px solid rgba(120, 80, 45, 0.14);
+  border-radius: 20px;
+  background: #fffaf4;
+}
+
+.relatedRecipesEyebrow {
+  margin: 0 0 6px;
+  color: #b45f3c;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.relatedRecipesSection h2 {
+  margin: 0 0 18px;
+  color: #2f241f;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+}
+
+.relatedRecipesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.relatedRecipeCard {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(120, 80, 45, 0.12);
+  border-radius: 16px;
+  background: #ffffff;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.relatedRecipeCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(60, 40, 25, 0.09);
+}
+
+.relatedRecipeImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #f2eee9;
+}
+
+.relatedRecipeImage {
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.relatedRecipeCard:hover .relatedRecipeImage {
+  transform: scale(1.025);
+}
+
+.relatedRecipeContent {
+  padding: 13px 14px 15px;
+}
+
+.relatedRecipeCategory {
+  display: block;
+  margin-bottom: 5px;
+  color: #9a4f1f;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.relatedRecipeContent h3 {
+  margin: 0;
+  color: #2f241f;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+  .relatedRecipesSection {
+    margin-top: 30px;
+    padding: 18px 14px;
+    border-radius: 16px;
+  }
+
+  .relatedRecipesGrid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(230px, 78vw);
+    grid-template-columns: none;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 2px 2px 8px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .relatedRecipeCard {
+    scroll-snap-align: start;
+  }
+}

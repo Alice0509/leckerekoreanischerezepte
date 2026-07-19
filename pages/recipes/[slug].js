@@ -4,7 +4,10 @@ import client from '../../lib/contentful';
 import Image from 'next/image';
 import styles from '../../styles/RecipeDetail.module.css';
 import { getRecipeSeoUrls } from '../../lib/localizedRoutes';
-import { getRecipeCategoryFromFields } from '../../lib/recipeCategories';
+import {
+  getRecipeCategoryEntryId,
+  getRecipeCategoryFromFields,
+} from '../../lib/recipeCategories';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Timer from '../../components/Timer';
@@ -57,6 +60,52 @@ const formatDurationISO = (minutes) => {
   const num = Number(minutes);
   if (!Number.isFinite(num) || num <= 0) return undefined;
   return `PT${Math.round(num)}M`;
+};
+
+const getRelatedRecipeImageUrl = (imageField) => {
+  const image = Array.isArray(imageField) ? imageField[0] : imageField;
+
+  const url = image?.fields?.file?.url;
+
+  if (!url) return '/images/default.png';
+
+  return url.startsWith('//') ? `https:${url}` : url;
+};
+
+const buildRelatedRecipes = ({ items, currentEntryId, locale, limit = 3 }) => {
+  const language = locale === 'de' ? 'de' : 'en';
+
+  const sortedItems = items
+    .filter(
+      (item) => item?.sys?.id && item?.fields?.slug && item?.fields?.titel
+    )
+    .sort((a, b) =>
+      a.fields.titel.localeCompare(b.fields.titel, language, {
+        sensitivity: 'base',
+      })
+    );
+
+  const currentIndex = sortedItems.findIndex(
+    (item) => item.sys.id === currentEntryId
+  );
+
+  const orderedItems =
+    currentIndex >= 0
+      ? [
+          ...sortedItems.slice(currentIndex + 1),
+          ...sortedItems.slice(0, currentIndex),
+        ]
+      : sortedItems;
+
+  return orderedItems
+    .filter((item) => item.sys.id !== currentEntryId)
+    .slice(0, limit)
+    .map((item) => ({
+      id: item.sys.id,
+      slug: item.fields.slug,
+      title: item.fields.titel,
+      image: getRelatedRecipeImageUrl(item.fields.image),
+    }));
 };
 
 const hasAnyKeyword = (value, keywords) => {
@@ -352,6 +401,31 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
   return defaultGuide;
 };
 
+const relatedRecipeCatalogCache = new Map();
+
+const getRelatedRecipeCatalog = (locale) => {
+  if (!relatedRecipeCatalogCache.has(locale)) {
+    const request = client
+      .getEntries({
+        content_type: 'recipe',
+        locale,
+        include: 1,
+        select:
+          'sys.id,fields.slug,fields.titel,fields.image,fields.categories',
+        limit: 1000,
+      })
+      .then((response) => response.items)
+      .catch((error) => {
+        relatedRecipeCatalogCache.delete(locale);
+        throw error;
+      });
+
+    relatedRecipeCatalogCache.set(locale, request);
+  }
+
+  return relatedRecipeCatalogCache.get(locale);
+};
+
 export async function getStaticPaths({ locales }) {
   try {
     const allPaths = [];
@@ -497,10 +571,36 @@ export async function getStaticProps({ params, locale }) {
         })
         .filter(Boolean) || [];
 
-    const categoryLabel = getRecipeCategoryFromFields(
+    const categoryData = getRecipeCategoryFromFields(
       recipeEntry.fields,
       mappedLocale
-    ).label;
+    );
+
+    const categoryLabel = categoryData.label;
+    const categoryEntryId = getRecipeCategoryEntryId(recipeEntry.fields);
+
+    let relatedRecipes = [];
+
+    if (categoryEntryId) {
+      try {
+        const recipeCatalog = await getRelatedRecipeCatalog(mappedLocale);
+
+        const categoryRecipes = recipeCatalog.filter(
+          (item) => getRecipeCategoryEntryId(item.fields) === categoryEntryId
+        );
+
+        relatedRecipes = buildRelatedRecipes({
+          items: categoryRecipes,
+          currentEntryId: recipeEntry.sys.id,
+          locale: mappedLocale,
+        });
+      } catch (relatedError) {
+        console.warn(
+          `Could not load related recipes for ${slug}:`,
+          relatedError.message
+        );
+      }
+    }
 
     const finalRecipe = {
       id: recipeEntry.sys.id,
@@ -510,6 +610,7 @@ export async function getStaticProps({ params, locale }) {
         'Default description: Find delicious recipes and tips.',
       images,
       category: categoryLabel,
+      relatedRecipes,
       preparationTime: recipeEntry.fields.preparationTime || null,
       servings: recipeEntry.fields.servings || null,
       ingredients,
@@ -555,6 +656,7 @@ const RecipeDetail = ({ recipe, error }) => {
     description: null,
     images: [],
     category: '',
+    relatedRecipes: [],
     preparationTime: null,
     servings: null,
     ingredients: [],
@@ -572,6 +674,7 @@ const RecipeDetail = ({ recipe, error }) => {
     description,
     images,
     category,
+    relatedRecipes,
     preparationTime,
     servings,
     ingredients,
@@ -1138,6 +1241,52 @@ const RecipeDetail = ({ recipe, error }) => {
             )}
           </section>
         </div>
+
+        {relatedRecipes.length > 0 && (
+          <section
+            className={styles.relatedRecipesSection}
+            aria-labelledby="related-recipes-title"
+          >
+            <p className={styles.relatedRecipesEyebrow}>
+              {mappedLocale === 'de' ? 'Ähnliche Rezepte' : 'Related recipes'}
+            </p>
+
+            <h2 id="related-recipes-title">
+              {mappedLocale === 'de'
+                ? `Mehr aus „${category}“`
+                : `More from ${category}`}
+            </h2>
+
+            <div className={styles.relatedRecipesGrid}>
+              {relatedRecipes.map((relatedRecipe) => (
+                <Link
+                  key={relatedRecipe.id}
+                  href={`/recipes/${relatedRecipe.slug}`}
+                  locale={mappedLocale}
+                  className={styles.relatedRecipeCard}
+                >
+                  <div className={styles.relatedRecipeImageWrap}>
+                    <Image
+                      src={relatedRecipe.image}
+                      alt={relatedRecipe.title}
+                      fill
+                      loading="lazy"
+                      sizes="(max-width: 700px) 78vw, 280px"
+                      className={styles.relatedRecipeImage}
+                    />
+                  </div>
+
+                  <div className={styles.relatedRecipeContent}>
+                    <span className={styles.relatedRecipeCategory}>
+                      {category}
+                    </span>
+                    <h3>{relatedRecipe.title}</h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         <DisqusComments post={recipe} />
 
