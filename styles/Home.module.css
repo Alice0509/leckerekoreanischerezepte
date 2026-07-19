@@ -578,3 +578,157 @@
     width: 100%;
   }
 }
+
+/* Mobile homepage first-view optimization */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px 14px 40px;
+  }
+
+  .heroSection {
+    margin: 0.65rem 0 1.5rem;
+    padding: 1.3rem 1rem;
+    border-radius: 18px;
+  }
+
+  .heroText {
+    text-align: left;
+  }
+
+  .heroEyebrow {
+    margin-bottom: 0.65rem;
+    padding: 0.3rem 0.62rem;
+    font-size: 0.74rem;
+  }
+
+  .heroTitle {
+    margin: 0 0 0.7rem;
+    font-size: clamp(1.85rem, 8.5vw, 2.45rem);
+    line-height: 1.08;
+  }
+
+  .heroDescription {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .heroButtons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .heroPrimaryButton,
+  .heroSecondaryButton {
+    width: 100%;
+    max-width: none;
+    padding: 0.75rem 0.55rem;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  .startHereSection,
+  .previewSection {
+    margin-bottom: 2rem;
+  }
+
+  .previewHeader {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .previewTitle {
+    font-size: 1.45rem;
+    line-height: 1.2;
+  }
+
+  .previewLink {
+    padding: 0.34rem 0.68rem;
+    font-size: 0.86rem;
+  }
+
+  .startHereGrid,
+  .featuredGrid,
+  .favoritesPreviewGrid {
+    display: flex;
+    gap: 12px;
+    margin-right: -14px;
+    margin-left: -14px;
+    padding: 0 14px 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .startHereGrid::-webkit-scrollbar,
+  .featuredGrid::-webkit-scrollbar,
+  .favoritesPreviewGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .startHereCard {
+    flex: 0 0 min(78vw, 300px);
+    min-height: 130px;
+    padding: 1rem;
+    scroll-snap-align: start;
+  }
+
+  .startHereCard h3 {
+    font-size: 1rem;
+  }
+
+  .startHereCard p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .featuredGrid > * {
+    flex: 0 0 min(78vw, 300px);
+    scroll-snap-align: start;
+  }
+
+  .favoritePreviewCard {
+    flex: 0 0 min(76vw, 290px);
+    transform: none;
+    scroll-snap-align: start;
+  }
+
+  .previewNotice {
+    margin-bottom: 0.8rem;
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+
+  .allRecipesSection {
+    margin-top: 0;
+    scroll-margin-top: 16px;
+  }
+
+  .controlsContainer {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr);
+    width: 100%;
+    gap: 8px;
+    margin: 14px 0 22px;
+  }
+
+  .filterContainer,
+  .searchContainer {
+    width: 100%;
+  }
+
+  .categorySelect,
+  .searchInput {
+    width: 100%;
+    font-size: 0.92rem;
+  }
+
+  .menuGrid {
+    gap: 14px;
+  }
+}

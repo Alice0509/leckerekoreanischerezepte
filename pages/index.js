@@ -378,6 +378,25 @@ const Home = ({ recipes, favorites, error }) => {
           </div>
         </section>
 
+        {/* FEATURED RECIPES */}
+        {featuredRecipes.length > 0 && (
+          <section className={styles.previewSection}>
+            <div className={styles.previewHeader}>
+              <h2 className={styles.previewTitle}>
+                {mappedLocale === 'de-DE'
+                  ? 'Rezepte aus meiner Küche'
+                  : 'Recipes from My Kitchen'}
+              </h2>
+            </div>
+
+            <div className={styles.featuredGrid}>
+              {featuredRecipes.map((item) => (
+                <RecipeCard key={item.id} recipe={item} />
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* FAVORITES PREVIEW */}
         {favorites.length > 0 && (
           <section className={styles.previewSection}>
@@ -430,25 +449,6 @@ const Home = ({ recipes, favorites, error }) => {
                   </article>
                 );
               })}
-            </div>
-          </section>
-        )}
-
-        {/* FEATURED RECIPES */}
-        {featuredRecipes.length > 0 && (
-          <section className={styles.previewSection}>
-            <div className={styles.previewHeader}>
-              <h2 className={styles.previewTitle}>
-                {mappedLocale === 'de-DE'
-                  ? 'Rezepte aus meiner Küche'
-                  : 'Recipes from My Kitchen'}
-              </h2>
-            </div>
-
-            <div className={styles.featuredGrid}>
-              {featuredRecipes.map((item) => (
-                <RecipeCard key={item.id} recipe={item} />
-              ))}
             </div>
           </section>
         )}
