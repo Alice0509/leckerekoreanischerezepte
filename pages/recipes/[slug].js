@@ -739,10 +739,6 @@ const RecipeDetail = ({ recipe, error }) => {
     return ingredient.slug && (hasUsefulDetail || hasRealImage);
   };
 
-  const ingredientCards = ingredients
-    .filter((ingredient) => shouldLinkIngredient(ingredient))
-    .slice(0, 6);
-
   const descriptionText = useMemo(() => {
     const fromSeoDescription = stripHtmlLikeWhitespace(seoDescription);
     const fromDescription = richTextToPlainText(description);
@@ -1186,43 +1182,6 @@ const RecipeDetail = ({ recipe, error }) => {
                 <h3>{mappedLocale === 'de' ? 'Anleitung' : 'Instructions'}</h3>
                 {renderContent(instructions)}
               </div>
-            )}
-
-            {ingredientCards.length > 0 && (
-              <section className={styles.usedIngredientsSection}>
-                <h3 className={styles.usedIngredientsTitle}>
-                  {mappedLocale === 'de'
-                    ? 'Zutaten, die du anklicken kannst'
-                    : 'Ingredients you can open and learn about'}
-                </h3>
-
-                <div className={styles.usedIngredientsGrid}>
-                  {ingredientCards.map((ingredient) => (
-                    <Link
-                      key={`${ingredient.id}-${ingredient.slug}`}
-                      href={`/ingredients/${ingredient.slug}`}
-                      className={styles.usedIngredientCard}
-                    >
-                      <div className={styles.usedIngredientImageWrap}>
-                        <Image
-                          src={ingredient.bild || '/images/default.png'}
-                          alt={ingredient.name}
-                          fill
-                          className={styles.usedIngredientImage}
-                        />
-                      </div>
-                      <div className={styles.usedIngredientContent}>
-                        <h4>{ingredient.name}</h4>
-                        {ingredient.quantity && (
-                          <p className={styles.usedIngredientQty}>
-                            {ingredient.quantity}
-                          </p>
-                        )}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </section>
             )}
 
             {youTubeUrl && (

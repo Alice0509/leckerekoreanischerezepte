@@ -19,13 +19,13 @@ export default function SiteMusicPlayer() {
       ? 'Pause kitchen music'
       : 'Play kitchen music';
 
-  const visibleText = isGerman
+  const buttonText = isGerman
     ? isPlaying
-      ? '♪ Pause'
-      : '♪ Musik'
+      ? 'Pause'
+      : 'Musik'
     : isPlaying
-      ? '♪ Pause'
-      : '♪ Music';
+      ? 'Pause'
+      : 'Music';
 
   const toggleMusic = async () => {
     if (!audioRef.current) return;
@@ -79,7 +79,10 @@ export default function SiteMusicPlayer() {
         aria-label={label}
         title={label}
       >
-        {visibleText}
+        <span className="musicIcon" aria-hidden="true">
+          {isPlaying ? 'Ⅱ' : '♪'}
+        </span>
+        <span className="musicText">{buttonText}</span>
       </button>
 
       <style jsx>{`
@@ -91,6 +94,10 @@ export default function SiteMusicPlayer() {
         }
 
         button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
           border: 1px solid rgba(120, 90, 60, 0.25);
           border-radius: 999px;
           background: rgba(255, 250, 244, 0.94);
@@ -107,6 +114,14 @@ export default function SiteMusicPlayer() {
             background 0.15s ease;
         }
 
+        .musicIcon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 14px;
+          font-weight: 800;
+        }
+
         button:hover {
           transform: translateY(-1px);
           box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
@@ -119,13 +134,25 @@ export default function SiteMusicPlayer() {
 
         @media (max-width: 640px) {
           .musicPlayer {
-            left: 10px;
-            bottom: 10px;
+            right: 20px;
+            bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+            left: auto;
           }
 
           button {
-            padding: 7px 11px;
-            font-size: 12.5px;
+            width: 46px;
+            height: 46px;
+            padding: 0;
+            font-size: 18px;
+          }
+
+          .musicText {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
           }
         }
       `}</style>

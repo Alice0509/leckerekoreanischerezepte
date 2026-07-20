@@ -95,8 +95,26 @@ const DisqusComments = ({ post }) => {
 
         @media (max-width: 600px) {
           .recipe-comments {
-            padding: 18px;
+            margin-top: 28px;
+            padding: 16px;
             border-radius: 14px;
+          }
+
+          .recipe-comments__intro h2 {
+            margin-bottom: 6px;
+            font-size: 1.15rem;
+            line-height: 1.3;
+          }
+
+          .recipe-comments__intro p {
+            margin-bottom: 12px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+          }
+
+          .recipe-comments__button {
+            padding: 0.68rem 1rem;
+            font-size: 0.9rem;
           }
         }
       `}</style>
