@@ -939,3 +939,134 @@
     scroll-snap-align: start;
   }
 }
+
+/* Separate checklist actions from ingredient guide navigation */
+.ingredientContent {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: start;
+}
+
+.ingredientContent .ingredientCheckLabel {
+  display: block;
+  min-width: 0;
+  cursor: pointer;
+  line-height: 1.45;
+}
+
+.ingredientName {
+  font-weight: 500;
+}
+
+.ingredientGuideLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 4px 9px;
+  border: 1px solid rgba(126, 170, 141, 0.35);
+  border-radius: 999px;
+  background: #eef6f0;
+  color: #42634c;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ingredientGuideLink:hover {
+  background: #deece1;
+}
+
+.ingredientShoppingNote {
+  margin-top: 16px;
+  padding: 0 12px;
+  border: 1px solid rgba(120, 80, 45, 0.14);
+  border-radius: 12px;
+  background: #fffdf9;
+}
+
+.ingredientShoppingNote summary {
+  position: relative;
+  padding: 12px 28px 12px 0;
+  cursor: pointer;
+  color: #3f352f;
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.35;
+  list-style: none;
+}
+
+.ingredientShoppingNote summary::-webkit-details-marker {
+  display: none;
+}
+
+.ingredientShoppingNote summary::after {
+  content: '+';
+  position: absolute;
+  top: 50%;
+  right: 2px;
+  transform: translateY(-50%);
+  color: #7eaa8d;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.ingredientShoppingNote[open] summary::after {
+  content: '−';
+}
+
+.ingredientShoppingNote p {
+  margin: 0;
+  padding: 0 0 13px;
+  color: #5b514b;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 768px) {
+  .ingredientContent {
+    gap: 10px;
+  }
+
+  .ingredientContent .ingredientCheckLabel {
+    min-height: 34px;
+    padding-top: 2px;
+    font-size: 0.98rem;
+  }
+
+  .ingredientGuideLink {
+    min-height: 34px;
+    padding: 5px 10px;
+    font-size: 0.78rem;
+  }
+
+  .ingredientShoppingNote {
+    margin-top: 18px;
+  }
+
+  .ingredientShoppingNote summary {
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .ingredientGuideLink {
+    background: #eef6f0;
+    color: #42634c;
+  }
+
+  .ingredientShoppingNote {
+    background: #fffdf9;
+    color: #3f352f;
+  }
+
+  .ingredientShoppingNote summary,
+  .ingredientShoppingNote p {
+    color: #3f352f;
+  }
+}

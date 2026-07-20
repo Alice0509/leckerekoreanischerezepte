@@ -1012,45 +1012,69 @@ const RecipeDetail = ({ recipe, error }) => {
             </h3>
             {ingredients.length > 0 ? (
               <>
-                {ingredients.some(shouldLinkIngredient) && (
-                  <p className={styles.ingredientsHelp}>
-                    {mappedLocale === 'de'
-                      ? 'Unterstrichene Zutaten kannst du öffnen, um mehr darüber zu erfahren.'
-                      : 'Open underlined ingredients to learn more about them.'}
-                  </p>
-                )}
+                <p className={styles.ingredientsHelp}>
+                  {ingredients.some(shouldLinkIngredient)
+                    ? mappedLocale === 'de'
+                      ? 'Tippe auf eine Zutat, um sie abzuhaken. Über „Guide“ öffnest du weitere Informationen.'
+                      : 'Tap an ingredient to check it off. Open “Guide” for more information.'
+                    : mappedLocale === 'de'
+                      ? 'Tippe auf eine Zutat, um sie abzuhaken.'
+                      : 'Tap an ingredient to check it off.'}
+                </p>
+
                 <ul className={styles.ingredientsList}>
-                  {ingredients.map((ingredient, index) => (
-                    <li key={ingredient.id} className={styles.ingredientItem}>
-                      <input
-                        id={`ingredient-checkbox-${index}`}
-                        type="checkbox"
-                        checked={checkedIngredients[index]}
-                        onChange={() => handleIngredientCheckboxChange(index)}
-                        className={styles.ingredientCheckbox}
-                      />
-                      <div
-                        className={`${styles.ingredientContent} ${
-                          checkedIngredients[index] ? styles.checked : ''
-                        }`}
-                      >
-                        {shouldLinkIngredient(ingredient) ? (
-                          <Link
-                            href={`/ingredients/${ingredient.slug}`}
-                            className={styles.ingredientLink}
+                  {ingredients.map((ingredient, index) => {
+                    const checkboxId = `ingredient-checkbox-${index}`;
+                    const hasIngredientGuide = shouldLinkIngredient(ingredient);
+
+                    return (
+                      <li key={ingredient.id} className={styles.ingredientItem}>
+                        <input
+                          id={checkboxId}
+                          type="checkbox"
+                          checked={checkedIngredients[index]}
+                          onChange={() => handleIngredientCheckboxChange(index)}
+                          className={styles.ingredientCheckbox}
+                        />
+
+                        <div className={styles.ingredientContent}>
+                          <label
+                            htmlFor={checkboxId}
+                            className={`${styles.ingredientCheckLabel} ${
+                              checkedIngredients[index] ? styles.checked : ''
+                            }`}
                           >
-                            {ingredient.name}
-                          </Link>
-                        ) : (
-                          <label htmlFor={`ingredient-checkbox-${index}`}>
-                            {ingredient.name}
+                            <span className={styles.ingredientName}>
+                              {ingredient.name}
+                            </span>{' '}
+                            <strong>{ingredient.quantity}</strong>
                           </label>
-                        )}{' '}
-                        <strong>{ingredient.quantity}</strong>
-                      </div>
-                    </li>
-                  ))}
+
+                          {hasIngredientGuide && (
+                            <Link
+                              href={`/ingredients/${ingredient.slug}`}
+                              className={styles.ingredientGuideLink}
+                              aria-label={
+                                mappedLocale === 'de'
+                                  ? `Guide zu ${ingredient.name} öffnen`
+                                  : `Open the guide for ${ingredient.name}`
+                              }
+                            >
+                              Guide
+                            </Link>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ul>
+
+                {guide.shoppingText && (
+                  <details className={styles.ingredientShoppingNote}>
+                    <summary>{guide.shoppingTitle}</summary>
+                    <p>{guide.shoppingText}</p>
+                  </details>
+                )}
               </>
             ) : (
               <p>
@@ -1075,26 +1099,18 @@ const RecipeDetail = ({ recipe, error }) => {
               </section>
             )}
 
-            {!guide.isDefault && (
+            {!guide.isDefault && guide.tips.length > 0 && (
               <section className={styles.practicalInfoGrid}>
-                {guide.shoppingText && (
-                  <article className={styles.practicalInfoCard}>
-                    <h3>{guide.shoppingTitle}</h3>
-                    <p>{guide.shoppingText}</p>
-                  </article>
-                )}
-                {guide.tips.length > 0 && (
-                  <article className={styles.practicalInfoCard}>
-                    <h3>
-                      {mappedLocale === 'de' ? 'Kleine Tipps' : 'Quick tips'}
-                    </h3>
-                    <ul>
-                      {guide.tips.map((tip) => (
-                        <li key={tip}>{tip}</li>
-                      ))}
-                    </ul>
-                  </article>
-                )}
+                <article className={styles.practicalInfoCard}>
+                  <h3>
+                    {mappedLocale === 'de' ? 'Kleine Tipps' : 'Quick tips'}
+                  </h3>
+                  <ul>
+                    {guide.tips.map((tip) => (
+                      <li key={tip}>{tip}</li>
+                    ))}
+                  </ul>
+                </article>
               </section>
             )}
 
