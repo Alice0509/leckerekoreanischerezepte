@@ -12,14 +12,14 @@ const AboutUs = () => {
 
   const content = {
     en: {
-      title: 'About Hansik Young – Korean Home Cooking in Germany',
+      title: 'About Hansik Young – Korean Home Cooking',
       description:
-        'Hansik Young is my personal archive of Korean home cooking in Germany, with recipes, ingredient notes, and dishes I actually cook at home.',
+        'Hansik Young is my personal archive of Korean home cooking, with recipes, ingredient notes, and dishes I actually cook at home.',
       h1: 'About Hansik Young',
       intro:
-        'Hansik Young is my personal archive of Korean home cooking in Germany. I collect the dishes I really cook at home — everyday meals, soups, stews, side dishes, sauces, and small kitchen basics.',
+        'Hansik Young is my personal archive of Korean home cooking. I collect the dishes I really cook at home — everyday meals, soups, stews, side dishes, sauces, and small kitchen basics.',
       secondParagraph:
-        'Because I live in Germany, I also write down which ingredients I can actually find and use here. Sometimes they come from an Asian market, sometimes from a regular supermarket, and sometimes a recipe just needs a small adjustment.',
+        'I also write down which ingredients I actually use and where they are commonly found. Sometimes they come from an Asian market, sometimes from a regular supermarket, and sometimes a recipe just needs a small adjustment.',
       messageTitle: 'A note to my child',
       message:
         '“I collect these recipes so that one day, when you miss my cooking, you can find your favorite dishes again.”',
@@ -29,7 +29,7 @@ const AboutUs = () => {
       contact: 'Contact',
       projectsTitle: 'Other projects by Joan',
       projectsIntro:
-        'Besides Hansik Young, Joan also works on small digital projects that make everyday life in Germany a little easier.',
+        'Besides Hansik Young, Joan also works on small digital projects that make everyday planning a little easier.',
       projects: [
         {
           name: 'Schulferienklar',
@@ -99,6 +99,10 @@ const AboutUs = () => {
           {
             hrefLang: 'en',
             href: seoUrls.alternateUrls.en,
+          },
+          {
+            hrefLang: 'x-default',
+            href: seoUrls.alternateUrls.xDefault,
           },
         ]}
         openGraph={{
