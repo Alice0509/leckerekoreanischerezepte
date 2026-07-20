@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
+import { getSeoUrls } from '../../lib/siteUrls';
 import client from '../../lib/contentful';
 import {
   getCanonicalIngredientEntryId,
@@ -156,6 +157,10 @@ export async function getStaticProps({ locale }) {
 
 const Ingredients = ({ ingredients, error, mappedLocale }) => {
   const isGerman = mappedLocale === 'de';
+  const seoUrls = getSeoUrls({
+    locale: mappedLocale,
+    path: '/ingredients',
+  });
   const visibleIngredients = ingredients?.filter((ingredient) =>
     getPlainText(ingredient.description)
   );
@@ -185,7 +190,30 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
 
   return (
     <>
-      <NextSeo title={seoTitle} description={seoDescription} />
+      <NextSeo
+        title={seoTitle}
+        description={seoDescription}
+        canonical={seoUrls.canonicalUrl}
+        languageAlternates={[
+          {
+            hrefLang: 'de',
+            href: seoUrls.alternateUrls.de,
+          },
+          {
+            hrefLang: 'en',
+            href: seoUrls.alternateUrls.en,
+          },
+          {
+            hrefLang: 'x-default',
+            href: seoUrls.alternateUrls.xDefault,
+          },
+        ]}
+        openGraph={{
+          url: seoUrls.canonicalUrl,
+          title: seoTitle,
+          description: seoDescription,
+        }}
+      />
 
       <main className={styles.container}>
         <section className={styles.hero}>

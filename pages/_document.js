@@ -27,7 +27,10 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           {/* ---------- PWA ---------- */}
-          <link rel="manifest" href="/manifest.json" />
+          <link
+            rel="manifest"
+            href={lang === 'de' ? '/manifest-de.json' : '/manifest-en.json'}
+          />
           <meta name="theme-color" content="#8db580" />
 
           {/* ---------- iOS 웹앱 ---------- */}

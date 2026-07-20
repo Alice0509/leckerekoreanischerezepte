@@ -91,7 +91,7 @@ export default function Gallery({ galleryItems, favorites }) {
     : {
         title: 'Favorites & Shopping List | Hansik Young',
         description:
-          'My personal shopping list for Korean ingredients, products, and kitchen basics in Germany — plus small photos from my everyday kitchen.',
+          'My personal shopping list for Korean ingredients, products, and kitchen basics — plus small photos from my everyday kitchen.',
       };
 
   /* -----------------------------------------------------------
@@ -154,6 +154,10 @@ export default function Gallery({ galleryItems, favorites }) {
           {
             hrefLang: 'en',
             href: seoUrls.alternateUrls.en,
+          },
+          {
+            hrefLang: 'x-default',
+            href: seoUrls.alternateUrls.xDefault,
           },
         ]}
         openGraph={{
