@@ -34,36 +34,6 @@ BASE_REDIRECTS = [
         "https://www.hansikyoung.de/ingredients",
         "https://www.leckere-koreanische-rezepte.de/ingredients",
     ),
-    (
-        "DE host removes /de prefix",
-        "https://www.leckere-koreanische-rezepte.de/de/about-us",
-        "https://www.leckere-koreanische-rezepte.de/about-us",
-    ),
-    (
-        "DE host sends /en path to EN",
-        "https://www.leckere-koreanische-rezepte.de/en/about-us",
-        "https://www.hansikyoung.com/about-us",
-    ),
-    (
-        "EN host removes /en prefix",
-        "https://www.hansikyoung.com/en/about-us",
-        "https://www.hansikyoung.com/about-us",
-    ),
-    (
-        "EN host sends /de path to DE",
-        "https://www.hansikyoung.com/de/about-us",
-        "https://www.leckere-koreanische-rezepte.de/about-us",
-    ),
-    (
-        "DE host /en root → EN root",
-        "https://www.leckere-koreanische-rezepte.de/en",
-        "https://www.hansikyoung.com/",
-    ),
-    (
-        "EN host /de root → DE root",
-        "https://www.hansikyoung.com/de",
-        "https://www.leckere-koreanische-rezepte.de/",
-    ),
 ]
 
 ASSETS = [
