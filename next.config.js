@@ -142,9 +142,6 @@ module.exports = withPWA(
 
     reactStrictMode: true,
 
-    // Preserve the original /de or /en pathname for Middleware.
-    skipMiddlewareUrlNormalize: true,
-
     async rewrites() {
       return {
         beforeFiles: [
