@@ -23,7 +23,8 @@
     "migrate:ingredients:secondary": "node scripts/migrate-secondary-ingredients.mjs",
     "migrate:ingredients:high-usage": "node scripts/migrate-high-usage-ingredients.mjs",
     "migrate:ingredients:final-used": "node scripts/migrate-final-used-ingredients.mjs",
-    "migrate:ingredients:azuki": "node scripts/migrate-azuki-ingredient.mjs"
+    "migrate:ingredients:azuki": "node scripts/migrate-azuki-ingredient.mjs",
+    "verify:live:seo": "python3 scripts/verify-live-static-seo.py"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",
