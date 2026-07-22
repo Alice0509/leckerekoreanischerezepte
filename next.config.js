@@ -62,62 +62,6 @@ const getLocalizedRecipeRedirects = () =>
     ];
   });
 
-const getLocalePrefixRedirects = () => {
-  const canonicalHosts = {
-    de: 'www.leckere-koreanische-rezepte.de',
-    en: 'www.hansikyoung.com',
-  };
-
-  const sourceHosts = [
-    'www.leckere-koreanische-rezepte.de',
-    'leckere-koreanische-rezepte.de',
-    'www.hansikyoung.com',
-    'hansikyoung.com',
-    'www.hansikyoung.de',
-    'hansikyoung.de',
-  ];
-
-  const createRedirects = ({ host, locale, destinationHost }) => [
-    {
-      source: `/${locale}`,
-      has: [
-        {
-          type: 'host',
-          value: host,
-        },
-      ],
-      destination: `https://${destinationHost}`,
-      permanent: true,
-      locale: false,
-    },
-    {
-      source: `/${locale}/:path*`,
-      has: [
-        {
-          type: 'host',
-          value: host,
-        },
-      ],
-      destination: `https://${destinationHost}/:path*`,
-      permanent: true,
-      locale: false,
-    },
-  ];
-
-  return sourceHosts.flatMap((host) => [
-    ...createRedirects({
-      host,
-      locale: 'de',
-      destinationHost: canonicalHosts.de,
-    }),
-    ...createRedirects({
-      host,
-      locale: 'en',
-      destinationHost: canonicalHosts.en,
-    }),
-  ]);
-};
-
 // ───────────────────────────────────────────────────────────
 // PWA 설정
 // ───────────────────────────────────────────────────────────
@@ -198,6 +142,9 @@ module.exports = withPWA(
 
     reactStrictMode: true,
 
+    // Preserve the original /de or /en pathname for Middleware.
+    skipMiddlewareUrlNormalize: true,
+
     async rewrites() {
       return {
         beforeFiles: [
@@ -274,7 +221,6 @@ module.exports = withPWA(
     async redirects() {
       return [
         ...getLocalizedRecipeRedirects(),
-        ...getLocalePrefixRedirects(),
         {
           source: '/:path*',
           has: [
