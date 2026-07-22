@@ -24,7 +24,9 @@
     "migrate:ingredients:high-usage": "node scripts/migrate-high-usage-ingredients.mjs",
     "migrate:ingredients:final-used": "node scripts/migrate-final-used-ingredients.mjs",
     "migrate:ingredients:azuki": "node scripts/migrate-azuki-ingredient.mjs",
-    "verify:live:seo": "python3 scripts/verify-live-static-seo.py"
+    "verify:live:seo": "python3 scripts/verify-live-static-seo.py",
+    "verify:live:routes": "python3 scripts/verify-live-routes.py",
+    "verify:live": "npm run verify:live:seo && npm run verify:live:routes"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",
