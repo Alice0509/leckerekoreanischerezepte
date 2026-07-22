@@ -97,9 +97,7 @@ export default function PwaGuide() {
         '(display-mode: standalone)'
       ).matches;
 
-      const iosStandalone = window.navigator.standalone === true;
-
-      setIsStandalone(displayModeStandalone || iosStandalone);
+      setIsStandalone(displayModeStandalone);
     };
 
     const handleInstallPrompt = (event) => {
