@@ -1,0 +1,253 @@
+.page {
+  width: min(100% - 28px, 920px);
+  margin: 0 auto;
+  padding: 42px 0 72px;
+  color: #342f2b;
+}
+
+.hero {
+  padding: clamp(24px, 5vw, 48px);
+  border: 1px solid rgba(70, 104, 78, 0.15);
+  border-radius: 24px;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(141, 181, 128, 0.22),
+      transparent 38%
+    ),
+    #fffdf9;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #52725b;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 680px;
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3.6rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+
+.intro {
+  max-width: 650px;
+  margin: 18px 0 0;
+  color: #655c55;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.domainCard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: center;
+  margin-top: 24px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #edf5ee;
+  color: #3f5d47;
+}
+
+.domainCard span {
+  font-size: 0.86rem;
+}
+
+.domainCard strong {
+  overflow-wrap: anywhere;
+}
+
+.installArea,
+.statusCard {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid rgba(111, 151, 122, 0.25);
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.installArea p,
+.statusCard p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.statusCard strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #46634d;
+}
+
+.installButton {
+  min-height: 46px;
+  margin-top: 14px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #527b5d;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.languageNotice {
+  margin-top: 22px;
+  padding: 20px;
+  border: 1px solid rgba(173, 126, 71, 0.2);
+  border-radius: 18px;
+  background: #fff8ee;
+}
+
+.languageNotice h2,
+.languageNotice p {
+  margin: 0;
+}
+
+.languageNotice h2 {
+  font-size: 1.15rem;
+}
+
+.languageNotice p {
+  margin-top: 8px;
+  color: #66594c;
+  line-height: 1.65;
+}
+
+.instructions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.instructionCard {
+  padding: 22px;
+  border: 1px solid rgba(82, 114, 91, 0.14);
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(54, 44, 36, 0.05);
+}
+
+.deviceIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 8px;
+  border-radius: 12px;
+  background: #edf5ee;
+  color: #46634d;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.instructionCard h2 {
+  margin: 16px 0 0;
+  font-size: 1.25rem;
+}
+
+.instructionCard ol {
+  margin: 16px 0 0;
+  padding-left: 1.25rem;
+}
+
+.instructionCard li {
+  margin-top: 10px;
+  color: #615850;
+  line-height: 1.55;
+}
+
+.otherLanguage {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 22px;
+  border-radius: 20px;
+  background: #343d36;
+  color: #ffffff;
+}
+
+.otherLanguage h2,
+.otherLanguage p {
+  margin: 0;
+}
+
+.otherLanguage h2 {
+  font-size: 1.2rem;
+}
+
+.otherLanguage p {
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.76);
+  line-height: 1.55;
+}
+
+.otherLanguage a {
+  flex: 0 0 auto;
+  padding: 11px 15px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #35463a;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+@media (max-width: 700px) {
+  .page {
+    width: min(100% - 20px, 920px);
+    padding: 18px 0 56px;
+  }
+
+  .hero {
+    padding: 22px 18px;
+    border-radius: 19px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 10vw, 2.6rem);
+  }
+
+  .intro {
+    font-size: 0.97rem;
+  }
+
+  .instructions {
+    display: flex;
+    gap: 12px;
+    margin-right: -10px;
+    padding-right: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .instructions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .instructionCard {
+    flex: 0 0 min(82vw, 320px);
+    padding: 18px;
+    scroll-snap-align: start;
+  }
+
+  .otherLanguage {
+    display: block;
+    padding: 19px;
+  }
+
+  .otherLanguage a {
+    display: inline-flex;
+    margin-top: 16px;
+  }
+}
