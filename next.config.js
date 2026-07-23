@@ -70,7 +70,7 @@ const withPWA = require('next-pwa')({
   disable: process.env.NODE_ENV === 'development',
   register: true,
   skipWaiting: true,
-  buildExcludes: [/middleware-manifest\.json$/],
+  buildExcludes: [/middleware-manifest\.json$/, /dynamic-css-manifest\.json$/],
   runtimeCaching: [
     {
       urlPattern: /^https:\/\/images\.unsplash\.com\/.*/i,
