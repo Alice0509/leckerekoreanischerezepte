@@ -39,7 +39,7 @@ export default async function handler(req, res) {
       });
     }
 
-    const resolveImageUrl = async (imageField) => {
+    const resolveImageUrl = (imageField) => {
       const image = Array.isArray(imageField) ? imageField[0] : imageField;
       if (!image) return null;
 
@@ -56,43 +56,23 @@ export default async function handler(req, res) {
         return assetUrl.startsWith('//') ? `https:${assetUrl}` : assetUrl;
       }
 
-      if (image.sys?.id) {
-        try {
-          const asset = await client.getAsset(image.sys.id, { locale });
-          const fallbackUrl = asset.fields?.file?.url;
-
-          if (fallbackUrl) {
-            return fallbackUrl.startsWith('//')
-              ? `https:${fallbackUrl}`
-              : fallbackUrl;
-          }
-        } catch (error) {
-          console.warn(
-            `Could not resolve recipe image asset ${image.sys.id}:`,
-            error.message
-          );
-        }
-      }
-
       return null;
     };
 
-    const recipes = await Promise.all(
-      resEntries.items.map(async (item) => {
-        const imageUrl = await resolveImageUrl(item.fields.image);
-        const categoryData = getRecipeCategoryFromFields(item.fields, locale);
+    const recipes = resEntries.items.map((item) => {
+      const imageUrl = resolveImageUrl(item.fields.image);
+      const categoryData = getRecipeCategoryFromFields(item.fields, locale);
 
-        return {
-          id: item.sys.id,
-          slug: item.fields.slug,
-          titel: item.fields.titel,
-          category: categoryData.label,
-          categoryKey: categoryData.key,
-          youTubeUrl: item.fields.youTubeUrl || null,
-          image: imageUrl || '/images/default.png',
-        };
-      })
-    );
+      return {
+        id: item.sys.id,
+        slug: item.fields.slug,
+        titel: item.fields.titel,
+        category: categoryData.label,
+        categoryKey: categoryData.key,
+        youTubeUrl: item.fields.youTubeUrl || null,
+        image: imageUrl || '/images/default.png',
+      };
+    });
 
     res.setHeader(
       'Cache-Control',
