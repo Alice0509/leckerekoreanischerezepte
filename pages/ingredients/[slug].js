@@ -12,6 +12,7 @@ import {
   resolveIngredientSlug,
 } from '../../lib/ingredientSlugs';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import ingredientRecipeIndex from '../../lib/generated-ingredient-recipe-index.json';
 
 const stripHtmlLikeWhitespace = (text) =>
   (text || '').replace(/\s+/g, ' ').trim();
@@ -566,91 +567,13 @@ export async function getStaticProps({ params, locale }) {
       };
     });
 
-    const recipeRes = await client.getEntries({
-      content_type: 'recipe',
-      locale: mappedLocale,
-      include: 2,
-      limit: 1000,
-    });
+    const canonicalIngredientId = getCanonicalIngredientEntryId(ingredient.id);
 
-    const assetsMap = {};
-    recipeRes.includes?.Asset?.forEach((asset) => {
-      assetsMap[asset.sys.id] = asset;
-    });
+    const localizedRecipeIndex = ingredientRecipeIndex[canonicalIngredientId];
 
-    const recipeIngredientEntries =
-      recipeRes.includes?.Entry?.filter(
-        (entry) => entry.sys.contentType.sys.id === 'recipeIngredient'
-      ) || [];
-
-    const ingredientEntries =
-      recipeRes.includes?.Entry?.filter(
-        (entry) => entry.sys.contentType.sys.id === 'ingredient'
-      ) || [];
-
-    const ingredientNameMap = {};
-    ingredientEntries.forEach((entry) => {
-      ingredientNameMap[entry.sys.id] = {
-        name: entry.fields.name || '',
-        slug: getCanonicalIngredientSlug({
-          entryId: entry.sys.id,
-          fallbackSlug: entry.fields.slug || '',
-        }),
-        canonicalEntryId: getCanonicalIngredientEntryId(entry.sys.id),
-      };
-    });
-
-    const relatedRecipes = recipeRes.items
-      .filter((recipe) => {
-        const recipeIngredients = recipe.fields.ingredients || [];
-
-        return recipeIngredients.some((ri) => {
-          const recipeIngredient = recipeIngredientEntries.find(
-            (entry) => entry.sys.id === ri.sys.id
-          );
-          if (!recipeIngredient) return false;
-
-          const ingredientRef = recipeIngredient.fields.ingredient;
-          if (!ingredientRef?.sys?.id) return false;
-
-          const linkedIngredient = ingredientNameMap[ingredientRef.sys.id];
-          if (!linkedIngredient) return false;
-
-          return (
-            linkedIngredient.canonicalEntryId ===
-            getCanonicalIngredientEntryId(ingredient.id)
-          );
-        });
-      })
-      .map((recipe) => {
-        let recipeImage = '/images/default.png';
-
-        if (
-          Array.isArray(recipe.fields.image) &&
-          recipe.fields.image.length > 0
-        ) {
-          const firstImage = recipe.fields.image[0];
-          if (
-            firstImage?.sys?.id &&
-            assetsMap[firstImage.sys.id]?.fields?.file?.url
-          ) {
-            recipeImage = `https:${assetsMap[firstImage.sys.id].fields.file.url}`;
-          }
-        } else if (
-          recipe.fields.image?.sys?.id &&
-          assetsMap[recipe.fields.image.sys.id]?.fields?.file?.url
-        ) {
-          recipeImage = `https:${assetsMap[recipe.fields.image.sys.id].fields.file.url}`;
-        }
-
-        return {
-          id: recipe.sys.id,
-          slug: recipe.fields.slug || '',
-          titel: recipe.fields.titel || '',
-          image: recipeImage,
-        };
-      })
-      .slice(0, 6);
+    const relatedRecipes = Array.isArray(localizedRecipeIndex?.[mappedLocale])
+      ? localizedRecipeIndex[mappedLocale].slice(0, 6)
+      : [];
 
     const props = {
       ingredient,
