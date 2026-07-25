@@ -12,7 +12,7 @@
     "check:ui": "prettier --check pages components lib styles && eslint pages components lib",
     "export": "next export",
     "generate:seo-assets": "node scripts/generate-seo-assets.mjs",
-    "prebuild": "npm run generate:seo-assets",
+    "prebuild": "npm run generate:ingredient-index && npm run generate:seo-assets",
     "audit:content": "npm run audit:ingredients:slugs && npm run audit:recipes",
     "audit:recipes:en": "node scripts/audit-english-recipes.mjs",
     "audit:recipes:de": "node scripts/audit-german-recipes.mjs",
@@ -26,7 +26,8 @@
     "migrate:ingredients:azuki": "node scripts/migrate-azuki-ingredient.mjs",
     "verify:live:seo": "python3 scripts/verify-live-static-seo.py",
     "verify:live:routes": "python3 scripts/verify-live-routes.py",
-    "verify:live": "npm run verify:live:seo && npm run verify:live:routes"
+    "verify:live": "npm run verify:live:seo && npm run verify:live:routes",
+    "generate:ingredient-index": "node scripts/generate-ingredient-recipe-index.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",
