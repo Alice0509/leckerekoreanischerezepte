@@ -56,7 +56,7 @@ export async function getStaticProps({ locale }) {
       assetsMap[asset.sys.id] = asset;
     });
 
-    const resolveImageUrl = async (imageField) => {
+    const resolveImageUrl = (imageField) => {
       const image = Array.isArray(imageField) ? imageField[0] : imageField;
       if (!image) return null;
 
@@ -73,67 +73,45 @@ export async function getStaticProps({ locale }) {
         return assetUrl.startsWith('//') ? `https:${assetUrl}` : assetUrl;
       }
 
-      if (image.sys?.id) {
-        try {
-          const asset = await client.getAsset(image.sys.id, {
-            locale: mappedLocale,
-          });
-          const fallbackUrl = asset.fields?.file?.url;
-
-          if (fallbackUrl) {
-            return fallbackUrl.startsWith('//')
-              ? `https:${fallbackUrl}`
-              : fallbackUrl;
-          }
-        } catch (error) {
-          console.warn(
-            `Could not resolve recipe image asset ${image.sys.id}:`,
-            error.message
-          );
-        }
-      }
-
       return null;
     };
 
-    const recipes = await Promise.all(
-      recipeRes.items.map(async (item) => {
-        const imageUrl = await resolveImageUrl(item.fields.image);
+    const recipes = recipeRes.items.map((item) => {
+      const imageUrl = resolveImageUrl(item.fields.image);
 
-        let descriptionText = '';
-        if (item.fields.description?.content) {
-          descriptionText = item.fields.description.content
-            .map((block) => {
-              if (block.nodeType === 'paragraph') {
-                return block.content.map((node) => node.value).join('');
-              }
-              return '';
-            })
-            .join(' ');
+      let descriptionText = '';
+      if (item.fields.description?.content) {
+        descriptionText = item.fields.description.content
+          .map((block) => {
+            if (block.nodeType === 'paragraph') {
+              return block.content.map((node) => node.value).join('');
+            }
+            return '';
+          })
+          .join(' ');
 
-          if (descriptionText.length > 200) {
-            descriptionText = descriptionText.substring(0, 200) + '...';
-          }
+        if (descriptionText.length > 200) {
+          descriptionText = descriptionText.substring(0, 200) + '...';
         }
+      }
 
-        const categoryData = getRecipeCategoryFromFields(
-          item.fields,
-          mappedLocale
-        );
+      const categoryData = getRecipeCategoryFromFields(
+        item.fields,
+        mappedLocale
+      );
 
-        return {
-          id: item.sys.id,
-          slug: item.fields.slug,
-          titel: item.fields.titel,
-          category: categoryData.label,
-          categoryKey: categoryData.key,
-          originalCategory: categoryData.originalLabel,
-          youTubeUrl: item.fields.youTubeUrl || null,
-          image: imageUrl || '/images/default.png',
-          descriptionText,
-        };
-      })
-    );
+      return {
+        id: item.sys.id,
+        slug: item.fields.slug,
+        titel: item.fields.titel,
+        category: categoryData.label,
+        categoryKey: categoryData.key,
+        originalCategory: categoryData.originalLabel,
+        youTubeUrl: item.fields.youTubeUrl || null,
+        image: imageUrl || '/images/default.png',
+        descriptionText,
+      };
+    });
 
     const favorites = favoriteRes.items.map((item) => {
       const imageUrl = item.fields.image?.fields?.file?.url
