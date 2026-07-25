@@ -860,6 +860,7 @@ const IngredientDetail = ({
                       src={recipe.image}
                       alt={recipe.titel}
                       fill
+                      sizes="(max-width: 768px) calc(100vw - 32px), (max-width: 1024px) 300px, 360px"
                       className={styles.relatedImage}
                     />
                   </div>
