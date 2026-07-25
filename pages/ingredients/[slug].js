@@ -766,10 +766,57 @@ const IngredientDetail = ({
       <div className={styles.container}>
         <header className={styles.hero}>
           <p className={styles.eyebrow}>{guide.eyebrow}</p>
-          <h1 className={styles.title}>{guide.headline}</h1>
+          <h1 className={styles.title}>{mainTitle || guide.headline}</h1>
           {subTitle && <p className={styles.subtitle}>{subTitle}</p>}
           <p className={styles.heroText}>{guide.intro}</p>
-          <div className={styles.heroActions}>
+          <section
+            className={styles.overviewGrid}
+            aria-label="Ingredient overview"
+          >
+            {bild && (
+              <div className={styles.imageWrapper}>
+                <Image
+                  src={bild}
+                  alt={name}
+                  width={600}
+                  height={400}
+                  className={styles.image}
+                  placeholder="blur"
+                  blurDataURL={loadingSpinner}
+                />
+              </div>
+            )}
+
+            <div className={styles.quickFacts}>
+              <h2>{isGerman ? 'Kurz gesagt' : 'At a glance'}</h2>
+              <ul>
+                <li>
+                  <strong>{isGerman ? 'Kaufen:' : 'Buy:'}</strong>{' '}
+                  {guide.buyPlaces.slice(0, 2).join(', ')}
+                </li>
+                <li>
+                  <strong>{isGerman ? 'Verwendung:' : 'Use for:'}</strong>{' '}
+                  {guide.uses.slice(0, 3).join(', ')}
+                </li>
+                <li>
+                  <strong>{isGerman ? 'Tipp:' : 'Tip:'}</strong> {guide.tips[0]}
+                </li>
+                {germanMeatCut && (
+                  <li>
+                    <strong>{isGerman ? 'Stück:' : 'Cut:'}</strong>{' '}
+                    {germanMeatCut}
+                  </li>
+                )}
+              </ul>
+            </div>
+          </section>
+
+          <nav
+            className={styles.overviewActions}
+            aria-label={
+              isGerman ? 'Aktionen zu dieser Zutat' : 'Ingredient actions'
+            }
+          >
             {relatedRecipes.length > 0 && (
               <a href="#recipes" className={styles.primaryButton}>
                 {isGerman ? 'Rezepte damit finden' : 'Find recipes'}
@@ -790,99 +837,40 @@ const IngredientDetail = ({
                 ? 'Meine Einkaufsliste öffnen'
                 : 'Open my shopping list'}
             </Link>
-          </div>
+          </nav>
         </header>
 
-        <section
-          className={styles.overviewGrid}
-          aria-label="Ingredient overview"
-        >
-          {bild && (
-            <div className={styles.imageWrapper}>
-              <Image
-                src={bild}
-                alt={name}
-                width={600}
-                height={400}
-                className={styles.image}
-                placeholder="blur"
-                blurDataURL={loadingSpinner}
-              />
+        {relatedRecipes.length > 0 && (
+          <section id="recipes" className={styles.relatedSection}>
+            <h2 className={styles.relatedTitle}>
+              {isGerman
+                ? 'Rezepte mit dieser Zutat'
+                : 'Recipes using this ingredient'}
+            </h2>
+
+            <div className={styles.relatedGrid}>
+              {relatedRecipes.map((recipe) => (
+                <Link
+                  key={recipe.id}
+                  href={`/recipes/${recipe.slug}`}
+                  className={styles.relatedCard}
+                >
+                  <div className={styles.relatedImageWrap}>
+                    <Image
+                      src={recipe.image}
+                      alt={recipe.titel}
+                      fill
+                      className={styles.relatedImage}
+                    />
+                  </div>
+                  <div className={styles.relatedContent}>
+                    <h3>{recipe.titel}</h3>
+                  </div>
+                </Link>
+              ))}
             </div>
-          )}
-
-          <div className={styles.quickFacts}>
-            <h2>{isGerman ? 'Kurz gesagt' : 'At a glance'}</h2>
-            <ul>
-              <li>
-                <strong>{isGerman ? 'Kaufen:' : 'Buy:'}</strong>{' '}
-                {guide.buyPlaces.slice(0, 2).join(', ')}
-              </li>
-              <li>
-                <strong>{isGerman ? 'Verwendung:' : 'Use for:'}</strong>{' '}
-                {guide.uses.slice(0, 3).join(', ')}
-              </li>
-              <li>
-                <strong>{isGerman ? 'Tipp:' : 'Tip:'}</strong> {guide.tips[0]}
-              </li>
-              {germanMeatCut && (
-                <li>
-                  <strong>{isGerman ? 'Stück:' : 'Cut:'}</strong>{' '}
-                  {germanMeatCut}
-                </li>
-              )}
-            </ul>
-          </div>
-        </section>
-
-        <section className={styles.guideSection}>
-          <h2>
-            {isGerman ? 'Was ist diese Zutat?' : 'What is this ingredient?'}
-          </h2>
-          <div className={styles.description}>
-            {description
-              ? documentToReactComponents(description)
-              : isGerman
-                ? 'Keine Beschreibung verfügbar.'
-                : 'No description available.'}
-          </div>
-        </section>
-
-        <section className={styles.guideGrid}>
-          <article className={styles.infoCard}>
-            <h2>{isGerman ? 'Wo kaufen?' : 'Where to buy it'}</h2>
-            <ul>
-              {guide.buyPlaces.map((place) => (
-                <li key={place}>{place}</li>
-              ))}
-            </ul>
-          </article>
-
-          <article className={styles.infoCard}>
-            <h2>{isGerman ? 'Wofür verwenden?' : 'How to use it'}</h2>
-            <ul>
-              {guide.uses.map((use) => (
-                <li key={use}>{use}</li>
-              ))}
-            </ul>
-          </article>
-
-          <article className={styles.infoCard}>
-            <h2>{isGerman ? 'Worauf achten?' : 'What to check'}</h2>
-            <ul>
-              {guide.tips.map((tip) => (
-                <li key={tip}>{tip}</li>
-              ))}
-            </ul>
-          </article>
-        </section>
-
-        <section className={styles.guideSection}>
-          <h2>
-            {isGerman ? 'Kann man es ersetzen?' : 'Can you substitute it?'}
-          </h2>
-          <p className={styles.substituteText}>{guide.substitute}</p>
-        </section>
+          </section>
+        )}
 
         {favoriteProducts.length > 0 && (
           <section className={styles.favoriteSection}>
@@ -922,6 +910,63 @@ const IngredientDetail = ({
                       </div>
                     )}
 
+                    <section className={styles.guideSection}>
+                      <h2>
+                        {isGerman
+                          ? 'Was ist diese Zutat?'
+                          : 'What is this ingredient?'}
+                      </h2>
+                      <div className={styles.description}>
+                        {description
+                          ? documentToReactComponents(description)
+                          : isGerman
+                            ? 'Keine Beschreibung verfügbar.'
+                            : 'No description available.'}
+                      </div>
+                    </section>
+
+                    <section className={styles.guideGrid}>
+                      <article className={styles.infoCard}>
+                        <h2>{isGerman ? 'Wo kaufen?' : 'Where to buy it'}</h2>
+                        <ul>
+                          {guide.buyPlaces.map((place) => (
+                            <li key={place}>{place}</li>
+                          ))}
+                        </ul>
+                      </article>
+
+                      <article className={styles.infoCard}>
+                        <h2>
+                          {isGerman ? 'Wofür verwenden?' : 'How to use it'}
+                        </h2>
+                        <ul>
+                          {guide.uses.map((use) => (
+                            <li key={use}>{use}</li>
+                          ))}
+                        </ul>
+                      </article>
+
+                      <article className={styles.infoCard}>
+                        <h2>{isGerman ? 'Worauf achten?' : 'What to check'}</h2>
+                        <ul>
+                          {guide.tips.map((tip) => (
+                            <li key={tip}>{tip}</li>
+                          ))}
+                        </ul>
+                      </article>
+                    </section>
+
+                    <section className={styles.guideSection}>
+                      <h2>
+                        {isGerman
+                          ? 'Kann man es ersetzen?'
+                          : 'Can you substitute it?'}
+                      </h2>
+                      <p className={styles.substituteText}>
+                        {guide.substitute}
+                      </p>
+                    </section>
+
                     <div className={styles.favoriteContent}>
                       <h3>{product.title}</h3>
                       {product.memo && <p>{product.memo}</p>}
@@ -948,38 +993,6 @@ const IngredientDetail = ({
                   </article>
                 );
               })}
-            </div>
-          </section>
-        )}
-
-        {relatedRecipes.length > 0 && (
-          <section id="recipes" className={styles.relatedSection}>
-            <h2 className={styles.relatedTitle}>
-              {isGerman
-                ? 'Rezepte mit dieser Zutat'
-                : 'Recipes using this ingredient'}
-            </h2>
-
-            <div className={styles.relatedGrid}>
-              {relatedRecipes.map((recipe) => (
-                <Link
-                  key={recipe.id}
-                  href={`/recipes/${recipe.slug}`}
-                  className={styles.relatedCard}
-                >
-                  <div className={styles.relatedImageWrap}>
-                    <Image
-                      src={recipe.image}
-                      alt={recipe.titel}
-                      fill
-                      className={styles.relatedImage}
-                    />
-                  </div>
-                  <div className={styles.relatedContent}>
-                    <h3>{recipe.titel}</h3>
-                  </div>
-                </Link>
-              ))}
             </div>
           </section>
         )}
