@@ -1,6 +1,9 @@
 import fs from 'node:fs';
 import dotenv from 'dotenv';
 import { createClient } from 'contentful';
+import contentfulPagination from '../lib/contentfulPagination.cjs';
+
+const { fetchAllEntries, fetchAllEntriesResponse } = contentfulPagination;
 
 dotenv.config({ path: '.env.local' });
 
@@ -160,15 +163,13 @@ const severityOrder = {
   medium: 2,
 };
 
-const ingredientResponse = await client.withAllLocales.getEntries({
+const ingredientItems = await fetchAllEntries(client.withAllLocales, {
   content_type: 'ingredient',
-  limit: 1000,
 });
 
-const recipeResponse = await client.withAllLocales.getEntries({
+const recipeResponse = await fetchAllEntriesResponse(client.withAllLocales, {
   content_type: 'recipe',
   include: 2,
-  limit: 1000,
 });
 
 const allIncludedEntries = [
@@ -231,7 +232,7 @@ for (const recipe of recipeResponse.items) {
 
 const rows = [];
 
-for (const ingredient of ingredientResponse.items) {
+for (const ingredient of ingredientItems) {
   for (const locale of LOCALES) {
     const raw = getLocalizedScalar(ingredient.fields.slug, locale);
 
@@ -332,7 +333,7 @@ for (const row of findings) {
 
 const report = {
   generatedAt: new Date().toISOString(),
-  ingredientsAudited: ingredientResponse.items.length,
+  ingredientsAudited: ingredientItems.length,
   localizedSlugValues: rows.length,
   findingValues: findings.length,
   uniqueFindingEntries: uniqueFindingEntries.size,

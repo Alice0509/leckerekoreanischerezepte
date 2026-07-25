@@ -15,6 +15,9 @@ import Timer from '../../components/Timer';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
 import Head from 'next/head';
+import contentfulPagination from '../../lib/contentfulPagination.cjs';
+
+const { fetchAllEntries } = contentfulPagination;
 
 const DisqusComments = dynamic(
   () => import('../../components/DisqusComments'),
@@ -406,20 +409,15 @@ const relatedRecipeCatalogCache = new Map();
 
 const getRelatedRecipeCatalog = (locale) => {
   if (!relatedRecipeCatalogCache.has(locale)) {
-    const request = client
-      .getEntries({
-        content_type: 'recipe',
-        locale,
-        include: 1,
-        select:
-          'sys.id,fields.slug,fields.titel,fields.image,fields.categories',
-        limit: 1000,
-      })
-      .then((response) => response.items)
-      .catch((error) => {
-        relatedRecipeCatalogCache.delete(locale);
-        throw error;
-      });
+    const request = fetchAllEntries(client, {
+      content_type: 'recipe',
+      locale,
+      include: 1,
+      select: 'sys.id,fields.slug,fields.titel,fields.image,fields.categories',
+    }).catch((error) => {
+      relatedRecipeCatalogCache.delete(locale);
+      throw error;
+    });
 
     relatedRecipeCatalogCache.set(locale, request);
   }
@@ -434,15 +432,14 @@ export async function getStaticPaths({ locales }) {
     for (const locale of locales) {
       const mappedLocale = locale === 'de' ? 'de' : 'en';
 
-      const res = await client.getEntries({
+      const recipeEntries = await fetchAllEntries(client, {
         content_type: 'recipe',
         select: 'fields.slug',
         locale: mappedLocale,
         include: 0,
-        limit: 1000,
       });
 
-      const localePaths = res.items
+      const localePaths = recipeEntries
         .filter((item) => item.fields.slug)
         .map((item) => ({
           params: { slug: item.fields.slug.toLowerCase() },
