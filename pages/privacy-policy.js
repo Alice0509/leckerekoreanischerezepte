@@ -16,7 +16,7 @@ const PrivacyPolicy = () => (
     <div className={styles.container}>
       <h1 className={styles.heading1}>Privacy Policy</h1>
 
-      <p className={styles.paragraph}>Last updated: June 27, 2026</p>
+      <p className={styles.paragraph}>Last updated: August 2, 2026</p>
 
       <p className={styles.paragraph}>
         This Privacy Policy explains how Hansik Young collects and uses
@@ -143,6 +143,55 @@ const PrivacyPolicy = () => (
         Art. 6(1)(a) GDPR. You can prevent analytics tracking by declining
         cookies, deleting cookies in your browser or using browser privacy
         settings and extensions.
+      </p>
+
+      <h2 className={styles.heading2}>Microsoft Clarity</h2>
+
+      <p className={styles.paragraph}>
+        If you accept optional analytics cookies, this website uses Microsoft
+        Clarity to understand how visitors interact with pages and where the
+        website may be difficult to use.
+      </p>
+
+      <p className={styles.paragraph}>
+        Clarity may process website usage and technical information such as page
+        views, clicks, scrolling, mouse movements, browser and device
+        information, page dimensions, performance information and session
+        identifiers. Clarity uses this information to create behavioral metrics,
+        heatmaps and session replays.
+      </p>
+
+      <p className={styles.paragraph}>
+        Privacy-sensitive form fields and similar content are intended to be
+        masked by Clarity. You should nevertheless avoid entering sensitive
+        personal information into fields that do not require it.
+      </p>
+
+      <p className={styles.paragraph}>
+        Provider for users in the European Economic Area, the United Kingdom and
+        Switzerland: Microsoft Ireland Operations Limited, One Microsoft Place,
+        South County Business Park, Leopardstown, Dublin 18, Ireland.
+      </p>
+
+      <p className={styles.paragraph}>
+        Microsoft Clarity is only loaded after your consent. The legal basis is
+        Art. 6(1)(a) GDPR. Advertising storage is not granted to Clarity on this
+        website. You can prevent Clarity tracking by declining optional cookies,
+        deleting website cookies or using browser privacy settings.
+      </p>
+
+      <p className={styles.paragraph}>
+        More information about how Microsoft processes personal data is
+        available in the{' '}
+        <a
+          href="https://privacy.microsoft.com/privacystatement"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          Microsoft Privacy Statement
+        </a>
+        .
       </p>
 
       <h2 className={styles.heading2}>Favorites and shopping list</h2>

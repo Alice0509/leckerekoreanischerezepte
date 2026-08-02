@@ -17,8 +17,8 @@ const Datenschutzerklaerung = () => (
       <h1 className={styles.heading1}>Datenschutzerklärung</h1>
 
       <p className={styles.paragraph}>
-        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand vom 27.
-        Juni 2026.
+        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand vom 2.
+        August 2026.
       </p>
 
       <p className={styles.paragraph}>
@@ -175,7 +175,61 @@ const Datenschutzerklaerung = () => (
         </a>
       </p>
 
-      <h2 className={styles.heading2}>8. Favoriten und Einkaufsliste</h2>
+      <h2 className={styles.heading2}>8. Microsoft Clarity</h2>
+
+      <p className={styles.paragraph}>
+        Wenn Sie optionale Analyse-Cookies akzeptieren, verwendet diese Website
+        Microsoft Clarity. Damit möchten wir besser verstehen, wie Besucherinnen
+        und Besucher mit den Seiten interagieren und an welchen Stellen die
+        Nutzung möglicherweise schwierig oder unklar ist.
+      </p>
+
+      <p className={styles.paragraph}>
+        Clarity kann Nutzungs- und technische Informationen verarbeiten, zum
+        Beispiel Seitenaufrufe, Klicks, Scrollbewegungen, Mausbewegungen,
+        Browser- und Geräteinformationen, Seitengrößen, Leistungsinformationen
+        und Sitzungskennungen. Aus diesen Informationen werden
+        Verhaltensmetriken, Heatmaps und Sitzungswiedergaben erstellt.
+      </p>
+
+      <p className={styles.paragraph}>
+        Datenschutzsensible Formularfelder und vergleichbare Inhalte sollen
+        durch Clarity maskiert werden. Bitte geben Sie dennoch keine sensiblen
+        personenbezogenen Informationen in Felder ein, wenn dies nicht
+        erforderlich ist.
+      </p>
+
+      <p className={styles.paragraph}>
+        Anbieter für Nutzerinnen und Nutzer im Europäischen Wirtschaftsraum, im
+        Vereinigten Königreich und in der Schweiz: Microsoft Ireland Operations
+        Limited, One Microsoft Place, South County Business Park, Leopardstown,
+        Dublin 18, Irland.
+      </p>
+
+      <p className={styles.paragraph}>
+        Microsoft Clarity wird nur nach Ihrer Einwilligung geladen.
+        Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Eine Speicherung für
+        Werbezwecke wird Clarity auf dieser Website nicht gestattet. Sie können
+        die Verarbeitung verhindern, indem Sie optionale Cookies ablehnen,
+        Website-Cookies löschen oder Datenschutz-Einstellungen Ihres Browsers
+        verwenden.
+      </p>
+
+      <p className={styles.paragraph}>
+        Weitere Informationen zur Verarbeitung personenbezogener Daten durch
+        Microsoft finden Sie in der{' '}
+        <a
+          href="https://privacy.microsoft.com/privacystatement"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          Datenschutzerklärung von Microsoft
+        </a>
+        .
+      </p>
+
+      <h2 className={styles.heading2}>9. Favoriten und Einkaufsliste</h2>
 
       <p className={styles.paragraph}>
         Wenn Sie Funktionen wie Favoriten oder eine Einkaufsliste nutzen, werden
@@ -189,7 +243,7 @@ const Datenschutzerklaerung = () => (
         Website-Daten für diese Domain löschen.
       </p>
 
-      <h2 className={styles.heading2}>9. Musik-Player</h2>
+      <h2 className={styles.heading2}>10. Musik-Player</h2>
 
       <p className={styles.paragraph}>
         Diese Website enthält einen optionalen Musik-Player. Die Musik startet
@@ -202,7 +256,7 @@ const Datenschutzerklaerung = () => (
         um Sie zu identifizieren.
       </p>
 
-      <h2 className={styles.heading2}>10. Kommentarfunktion mit Disqus</h2>
+      <h2 className={styles.heading2}>11. Kommentarfunktion mit Disqus</h2>
 
       <p className={styles.paragraph}>
         Auf einigen Seiten kann eine Kommentarfunktion von Disqus eingebunden
@@ -232,7 +286,7 @@ const Datenschutzerklaerung = () => (
         </a>
       </p>
 
-      <h2 className={styles.heading2}>11. Kontakt per E-Mail</h2>
+      <h2 className={styles.heading2}>12. Kontakt per E-Mail</h2>
 
       <p className={styles.paragraph}>
         Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die von Ihnen
@@ -247,7 +301,7 @@ const Datenschutzerklaerung = () => (
         anwendbar, Art. 6 Abs. 1 lit. b DSGVO.
       </p>
 
-      <h2 className={styles.heading2}>12. Externe Links</h2>
+      <h2 className={styles.heading2}>13. Externe Links</h2>
 
       <p className={styles.paragraph}>
         Diese Website kann Links zu externen Websites enthalten, zum Beispiel zu
@@ -256,7 +310,7 @@ const Datenschutzerklaerung = () => (
         externen Website.
       </p>
 
-      <h2 className={styles.heading2}>13. Speicherdauer</h2>
+      <h2 className={styles.heading2}>14. Speicherdauer</h2>
 
       <p className={styles.paragraph}>
         Personenbezogene Daten werden nur so lange gespeichert, wie dies für die
@@ -271,7 +325,7 @@ const Datenschutzerklaerung = () => (
         begrenzten Zeitraum durch Hosting- und Dienstanbieter gespeichert.
       </p>
 
-      <h2 className={styles.heading2}>14. Ihre Rechte</h2>
+      <h2 className={styles.heading2}>15. Ihre Rechte</h2>
 
       <p className={styles.paragraph}>
         Nach der DSGVO können Ihnen insbesondere folgende Rechte zustehen:
@@ -300,7 +354,7 @@ const Datenschutzerklaerung = () => (
         </a>
       </p>
 
-      <h2 className={styles.heading2}>15. Kinder</h2>
+      <h2 className={styles.heading2}>16. Kinder</h2>
 
       <p className={styles.paragraph}>
         Diese Website richtet sich nicht gezielt an Kinder und erhebt nicht
@@ -308,7 +362,7 @@ const Datenschutzerklaerung = () => (
       </p>
 
       <h2 className={styles.heading2}>
-        16. Aktualität und Änderung dieser Datenschutzerklärung
+        17. Aktualität und Änderung dieser Datenschutzerklärung
       </h2>
 
       <p className={styles.paragraph}>

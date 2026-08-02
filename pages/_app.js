@@ -11,6 +11,9 @@ import ToTopButton from '../components/ToTopButton';
 import ErrorBoundary from '../components/ErrorBoundary';
 import SiteMusicPlayer from '../components/SiteMusicPlayer';
 import SiteModeBanner from '../components/SiteModeBanner';
+import ClarityAnalytics, {
+  denyClarityConsent,
+} from '../components/ClarityAnalytics';
 import CookieConsent, { getCookieConsentValue } from 'react-cookie-consent';
 
 function MyApp({ Component, pageProps }) {
@@ -25,7 +28,7 @@ function MyApp({ Component, pageProps }) {
           accept: 'Akzeptieren',
           decline: 'Ablehnen',
           message:
-            'Diese Website verwendet optionale Analyse-Cookies, um die Nutzung der Website besser zu verstehen.',
+            'Diese Website verwendet optionale Analyse-Cookies von Google Analytics und Microsoft Clarity, um die Nutzung der Website besser zu verstehen.',
           learnMore: 'Mehr erfahren',
           privacyUrl: '/datenschutzerklaerung',
         }
@@ -33,7 +36,7 @@ function MyApp({ Component, pageProps }) {
           accept: 'Accept',
           decline: 'Decline',
           message:
-            'This website uses optional analytics cookies to help us understand how the site is used.',
+            'This website uses optional analytics cookies from Google Analytics and Microsoft Clarity to help us understand how the site is used.',
           learnMore: 'Learn more',
           privacyUrl: '/privacy-policy',
         };
@@ -103,6 +106,11 @@ function MyApp({ Component, pageProps }) {
           </>
         )}
 
+      <ClarityAnalytics
+        enabled={!disableSiteShell && cookiesAccepted}
+        locale={mappedLocale}
+      />
+
       {/* ErrorBoundary로 감싸기 */}
       <ErrorBoundary>
         {disableSiteShell ? (
@@ -127,7 +135,10 @@ function MyApp({ Component, pageProps }) {
           declineButtonText={cookieCopy.decline}
           enableDeclineButton // "거부" 버튼 활성화
           onAccept={() => setCookiesAccepted(true)} // ✅ 쿠키 동의 → Google Analytics 활성화
-          onDecline={() => setCookiesAccepted(false)} // ✅ 쿠키 거부 → Google Analytics 비활성화
+          onDecline={() => {
+            denyClarityConsent();
+            setCookiesAccepted(false);
+          }}
           style={{
             background: '#222',
             color: '#fff',
