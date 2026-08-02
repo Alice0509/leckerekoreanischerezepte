@@ -29,7 +29,8 @@
     "verify:live": "npm run verify:live:seo && npm run verify:live:routes",
     "generate:ingredient-index": "node scripts/generate-ingredient-recipe-index.mjs",
     "check:site-mode": "node scripts/check-site-mode-safety.mjs",
-    "check:pwa": "node scripts/check-pwa-domain-safety.mjs"
+    "check:pwa": "node scripts/check-pwa-domain-safety.mjs",
+    "check:clarity": "node scripts/check-clarity-consent-safety.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",
