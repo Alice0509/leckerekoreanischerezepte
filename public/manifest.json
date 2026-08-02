@@ -1,7 +1,10 @@
 {
-  "name": "Leckere Koreanische Rezepte",
-  "short_name": "젊은한식",
+  "id": "/",
+  "name": "Hansik Young",
+  "short_name": "Hansik Young",
+  "description": "Practical Korean home cooking recipes for real kitchens.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#8db580",

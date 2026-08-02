@@ -70,6 +70,13 @@ const withPWA = require('next-pwa')({
   disable: process.env.NODE_ENV === 'development',
   register: true,
   skipWaiting: true,
+  publicExcludes: [
+    '!manifest*.json',
+    '!robots*.txt',
+    '!sitemap*.xml',
+    '!key.txt',
+    '!noprecache/**/*',
+  ],
   buildExcludes: [/middleware-manifest\.json$/, /dynamic-css-manifest\.json$/],
   runtimeCaching: [
     {
