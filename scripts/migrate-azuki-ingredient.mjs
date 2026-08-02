@@ -1,11 +1,13 @@
 import fs from 'node:fs';
 import dotenv from 'dotenv';
 import { createClient } from 'contentful-management';
+import { assertContentfulMigrationSafety } from './lib/contentful-migration-safety.mjs';
 
 dotenv.config({ path: '.env.local' });
 
 const APPLY = process.argv.includes('--apply');
-const CONFIRMED = process.env.CONFIRM_CONTENTFUL_MIGRATION === 'YES';
+
+assertContentfulMigrationSafety({ apply: APPLY });
 
 const spaceId = process.env.CONTENTFUL_SPACE_ID;
 const environmentId =
@@ -20,10 +22,6 @@ const acceptedSlugs = ['Azuki-Bohnen', 'azuki-beans'];
 
 if (!spaceId || !accessToken) {
   throw new Error('Contentful credentials are missing');
-}
-
-if (APPLY && !CONFIRMED) {
-  throw new Error('Apply requires CONFIRM_CONTENTFUL_MIGRATION=YES');
 }
 
 const client = createClient(
