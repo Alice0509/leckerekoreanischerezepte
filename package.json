@@ -28,7 +28,8 @@
     "verify:live:routes": "python3 scripts/verify-live-routes.py",
     "verify:live": "npm run verify:live:seo && npm run verify:live:routes",
     "generate:ingredient-index": "node scripts/generate-ingredient-recipe-index.mjs",
-    "check:site-mode": "node scripts/check-site-mode-safety.mjs"
+    "check:site-mode": "node scripts/check-site-mode-safety.mjs",
+    "check:pwa": "node scripts/check-pwa-domain-safety.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",
