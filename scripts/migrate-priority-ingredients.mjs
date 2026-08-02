@@ -2,11 +2,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import dotenv from 'dotenv';
 import { createClient } from 'contentful-management';
+import { assertContentfulMigrationSafety } from './lib/contentful-migration-safety.mjs';
 
 dotenv.config({ path: '.env.local' });
 
 const APPLY = process.argv.includes('--apply');
-const CONFIRMED = process.env.CONFIRM_CONTENTFUL_MIGRATION === 'YES';
+
+assertContentfulMigrationSafety({ apply: APPLY });
 
 const spaceId = process.env.CONTENTFUL_SPACE_ID;
 const environmentId =
@@ -21,10 +23,6 @@ if (!spaceId) {
 
 if (!accessToken) {
   throw new Error('CONTENTFUL_MANAGEMENT_TOKEN is missing');
-}
-
-if (APPLY && !CONFIRMED) {
-  throw new Error('Apply mode requires CONFIRM_CONTENTFUL_MIGRATION=YES');
 }
 
 const client = createClient(

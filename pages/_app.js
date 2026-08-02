@@ -10,12 +10,14 @@ import { DefaultSeo } from 'next-seo';
 import ToTopButton from '../components/ToTopButton';
 import ErrorBoundary from '../components/ErrorBoundary';
 import SiteMusicPlayer from '../components/SiteMusicPlayer';
+import SiteModeBanner from '../components/SiteModeBanner';
 import CookieConsent, { getCookieConsentValue } from 'react-cookie-consent';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const mappedLocale = router.locale === 'de' ? 'de' : 'en';
+  const disableSiteShell = Component.disableSiteShell === true;
 
   const cookieCopy =
     mappedLocale === 'de'
@@ -75,17 +77,19 @@ function MyApp({ Component, pageProps }) {
       />
 
       {/* ✅ Google Analytics (쿠키 동의한 경우에만 실행) */}
-      {cookiesAccepted && process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
-        <>
-          <Script
-            strategy="lazyOnload"
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-          />
-          <Script
-            id="google-analytics"
-            strategy="lazyOnload"
-            dangerouslySetInnerHTML={{
-              __html: `
+      {!disableSiteShell &&
+        cookiesAccepted &&
+        process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+          <>
+            <Script
+              strategy="lazyOnload"
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+            />
+            <Script
+              id="google-analytics"
+              strategy="lazyOnload"
+              dangerouslySetInnerHTML={{
+                __html: `
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
@@ -94,59 +98,68 @@ function MyApp({ Component, pageProps }) {
                   anonymize_ip: true, // ✅ IP 주소 익명화 (GDPR 준수)
                 });
               `,
-            }}
-          />
-        </>
-      )}
+              }}
+            />
+          </>
+        )}
 
       {/* ErrorBoundary로 감싸기 */}
       <ErrorBoundary>
-        <Layout>
+        {disableSiteShell ? (
           <Component {...pageProps} />
-          <ToTopButton />
-          <SiteMusicPlayer />
-        </Layout>
+        ) : (
+          <>
+            <SiteModeBanner />
+            <Layout>
+              <Component {...pageProps} />
+              <ToTopButton />
+              <SiteMusicPlayer />
+            </Layout>
+          </>
+        )}
       </ErrorBoundary>
 
       {/* ✅ 쿠키 동의 배너 */}
-      <CookieConsent
-        location="bottom"
-        buttonText={cookieCopy.accept}
-        declineButtonText={cookieCopy.decline}
-        enableDeclineButton // "거부" 버튼 활성화
-        onAccept={() => setCookiesAccepted(true)} // ✅ 쿠키 동의 → Google Analytics 활성화
-        onDecline={() => setCookiesAccepted(false)} // ✅ 쿠키 거부 → Google Analytics 비활성화
-        style={{
-          background: '#222',
-          color: '#fff',
-          fontSize: '14px',
-          padding: '15px',
-        }}
-        buttonStyle={{
-          background: '#ff6600',
-          color: '#fff',
-          fontSize: '14px',
-          padding: '8px 12px',
-          border: 'none',
-          cursor: 'pointer',
-        }}
-        declineButtonStyle={{
-          background: '#999',
-          color: '#fff',
-          fontSize: '14px',
-          padding: '8px 12px',
-          border: 'none',
-          cursor: 'pointer',
-        }}
-      >
-        {cookieCopy.message}{' '}
-        <a
-          href={cookieCopy.privacyUrl}
-          style={{ color: '#ffcc00', textDecoration: 'underline' }}
+      {!disableSiteShell && (
+        <CookieConsent
+          location="bottom"
+          buttonText={cookieCopy.accept}
+          declineButtonText={cookieCopy.decline}
+          enableDeclineButton // "거부" 버튼 활성화
+          onAccept={() => setCookiesAccepted(true)} // ✅ 쿠키 동의 → Google Analytics 활성화
+          onDecline={() => setCookiesAccepted(false)} // ✅ 쿠키 거부 → Google Analytics 비활성화
+          style={{
+            background: '#222',
+            color: '#fff',
+            fontSize: '14px',
+            padding: '15px',
+          }}
+          buttonStyle={{
+            background: '#ff6600',
+            color: '#fff',
+            fontSize: '14px',
+            padding: '8px 12px',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+          declineButtonStyle={{
+            background: '#999',
+            color: '#fff',
+            fontSize: '14px',
+            padding: '8px 12px',
+            border: 'none',
+            cursor: 'pointer',
+          }}
         >
-          {cookieCopy.learnMore}
-        </a>
-      </CookieConsent>
+          {cookieCopy.message}{' '}
+          <a
+            href={cookieCopy.privacyUrl}
+            style={{ color: '#ffcc00', textDecoration: 'underline' }}
+          >
+            {cookieCopy.learnMore}
+          </a>
+        </CookieConsent>
+      )}
     </>
   );
 }
