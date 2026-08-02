@@ -1,4 +1,4 @@
-import { get } from '@vercel/edge-config';
+import { createClient } from '@vercel/edge-config';
 import { NextResponse } from 'next/server';
 
 const SITE_MODES = new Set(['normal', 'updates-paused', 'maintenance']);
@@ -26,12 +26,16 @@ function shouldBypass(pathname) {
 }
 
 async function readSiteMode() {
-  if (!process.env.EDGE_CONFIG) {
+  const connectionString = process.env.GLOBAL_CONFIG || process.env.EDGE_CONFIG;
+
+  if (!connectionString) {
     return 'normal';
   }
 
   try {
-    const mode = await get('siteMode');
+    const client = createClient(connectionString);
+    const mode = await client.get('siteMode');
+
     return SITE_MODES.has(mode) ? mode : 'normal';
   } catch (error) {
     console.error(

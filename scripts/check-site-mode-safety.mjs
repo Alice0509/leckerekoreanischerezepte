@@ -15,9 +15,14 @@ const checks = [
   ['updates-paused mode', files.middleware, "'updates-paused'"],
   ['maintenance mode', files.middleware, "'maintenance'"],
   [
-    'missing Edge Config fallback',
+    'Global Config or Edge Config connection',
     files.middleware,
-    '!process.env.EDGE_CONFIG',
+    'process.env.GLOBAL_CONFIG || process.env.EDGE_CONFIG',
+  ],
+  [
+    'missing config connection fallback',
+    files.middleware,
+    'if (!connectionString)',
   ],
   ['normal fallback', files.middleware, "return 'normal'"],
   ['maintenance rewrite', files.middleware, 'NextResponse.rewrite'],
