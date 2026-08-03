@@ -1,9 +1,16 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { createRequire } from 'node:module';
 import nextEnv from '@next/env';
 import { createClient } from 'contentful';
 
+const require = createRequire(import.meta.url);
+
 const { loadEnvConfig } = nextEnv;
+const {
+  getRecipeDatasetFromSnapshot,
+} = require('../lib/contentfulBuildSnapshot.cjs');
+
 loadEnvConfig(process.cwd());
 
 const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
@@ -89,7 +96,65 @@ const fetchRecipePage = async ({ skip, limit }) => {
   }
 };
 
+const getSnapshotRecipesWithAllLocales = () => {
+  const deDataset = getRecipeDatasetFromSnapshot('de');
+  const enDataset = getRecipeDatasetFromSnapshot('en');
+
+  if (!deDataset?.items || !enDataset?.items) {
+    return null;
+  }
+
+  const recipesById = new Map();
+
+  const addLocaleEntries = (locale, entries) => {
+    for (const entry of entries) {
+      const id = entry?.sys?.id;
+
+      if (!id) {
+        continue;
+      }
+
+      const current = recipesById.get(id) || {
+        sys: {
+          id,
+          updatedAt: entry.sys?.updatedAt || '',
+        },
+        fields: {
+          slug: {},
+        },
+      };
+
+      const currentUpdatedAt = new Date(current.sys.updatedAt || 0).getTime();
+      const entryUpdatedAt = new Date(entry.sys?.updatedAt || 0).getTime();
+
+      if (entryUpdatedAt > currentUpdatedAt) {
+        current.sys.updatedAt = entry.sys.updatedAt;
+      }
+
+      current.fields.slug[locale] = entry.fields?.slug || '';
+      recipesById.set(id, current);
+    }
+  };
+
+  addLocaleEntries('de', deDataset.items);
+  addLocaleEntries('en', enDataset.items);
+
+  return [...recipesById.values()];
+};
+
 const fetchAllRecipes = async () => {
+  const snapshotRecipes = getSnapshotRecipesWithAllLocales();
+
+  if (snapshotRecipes) {
+    console.log(
+      `[seo assets] build snapshot: ${snapshotRecipes.length} recipes`
+    );
+
+    return snapshotRecipes;
+  }
+
+  console.log('[seo assets] Contentful fallback');
+
   const limit = 1000;
   let skip = 0;
   const items = [];
