@@ -13,6 +13,13 @@ import {
 } from '../../lib/ingredientSlugs';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import ingredientRecipeIndex from '../../lib/generated-ingredient-recipe-index.json';
+import contentfulBuildSnapshot from '../../lib/contentfulBuildSnapshot.cjs';
+
+const {
+  getIngredientEntriesFromSnapshot,
+  getIngredientResponseFromSnapshot,
+  getFavoriteResponseFromSnapshot,
+} = contentfulBuildSnapshot;
 
 const stripHtmlLikeWhitespace = (text) =>
   (text || '').replace(/\s+/g, ' ').trim();
@@ -391,13 +398,17 @@ export async function getStaticPaths({ locales }) {
     for (const locale of locales) {
       const mappedLocale = locale === 'de' ? 'de' : 'en';
 
-      const res = await client.getEntries({
-        content_type: 'ingredient',
-        select: 'fields.slug',
-        locale: mappedLocale,
-        include: 0,
-        limit: 1000,
-      });
+      const snapshotEntries = getIngredientEntriesFromSnapshot(mappedLocale);
+
+      const res = snapshotEntries
+        ? { items: snapshotEntries }
+        : await client.getEntries({
+            content_type: 'ingredient',
+            select: 'fields.slug',
+            locale: mappedLocale,
+            include: 0,
+            limit: 1000,
+          });
 
       const seenSlugs = new Set();
 
@@ -438,9 +449,10 @@ export async function getStaticPaths({ locales }) {
   }
 }
 
-export async function getStaticProps({ params, locale }) {
+export async function getStaticProps({ params, locale, revalidateReason }) {
   try {
     const mappedLocale = locale === 'de' ? 'de' : 'en';
+    const useBuildSnapshot = revalidateReason === 'build';
     const requestedSlug = params.slug;
     const slugResolution = resolveIngredientSlug(requestedSlug);
 
@@ -463,32 +475,20 @@ export async function getStaticProps({ params, locale }) {
       };
     }
 
-    let ingredientRes;
+    let ingredientRes = useBuildSnapshot
+      ? getIngredientResponseFromSnapshot({
+          locale: mappedLocale,
+          entryId: slugResolution?.primaryEntryId || null,
+          slug: requestedSlug,
+        })
+      : null;
 
-    if (slugResolution?.primaryEntryId) {
-      ingredientRes = await client.getEntries({
-        content_type: 'ingredient',
-        'sys.id': slugResolution.primaryEntryId,
-        locale: mappedLocale,
-        include: 1,
-        limit: 1,
-      });
-    } else {
-      ingredientRes = await client.getEntries({
-        content_type: 'ingredient',
-        'fields.slug': requestedSlug,
-        locale: mappedLocale,
-        include: 1,
-        limit: 1,
-      });
-    }
-
-    if (!ingredientRes.items.length && mappedLocale === 'de') {
+    if (!ingredientRes) {
       if (slugResolution?.primaryEntryId) {
         ingredientRes = await client.getEntries({
           content_type: 'ingredient',
           'sys.id': slugResolution.primaryEntryId,
-          locale: 'en',
+          locale: mappedLocale,
           include: 1,
           limit: 1,
         });
@@ -496,10 +496,40 @@ export async function getStaticProps({ params, locale }) {
         ingredientRes = await client.getEntries({
           content_type: 'ingredient',
           'fields.slug': requestedSlug,
-          locale: 'en',
+          locale: mappedLocale,
           include: 1,
           limit: 1,
         });
+      }
+    }
+
+    if (!ingredientRes.items.length && mappedLocale === 'de') {
+      ingredientRes = useBuildSnapshot
+        ? getIngredientResponseFromSnapshot({
+            locale: 'en',
+            entryId: slugResolution?.primaryEntryId || null,
+            slug: requestedSlug,
+          })
+        : null;
+
+      if (!ingredientRes) {
+        if (slugResolution?.primaryEntryId) {
+          ingredientRes = await client.getEntries({
+            content_type: 'ingredient',
+            'sys.id': slugResolution.primaryEntryId,
+            locale: 'en',
+            include: 1,
+            limit: 1,
+          });
+        } else {
+          ingredientRes = await client.getEntries({
+            content_type: 'ingredient',
+            'fields.slug': requestedSlug,
+            locale: 'en',
+            include: 1,
+            limit: 1,
+          });
+        }
       }
     }
 
@@ -525,22 +555,34 @@ export async function getStaticProps({ params, locale }) {
       seoDescription: item.fields.seoDescription || null,
     };
 
-    let favoriteRes = await client.getEntries({
-      content_type: 'favoriteItem',
-      locale: mappedLocale,
-      include: 2,
-      limit: 1000,
-      'fields.relatedIngredients.sys.id': ingredient.id,
-    });
+    let favoriteRes = useBuildSnapshot
+      ? getFavoriteResponseFromSnapshot(mappedLocale, ingredient.id)
+      : null;
 
-    if (!favoriteRes.items.length && mappedLocale === 'de') {
+    if (!favoriteRes) {
       favoriteRes = await client.getEntries({
         content_type: 'favoriteItem',
-        locale: 'en',
+        locale: mappedLocale,
         include: 2,
         limit: 1000,
         'fields.relatedIngredients.sys.id': ingredient.id,
       });
+    }
+
+    if (!favoriteRes.items.length && mappedLocale === 'de') {
+      favoriteRes = useBuildSnapshot
+        ? getFavoriteResponseFromSnapshot('en', ingredient.id)
+        : null;
+
+      if (!favoriteRes) {
+        favoriteRes = await client.getEntries({
+          content_type: 'favoriteItem',
+          locale: 'en',
+          include: 2,
+          limit: 1000,
+          'fields.relatedIngredients.sys.id': ingredient.id,
+        });
+      }
     }
 
     const favoriteProducts = favoriteRes.items.map((fav) => {
