@@ -1,12 +1,18 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { createRequire } from 'node:module';
 import nextEnv from '@next/env';
 import { createClient } from 'contentful';
 import contentfulPagination from '../lib/contentfulPagination.cjs';
 import { getCanonicalIngredientEntryId } from '../lib/ingredientSlugs.js';
 
+const require = createRequire(import.meta.url);
+
 const { loadEnvConfig } = nextEnv;
 const { fetchAllEntriesResponse } = contentfulPagination;
+const {
+  getRecipeDatasetFromSnapshot,
+} = require('../lib/contentfulBuildSnapshot.cjs');
 
 loadEnvConfig(process.cwd());
 
@@ -55,11 +61,21 @@ const getAssetUrl = (imageField, assetById) => {
 };
 
 const createLocaleIndex = async (locale) => {
-  const response = await fetchAllEntriesResponse(client, {
-    content_type: 'recipe',
-    locale,
-    include: 2,
-  });
+  const snapshotResponse = getRecipeDatasetFromSnapshot(locale);
+
+  const response =
+    snapshotResponse ||
+    (await fetchAllEntriesResponse(client, {
+      content_type: 'recipe',
+      locale,
+      include: 2,
+    }));
+
+  console.log(
+    `[ingredient index] ${locale.toUpperCase()}: ${
+      snapshotResponse ? 'build snapshot' : 'Contentful fallback'
+    }`
+  );
 
   const includedEntries = response.includes?.Entry || [];
   const includedAssets = response.includes?.Asset || [];
