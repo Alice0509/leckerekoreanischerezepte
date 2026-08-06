@@ -438,13 +438,13 @@ export async function getStaticPaths({ locales }) {
 
     return {
       paths: allPaths,
-      fallback: 'blocking',
+      fallback: false,
     };
   } catch (error) {
     console.error('Error fetching ingredient slugs:', error);
     return {
       paths: [],
-      fallback: 'blocking',
+      fallback: false,
     };
   }
 }
@@ -471,7 +471,6 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
     if (ingredientCache[cacheKey]) {
       return {
         props: ingredientCache[cacheKey],
-        revalidate: 60 * 60 * 12,
       };
     }
 
@@ -628,7 +627,6 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
 
     return {
       props,
-      revalidate: 60 * 60 * 12,
     };
   } catch (error) {
     console.error('Error fetching ingredient:', error);
@@ -640,7 +638,6 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
         error: 'Failed to fetch ingredient.',
         mappedLocale: locale === 'de' ? 'de' : 'en',
       },
-      revalidate: 60 * 60 * 12,
     };
   }
 }

@@ -164,14 +164,14 @@ export async function getStaticPaths({ locales }) {
 
     return {
       paths,
-      fallback: 'blocking',
+      fallback: false,
     };
   } catch (error) {
     console.error('Error generating paginated paths:', error);
 
     return {
       paths: [],
-      fallback: 'blocking',
+      fallback: false,
     };
   }
 }
@@ -203,7 +203,6 @@ export async function getStaticProps({ params, locale }) {
     if (currentPage > totalPages) {
       return {
         notFound: true,
-        revalidate: 60 * 60 * 12,
       };
     }
 
@@ -213,7 +212,6 @@ export async function getStaticProps({ params, locale }) {
         currentPage,
         totalPages,
       },
-      revalidate: 60 * 60 * 12,
     };
   } catch (error) {
     console.error('Error fetching paginated recipes:', error);
@@ -228,7 +226,6 @@ export async function getStaticProps({ params, locale }) {
             ? 'Rezepte konnten nicht geladen werden.'
             : 'Recipes could not be loaded.',
       },
-      revalidate: 60 * 60 * 12,
     };
   }
 }
