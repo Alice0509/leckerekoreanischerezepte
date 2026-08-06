@@ -18,6 +18,44 @@ try {
 const isSafeRecipeSlug = (value) =>
   typeof value === 'string' && /^[a-z0-9][a-z0-9-]*$/i.test(value);
 
+const legacyRecipeSlugRedirects = [
+  ['boiled-potatoes-korean-style', 'boiled-potatoes'],
+  ['gebratener-fischkuchen-eomuk-bokkeum', 'eomuk-bokkeum'],
+  ['kimchi', 'geotjeori-kimchi'],
+  ['korean-stir-fried-eggplant', 'gaji-bokkeum'],
+  ['onion-marinade-sauce-for-meat', 'cham-sauce-onion-marinade'],
+  ['street-toast', 'korean-street-toast'],
+  ['waffles', 'belgian-style-waffles'],
+];
+
+const getLegacyRecipeRedirects = () =>
+  legacyRecipeSlugRedirects.flatMap(([oldSlug, newSlug]) => [
+    {
+      source: `/de/recipes/${oldSlug}`,
+      has: [
+        {
+          type: 'host',
+          value: 'www.leckere-koreanische-rezepte.de',
+        },
+      ],
+      destination: `https://www.leckere-koreanische-rezepte.de/recipes/${newSlug}`,
+      permanent: true,
+      locale: false,
+    },
+    {
+      source: `/en/recipes/${oldSlug}`,
+      has: [
+        {
+          type: 'host',
+          value: 'www.hansikyoung.com',
+        },
+      ],
+      destination: `https://www.hansikyoung.com/recipes/${newSlug}`,
+      permanent: true,
+      locale: false,
+    },
+  ]);
+
 const getLocalizedRecipeRedirects = () =>
   Object.values(localizedRouteData.recipesById || {}).flatMap((recipe) => {
     const deSlug = recipe.de;
@@ -224,34 +262,7 @@ module.exports = withPWA(
 
     async redirects() {
       return [
-        {
-          // Google과 기존 외부 링크에 남아 있는 참소스의 이전 영어 slug
-          source: '/de/recipes/onion-marinade-sauce-for-meat',
-          has: [
-            {
-              type: 'host',
-              value: 'www.leckere-koreanische-rezepte.de',
-            },
-          ],
-          destination:
-            'https://www.leckere-koreanische-rezepte.de/recipes/cham-sauce-onion-marinade',
-          permanent: true,
-          locale: false,
-        },
-        {
-          // 영어 도메인의 동일한 이전 slug도 현재 canonical URL로 통합
-          source: '/en/recipes/onion-marinade-sauce-for-meat',
-          has: [
-            {
-              type: 'host',
-              value: 'www.hansikyoung.com',
-            },
-          ],
-          destination:
-            'https://www.hansikyoung.com/recipes/cham-sauce-onion-marinade',
-          permanent: true,
-          locale: false,
-        },
+        ...getLegacyRecipeRedirects(),
         ...getLocalizedRecipeRedirects(),
         {
           source: '/:path*',
