@@ -30,7 +30,6 @@ export async function getStaticProps({ locale }) {
           recipes: recipesCache[mappedLocale],
           favorites: favoritesCache[mappedLocale],
         },
-        revalidate: 60 * 60 * 12,
       };
     }
 
@@ -137,7 +136,6 @@ export async function getStaticProps({ locale }) {
         recipes,
         favorites,
       },
-      revalidate: 60 * 60 * 12,
     };
   } catch (error) {
     console.error('Error fetching homepage data:', error);
@@ -147,7 +145,6 @@ export async function getStaticProps({ locale }) {
         favorites: [],
         error: 'Failed to fetch homepage data.',
       },
-      revalidate: 60 * 60 * 12,
     };
   }
 }

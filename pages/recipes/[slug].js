@@ -458,13 +458,13 @@ export async function getStaticPaths({ locales }) {
 
     return {
       paths: allPaths,
-      fallback: 'blocking',
+      fallback: false,
     };
   } catch (error) {
     console.error('Error fetching recipe slugs:', error);
     return {
       paths: [],
-      fallback: 'blocking',
+      fallback: false,
     };
   }
 }
@@ -649,7 +649,6 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
       props: {
         recipe: finalRecipe,
       },
-      revalidate: 60 * 60 * 12,
     };
   } catch (error) {
     console.error('Error fetching recipe:', error);
@@ -658,7 +657,6 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
         recipe: null,
         error: 'Failed to fetch recipe.',
       },
-      revalidate: 60 * 60 * 12,
     };
   }
 }

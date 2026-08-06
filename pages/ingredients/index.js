@@ -69,7 +69,6 @@ export async function getStaticProps({ locale }) {
           ingredients: ingredientsCache[mappedLocale],
           mappedLocale,
         },
-        revalidate: 60 * 60 * 12,
       };
     }
 
@@ -140,7 +139,6 @@ export async function getStaticProps({ locale }) {
         ingredients,
         mappedLocale,
       },
-      revalidate: 60 * 60 * 12,
     };
   } catch (error) {
     console.error('Error fetching ingredients:', error);
@@ -150,7 +148,6 @@ export async function getStaticProps({ locale }) {
         error: 'Failed to fetch ingredients.',
         mappedLocale: locale === 'de' ? 'de' : 'en',
       },
-      revalidate: 60 * 60 * 12,
     };
   }
 }
