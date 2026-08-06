@@ -224,6 +224,34 @@ module.exports = withPWA(
 
     async redirects() {
       return [
+        {
+          // Google과 기존 외부 링크에 남아 있는 참소스의 이전 영어 slug
+          source: '/de/recipes/onion-marinade-sauce-for-meat',
+          has: [
+            {
+              type: 'host',
+              value: 'www.leckere-koreanische-rezepte.de',
+            },
+          ],
+          destination:
+            'https://www.leckere-koreanische-rezepte.de/recipes/cham-sauce-onion-marinade',
+          permanent: true,
+          locale: false,
+        },
+        {
+          // 영어 도메인의 동일한 이전 slug도 현재 canonical URL로 통합
+          source: '/en/recipes/onion-marinade-sauce-for-meat',
+          has: [
+            {
+              type: 'host',
+              value: 'www.hansikyoung.com',
+            },
+          ],
+          destination:
+            'https://www.hansikyoung.com/recipes/cham-sauce-onion-marinade',
+          permanent: true,
+          locale: false,
+        },
         ...getLocalizedRecipeRedirects(),
         {
           source: '/:path*',
