@@ -265,6 +265,18 @@ module.exports = withPWA(
         ...getLegacyRecipeRedirects(),
         ...getLocalizedRecipeRedirects(),
         {
+          source: '/en/datenschutz',
+          has: [
+            {
+              type: 'host',
+              value: 'www.hansikyoung.com',
+            },
+          ],
+          destination: 'https://www.hansikyoung.com/privacy-policy',
+          permanent: true,
+          locale: false,
+        },
+        {
           source: '/:path*',
           has: [
             {
