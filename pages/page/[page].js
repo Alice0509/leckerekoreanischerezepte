@@ -1,40 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from '../../styles/Home.module.css';
 import { useRouter } from 'next/router';
 import RecipeCard from '../../components/RecipeCard';
-import client from '../../lib/contentful';
-import { getRecipeCategoryFromFields } from '../../lib/recipeCategories';
 
-const ITEMS_PER_PAGE = 20;
+const normalizeLocale = (locale) => (locale === 'de' ? 'de' : 'en');
 
-const normalizeLocale = (locale) => {
-  if (locale === 'de' || locale === 'de-DE') return 'de';
-  return 'en';
-};
+const getRecipeDataPath = (locale, filename) =>
+  path.join(
+    process.cwd(),
+    'public',
+    'data',
+    'recipes',
+    normalizeLocale(locale),
+    filename
+  );
 
-const getCardImageUrl = (imageField) => {
-  if (!imageField) return '/images/default.png';
+const readRecipeDataFile = async (locale, filename) => {
+  const filePath = getRecipeDataPath(locale, filename);
+  const content = await fs.readFile(filePath, 'utf8');
 
-  const image = Array.isArray(imageField) ? imageField[0] : imageField;
-  const url = image?.fields?.file?.url;
-
-  return url ? `https:${url}` : '/images/default.png';
-};
-
-const mapRecipeForCard = (item, locale) => {
-  const categoryData = getRecipeCategoryFromFields(item.fields, locale);
-
-  return {
-    id: item.sys.id,
-    slug: item.fields.slug || null,
-    titel: item.fields.titel || '',
-    title: item.fields.titel || '',
-    category: categoryData.label,
-    categoryKey: categoryData.key,
-    youTubeUrl: item.fields.youTubeUrl || null,
-    image: getCardImageUrl(item.fields.image),
-  };
+  return JSON.parse(content);
 };
 
 const PaginatedPage = ({
@@ -46,7 +34,8 @@ const PaginatedPage = ({
   const router = useRouter();
   const { locale } = router;
 
-  const mappedLocale = locale === 'de' ? 'de-DE' : 'en-US';
+  const dataLocale = normalizeLocale(locale);
+  const mappedLocale = dataLocale === 'de' ? 'de-DE' : 'en-US';
 
   const [displayItems, setDisplayItems] = useState(recipes || []);
   const [hasMore, setHasMore] = useState(currentPage < totalPages);
@@ -67,25 +56,30 @@ const PaginatedPage = ({
     }
 
     try {
-      const res = await fetch(
-        `/api/recipes?page=${nextPage}&limit=${ITEMS_PER_PAGE}&locale=${mappedLocale}`
+      const response = await fetch(
+        `/data/recipes/${dataLocale}/page-${nextPage}.json`
       );
 
-      if (!res.ok) {
-        throw new Error(`Failed to fetch recipes: ${res.status}`);
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch static recipe data: ${response.status}`
+        );
       }
 
-      const data = await res.json();
+      const data = await response.json();
 
       if (data.recipes && data.recipes.length > 0) {
-        setDisplayItems((prev) => [...prev, ...data.recipes]);
+        setDisplayItems((previous) => [...previous, ...data.recipes]);
         setPage(nextPage);
-        router.push(`/page/${nextPage}`, undefined, { shallow: true });
+
+        router.push(`/page/${nextPage}`, undefined, {
+          shallow: true,
+        });
       } else {
         setHasMore(false);
       }
-    } catch (error) {
-      console.error('Error fetching more recipes:', error);
+    } catch (fetchError) {
+      console.error('Error fetching more recipes:', fetchError);
       setHasMore(false);
     }
   };
@@ -136,71 +130,43 @@ const PaginatedPage = ({
 };
 
 export async function getStaticPaths({ locales }) {
-  try {
-    const paths = [];
+  const paths = [];
 
-    for (const locale of locales || ['en', 'de']) {
-      const contentfulLocale = normalizeLocale(locale);
+  for (const locale of locales || ['en', 'de']) {
+    try {
+      const manifest = await readRecipeDataFile(locale, 'manifest.json');
 
-      const res = await client.getEntries({
-        content_type: 'recipe',
-        locale: contentfulLocale,
-        select: 'sys.id',
-        limit: 1,
-      });
-
-      const totalPages = Math.max(
-        Math.ceil((res.total || 0) / ITEMS_PER_PAGE),
-        1
-      );
-
-      for (let page = 1; page <= totalPages; page += 1) {
+      for (let page = 1; page <= manifest.totalPages; page += 1) {
         paths.push({
           params: { page: String(page) },
           locale,
         });
       }
+    } catch (error) {
+      console.error(
+        `Error reading static recipe manifest for ${locale}:`,
+        error
+      );
     }
-
-    return {
-      paths,
-      fallback: false,
-    };
-  } catch (error) {
-    console.error('Error generating paginated paths:', error);
-
-    return {
-      paths: [],
-      fallback: false,
-    };
   }
+
+  return {
+    paths,
+    fallback: false,
+  };
 }
 
 export async function getStaticProps({ params, locale }) {
   const currentPage = Math.max(parseInt(params?.page, 10) || 1, 1);
-  const contentfulLocale = normalizeLocale(locale);
+  const dataLocale = normalizeLocale(locale);
 
   try {
-    const res = await client.getEntries({
-      content_type: 'recipe',
-      locale: contentfulLocale,
-      include: 2,
-      select:
-        'fields.slug,fields.titel,fields.category,fields.categories,fields.image,fields.youTubeUrl',
-      skip: (currentPage - 1) * ITEMS_PER_PAGE,
-      limit: ITEMS_PER_PAGE,
-      order: '-sys.createdAt',
-    });
-
-    const recipes = res.items.map((item) =>
-      mapRecipeForCard(item, contentfulLocale)
-    );
-    const totalPages = Math.max(
-      Math.ceil((res.total || 0) / ITEMS_PER_PAGE),
-      1
+    const data = await readRecipeDataFile(
+      dataLocale,
+      `page-${currentPage}.json`
     );
 
-    if (currentPage > totalPages) {
+    if (currentPage > data.totalPages || !Array.isArray(data.recipes)) {
       return {
         notFound: true,
       };
@@ -208,24 +174,16 @@ export async function getStaticProps({ params, locale }) {
 
     return {
       props: {
-        recipes,
-        currentPage,
-        totalPages,
+        recipes: data.recipes,
+        currentPage: data.currentPage,
+        totalPages: data.totalPages,
       },
     };
   } catch (error) {
-    console.error('Error fetching paginated recipes:', error);
+    console.error('Error reading static paginated recipe data:', error);
 
     return {
-      props: {
-        recipes: [],
-        currentPage,
-        totalPages: 1,
-        error:
-          contentfulLocale === 'de'
-            ? 'Rezepte konnten nicht geladen werden.'
-            : 'Recipes could not be loaded.',
-      },
+      notFound: true,
     };
   }
 }
