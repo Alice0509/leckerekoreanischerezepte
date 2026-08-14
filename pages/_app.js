@@ -10,7 +10,6 @@ import { DefaultSeo } from 'next-seo';
 import ToTopButton from '../components/ToTopButton';
 import ErrorBoundary from '../components/ErrorBoundary';
 import SiteMusicPlayer from '../components/SiteMusicPlayer';
-import SiteModeBanner from '../components/SiteModeBanner';
 import ClarityAnalytics, {
   denyClarityConsent,
 } from '../components/ClarityAnalytics';
@@ -117,7 +116,6 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         ) : (
           <>
-            <SiteModeBanner />
             <Layout>
               <Component {...pageProps} />
               <ToTopButton />
