@@ -158,8 +158,8 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
     locale: mappedLocale,
     path: '/ingredients',
   });
-  const visibleIngredients = ingredients?.filter((ingredient) =>
-    getPlainText(ingredient.description)
+  const visibleIngredients = ingredients?.filter(
+    (ingredient) => getPlainText(ingredient.description) && ingredient.bild
   );
   const starterIngredients = visibleIngredients
     ?.filter(isStarterIngredient)
