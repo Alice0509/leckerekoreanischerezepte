@@ -187,8 +187,6 @@ module.exports = withPWA(
 
     reactStrictMode: true,
 
-    skipMiddlewareUrlNormalize: true,
-
     async rewrites() {
       return {
         beforeFiles: [
