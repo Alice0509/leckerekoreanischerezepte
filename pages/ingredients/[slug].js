@@ -3,6 +3,7 @@ import client from '../../lib/contentful';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import styles from '../../styles/IngredientDetail.module.css';
 import { getSeoUrls } from '../../lib/siteUrls';
@@ -15,7 +16,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import ingredientRecipeIndex from '../../lib/generated-ingredient-recipe-index.json';
 import {
   hasIngredientDetailPage,
-  isPriorityIngredientSlug,
+  isIndexableIngredientSlug,
 } from '../../lib/ingredientDetailRoutes';
 import contentfulBuildSnapshot from '../../lib/contentfulBuildSnapshot.cjs';
 
@@ -691,7 +692,7 @@ const IngredientDetail = ({
   });
   const canonicalUrl = seoUrls.canonicalUrl;
   const ogImage = bild || `${seoUrls.siteOrigin}/images/default.png`;
-  const shouldIndex = isPriorityIngredientSlug(slug);
+  const shouldIndex = isIndexableIngredientSlug(slug);
 
   const ingredientSchema = {
     '@context': 'https://schema.org',
@@ -742,13 +743,11 @@ const IngredientDetail = ({
 
   return (
     <>
+      <NextSeo noindex={!shouldIndex} nofollow={false} />
+
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={descriptionText} />
-        <meta
-          name="robots"
-          content={shouldIndex ? 'index,follow' : 'noindex,follow'}
-        />
         <link rel="canonical" href={canonicalUrl} />
         <link rel="alternate" hrefLang="de" href={seoUrls.alternateUrls.de} />
         <link rel="alternate" hrefLang="en" href={seoUrls.alternateUrls.en} />

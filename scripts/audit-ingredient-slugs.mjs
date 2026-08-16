@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import dotenv from 'dotenv';
 import { createClient } from 'contentful';
 import contentfulPagination from '../lib/contentfulPagination.cjs';
+import { isIndexableIngredientSlug } from '../lib/ingredientDetailRoutes.js';
 
 const { fetchAllEntries, fetchAllEntriesResponse } = contentfulPagination;
 
@@ -25,24 +26,6 @@ const client = createClient({
 });
 
 const LOCALES = ['de', 'en'];
-
-const PRIORITY_INGREDIENT_SLUG_KEYWORDS = [
-  'gochujang',
-  'gochugaru',
-  'kimchi',
-  'reis',
-  'rice',
-  'tofu',
-  'sesam',
-  'sesame',
-  'doenjang',
-  'sojasauce',
-  'soy',
-  'nori',
-  'gim',
-  'dangmyeon',
-  'tteok',
-];
 
 const asArray = (value) => {
   if (!value) return [];
@@ -86,14 +69,6 @@ const suggestSlug = (value) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
-
-const isPrioritySlug = (slug) => {
-  const normalized = String(slug || '').toLowerCase();
-
-  return PRIORITY_INGREDIENT_SLUG_KEYWORDS.some((keyword) =>
-    normalized.includes(keyword)
-  );
-};
 
 const getInitialIssues = ({ raw, locale }) => {
   if (!raw) return ['missing'];
@@ -247,7 +222,8 @@ for (const ingredient of ingredientItems) {
       name,
       raw,
       suggested,
-      priority: isPrioritySlug(raw) || isPrioritySlug(suggested),
+      priority:
+        isIndexableIngredientSlug(raw) || isIndexableIngredientSlug(suggested),
       recipes:
         recipeUsageByIngredientAndLocale.get(`${ingredient.sys.id}:${locale}`)
           ?.size || 0,
