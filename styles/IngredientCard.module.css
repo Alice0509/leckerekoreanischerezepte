@@ -146,3 +146,12 @@
     -webkit-line-clamp: 2;
   }
 }
+
+.staticCard {
+  cursor: default;
+}
+
+.staticCard:hover {
+  transform: none;
+  box-shadow: none;
+}
