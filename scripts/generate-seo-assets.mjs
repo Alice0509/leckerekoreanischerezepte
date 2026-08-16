@@ -3,6 +3,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import nextEnv from '@next/env';
 import { createClient } from 'contentful';
+import { INDEXABLE_INGREDIENT_SLUGS } from '../lib/ingredientDetailRoutes.js';
 
 const require = createRequire(import.meta.url);
 
@@ -208,9 +209,17 @@ const createSitemapXml = ({ language, routeData }) => {
       lastmod: recipe.updatedAt || '',
     }));
 
-  const records = [...staticRecords, ...recipeRecords].sort((a, b) =>
-    a.enPath.localeCompare(b.enPath)
-  );
+  const ingredientRecords = INDEXABLE_INGREDIENT_SLUGS.map((slug) => ({
+    dePath: `/ingredients/${slug}`,
+    enPath: `/ingredients/${slug}`,
+    lastmod: '',
+  }));
+
+  const records = [
+    ...staticRecords,
+    ...recipeRecords,
+    ...ingredientRecords,
+  ].sort((a, b) => a.enPath.localeCompare(b.enPath));
 
   const urls = records
     .map((record) => {
