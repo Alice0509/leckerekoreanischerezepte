@@ -9,6 +9,7 @@ import {
   getRecipeCategoryFromFields,
 } from '../../lib/recipeCategories';
 import { getCanonicalIngredientSlug } from '../../lib/ingredientSlugs';
+import { isPriorityIngredientSlug } from '../../lib/ingredientDetailRoutes';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Timer from '../../components/Timer';
@@ -747,7 +748,11 @@ const RecipeDetail = ({ recipe, error }) => {
     const hasRealImage =
       ingredient.bild && ingredient.bild !== '/images/default.png';
 
-    return ingredient.slug && (hasUsefulDetail || hasRealImage);
+    return (
+      ingredient.slug &&
+      isPriorityIngredientSlug(ingredient.slug) &&
+      (hasUsefulDetail || hasRealImage)
+    );
   };
 
   const descriptionText = useMemo(() => {

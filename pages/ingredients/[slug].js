@@ -13,6 +13,7 @@ import {
 } from '../../lib/ingredientSlugs';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import ingredientRecipeIndex from '../../lib/generated-ingredient-recipe-index.json';
+import { isPriorityIngredientSlug } from '../../lib/ingredientDetailRoutes';
 import contentfulBuildSnapshot from '../../lib/contentfulBuildSnapshot.cjs';
 
 const {
@@ -364,31 +365,6 @@ const getFaqItems = ({ guide, mainTitle, mappedLocale }) => {
         'Always follow the package instructions. Many Korean pastes and opened products keep best sealed in the fridge.',
     },
   ];
-};
-
-const PRIORITY_INGREDIENT_SLUG_KEYWORDS = [
-  'gochujang',
-  'gochugaru',
-  'kimchi',
-  'reis',
-  'rice',
-  'tofu',
-  'sesam',
-  'sesame',
-  'doenjang',
-  'sojasauce',
-  'soy',
-  'nori',
-  'gim',
-  'dangmyeon',
-  'tteok',
-];
-
-const isPriorityIngredientSlug = (slug = '') => {
-  const normalized = `${slug}`.toLowerCase();
-  return PRIORITY_INGREDIENT_SLUG_KEYWORDS.some((keyword) =>
-    normalized.includes(keyword)
-  );
 };
 
 export async function getStaticPaths({ locales }) {
