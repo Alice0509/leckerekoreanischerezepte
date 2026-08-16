@@ -13,7 +13,10 @@ import {
 } from '../../lib/ingredientSlugs';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import ingredientRecipeIndex from '../../lib/generated-ingredient-recipe-index.json';
-import { isPriorityIngredientSlug } from '../../lib/ingredientDetailRoutes';
+import {
+  hasIngredientDetailPage,
+  isPriorityIngredientSlug,
+} from '../../lib/ingredientDetailRoutes';
 import contentfulBuildSnapshot from '../../lib/contentfulBuildSnapshot.cjs';
 
 const {
@@ -380,7 +383,7 @@ export async function getStaticPaths({ locales }) {
         ? { items: snapshotEntries }
         : await client.getEntries({
             content_type: 'ingredient',
-            select: 'fields.slug',
+            select: 'fields.slug,fields.description',
             locale: mappedLocale,
             include: 0,
             limit: 1000,
@@ -397,7 +400,12 @@ export async function getStaticPaths({ locales }) {
             fallbackSlug: item.fields.slug,
           }),
         }))
-        .filter(({ slug }) => isPriorityIngredientSlug(slug))
+        .filter(({ item, slug }) =>
+          hasIngredientDetailPage({
+            slug,
+            description: item.fields.description,
+          })
+        )
         .filter(({ slug }) => {
           if (seenSlugs.has(slug)) return false;
 
@@ -683,6 +691,7 @@ const IngredientDetail = ({
   });
   const canonicalUrl = seoUrls.canonicalUrl;
   const ogImage = bild || `${seoUrls.siteOrigin}/images/default.png`;
+  const shouldIndex = isPriorityIngredientSlug(slug);
 
   const ingredientSchema = {
     '@context': 'https://schema.org',
@@ -736,6 +745,10 @@ const IngredientDetail = ({
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={descriptionText} />
+        <meta
+          name="robots"
+          content={shouldIndex ? 'index,follow' : 'noindex,follow'}
+        />
         <link rel="canonical" href={canonicalUrl} />
         <link rel="alternate" hrefLang="de" href={seoUrls.alternateUrls.de} />
         <link rel="alternate" hrefLang="en" href={seoUrls.alternateUrls.en} />
