@@ -265,6 +265,19 @@ module.exports = withPWA(
         ...getLegacyRecipeRedirects(),
         ...getLocalizedRecipeRedirects(),
         {
+          source: '/de/ingredients/-gebraute-sojasosse',
+          has: [
+            {
+              type: 'host',
+              value: 'www.leckere-koreanische-rezepte.de',
+            },
+          ],
+          destination:
+            'https://www.leckere-koreanische-rezepte.de/ingredients/yangjo-ganjang',
+          permanent: true,
+          locale: false,
+        },
+        {
           source: '/en/datenschutz',
           has: [
             {
