@@ -292,34 +292,219 @@ const getIngredientGuide = ({ mainTitle, subTitle, slug, mappedLocale }) => {
       : defaultGuide;
   }
 
-  if (hasAnyKeyword(combined, ['reis', 'rice', '쌀', 'milchreis', 'sushi'])) {
+  if (slug === 'cooked-rice') {
+    return isGerman
+      ? {
+          eyebrow: 'Bap – gekochter Reis',
+          headline:
+            'Gekochter Reis in der koreanischen Küche richtig verwenden',
+          intro:
+            'Gekochter Reis heißt auf Koreanisch Bap (밥) und ist die Grundlage vieler koreanischer Mahlzeiten. Er wird als Beilage serviert und für Gerichte wie Bibimbap oder gebratenen Reis verwendet.',
+          buyPlaces: [
+            'Koreanischer oder asiatischer Supermarkt',
+            'Große Supermärkte mit Asia-Regal',
+            'Online-Shops für asiatische Lebensmittel',
+          ],
+          uses: [
+            'Beilage zu Suppen und Eintöpfen',
+            'Bibimbap',
+            'Kimchi Fried Rice',
+            'Jumeokbap',
+            'Koreanische Alltagsgerichte',
+          ],
+          tips: [
+            'Der Reis sollte weich sein und leicht zusammenhalten, aber nicht matschig werden.',
+            'Abgekühlter Reis eignet sich besonders gut für gebratene Reisgerichte.',
+            'Bei Rezeptangaben zu gekochtem Reis ist normalerweise das bereits gekochte Gewicht gemeint.',
+          ],
+          substitute:
+            'Wenn koreanischer Reis nicht erhältlich ist, eignet sich meist ein Rund- oder Mittelkornreis, der nach dem Kochen leicht zusammenhält.',
+        }
+      : {
+          eyebrow: 'Bap – cooked rice',
+          headline: 'How to use cooked rice in Korean cooking',
+          intro:
+            'Cooked rice is called bap (밥) in Korean and forms the base of many Korean meals. It is served alongside soups and stews and is also used for dishes such as bibimbap and fried rice.',
+          buyPlaces: [
+            'Korean or Asian grocery store',
+            'Large supermarkets with an Asian food section',
+            'Asian grocery stores online',
+          ],
+          uses: [
+            'Rice served with soups and stews',
+            'Bibimbap',
+            'Kimchi fried rice',
+            'Jumeokbap',
+            'Everyday Korean meals',
+          ],
+          tips: [
+            'The rice should be tender and naturally hold together without becoming mushy.',
+            'Cooled rice works particularly well for fried rice.',
+            'When a recipe lists cooked rice, the quantity usually means rice that has already been cooked.',
+          ],
+          substitute:
+            'If Korean rice is unavailable, choose a short- or medium-grain rice that remains slightly sticky after cooking.',
+        };
+  }
+
+  if (slug === 'sushi-rice') {
+    return isGerman
+      ? {
+          eyebrow: 'Alternative zu koreanischem Reis',
+          headline: 'Sushi-Reis für Kimbap und koreanische Reisgerichte',
+          intro:
+            'Sushi-Reis ist eine praktische Alternative, wenn koreanischer Rund- oder Mittelkornreis nicht leicht erhältlich ist. Seine leicht klebrige Textur eignet sich besonders gut für Kimbap.',
+          buyPlaces: [
+            'Asia-Markt',
+            'Große Supermärkte',
+            'Online-Shops für asiatische Lebensmittel',
+          ],
+          uses: [
+            'Kimbap',
+            'Bibimbap',
+            'Jumeokbap',
+            'Reis-Bowls',
+            'Reisbeilage',
+          ],
+          tips: [
+            'Vor dem Kochen mehrmals mit kaltem Wasser waschen.',
+            'Für Kimbap sollte der Reis zusammenhalten, aber nicht matschig sein.',
+            'Als Ersatz für koreanischen Reis wird Sushi-Reis nicht mit Sushi-Essig und Zucker gewürzt.',
+          ],
+          substitute:
+            'Koreanischer Rund- oder Mittelkornreis ist die naheliegendste Alternative. Sehr lockerer Langkornreis eignet sich für Kimbap weniger gut.',
+        }
+      : {
+          eyebrow: 'Substitute for Korean rice',
+          headline: 'Using sushi rice for kimbap and Korean rice dishes',
+          intro:
+            'Sushi rice is a practical substitute when Korean short- or medium-grain rice is difficult to find. Its naturally cohesive texture works especially well for kimbap.',
+          buyPlaces: [
+            'Asian grocery store',
+            'Large supermarkets',
+            'Asian grocery stores online',
+          ],
+          uses: [
+            'Kimbap',
+            'Bibimbap',
+            'Jumeokbap',
+            'Rice bowls',
+            'Plain rice side dishes',
+          ],
+          tips: [
+            'Rinse the rice several times in cold water before cooking.',
+            'For kimbap, the grains should hold together without becoming mushy.',
+            'When used as Korean rice, sushi rice does not need sushi vinegar and sugar seasoning.',
+          ],
+          substitute:
+            'Korean short- or medium-grain rice is the closest choice. Very loose long-grain rice is usually less suitable for kimbap.',
+        };
+  }
+
+  if (slug === 'klebreismehl') {
+    return isGerman
+      ? {
+          eyebrow: 'Koreanisches Klebreismehl',
+          headline: 'Chapssalgaru richtig verwenden',
+          intro:
+            'Klebreismehl heißt auf Koreanisch Chapssalgaru (찹쌀가루). Es wird aus Klebreis hergestellt und sorgt in Teigen und anderen Zubereitungen für eine weichere und elastischere Textur.',
+          buyPlaces: [
+            'Asia-Markt',
+            'Koreanischer Online-Shop',
+            'Online-Shops für asiatische Lebensmittel',
+          ],
+          uses: [
+            'Koreanische Reiskuchen',
+            'Traditionelle Süßspeisen',
+            'Teige',
+            'Reisbrei für bestimmte Kimchi-Zubereitungen',
+          ],
+          tips: [
+            'Klebreismehl ist nicht dasselbe wie normales Reismehl.',
+            'Der Begriff Klebreis bedeutet nicht, dass das Mehl Gluten enthält.',
+            'Bei Rezepten mit Chapssalgaru möglichst die angegebene Mehlsorte verwenden.',
+          ],
+          substitute:
+            'Normales Reismehl hat andere Bindeeigenschaften und ist deshalb nicht immer ein direkter Ersatz für Klebreismehl.',
+        }
+      : {
+          eyebrow: 'Korean glutinous rice flour',
+          headline: 'How to use chapssalgaru in Korean cooking',
+          intro:
+            'Glutinous rice flour is called chapssalgaru (찹쌀가루) in Korean. It is made from glutinous rice and gives doughs and other preparations a softer, chewier, and more elastic texture.',
+          buyPlaces: [
+            'Asian grocery store',
+            'Korean grocery store',
+            'Asian grocery stores online',
+          ],
+          uses: [
+            'Korean rice cakes',
+            'Traditional sweets',
+            'Doughs',
+            'Rice paste for some kimchi preparations',
+          ],
+          tips: [
+            'Glutinous rice flour is different from regular rice flour.',
+            'Despite its name, glutinous rice flour does not naturally contain gluten.',
+            'Use the flour specified by the recipe when chapssalgaru is required.',
+          ],
+          substitute:
+            'Regular rice flour behaves differently and is not always a direct substitute for glutinous rice flour.',
+        };
+  }
+
+  if (slug === 'rice') {
     return isGerman
       ? {
           eyebrow: 'Reis für koreanische Alltagsküche',
           headline: 'Welcher Reis passt zu koreanischem Essen?',
           intro:
-            'Für viele koreanische Gerichte passt Rundkornreis oder Sushi-Reis gut. In Deutschland ist auch Milchreis als einfache Alltagslösung oft nützlich, wenn er ungesüßt gekocht wird.',
+            'Für viele koreanische Gerichte eignet sich Rund- oder Mittelkornreis, der nach dem Kochen weich bleibt und leicht zusammenhält.',
           buyPlaces: [
             'Asia-Markt',
             'Koreanischer Online-Shop',
-            'REWE, Edeka oder andere Supermärkte',
+            'Große Supermärkte mit Asia-Regal',
           ],
           uses: [
+            'Koreanische Reisbeilage',
             'Bibimbap',
             'Kimbap',
-            'Kimchi Fried Rice',
-            'Reisbeilage',
             'Jumeokbap',
+            'Reis-Bowls',
           ],
           tips: [
-            'Reis vor dem Kochen waschen, bis das Wasser klarer wird.',
-            'Für Kimbap sollte der Reis klebrig genug sein.',
-            'Gekochten Reis für Fried Rice am besten abkühlen lassen.',
+            'Reis vor dem Kochen gründlich waschen.',
+            'Für Kimbap sollte der Reis leicht klebrig sein.',
+            'Sehr lockerer Langkornreis verhält sich anders als koreanischer Rund- oder Mittelkornreis.',
           ],
           substitute:
-            'Langkornreis funktioniert für manche Bowls, ist aber für Kimbap oft zu locker. Für koreanische Reisrollen besser Rundkorn- oder Sushi-Reis wählen.',
+            'Wenn koreanischer Reis nicht verfügbar ist, funktioniert Sushi-Reis für viele koreanische Gerichte als praktische Alternative.',
         }
-      : defaultGuide;
+      : {
+          eyebrow: 'Rice for Korean home cooking',
+          headline: 'What kind of rice works for Korean food?',
+          intro:
+            'Korean cooking commonly uses short- or medium-grain rice that becomes tender and naturally cohesive after cooking.',
+          buyPlaces: [
+            'Asian grocery store',
+            'Korean grocery store',
+            'Large supermarkets with an Asian food section',
+          ],
+          uses: [
+            'Plain rice with Korean meals',
+            'Bibimbap',
+            'Kimbap',
+            'Jumeokbap',
+            'Rice bowls',
+          ],
+          tips: [
+            'Rinse the rice thoroughly before cooking.',
+            'Rice for kimbap should have enough natural stickiness to hold together.',
+            'Loose long-grain rice has a different texture from Korean short- or medium-grain rice.',
+          ],
+          substitute:
+            'If Korean rice is unavailable, sushi rice is a practical substitute for many Korean dishes.',
+        };
   }
 
   return defaultGuide;
