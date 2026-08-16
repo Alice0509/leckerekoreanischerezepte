@@ -2,7 +2,10 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { isPriorityIngredientSlug } from '../lib/ingredientDetailRoutes';
+import {
+  getIngredientDetailText,
+  hasIngredientDetailPage,
+} from '../lib/ingredientDetailRoutes';
 import styles from '../styles/IngredientCard.module.css';
 
 const IngredientCard = ({ ingredient }) => {
@@ -10,17 +13,10 @@ const IngredientCard = ({ ingredient }) => {
   const isGerman = router.locale === 'de';
   const { name, slug, germanMeatCut, bild, description } = ingredient;
 
-  // 설명 없는 재료는 카드 목록에 노출하지 않음
-  if (!description) return null;
+  const plainText = getIngredientDetailText(description);
 
-  const plainText =
-    typeof description === 'string'
-      ? description
-      : description?.content
-          ?.map((block) =>
-            block.content?.map((node) => node.value || '').join('')
-          )
-          .join(' ') || '';
+  // 설명 없는 재료는 카드 목록에 노출하지 않음
+  if (!plainText) return null;
 
   const shortDesc =
     plainText.length > 120 ? plainText.slice(0, 120) + '...' : plainText;
@@ -30,7 +26,10 @@ const IngredientCard = ({ ingredient }) => {
   const mainTitle = match ? match[1].trim() : name;
   const subTitle = match ? match[2].trim() : '';
 
-  const hasDetailPage = isPriorityIngredientSlug(slug);
+  const hasDetailPage = hasIngredientDetailPage({
+    slug,
+    description,
+  });
 
   const content = (
     <>
@@ -59,13 +58,7 @@ const IngredientCard = ({ ingredient }) => {
     </>
   );
 
-  if (!hasDetailPage) {
-    return (
-      <article className={`${styles.card} ${styles.staticCard}`}>
-        {content}
-      </article>
-    );
-  }
+  if (!hasDetailPage) return null;
 
   return (
     <Link href={`/ingredients/${slug}`} className={styles.card}>
