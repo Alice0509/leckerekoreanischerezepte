@@ -8,6 +8,7 @@ import {
   RECIPE_CATEGORY_ORDER,
   getRecipeCategoryFromFields,
   getRecipeCategoryLabel,
+  getRecipeCategorySlug,
 } from '../lib/recipeCategories';
 import { FaSearch } from 'react-icons/fa';
 import { useRouter } from 'next/router';
@@ -173,6 +174,8 @@ const Home = ({ recipes, favorites, error }) => {
     return RECIPE_CATEGORY_ORDER.map((categoryKey) => ({
       key: categoryKey,
       label: getRecipeCategoryLabel(categoryKey, locale),
+      slug: getRecipeCategorySlug(categoryKey),
+      count: recipes.filter((item) => item.categoryKey === categoryKey).length,
     })).filter((category) => presentCategories.has(category.key));
   }, [recipes, locale]);
 
@@ -351,6 +354,55 @@ const Home = ({ recipes, favorites, error }) => {
               </Link>
             ))}
           </div>
+        </section>
+
+        {/* CATEGORY HUB LINKS */}
+        <section
+          className={styles.categoryHubSection}
+          aria-labelledby="category-hub-title"
+        >
+          <div className={styles.previewHeader}>
+            <h2 id="category-hub-title" className={styles.previewTitle}>
+              {mappedLocale === 'de-DE'
+                ? 'Rezepte nach Kategorie'
+                : 'Browse recipes by category'}
+            </h2>
+          </div>
+
+          <p className={styles.previewNotice}>
+            {mappedLocale === 'de-DE'
+              ? 'Entdecke koreanische Rezepte nach Suppen, Reis und Nudeln, Beilagen, Hauptgerichten und weiteren Kategorien.'
+              : 'Explore Korean recipes by soups and stews, rice and noodles, side dishes, main dishes, and more.'}
+          </p>
+
+          <nav
+            className={styles.categoryHubLinks}
+            aria-label={
+              mappedLocale === 'de-DE'
+                ? 'Rezeptkategorien'
+                : 'Recipe categories'
+            }
+          >
+            {categories.map((category) => (
+              <Link
+                key={category.key}
+                href={`/categories/${category.slug}`}
+                className={styles.categoryHubLink}
+              >
+                <span>{category.label}</span>
+                <span
+                  className={styles.categoryHubCount}
+                  aria-label={
+                    mappedLocale === 'de-DE'
+                      ? `${category.count} Rezepte`
+                      : `${category.count} recipes`
+                  }
+                >
+                  {category.count}
+                </span>
+              </Link>
+            ))}
+          </nav>
         </section>
 
         {/* FEATURED RECIPES */}

@@ -254,6 +254,57 @@
 }
 
 /* ==============================
+   Category Hub Links
+============================== */
+.categoryHubSection {
+  margin-bottom: 2.5rem;
+}
+
+.categoryHubLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.categoryHubLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.68rem 0.9rem;
+  border: 1px solid rgba(149, 183, 124, 0.34);
+  border-radius: 999px;
+  background: #fffdf8;
+  color: #3f4938;
+  font-size: 0.94rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.categoryHubLink:hover {
+  background: #eef5e8;
+  border-color: rgba(149, 183, 124, 0.7);
+  transform: translateY(-1px);
+}
+
+.categoryHubCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background: #eef5e8;
+  color: #567244;
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+/* ==============================
    Category + Search
 ============================== */
 .controlsContainer {
