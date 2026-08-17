@@ -1100,7 +1100,7 @@ const RecipeDetail = ({ recipe, error }) => {
           </aside>
 
           <section className={styles.instructionsColumn}>
-            {description && !hasStructuredSteps && (
+            {description && (
               <section className={styles.recipeNotes}>
                 <h3>
                   {mappedLocale === 'de'
