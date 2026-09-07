@@ -24,6 +24,9 @@ const CookingMode = ({
   isOpen,
   onClose,
   title,
+  ingredients = [],
+  checkedPrep = [],
+  onTogglePrep,
   steps = [],
   checkedSteps = [],
   onCompleteStep,
@@ -33,6 +36,7 @@ const CookingMode = ({
 }) => {
   const isGerman = locale === 'de';
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showPrep, setShowPrep] = useState(false);
   const [wakeLockActive, setWakeLockActive] = useState(false);
   const wakeLockRef = useRef(null);
   const stepCardRef = useRef(null);
@@ -49,6 +53,27 @@ const CookingMode = ({
     [steps]
   );
 
+  const prepItems = useMemo(
+    () =>
+      ingredients
+        .map((ingredient, sourceIndex) => ({ ...ingredient, sourceIndex }))
+        .filter((ingredient) => ingredient?.prepNote),
+    [ingredients]
+  );
+
+  const prepReadyCount = prepItems.filter(
+    (item) => checkedPrep[item.sourceIndex]
+  ).length;
+
+  const prepStatusLabel =
+    prepItems.length > 0 && prepReadyCount === prepItems.length
+      ? isGerman
+        ? 'Bereit ✓'
+        : 'Ready ✓'
+      : isGerman
+        ? `${prepReadyCount} von ${prepItems.length} bereit`
+        : `${prepReadyCount} of ${prepItems.length} ready`;
+
   useEffect(() => {
     const isOpening = isOpen && !wasOpenRef.current;
     wasOpenRef.current = isOpen;
@@ -59,8 +84,23 @@ const CookingMode = ({
       (step) => !checkedSteps[step.sourceIndex]
     );
 
+    const hasCompletedStep = usableSteps.some(
+      (step) => checkedSteps[step.sourceIndex]
+    );
+
+    const allPrepChecked =
+      prepItems.length > 0 &&
+      prepItems.every((item) => checkedPrep[item.sourceIndex]);
+
+    if (prepItems.length > 0 && !hasCompletedStep && !allPrepChecked) {
+      setShowPrep(true);
+      setCurrentIndex(0);
+      return;
+    }
+
+    setShowPrep(false);
     setCurrentIndex(firstUnchecked >= 0 ? firstUnchecked : 0);
-  }, [isOpen, usableSteps, checkedSteps]);
+  }, [isOpen, usableSteps, checkedSteps, prepItems, checkedPrep]);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -71,9 +111,23 @@ const CookingMode = ({
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') onClose();
       if (event.key === 'ArrowLeft') {
+        if (showPrep) return;
+
+        if (currentIndex === 0 && prepItems.length > 0) {
+          setShowPrep(true);
+          return;
+        }
+
         setCurrentIndex((index) => Math.max(index - 1, 0));
       }
+
       if (event.key === 'ArrowRight') {
+        if (showPrep) {
+          setShowPrep(false);
+          setCurrentIndex(0);
+          return;
+        }
+
         setCurrentIndex((index) => Math.min(index + 1, usableSteps.length - 1));
       }
     };
@@ -84,7 +138,14 @@ const CookingMode = ({
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, onClose, usableSteps.length]);
+  }, [
+    isOpen,
+    onClose,
+    usableSteps.length,
+    showPrep,
+    currentIndex,
+    prepItems.length,
+  ]);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -143,20 +204,33 @@ const CookingMode = ({
       top: 0,
       behavior: 'auto',
     });
-  }, [currentIndex, isOpen]);
+  }, [currentIndex, isOpen, showPrep]);
 
   if (!isOpen || usableSteps.length === 0) return null;
 
-  const currentStep = usableSteps[currentIndex];
-  const sourceIndex = currentStep.sourceIndex;
-  const isChecked = Boolean(checkedSteps[sourceIndex]);
-  const isLastStep = currentIndex === usableSteps.length - 1;
+  const currentStep = showPrep ? null : usableSteps[currentIndex];
+  const sourceIndex = currentStep?.sourceIndex;
+  const isChecked = currentStep ? Boolean(checkedSteps[sourceIndex]) : false;
+  const isLastStep = !showPrep && currentIndex === usableSteps.length - 1;
 
   const goPrevious = () => {
+    if (showPrep) return;
+
+    if (currentIndex === 0 && prepItems.length > 0) {
+      setShowPrep(true);
+      return;
+    }
+
     setCurrentIndex((index) => Math.max(index - 1, 0));
   };
 
   const goNext = () => {
+    if (showPrep) {
+      setShowPrep(false);
+      setCurrentIndex(0);
+      return;
+    }
+
     setCurrentIndex((index) => Math.min(index + 1, usableSteps.length - 1));
   };
 
@@ -203,8 +277,9 @@ const CookingMode = ({
     }
   };
 
-  const heatLabel =
-    HEAT_LABELS[isGerman ? 'de' : 'en'][currentStep.heatLevel] || null;
+  const heatLabel = currentStep
+    ? HEAT_LABELS[isGerman ? 'de' : 'en'][currentStep.heatLevel] || null
+    : null;
 
   return (
     <div
@@ -234,8 +309,11 @@ const CookingMode = ({
 
         <div className={styles.progressRow}>
           <span>
-            {isGerman ? 'Schritt' : 'Step'} {currentIndex + 1}{' '}
-            {isGerman ? 'von' : 'of'} {usableSteps.length}
+            {showPrep
+              ? `${isGerman ? 'Vorbereitung' : 'Prep'} · ${prepStatusLabel}`
+              : `${isGerman ? 'Schritt' : 'Step'} ${currentIndex + 1} ${
+                  isGerman ? 'von' : 'of'
+                } ${usableSteps.length}`}
           </span>
 
           {wakeLockActive && (
@@ -249,7 +327,10 @@ const CookingMode = ({
           <div
             className={styles.progressBar}
             style={{
-              width: `${((currentIndex + 1) / usableSteps.length) * 100}%`,
+              width:
+                showPrep && prepItems.length > 0
+                  ? `${(prepReadyCount / prepItems.length) * 100}%`
+                  : `${((currentIndex + 1) / usableSteps.length) * 100}%`,
             }}
           />
         </div>
@@ -260,76 +341,140 @@ const CookingMode = ({
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className={styles.stepTop}>
-            <span className={styles.stepNumber}>
-              {currentStep.stepNumber ?? currentIndex + 1}
-            </span>
+          {showPrep ? (
+            <>
+              <div className={styles.prepHeading}>
+                <span className={styles.prepEyebrow}>
+                  {isGerman ? 'Vor dem Kochen' : 'Before you start'}
+                </span>
+                <h2>{isGerman ? 'Alles bereitlegen' : 'Get ready'}</h2>
+                <p>
+                  {isGerman
+                    ? 'Hake ab, was schon vorbereitet ist. Den Rest kannst du jetzt oder später vorbereiten – du kannst jederzeit mit dem Kochen beginnen.'
+                    : 'Check off what is already prepared. Prepare the rest now or later — you can start cooking at any time.'}
+                </p>
+              </div>
 
-            {isChecked && (
-              <span className={styles.doneBadge}>
-                ✓ {isGerman ? 'Erledigt' : 'Done'}
-              </span>
-            )}
-          </div>
+              <ul className={styles.prepList}>
+                {prepItems.map((ingredient) => {
+                  const checked = Boolean(checkedPrep[ingredient.sourceIndex]);
 
-          {currentStep.ingredientsUsed?.length > 0 && (
-            <section className={styles.metaSection}>
-              <h3>{isGerman ? 'Für diesen Schritt' : 'Used in this step'}</h3>
-              <ul className={styles.ingredientList}>
-                {currentStep.ingredientsUsed.map((ingredient) => (
-                  <li key={ingredient.id}>{ingredient.name}</li>
-                ))}
+                  return (
+                    <li key={ingredient.id} className={styles.prepItem}>
+                      <label className={styles.prepLabel}>
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          onChange={() =>
+                            onTogglePrep?.(ingredient.sourceIndex)
+                          }
+                          className={styles.prepCheckbox}
+                        />
+
+                        <span className={styles.prepText}>
+                          <span className={styles.prepIngredient}>
+                            {ingredient.name}
+                            {ingredient.quantity && (
+                              <strong> — {ingredient.quantity}</strong>
+                            )}
+                          </span>
+
+                          <span
+                            className={`${styles.prepNote} ${
+                              checked ? styles.prepChecked : ''
+                            }`}
+                          >
+                            {ingredient.prepNote}
+                          </span>
+                        </span>
+                      </label>
+                    </li>
+                  );
+                })}
               </ul>
-            </section>
-          )}
 
-          <div className={styles.stepDescription}>
-            {renderContent
-              ? renderContent(currentStep.description)
-              : currentStep.description}
-          </div>
+              <p className={styles.swipeHint}>
+                {isGerman
+                  ? 'Nach links wischen, um mit dem Kochen zu beginnen'
+                  : 'Swipe left to start cooking'}
+              </p>
+            </>
+          ) : (
+            <>
+              <div className={styles.stepTop}>
+                <span className={styles.stepNumber}>
+                  {currentStep.stepNumber ?? currentIndex + 1}
+                </span>
 
-          {(heatLabel || currentStep.timerDuration) && (
-            <div className={styles.cookingMeta}>
-              {heatLabel && (
-                <span className={styles.heatBadge}>🔥 {heatLabel}</span>
+                {isChecked && (
+                  <span className={styles.doneBadge}>
+                    ✓ {isGerman ? 'Erledigt' : 'Done'}
+                  </span>
+                )}
+              </div>
+
+              {currentStep.ingredientsUsed?.length > 0 && (
+                <section className={styles.metaSection}>
+                  <h3>
+                    {isGerman ? 'Für diesen Schritt' : 'Used in this step'}
+                  </h3>
+                  <ul className={styles.ingredientList}>
+                    {currentStep.ingredientsUsed.map((ingredient) => (
+                      <li key={ingredient.id}>{ingredient.name}</li>
+                    ))}
+                  </ul>
+                </section>
               )}
 
-              {currentStep.timerDuration && (
-                <Timer duration={currentStep.timerDuration} />
+              <div className={styles.stepDescription}>
+                {renderContent
+                  ? renderContent(currentStep.description)
+                  : currentStep.description}
+              </div>
+
+              {(heatLabel || currentStep.timerDuration) && (
+                <div className={styles.cookingMeta}>
+                  {heatLabel && (
+                    <span className={styles.heatBadge}>🔥 {heatLabel}</span>
+                  )}
+
+                  {currentStep.timerDuration && (
+                    <Timer duration={currentStep.timerDuration} />
+                  )}
+                </div>
               )}
-            </div>
-          )}
 
-          {currentStep.doneWhen && (
-            <aside className={styles.doneWhen}>
-              <strong>{isGerman ? 'Fertig, wenn' : 'Done when'}</strong>
-              <p>{currentStep.doneWhen}</p>
-            </aside>
-          )}
+              {currentStep.doneWhen && (
+                <aside className={styles.doneWhen}>
+                  <strong>{isGerman ? 'Fertig, wenn' : 'Done when'}</strong>
+                  <p>{currentStep.doneWhen}</p>
+                </aside>
+              )}
 
-          {currentStep.image && (
-            <div className={styles.stepImage}>
-              <Image
-                src={currentStep.image}
-                alt={
-                  isGerman
-                    ? `Bild zu Schritt ${currentStep.stepNumber}`
-                    : `Step ${currentStep.stepNumber} image`
-                }
-                width={600}
-                height={400}
-                loading="lazy"
-                sizes="(max-width: 768px) 100vw, 600px"
-              />
-            </div>
-          )}
+              {currentStep.image && (
+                <div className={styles.stepImage}>
+                  <Image
+                    src={currentStep.image}
+                    alt={
+                      isGerman
+                        ? `Bild zu Schritt ${currentStep.stepNumber}`
+                        : `Step ${currentStep.stepNumber} image`
+                    }
+                    width={600}
+                    height={400}
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 600px"
+                  />
+                </div>
+              )}
 
-          <p className={styles.swipeHint}>
-            {isGerman
-              ? 'Nach links oder rechts wischen'
-              : 'Swipe left or right'}
-          </p>
+              <p className={styles.swipeHint}>
+                {isGerman
+                  ? 'Nach links oder rechts wischen'
+                  : 'Swipe left or right'}
+              </p>
+            </>
+          )}
         </main>
 
         <footer className={styles.footer}>
@@ -337,7 +482,9 @@ const CookingMode = ({
             type="button"
             className={styles.secondaryButton}
             onClick={goPrevious}
-            disabled={currentIndex === 0}
+            disabled={
+              showPrep || (currentIndex === 0 && prepItems.length === 0)
+            }
           >
             ← {isGerman ? 'Zurück' : 'Previous'}
           </button>
@@ -345,15 +492,19 @@ const CookingMode = ({
           <button
             type="button"
             className={styles.primaryButton}
-            onClick={completeCurrentStep}
+            onClick={showPrep ? goNext : completeCurrentStep}
           >
-            {isLastStep
+            {showPrep
               ? isGerman
-                ? 'Fertig ✓'
-                : 'Finish ✓'
-              : isGerman
-                ? 'Erledigt & weiter ✓'
-                : 'Done & next ✓'}
+                ? 'Kochen starten →'
+                : 'Start cooking →'
+              : isLastStep
+                ? isGerman
+                  ? 'Fertig ✓'
+                  : 'Finish ✓'
+                : isGerman
+                  ? 'Erledigt & weiter ✓'
+                  : 'Done & next ✓'}
           </button>
         </footer>
       </div>

@@ -781,6 +781,9 @@ const RecipeDetail = ({ recipe, error }) => {
   const [checkedIngredients, setCheckedIngredients] = useState(
     safeRecipe.ingredients ? safeRecipe.ingredients.map(() => false) : []
   );
+  const [checkedPrep, setCheckedPrep] = useState(
+    safeRecipe.ingredients ? safeRecipe.ingredients.map(() => false) : []
+  );
   const [checkedSteps, setCheckedSteps] = useState(
     safeRecipe.steps ? safeRecipe.steps.map(() => false) : []
   );
@@ -795,22 +798,34 @@ const RecipeDetail = ({ recipe, error }) => {
     ? `hansikyoung:recipe:${mappedLocale}:${recipeSlug}:ingredients:v1`
     : null;
 
+  const prepStorageKey = recipeSlug
+    ? `hansikyoung:recipe:${mappedLocale}:${recipeSlug}:prep:v1`
+    : null;
+
   const cookingStorageKey = recipeSlug
     ? `hansikyoung:recipe:${mappedLocale}:${recipeSlug}:cooking:v1`
     : null;
 
   useEffect(() => {
-    if (!ingredientStorageKey || !cookingStorageKey) return;
+    if (!ingredientStorageKey || !prepStorageKey || !cookingStorageKey) return;
 
     setHasRestoredRecipeState(false);
 
     const storedIngredientIds = new Set(
       readPersistedCheckIds(ingredientStorageKey)
     );
+    const storedPrepIds = new Set(readPersistedCheckIds(prepStorageKey));
     const storedStepIds = new Set(readPersistedCheckIds(cookingStorageKey));
 
     setCheckedIngredients(
       ingredients.map((ingredient) => storedIngredientIds.has(ingredient.id))
+    );
+
+    setCheckedPrep(
+      ingredients.map(
+        (ingredient) =>
+          Boolean(ingredient.prepNote) && storedPrepIds.has(ingredient.id)
+      )
     );
 
     setCheckedSteps(
@@ -818,7 +833,13 @@ const RecipeDetail = ({ recipe, error }) => {
     );
 
     setHasRestoredRecipeState(true);
-  }, [ingredientStorageKey, cookingStorageKey, ingredients, steps]);
+  }, [
+    ingredientStorageKey,
+    prepStorageKey,
+    cookingStorageKey,
+    ingredients,
+    steps,
+  ]);
 
   useEffect(() => {
     if (!hasRestoredRecipeState || !ingredientStorageKey) return;
@@ -834,6 +855,19 @@ const RecipeDetail = ({ recipe, error }) => {
     ingredientStorageKey,
     hasRestoredRecipeState,
   ]);
+
+  useEffect(() => {
+    if (!hasRestoredRecipeState || !prepStorageKey) return;
+
+    const checkedIds = ingredients
+      .filter(
+        (ingredient, index) =>
+          ingredient.prepNote && checkedPrep[index] && ingredient.id
+      )
+      .map((ingredient) => ingredient.id);
+
+    writePersistedCheckIds(prepStorageKey, checkedIds);
+  }, [checkedPrep, ingredients, prepStorageKey, hasRestoredRecipeState]);
 
   useEffect(() => {
     if (!hasRestoredRecipeState || !cookingStorageKey) return;
@@ -853,6 +887,14 @@ const RecipeDetail = ({ recipe, error }) => {
     });
   };
 
+  const handlePrepCheckboxChange = (index) => {
+    setCheckedPrep((prevState) => {
+      const newState = [...prevState];
+      newState[index] = !newState[index];
+      return newState;
+    });
+  };
+
   const handleStepCheckboxChange = (index) => {
     setCheckedSteps((prevState) => {
       const newState = [...prevState];
@@ -862,11 +904,17 @@ const RecipeDetail = ({ recipe, error }) => {
   };
 
   const handleCookingFinish = () => {
+    setCheckedPrep(ingredients.map(() => false));
     setCheckedSteps(steps.map(() => false));
 
-    if (typeof window !== 'undefined' && cookingStorageKey) {
+    if (typeof window !== 'undefined') {
       try {
-        window.localStorage.removeItem(cookingStorageKey);
+        if (prepStorageKey) {
+          window.localStorage.removeItem(prepStorageKey);
+        }
+        if (cookingStorageKey) {
+          window.localStorage.removeItem(cookingStorageKey);
+        }
       } catch {
         // Ignore storage cleanup failures.
       }
@@ -1170,6 +1218,9 @@ const RecipeDetail = ({ recipe, error }) => {
             isOpen={isCookingModeOpen}
             onClose={() => setIsCookingModeOpen(false)}
             title={titel}
+            ingredients={ingredients}
+            checkedPrep={checkedPrep}
+            onTogglePrep={handlePrepCheckboxChange}
             steps={steps}
             checkedSteps={checkedSteps}
             onCompleteStep={handleStepCheckboxChange}

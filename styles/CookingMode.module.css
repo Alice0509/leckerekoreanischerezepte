@@ -270,3 +270,91 @@
     overflow: hidden;
   }
 }
+
+.prepHeading {
+  margin-bottom: 20px;
+}
+
+.prepEyebrow {
+  display: block;
+  margin-bottom: 5px;
+  color: #9b573a;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.prepHeading h2 {
+  margin: 0 0 8px;
+  color: #2f241f;
+  font-size: 1.55rem;
+  line-height: 1.2;
+}
+
+.prepHeading p {
+  margin: 0;
+  color: #6d625a;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.prepList {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prepItem {
+  overflow: hidden;
+  border: 1px solid rgba(120, 80, 45, 0.13);
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.prepLabel {
+  display: flex;
+  gap: 12px;
+  min-height: 70px;
+  padding: 14px;
+  cursor: pointer;
+}
+
+.prepCheckbox {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin: 2px 0 0;
+  accent-color: #8dbb78;
+}
+
+.prepText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.prepIngredient {
+  color: #302822;
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+.prepIngredient strong {
+  font-weight: 800;
+}
+
+.prepNote {
+  color: #685b52;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.prepChecked {
+  color: #8a817a;
+  text-decoration: line-through;
+}
