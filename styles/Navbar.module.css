@@ -367,3 +367,13 @@
     margin-top: 18px;
   }
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    background: #fffdf8;
+    border-bottom: 1px solid #efede6;
+  }
+}
