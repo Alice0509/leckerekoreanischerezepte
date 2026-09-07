@@ -34,6 +34,10 @@ const DisqusComments = dynamic(
 );
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
+const CookingMode = dynamic(() => import('../../components/CookingMode'), {
+  ssr: false,
+});
+
 const renderContent = (content) => {
   if (!content) return null;
   if (typeof content === 'string') return content;
@@ -725,6 +729,7 @@ const RecipeDetail = ({ recipe, error }) => {
   const [checkedSteps, setCheckedSteps] = useState(
     safeRecipe.steps ? safeRecipe.steps.map(() => false) : []
   );
+  const [isCookingModeOpen, setIsCookingModeOpen] = useState(false);
 
   const handleIngredientCheckboxChange = (index) => {
     setCheckedIngredients((prevState) => {
@@ -1022,6 +1027,30 @@ const RecipeDetail = ({ recipe, error }) => {
             {mappedLocale === 'de' ? 'Zubereitung' : 'Instructions'}
           </a>
         </nav>
+
+        {hasStructuredSteps && (
+          <button
+            type="button"
+            className={styles.startCookingButton}
+            onClick={() => setIsCookingModeOpen(true)}
+          >
+            <span aria-hidden="true">🍳</span>
+            {mappedLocale === 'de' ? 'Kochen starten' : 'Start cooking'}
+          </button>
+        )}
+
+        {hasStructuredSteps && (
+          <CookingMode
+            isOpen={isCookingModeOpen}
+            onClose={() => setIsCookingModeOpen(false)}
+            title={titel}
+            steps={steps}
+            checkedSteps={checkedSteps}
+            onCompleteStep={handleStepCheckboxChange}
+            locale={mappedLocale}
+            renderContent={renderContent}
+          />
+        )}
 
         {!guide.isDefault && (
           <section className={styles.recipeGuideIntro}>

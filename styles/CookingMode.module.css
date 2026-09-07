@@ -1,0 +1,272 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(38, 30, 25, 0.55);
+  overscroll-behavior: contain;
+}
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 720px);
+  height: 100dvh;
+  margin: 0 auto;
+  background: #fffdf9;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: calc(14px + env(safe-area-inset-top)) 18px 12px;
+  border-bottom: 1px solid rgba(120, 80, 45, 0.14);
+  background: #fffdf9;
+}
+
+.headerText {
+  min-width: 0;
+}
+
+.modeLabel {
+  display: block;
+  margin-bottom: 4px;
+  color: #9b573a;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  display: block;
+  overflow: hidden;
+  color: #2f241f;
+  font-size: 1.08rem;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.closeButton {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(120, 80, 45, 0.18);
+  border-radius: 50%;
+  background: #ffffff;
+  color: #2f241f;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.progressRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 18px 8px;
+  color: #5f5148;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.awakeBadge {
+  color: #426b2f;
+  font-size: 0.75rem;
+}
+
+.progressTrack {
+  height: 5px;
+  margin: 0 18px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #eee7df;
+}
+
+.progressBar {
+  height: 100%;
+  border-radius: inherit;
+  background: #8dbb78;
+  transition: width 0.2s ease;
+}
+
+.stepCard {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 18px 28px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.stepTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fff1df;
+  color: #7b472f;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.doneBadge {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #edf6e8;
+  color: #426b2f;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.metaSection {
+  margin-bottom: 18px;
+  padding: 14px;
+  border: 1px solid rgba(120, 80, 45, 0.12);
+  border-radius: 14px;
+  background: #fffaf4;
+}
+
+.metaSection h3 {
+  margin: 0 0 8px;
+  color: #6b4423;
+  font-size: 0.82rem;
+}
+
+.ingredientList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #44372f;
+  font-size: 0.95rem;
+}
+
+.stepDescription {
+  color: #2f2a26;
+  font-size: clamp(1.12rem, 4.8vw, 1.35rem);
+  line-height: 1.65;
+}
+
+.stepDescription p {
+  margin: 0 0 14px;
+}
+
+.cookingMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.heatBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: #fff2e8;
+  color: #78462f;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.doneWhen {
+  margin-top: 22px;
+  padding: 15px 16px;
+  border-left: 4px solid #8dbb78;
+  border-radius: 10px;
+  background: #f6faf3;
+}
+
+.doneWhen strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #426b2f;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.doneWhen p {
+  margin: 0;
+  color: #34422f;
+  line-height: 1.55;
+}
+
+.stepImage {
+  margin-top: 22px;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.stepImage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.swipeHint {
+  margin: 24px 0 0;
+  color: #8a7c72;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+  gap: 10px;
+  padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
+  border-top: 1px solid rgba(120, 80, 45, 0.14);
+  background: #fffdf9;
+}
+
+.secondaryButton,
+.primaryButton {
+  min-height: 52px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.secondaryButton {
+  border: 1px solid rgba(120, 80, 45, 0.2);
+  background: #ffffff;
+  color: #5d4a3e;
+}
+
+.secondaryButton:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.primaryButton {
+  border: 1px solid #8dbb78;
+  background: #8dbb78;
+  color: #ffffff;
+}
+
+@media (min-width: 769px) {
+  .shell {
+    height: min(860px, calc(100dvh - 40px));
+    margin-top: 20px;
+    border-radius: 20px;
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+}

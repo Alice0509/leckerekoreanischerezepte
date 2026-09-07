@@ -1150,3 +1150,32 @@
     font-size: 0.84rem;
   }
 }
+
+.startCookingButton {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .startCookingButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 52px;
+    margin: -4px 0 16px;
+    padding: 12px 18px;
+    border: 1px solid #8dbb78;
+    border-radius: 14px;
+    background: #8dbb78;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(70, 105, 50, 0.12);
+  }
+
+  .startCookingButton:active {
+    transform: translateY(1px);
+  }
+}
