@@ -118,7 +118,9 @@ const CategoryHub = ({
           </div>
         </section>
 
-        <section className={styles.startHereSection}>
+        <section
+          className={`${styles.startHereSection} ${styles.categoryMoreSection}`}
+        >
           <div className={styles.previewHeader}>
             <h2 className={styles.previewTitle}>
               {locale === 'de' ? 'Weitere Kategorien' : 'More categories'}

@@ -13,43 +13,32 @@ import {
 import { FaSearch } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Image from 'next/image';
 import RecipeCard from '../components/RecipeCard';
 import Head from 'next/head';
 
 // 로케일별 데이터 캐시
 const recipesCache = {};
-const favoritesCache = {};
 
 export async function getStaticProps({ locale }) {
   try {
     const mappedLocale = locale === 'de' ? 'de' : 'en';
 
-    if (recipesCache[mappedLocale] && favoritesCache[mappedLocale]) {
+    if (recipesCache[mappedLocale]) {
       return {
         props: {
           recipes: recipesCache[mappedLocale],
-          favorites: favoritesCache[mappedLocale],
         },
       };
     }
 
-    const [recipeRes, favoriteRes] = await Promise.all([
-      client.getEntries({
-        content_type: 'recipe',
-        locale: mappedLocale,
-        include: 1,
-        select:
-          'fields.slug,fields.titel,fields.category,fields.categories,fields.image,fields.youTubeUrl,fields.description',
-        limit: 1000,
-      }),
-      client.getEntries({
-        content_type: 'favoriteItem',
-        locale: mappedLocale,
-        include: 1,
-        limit: 3,
-      }),
-    ]);
+    const recipeRes = await client.getEntries({
+      content_type: 'recipe',
+      locale: mappedLocale,
+      include: 1,
+      select:
+        'fields.slug,fields.titel,fields.category,fields.categories,fields.image,fields.youTubeUrl,fields.description',
+      limit: 1000,
+    });
 
     const assetsMap = {};
     recipeRes.includes.Asset?.forEach((asset) => {
@@ -113,29 +102,11 @@ export async function getStaticProps({ locale }) {
       };
     });
 
-    const favorites = favoriteRes.items.map((item) => {
-      const imageUrl = item.fields.image?.fields?.file?.url
-        ? `https:${item.fields.image.fields.file.url}`
-        : null;
-
-      const memo = item.fields.memo || '';
-      const shortMemo = memo.length > 90 ? `${memo.substring(0, 90)}…` : memo;
-
-      return {
-        id: item.sys.id,
-        title: item.fields.title || '',
-        memo: shortMemo,
-        image: imageUrl,
-      };
-    });
-
     recipesCache[mappedLocale] = recipes;
-    favoritesCache[mappedLocale] = favorites;
 
     return {
       props: {
         recipes,
-        favorites,
       },
     };
   } catch (error) {
@@ -143,14 +114,13 @@ export async function getStaticProps({ locale }) {
     return {
       props: {
         recipes: [],
-        favorites: [],
         error: 'Failed to fetch homepage data.',
       },
     };
   }
 }
 
-const Home = ({ recipes, favorites, error }) => {
+const Home = ({ recipes, error }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const itemsPerPage = 12;
@@ -224,43 +194,6 @@ const Home = ({ recipes, favorites, error }) => {
     path: '/',
   });
 
-  const startHereCards =
-    mappedLocale === 'de-DE'
-      ? [
-          {
-            title: 'Koreanisch kochen mit Hansik Young',
-            text: 'Starte mit einfachen Gerichten und Zutaten, die du wirklich finden kannst.',
-            href: '#all-recipes',
-          },
-          {
-            title: 'Zutaten verstehen',
-            text: 'Gochujang, Gochugaru, Reis, Kimchi und mehr – mit Alltagstipps für Deutschland.',
-            href: '/ingredients',
-          },
-          {
-            title: 'Ehrliche Favoriten',
-            text: 'Produkte und Küchenbasics, die ich selbst im Alltag benutze.',
-            href: '/gallery',
-          },
-        ]
-      : [
-          {
-            title: 'Start with Korean home cooking',
-            text: 'Start with simple, warm Korean dishes for everyday home cooking.',
-            href: '#all-recipes',
-          },
-          {
-            title: 'Understand Korean ingredients',
-            text: 'Gochujang, gochugaru, rice, kimchi, and more — with practical notes for everyday cooking.',
-            href: '/ingredients',
-          },
-          {
-            title: 'Honest favorites',
-            text: 'Products and kitchen basics I actually use in daily life.',
-            href: '/gallery',
-          },
-        ];
-
   useEffect(() => {
     if (currentPage !== 1) {
       handlePageChange(1);
@@ -331,30 +264,24 @@ const Home = ({ recipes, favorites, error }) => {
           </div>
         </section>
 
-        {/* START HERE */}
-        <section
-          className={styles.startHereSection}
-          aria-labelledby="start-here-title"
-        >
-          <div className={styles.previewHeader}>
-            <h2 id="start-here-title" className={styles.previewTitle}>
-              {mappedLocale === 'de-DE' ? 'Hier anfangen' : 'Start here'}
-            </h2>
-          </div>
+        {/* FEATURED RECIPES */}
+        {featuredRecipes.length > 0 && (
+          <section className={styles.previewSection}>
+            <div className={styles.previewHeader}>
+              <h2 className={styles.previewTitle}>
+                {mappedLocale === 'de-DE'
+                  ? 'Rezepte aus meiner Küche'
+                  : 'Recipes from My Kitchen'}
+              </h2>
+            </div>
 
-          <div className={styles.startHereGrid}>
-            {startHereCards.map((card) => (
-              <Link
-                key={card.title}
-                href={card.href}
-                className={styles.startHereCard}
-              >
-                <h3>{card.title}</h3>
-                <p>{card.text}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
+            <div className={styles.featuredGrid}>
+              {featuredRecipes.map((item) => (
+                <RecipeCard key={item.id} recipe={item} />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* CATEGORY HUB LINKS */}
         <section
@@ -404,81 +331,6 @@ const Home = ({ recipes, favorites, error }) => {
             ))}
           </nav>
         </section>
-
-        {/* FEATURED RECIPES */}
-        {featuredRecipes.length > 0 && (
-          <section className={styles.previewSection}>
-            <div className={styles.previewHeader}>
-              <h2 className={styles.previewTitle}>
-                {mappedLocale === 'de-DE'
-                  ? 'Rezepte aus meiner Küche'
-                  : 'Recipes from My Kitchen'}
-              </h2>
-            </div>
-
-            <div className={styles.featuredGrid}>
-              {featuredRecipes.map((item) => (
-                <RecipeCard key={item.id} recipe={item} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* FAVORITES PREVIEW */}
-        {favorites.length > 0 && (
-          <section className={styles.previewSection}>
-            <div className={styles.previewHeader}>
-              <h2 className={styles.previewTitle}>
-                {mappedLocale === 'de-DE'
-                  ? 'Koreanische Zutaten in Deutschland'
-                  : 'Korean ingredients'}
-              </h2>
-              <Link href="/gallery" className={styles.previewLink}>
-                {mappedLocale === 'de-DE' ? 'Alle ansehen' : 'View all'}
-              </Link>
-            </div>
-
-            <p className={styles.previewNotice}>
-              {mappedLocale === 'de-DE'
-                ? 'Praktische Lieblingszutaten und Küchenbasics aus meinem Alltag – besonders hilfreich, wenn du koreanisch kochen möchtest und in Deutschland einkaufst.'
-                : 'Practical favorite ingredients and kitchen basics from my daily life — especially useful when you cook Korean food at home.'}
-            </p>
-
-            <div className={styles.favoritesPreviewGrid}>
-              {favorites.map((item, index) => {
-                const colorClass =
-                  index % 3 === 0
-                    ? styles.memoYellow
-                    : index % 3 === 1
-                      ? styles.memoPink
-                      : styles.memoBlue;
-
-                return (
-                  <article
-                    key={item.id}
-                    className={`${styles.favoritePreviewCard} ${colorClass}`}
-                  >
-                    {item.image && (
-                      <div className={styles.favoritePreviewImageWrap}>
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          className={styles.favoritePreviewImage}
-                        />
-                      </div>
-                    )}
-
-                    <div className={styles.favoritePreviewContent}>
-                      <h3>{item.title}</h3>
-                      <p>{item.memo}</p>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </section>
-        )}
 
         {/* ALL RECIPES */}
         <section id="all-recipes" className={styles.allRecipesSection}>

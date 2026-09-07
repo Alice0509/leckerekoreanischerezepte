@@ -1,158 +1,379 @@
-/* ===== NAVBAR BASE ===== */
 .navbar {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* 기본은 가운데 정렬 */
-  background-color: #f8f8f8;
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  flex-wrap: nowrap; /* ✅ 큰 화면에서는 한 줄 강제 */
-  gap: 20px;
+  position: relative;
+  z-index: 100;
+  width: 100%;
+  background: transparent;
 }
 
-/* Left – Brand / Home */
-.left {
-  flex: 1;
+.inner {
+  width: min(1200px, calc(100% - 40px));
+  min-height: 76px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
 }
+
 .brand {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 10px;
+  color: #2f2f2f;
   text-decoration: none;
 }
 
-/* Center – Navigation */
-.center {
+.logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.brandName {
+  font-size: 1.55rem;
+  font-weight: 750;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.desktopNav {
   display: flex;
-  gap: 22px;
-  flex: 2;
+  align-items: center;
   justify-content: center;
+  gap: 34px;
 }
 
 .navLink {
-  text-decoration: none;
+  color: #414141;
   font-size: 1rem;
-  margin: 0 10px;
-  color: #444;
-  transition: color 0.25s ease;
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .navLink:hover {
-  color: #0070f3;
+  color: #587447;
 }
 
-/* Right – PWA button + language */
-.right {
+.desktopActions {
   display: flex;
   align-items: center;
+  justify-self: end;
   gap: 16px;
-  flex: 1;
-  justify-content: flex-end;
 }
 
-/* PWA CTA */
 .pwaLink {
-  background-color: #7fad8b;
-  color: white !important;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.9rem;
+  padding: 9px 14px;
+  border-radius: 8px;
+  background: #7fad8b;
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 650;
   text-decoration: none;
-  transition: 0.25s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .pwaLink:hover {
-  background-color: #9cdab5;
-  transform: scale(1.05);
+  background: #729d7f;
+  transform: translateY(-1px);
 }
 
-/* Language Switcher */
 .langSwitch {
   display: flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
+}
+
+.langLink {
+  color: #555;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.langLink[aria-current='page'] {
+  color: #2f2f2f;
+  font-weight: 700;
 }
 
 .langDivider {
   color: #aaa;
 }
 
-.langLink {
-  text-decoration: none;
-  font-size: 0.9rem;
-  color: #555;
+.mobileActions {
+  display: none;
 }
 
-.langLink:hover {
-  color: #0070f3;
+.mobileMenuLayer {
+  display: none;
 }
 
-/* ===== MOBILE ===== */
-/* 모바일에서만 줄바꿈 허용 */
-@media (max-width: 900px) {
-  .navbar {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .center {
-    gap: 16px;
-  }
-
-  .pwaLink {
+/* ==============================
+   Mobile navigation
+============================== */
+@media (max-width: 768px) {
+  .inner {
     width: 100%;
-    text-align: center;
-  }
-}
-
-@media (max-width: 640px) {
-  .navbar {
-    flex-wrap: nowrap;
+    min-height: 68px;
+    padding: 8px 14px;
+    display: flex;
     justify-content: space-between;
-    gap: 10px;
-    padding: 8px 12px;
-    overflow: hidden;
+    gap: 12px;
   }
 
-  .left {
-    display: none;
-  }
-
-  .center {
-    flex: 1 1 auto;
+  .brand {
     min-width: 0;
-    justify-content: flex-start;
-    gap: 16px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .center::-webkit-scrollbar {
-    display: none;
-  }
-
-  .navLink {
-    flex: 0 0 auto;
-    margin: 0;
-    font-size: 0.88rem;
-    white-space: nowrap;
-  }
-
-  .right {
-    flex: 0 0 auto;
     gap: 8px;
   }
 
-  .pwaLink {
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brandName {
+    overflow: hidden;
+    font-size: 1.2rem;
+    text-overflow: ellipsis;
+  }
+
+  .desktopNav,
+  .desktopActions {
     display: none;
   }
 
-  .langSwitch {
-    gap: 4px;
+  .mobileActions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
-  .langLink {
+  .mobileActions .langLink {
+    font-size: 0.82rem;
+  }
+
+  .menuButton {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid #e3e3df;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+
+  .menuButton span {
+    width: 17px;
+    height: 2px;
+    border-radius: 99px;
+    background: #303030;
+  }
+
+  .mobileMenuLayer {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: block;
+  }
+
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgba(32, 32, 32, 0.32);
+  }
+
+  .mobileMenu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(86vw, 350px);
+    height: 100dvh;
+    padding: 22px;
+    background: #fffdf8;
+    box-shadow: -12px 0 36px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobileMenuHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #ece9e0;
+  }
+
+  .mobileMenuBrand {
+    font-size: 1.15rem;
+    font-weight: 750;
+    color: #303030;
+  }
+
+  .closeButton {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid #e6e3da;
+    border-radius: 50%;
+    background: #fff;
+    color: #333;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .mobileMenuLinks {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 0;
+  }
+
+  .mobileMenuLink {
+    padding: 15px 2px;
+    border-bottom: 1px solid #efede6;
+    color: #313131;
+    font-size: 1.08rem;
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  .mobileMenuFooter {
+    margin-top: auto;
+    padding-top: 20px;
+  }
+
+  .mobileInstallLink {
+    display: block;
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 12px;
+    background: #eef5e8;
+    color: #4f6c40;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+  }
+}
+
+/* Brand wordmark refinement */
+.brandName {
+  font-size: 1.45rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.mobileMenuBrand {
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 768px) {
+  .brandName {
+    font-size: 1.15rem;
+    font-weight: 650;
+  }
+}
+
+/* Keep wordmark descenders such as "g" fully visible */
+.brandName {
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .brandName {
+    line-height: 1.2;
+  }
+}
+
+/* Hansik Young wordmark */
+.brandName {
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  overflow: visible;
+}
+
+.mobileMenuBrand {
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .brandName {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobileMenu {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .mobileCategorySection {
+    padding: 18px 0 8px;
+    border-top: 1px solid #ece9e0;
+  }
+
+  .mobileCategoryTitle {
+    margin: 0 0 12px;
+    color: #6c685f;
+    font-size: 0.78rem;
+    font-weight: 750;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .mobileCategoryLinks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .mobileCategoryLink {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+    padding: 9px 10px;
+    border: 1px solid #e3e8dc;
+    border-radius: 12px;
+    background: #f7f9f3;
+    color: #46533e;
     font-size: 0.84rem;
+    font-weight: 650;
+    line-height: 1.25;
+    text-decoration: none;
+  }
+
+  .mobileMenuFooter {
+    margin-top: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    background: #fffdf8;
+    border-bottom: 1px solid #efede6;
   }
 }
