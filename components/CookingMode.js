@@ -27,6 +27,7 @@ const CookingMode = ({
   steps = [],
   checkedSteps = [],
   onCompleteStep,
+  onFinish,
   locale = 'en',
   renderContent,
 }) => {
@@ -35,6 +36,7 @@ const CookingMode = ({
   const [wakeLockActive, setWakeLockActive] = useState(false);
   const wakeLockRef = useRef(null);
   const stepCardRef = useRef(null);
+  const wasOpenRef = useRef(false);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
 
@@ -48,7 +50,10 @@ const CookingMode = ({
   );
 
   useEffect(() => {
-    if (!isOpen || usableSteps.length === 0) return;
+    const isOpening = isOpen && !wasOpenRef.current;
+    wasOpenRef.current = isOpen;
+
+    if (!isOpening || usableSteps.length === 0) return;
 
     const firstUnchecked = usableSteps.findIndex(
       (step) => !checkedSteps[step.sourceIndex]
@@ -156,13 +161,14 @@ const CookingMode = ({
   };
 
   const completeCurrentStep = () => {
-    if (!isChecked) {
-      onCompleteStep?.(sourceIndex);
-    }
-
     if (isLastStep) {
+      onFinish?.();
       onClose();
       return;
+    }
+
+    if (!isChecked) {
+      onCompleteStep?.(sourceIndex);
     }
 
     goNext();

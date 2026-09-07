@@ -45,6 +45,60 @@ const renderContent = (content) => {
   return content;
 };
 
+const RECIPE_STATE_TTL_MS = 48 * 60 * 60 * 1000;
+
+const readPersistedCheckIds = (key) => {
+  if (typeof window === 'undefined' || !key) return [];
+
+  try {
+    const raw = window.localStorage.getItem(key);
+    if (!raw) return [];
+
+    const parsed = JSON.parse(raw);
+
+    if (!parsed?.savedAt || !Array.isArray(parsed.ids)) {
+      window.localStorage.removeItem(key);
+      return [];
+    }
+
+    if (Date.now() - parsed.savedAt > RECIPE_STATE_TTL_MS) {
+      window.localStorage.removeItem(key);
+      return [];
+    }
+
+    return parsed.ids.filter((id) => typeof id === 'string');
+  } catch {
+    try {
+      window.localStorage.removeItem(key);
+    } catch {
+      // Ignore storage cleanup failures.
+    }
+
+    return [];
+  }
+};
+
+const writePersistedCheckIds = (key, ids) => {
+  if (typeof window === 'undefined' || !key) return;
+
+  try {
+    if (!ids.length) {
+      window.localStorage.removeItem(key);
+      return;
+    }
+
+    window.localStorage.setItem(
+      key,
+      JSON.stringify({
+        savedAt: Date.now(),
+        ids,
+      })
+    );
+  } catch {
+    // Ignore storage write failures.
+  }
+};
+
 const richTextToPlainText = (content) => {
   if (!content) return '';
   if (typeof content === 'string') return content.trim();
@@ -594,6 +648,7 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
               .filter(Boolean) || [];
 
           return {
+            id: stepEntry.sys.id,
             stepNumber: stepEntry.fields.stepNumber ?? index + 1,
             description: stepEntry.fields.description ?? null,
             image: stepImageId
@@ -730,6 +785,65 @@ const RecipeDetail = ({ recipe, error }) => {
     safeRecipe.steps ? safeRecipe.steps.map(() => false) : []
   );
   const [isCookingModeOpen, setIsCookingModeOpen] = useState(false);
+  const [hasRestoredRecipeState, setHasRestoredRecipeState] = useState(false);
+
+  const recipeSlug = Array.isArray(router.query.slug)
+    ? router.query.slug[0]
+    : router.query.slug || '';
+
+  const ingredientStorageKey = recipeSlug
+    ? `hansikyoung:recipe:${mappedLocale}:${recipeSlug}:ingredients:v1`
+    : null;
+
+  const cookingStorageKey = recipeSlug
+    ? `hansikyoung:recipe:${mappedLocale}:${recipeSlug}:cooking:v1`
+    : null;
+
+  useEffect(() => {
+    if (!ingredientStorageKey || !cookingStorageKey) return;
+
+    setHasRestoredRecipeState(false);
+
+    const storedIngredientIds = new Set(
+      readPersistedCheckIds(ingredientStorageKey)
+    );
+    const storedStepIds = new Set(readPersistedCheckIds(cookingStorageKey));
+
+    setCheckedIngredients(
+      ingredients.map((ingredient) => storedIngredientIds.has(ingredient.id))
+    );
+
+    setCheckedSteps(
+      steps.map((step) => Boolean(step.id && storedStepIds.has(step.id)))
+    );
+
+    setHasRestoredRecipeState(true);
+  }, [ingredientStorageKey, cookingStorageKey, ingredients, steps]);
+
+  useEffect(() => {
+    if (!hasRestoredRecipeState || !ingredientStorageKey) return;
+
+    const checkedIds = ingredients
+      .filter((ingredient, index) => checkedIngredients[index] && ingredient.id)
+      .map((ingredient) => ingredient.id);
+
+    writePersistedCheckIds(ingredientStorageKey, checkedIds);
+  }, [
+    checkedIngredients,
+    ingredients,
+    ingredientStorageKey,
+    hasRestoredRecipeState,
+  ]);
+
+  useEffect(() => {
+    if (!hasRestoredRecipeState || !cookingStorageKey) return;
+
+    const checkedIds = steps
+      .filter((step, index) => checkedSteps[index] && step.id)
+      .map((step) => step.id);
+
+    writePersistedCheckIds(cookingStorageKey, checkedIds);
+  }, [checkedSteps, steps, cookingStorageKey, hasRestoredRecipeState]);
 
   const handleIngredientCheckboxChange = (index) => {
     setCheckedIngredients((prevState) => {
@@ -745,6 +859,18 @@ const RecipeDetail = ({ recipe, error }) => {
       newState[index] = !newState[index];
       return newState;
     });
+  };
+
+  const handleCookingFinish = () => {
+    setCheckedSteps(steps.map(() => false));
+
+    if (typeof window !== 'undefined' && cookingStorageKey) {
+      try {
+        window.localStorage.removeItem(cookingStorageKey);
+      } catch {
+        // Ignore storage cleanup failures.
+      }
+    }
   };
 
   const [isSliderReady, setIsSliderReady] = useState(false);
@@ -1047,6 +1173,7 @@ const RecipeDetail = ({ recipe, error }) => {
             steps={steps}
             checkedSteps={checkedSteps}
             onCompleteStep={handleStepCheckboxChange}
+            onFinish={handleCookingFinish}
             locale={mappedLocale}
             renderContent={renderContent}
           />
