@@ -879,12 +879,20 @@ const RecipeDetail = ({ recipe, error }) => {
     writePersistedCheckIds(cookingStorageKey, checkedIds);
   }, [checkedSteps, steps, cookingStorageKey, hasRestoredRecipeState]);
 
+  const checkedIngredientCount = checkedIngredients.filter(Boolean).length;
+  const allIngredientsChecked =
+    ingredients.length > 0 && checkedIngredientCount === ingredients.length;
+
   const handleIngredientCheckboxChange = (index) => {
     setCheckedIngredients((prevState) => {
       const newState = [...prevState];
       newState[index] = !newState[index];
       return newState;
     });
+  };
+
+  const handleIngredientReset = () => {
+    setCheckedIngredients(ingredients.map(() => false));
   };
 
   const handlePrepCheckboxChange = (index) => {
@@ -1240,21 +1248,51 @@ const RecipeDetail = ({ recipe, error }) => {
 
         <div className={styles.contentWrapper}>
           <aside id="ingredients" className={styles.ingredientsColumn}>
-            <h3>
-              {mappedLocale === 'de'
-                ? 'Zutaten-Checkliste'
-                : 'Ingredients checklist'}
-            </h3>
+            <div className={styles.ingredientSectionHeader}>
+              <h3>
+                {mappedLocale === 'de'
+                  ? 'Zutaten-Checkliste'
+                  : 'Ingredients checklist'}
+              </h3>
+
+              {ingredients.length > 0 && (
+                <div className={styles.ingredientCheckActions}>
+                  <span
+                    className={styles.ingredientCheckProgress}
+                    aria-live="polite"
+                  >
+                    {allIngredientsChecked
+                      ? mappedLocale === 'de'
+                        ? 'Alles abgehakt ✓'
+                        : 'All checked ✓'
+                      : mappedLocale === 'de'
+                        ? `${checkedIngredientCount} von ${ingredients.length} abgehakt`
+                        : `${checkedIngredientCount} of ${ingredients.length} checked`}
+                  </span>
+
+                  {checkedIngredientCount > 0 && (
+                    <button
+                      type="button"
+                      className={styles.ingredientResetButton}
+                      onClick={handleIngredientReset}
+                    >
+                      {mappedLocale === 'de' ? 'Zurücksetzen' : 'Reset'}
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+
             {ingredients.length > 0 ? (
               <>
                 <p className={styles.ingredientsHelp}>
                   {ingredients.some(shouldLinkIngredient)
                     ? mappedLocale === 'de'
-                      ? 'Tippe auf eine Zutat, um sie abzuhaken. Über „Guide“ öffnest du weitere Informationen.'
-                      : 'Tap an ingredient to check it off. Open “Guide” for more information.'
+                      ? 'Hake ab, was du schon zu Hause hast oder beim Einkaufen in den Wagen gelegt hast. Über „Guide“ findest du weitere Informationen.'
+                      : 'Check off what you already have at home or add to your cart while shopping. Open “Guide” for ingredient details.'
                     : mappedLocale === 'de'
-                      ? 'Tippe auf eine Zutat, um sie abzuhaken.'
-                      : 'Tap an ingredient to check it off.'}
+                      ? 'Hake ab, was du schon zu Hause hast oder beim Einkaufen in den Wagen gelegt hast.'
+                      : 'Check off what you already have at home or add to your cart while shopping.'}
                 </p>
 
                 <ul className={styles.ingredientsList}>
@@ -1263,7 +1301,14 @@ const RecipeDetail = ({ recipe, error }) => {
                     const hasIngredientGuide = shouldLinkIngredient(ingredient);
 
                     return (
-                      <li key={ingredient.id} className={styles.ingredientItem}>
+                      <li
+                        key={ingredient.id}
+                        className={`${styles.ingredientItem} ${
+                          checkedIngredients[index]
+                            ? styles.ingredientItemChecked
+                            : ''
+                        }`}
+                      >
                         <input
                           id={checkboxId}
                           type="checkbox"
