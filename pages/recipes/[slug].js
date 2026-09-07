@@ -34,11 +34,69 @@ const DisqusComments = dynamic(
 );
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
+const CookingMode = dynamic(() => import('../../components/CookingMode'), {
+  ssr: false,
+});
+
 const renderContent = (content) => {
   if (!content) return null;
   if (typeof content === 'string') return content;
   if (content.nodeType) return documentToReactComponents(content);
   return content;
+};
+
+const RECIPE_STATE_TTL_MS = 48 * 60 * 60 * 1000;
+
+const readPersistedCheckIds = (key) => {
+  if (typeof window === 'undefined' || !key) return [];
+
+  try {
+    const raw = window.localStorage.getItem(key);
+    if (!raw) return [];
+
+    const parsed = JSON.parse(raw);
+
+    if (!parsed?.savedAt || !Array.isArray(parsed.ids)) {
+      window.localStorage.removeItem(key);
+      return [];
+    }
+
+    if (Date.now() - parsed.savedAt > RECIPE_STATE_TTL_MS) {
+      window.localStorage.removeItem(key);
+      return [];
+    }
+
+    return parsed.ids.filter((id) => typeof id === 'string');
+  } catch {
+    try {
+      window.localStorage.removeItem(key);
+    } catch {
+      // Ignore storage cleanup failures.
+    }
+
+    return [];
+  }
+};
+
+const writePersistedCheckIds = (key, ids) => {
+  if (typeof window === 'undefined' || !key) return;
+
+  try {
+    if (!ids.length) {
+      window.localStorage.removeItem(key);
+      return;
+    }
+
+    window.localStorage.setItem(
+      key,
+      JSON.stringify({
+        savedAt: Date.now(),
+        ids,
+      })
+    );
+  } catch {
+    // Ignore storage write failures.
+  }
 };
 
 const richTextToPlainText = (content) => {
@@ -555,6 +613,7 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
             name: ingredientInfo?.name || 'Unknown Ingredient',
             slug: ingredientInfo?.slug || null,
             quantity: recipeIngredient.fields.quantity || '',
+            prepNote: recipeIngredient.fields.prepNote || null,
             description: ingredientInfo?.description || null,
             bild: ingredientInfo?.bild || null,
           };
@@ -579,13 +638,26 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
           );
           if (!stepEntry) return null;
 
+          const stepImageId = stepEntry.fields.image?.[0]?.sys?.id || null;
+
+          const ingredientsUsed =
+            stepEntry.fields.ingredientsUsed
+              ?.map((ref) =>
+                ingredients.find((ingredient) => ingredient.id === ref.sys.id)
+              )
+              .filter(Boolean) || [];
+
           return {
+            id: stepEntry.sys.id,
             stepNumber: stepEntry.fields.stepNumber ?? index + 1,
             description: stepEntry.fields.description ?? null,
-            image: stepEntry.fields.image?.sys?.id
-              ? `https:${assetsMap[stepEntry.fields.image.sys.id]?.fields?.file?.url}`
+            image: stepImageId
+              ? `https:${assetsMap[stepImageId]?.fields?.file?.url}`
               : null,
             timerDuration: stepEntry.fields.timerDuration || null,
+            ingredientsUsed,
+            heatLevel: stepEntry.fields.heatLevel || null,
+            doneWhen: stepEntry.fields.doneWhen || null,
           };
         })
         .filter(Boolean) || [];
@@ -709,12 +781,122 @@ const RecipeDetail = ({ recipe, error }) => {
   const [checkedIngredients, setCheckedIngredients] = useState(
     safeRecipe.ingredients ? safeRecipe.ingredients.map(() => false) : []
   );
+  const [checkedPrep, setCheckedPrep] = useState(
+    safeRecipe.ingredients ? safeRecipe.ingredients.map(() => false) : []
+  );
   const [checkedSteps, setCheckedSteps] = useState(
     safeRecipe.steps ? safeRecipe.steps.map(() => false) : []
   );
+  const [isCookingModeOpen, setIsCookingModeOpen] = useState(false);
+  const [hasRestoredRecipeState, setHasRestoredRecipeState] = useState(false);
+
+  const recipeSlug = Array.isArray(router.query.slug)
+    ? router.query.slug[0]
+    : router.query.slug || '';
+
+  const ingredientStorageKey = recipeSlug
+    ? `hansikyoung:recipe:${mappedLocale}:${recipeSlug}:ingredients:v1`
+    : null;
+
+  const prepStorageKey = recipeSlug
+    ? `hansikyoung:recipe:${mappedLocale}:${recipeSlug}:prep:v1`
+    : null;
+
+  const cookingStorageKey = recipeSlug
+    ? `hansikyoung:recipe:${mappedLocale}:${recipeSlug}:cooking:v1`
+    : null;
+
+  useEffect(() => {
+    if (!ingredientStorageKey || !prepStorageKey || !cookingStorageKey) return;
+
+    setHasRestoredRecipeState(false);
+
+    const storedIngredientIds = new Set(
+      readPersistedCheckIds(ingredientStorageKey)
+    );
+    const storedPrepIds = new Set(readPersistedCheckIds(prepStorageKey));
+    const storedStepIds = new Set(readPersistedCheckIds(cookingStorageKey));
+
+    setCheckedIngredients(
+      ingredients.map((ingredient) => storedIngredientIds.has(ingredient.id))
+    );
+
+    setCheckedPrep(
+      ingredients.map(
+        (ingredient) =>
+          Boolean(ingredient.prepNote) && storedPrepIds.has(ingredient.id)
+      )
+    );
+
+    setCheckedSteps(
+      steps.map((step) => Boolean(step.id && storedStepIds.has(step.id)))
+    );
+
+    setHasRestoredRecipeState(true);
+  }, [
+    ingredientStorageKey,
+    prepStorageKey,
+    cookingStorageKey,
+    ingredients,
+    steps,
+  ]);
+
+  useEffect(() => {
+    if (!hasRestoredRecipeState || !ingredientStorageKey) return;
+
+    const checkedIds = ingredients
+      .filter((ingredient, index) => checkedIngredients[index] && ingredient.id)
+      .map((ingredient) => ingredient.id);
+
+    writePersistedCheckIds(ingredientStorageKey, checkedIds);
+  }, [
+    checkedIngredients,
+    ingredients,
+    ingredientStorageKey,
+    hasRestoredRecipeState,
+  ]);
+
+  useEffect(() => {
+    if (!hasRestoredRecipeState || !prepStorageKey) return;
+
+    const checkedIds = ingredients
+      .filter(
+        (ingredient, index) =>
+          ingredient.prepNote && checkedPrep[index] && ingredient.id
+      )
+      .map((ingredient) => ingredient.id);
+
+    writePersistedCheckIds(prepStorageKey, checkedIds);
+  }, [checkedPrep, ingredients, prepStorageKey, hasRestoredRecipeState]);
+
+  useEffect(() => {
+    if (!hasRestoredRecipeState || !cookingStorageKey) return;
+
+    const checkedIds = steps
+      .filter((step, index) => checkedSteps[index] && step.id)
+      .map((step) => step.id);
+
+    writePersistedCheckIds(cookingStorageKey, checkedIds);
+  }, [checkedSteps, steps, cookingStorageKey, hasRestoredRecipeState]);
+
+  const checkedIngredientCount = checkedIngredients.filter(Boolean).length;
+  const allIngredientsChecked =
+    ingredients.length > 0 && checkedIngredientCount === ingredients.length;
 
   const handleIngredientCheckboxChange = (index) => {
     setCheckedIngredients((prevState) => {
+      const newState = [...prevState];
+      newState[index] = !newState[index];
+      return newState;
+    });
+  };
+
+  const handleIngredientReset = () => {
+    setCheckedIngredients(ingredients.map(() => false));
+  };
+
+  const handlePrepCheckboxChange = (index) => {
+    setCheckedPrep((prevState) => {
       const newState = [...prevState];
       newState[index] = !newState[index];
       return newState;
@@ -727,6 +909,24 @@ const RecipeDetail = ({ recipe, error }) => {
       newState[index] = !newState[index];
       return newState;
     });
+  };
+
+  const handleCookingFinish = () => {
+    setCheckedPrep(ingredients.map(() => false));
+    setCheckedSteps(steps.map(() => false));
+
+    if (typeof window !== 'undefined') {
+      try {
+        if (prepStorageKey) {
+          window.localStorage.removeItem(prepStorageKey);
+        }
+        if (cookingStorageKey) {
+          window.localStorage.removeItem(cookingStorageKey);
+        }
+      } catch {
+        // Ignore storage cleanup failures.
+      }
+    }
   };
 
   const [isSliderReady, setIsSliderReady] = useState(false);
@@ -1010,6 +1210,34 @@ const RecipeDetail = ({ recipe, error }) => {
           </a>
         </nav>
 
+        {hasStructuredSteps && (
+          <button
+            type="button"
+            className={styles.startCookingButton}
+            onClick={() => setIsCookingModeOpen(true)}
+          >
+            <span aria-hidden="true">🍳</span>
+            {mappedLocale === 'de' ? 'Kochen starten' : 'Start cooking'}
+          </button>
+        )}
+
+        {hasStructuredSteps && (
+          <CookingMode
+            isOpen={isCookingModeOpen}
+            onClose={() => setIsCookingModeOpen(false)}
+            title={titel}
+            ingredients={ingredients}
+            checkedPrep={checkedPrep}
+            onTogglePrep={handlePrepCheckboxChange}
+            steps={steps}
+            checkedSteps={checkedSteps}
+            onCompleteStep={handleStepCheckboxChange}
+            onFinish={handleCookingFinish}
+            locale={mappedLocale}
+            renderContent={renderContent}
+          />
+        )}
+
         {!guide.isDefault && (
           <section className={styles.recipeGuideIntro}>
             <p className={styles.guideEyebrow}>{guide.eyebrow}</p>
@@ -1020,21 +1248,51 @@ const RecipeDetail = ({ recipe, error }) => {
 
         <div className={styles.contentWrapper}>
           <aside id="ingredients" className={styles.ingredientsColumn}>
-            <h3>
-              {mappedLocale === 'de'
-                ? 'Zutaten-Checkliste'
-                : 'Ingredients checklist'}
-            </h3>
+            <div className={styles.ingredientSectionHeader}>
+              <h3>
+                {mappedLocale === 'de'
+                  ? 'Zutaten-Checkliste'
+                  : 'Ingredients checklist'}
+              </h3>
+
+              {ingredients.length > 0 && (
+                <div className={styles.ingredientCheckActions}>
+                  <span
+                    className={styles.ingredientCheckProgress}
+                    aria-live="polite"
+                  >
+                    {allIngredientsChecked
+                      ? mappedLocale === 'de'
+                        ? 'Alles abgehakt ✓'
+                        : 'All checked ✓'
+                      : mappedLocale === 'de'
+                        ? `${checkedIngredientCount} von ${ingredients.length} abgehakt`
+                        : `${checkedIngredientCount} of ${ingredients.length} checked`}
+                  </span>
+
+                  {checkedIngredientCount > 0 && (
+                    <button
+                      type="button"
+                      className={styles.ingredientResetButton}
+                      onClick={handleIngredientReset}
+                    >
+                      {mappedLocale === 'de' ? 'Zurücksetzen' : 'Reset'}
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+
             {ingredients.length > 0 ? (
               <>
                 <p className={styles.ingredientsHelp}>
                   {ingredients.some(shouldLinkIngredient)
                     ? mappedLocale === 'de'
-                      ? 'Tippe auf eine Zutat, um sie abzuhaken. Über „Guide“ öffnest du weitere Informationen.'
-                      : 'Tap an ingredient to check it off. Open “Guide” for more information.'
+                      ? 'Hake ab, was du schon zu Hause hast oder beim Einkaufen in den Wagen gelegt hast. Über „Guide“ findest du weitere Informationen.'
+                      : 'Check off what you already have at home or add to your cart while shopping. Open “Guide” for ingredient details.'
                     : mappedLocale === 'de'
-                      ? 'Tippe auf eine Zutat, um sie abzuhaken.'
-                      : 'Tap an ingredient to check it off.'}
+                      ? 'Hake ab, was du schon zu Hause hast oder beim Einkaufen in den Wagen gelegt hast.'
+                      : 'Check off what you already have at home or add to your cart while shopping.'}
                 </p>
 
                 <ul className={styles.ingredientsList}>
@@ -1043,7 +1301,14 @@ const RecipeDetail = ({ recipe, error }) => {
                     const hasIngredientGuide = shouldLinkIngredient(ingredient);
 
                     return (
-                      <li key={ingredient.id} className={styles.ingredientItem}>
+                      <li
+                        key={ingredient.id}
+                        className={`${styles.ingredientItem} ${
+                          checkedIngredients[index]
+                            ? styles.ingredientItemChecked
+                            : ''
+                        }`}
+                      >
                         <input
                           id={checkboxId}
                           type="checkbox"

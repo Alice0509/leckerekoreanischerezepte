@@ -1150,3 +1150,93 @@
     font-size: 0.84rem;
   }
 }
+
+.startCookingButton {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .startCookingButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 52px;
+    margin: -4px 0 16px;
+    padding: 12px 18px;
+    border: 1px solid #8dbb78;
+    border-radius: 14px;
+    background: #8dbb78;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(70, 105, 50, 0.12);
+  }
+
+  .startCookingButton:active {
+    transform: translateY(1px);
+  }
+}
+
+.ingredientSectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.ingredientSectionHeader h3 {
+  margin: 0;
+}
+
+.ingredientCheckActions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.ingredientCheckProgress {
+  color: #6b625c;
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ingredientResetButton {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #9b573a;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.ingredientItem {
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
+}
+
+.ingredientItemChecked {
+  opacity: 0.55;
+}
+
+@media (max-width: 480px) {
+  .ingredientSectionHeader {
+    align-items: flex-start;
+  }
+
+  .ingredientCheckProgress {
+    font-size: 0.72rem;
+  }
+}
