@@ -555,6 +555,7 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
             name: ingredientInfo?.name || 'Unknown Ingredient',
             slug: ingredientInfo?.slug || null,
             quantity: recipeIngredient.fields.quantity || '',
+            prepNote: recipeIngredient.fields.prepNote || null,
             description: ingredientInfo?.description || null,
             bild: ingredientInfo?.bild || null,
           };
@@ -579,13 +580,25 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
           );
           if (!stepEntry) return null;
 
+          const stepImageId = stepEntry.fields.image?.[0]?.sys?.id || null;
+
+          const ingredientsUsed =
+            stepEntry.fields.ingredientsUsed
+              ?.map((ref) =>
+                ingredients.find((ingredient) => ingredient.id === ref.sys.id)
+              )
+              .filter(Boolean) || [];
+
           return {
             stepNumber: stepEntry.fields.stepNumber ?? index + 1,
             description: stepEntry.fields.description ?? null,
-            image: stepEntry.fields.image?.sys?.id
-              ? `https:${assetsMap[stepEntry.fields.image.sys.id]?.fields?.file?.url}`
+            image: stepImageId
+              ? `https:${assetsMap[stepImageId]?.fields?.file?.url}`
               : null,
             timerDuration: stepEntry.fields.timerDuration || null,
+            ingredientsUsed,
+            heatLevel: stepEntry.fields.heatLevel || null,
+            doneWhen: stepEntry.fields.doneWhen || null,
           };
         })
         .filter(Boolean) || [];
