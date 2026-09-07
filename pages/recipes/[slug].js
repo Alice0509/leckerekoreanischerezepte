@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import client from '../../lib/contentful';
 import Image from 'next/image';
@@ -729,6 +729,12 @@ const RecipeDetail = ({ recipe, error }) => {
     });
   };
 
+  const [isSliderReady, setIsSliderReady] = useState(false);
+
+  useEffect(() => {
+    setIsSliderReady(true);
+  }, []);
+
   const thumbnailUrl = youTubeUrl
     ? getYouTubeThumbnail(youTubeUrl)
     : '/images/default.png';
@@ -945,8 +951,8 @@ const RecipeDetail = ({ recipe, error }) => {
           </div>
         </header>
 
-        {images.length > 0 || youTubeUrl ? (
-          <div className={styles.imageWrapper}>
+        <div className={styles.imageWrapper}>
+          {isSliderReady && images.length > 1 ? (
             <Slider {...sliderSettings}>
               {images.map((imgUrl, index) => (
                 <div key={index} className={styles.slide}>
@@ -963,34 +969,29 @@ const RecipeDetail = ({ recipe, error }) => {
                   />
                 </div>
               ))}
-              {!images.length && youTubeUrl && (
-                <div className={styles.slide}>
-                  <Image
-                    src={thumbnailUrl}
-                    alt={`${titel} YouTube thumbnail`}
-                    width={600}
-                    height={400}
-                    priority
-                    style={{ width: '100%', height: 'auto' }}
-                    className={styles.image}
-                  />
-                </div>
-              )}
             </Slider>
-          </div>
-        ) : (
-          <div className={styles.imageWrapper}>
+          ) : (
             <Image
-              src="/images/default.png"
-              alt="Default Image"
+              src={
+                images[0] || (youTubeUrl ? thumbnailUrl : '/images/default.png')
+              }
+              alt={
+                images.length > 0
+                  ? `${titel} image 1`
+                  : youTubeUrl
+                    ? `${titel} YouTube thumbnail`
+                    : 'Default Image'
+              }
               width={600}
               height={400}
               priority
+              loading="eager"
               style={{ width: '100%', height: 'auto' }}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
               className={styles.image}
             />
-          </div>
-        )}
+          )}
+        </div>
 
         <nav
           className={styles.recipeJumpNav}
