@@ -24,6 +24,10 @@ import contentfulPagination from '../../lib/contentfulPagination.cjs';
 const { fetchAllEntries } = contentfulPagination;
 
 import contentfulBuildSnapshot from '../../lib/contentfulBuildSnapshot.cjs';
+import {
+  readPersistedCheckIds,
+  writePersistedCheckIds,
+} from '../../lib/recipeStateStorage';
 
 const { getRecipeEntriesFromSnapshot, getRecipeResponseFromSnapshot } =
   contentfulBuildSnapshot;
@@ -43,60 +47,6 @@ const renderContent = (content) => {
   if (typeof content === 'string') return content;
   if (content.nodeType) return documentToReactComponents(content);
   return content;
-};
-
-const RECIPE_STATE_TTL_MS = 48 * 60 * 60 * 1000;
-
-const readPersistedCheckIds = (key) => {
-  if (typeof window === 'undefined' || !key) return [];
-
-  try {
-    const raw = window.localStorage.getItem(key);
-    if (!raw) return [];
-
-    const parsed = JSON.parse(raw);
-
-    if (!parsed?.savedAt || !Array.isArray(parsed.ids)) {
-      window.localStorage.removeItem(key);
-      return [];
-    }
-
-    if (Date.now() - parsed.savedAt > RECIPE_STATE_TTL_MS) {
-      window.localStorage.removeItem(key);
-      return [];
-    }
-
-    return parsed.ids.filter((id) => typeof id === 'string');
-  } catch {
-    try {
-      window.localStorage.removeItem(key);
-    } catch {
-      // Ignore storage cleanup failures.
-    }
-
-    return [];
-  }
-};
-
-const writePersistedCheckIds = (key, ids) => {
-  if (typeof window === 'undefined' || !key) return;
-
-  try {
-    if (!ids.length) {
-      window.localStorage.removeItem(key);
-      return;
-    }
-
-    window.localStorage.setItem(
-      key,
-      JSON.stringify({
-        savedAt: Date.now(),
-        ids,
-      })
-    );
-  } catch {
-    // Ignore storage write failures.
-  }
 };
 
 const richTextToPlainText = (content) => {
@@ -610,6 +560,7 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
 
           return {
             id: recipeIngredient.sys.id,
+            ingredientId: ingredientRef?.sys?.id || null,
             name: ingredientInfo?.name || 'Unknown Ingredient',
             slug: ingredientInfo?.slug || null,
             quantity: recipeIngredient.fields.quantity || '',
