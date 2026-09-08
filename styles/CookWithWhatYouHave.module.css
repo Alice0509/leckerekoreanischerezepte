@@ -398,3 +398,46 @@
     grid-template-columns: 1fr;
   }
 }
+
+.recipeActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-top: auto;
+}
+
+.recipeActions .openRecipe {
+  margin-top: 0;
+}
+
+.planButton {
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid #d8dfd2;
+  border-radius: 9px;
+  background: #f6f8f3;
+  color: #526747;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.planButtonActive {
+  border-color: #b8c7af;
+  background: #eaf0e5;
+  color: #465d3d;
+}
+
+@media (max-width: 600px) {
+  .recipeActions {
+    gap: 8px 12px;
+  }
+
+  .planButton {
+    min-height: 32px;
+    padding: 5px 9px;
+    font-size: 0.76rem;
+  }
+}

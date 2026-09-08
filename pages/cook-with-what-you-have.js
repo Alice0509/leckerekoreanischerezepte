@@ -1,8 +1,18 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import {
+  addRecipeToCookingPlan,
+  readCookingPlan,
+  removeRecipeFromCookingPlan,
+} from '../lib/cookingPlanStorage';
+import {
+  clearCookWithWhatYouHaveIngredients,
+  readCookWithWhatYouHaveIngredients,
+  writeCookWithWhatYouHaveIngredients,
+} from '../lib/cookWithWhatYouHaveStorage';
 import styles from '../styles/CookWithWhatYouHave.module.css';
 
 const PANTRY_STAPLE_SLUGS = new Set([
@@ -86,6 +96,12 @@ export default function CookWithWhatYouHavePage({
 
   const [query, setQuery] = useState('');
   const [selectedIngredientIds, setSelectedIngredientIds] = useState([]);
+  const [plannedRecipeIds, setPlannedRecipeIds] = useState([]);
+
+  useEffect(() => {
+    setSelectedIngredientIds(readCookWithWhatYouHaveIngredients());
+    setPlannedRecipeIds(readCookingPlan().recipeIds);
+  }, []);
 
   const selectedSet = useMemo(
     () => new Set(selectedIngredientIds),
@@ -186,16 +202,36 @@ export default function CookWithWhatYouHavePage({
   const moreMatches = matchedRecipes.slice(4);
 
   const addIngredient = (ingredientId) => {
-    setSelectedIngredientIds((current) =>
-      current.includes(ingredientId) ? current : [...current, ingredientId]
-    );
+    setSelectedIngredientIds((current) => {
+      const nextIds = current.includes(ingredientId)
+        ? current
+        : [...current, ingredientId];
+
+      return writeCookWithWhatYouHaveIngredients(nextIds);
+    });
+
     setQuery('');
   };
 
   const removeIngredient = (ingredientId) => {
     setSelectedIngredientIds((current) =>
-      current.filter((id) => id !== ingredientId)
+      writeCookWithWhatYouHaveIngredients(
+        current.filter((id) => id !== ingredientId)
+      )
     );
+  };
+
+  const clearSelectedIngredients = () => {
+    clearCookWithWhatYouHaveIngredients();
+    setSelectedIngredientIds([]);
+  };
+
+  const handleCookingPlanToggle = (recipeId) => {
+    const nextPlan = plannedRecipeIds.includes(recipeId)
+      ? removeRecipeFromCookingPlan(recipeId)
+      : addRecipeToCookingPlan(recipeId);
+
+    setPlannedRecipeIds(nextPlan.recipeIds);
   };
 
   const copy =
@@ -226,6 +262,8 @@ export default function CookWithWhatYouHavePage({
                 : `${count} weitere Zutaten nötig`,
           missingLabel: 'Noch nötig',
           openRecipe: 'Rezept öffnen',
+          addToPlan: '+ Zum Kochplan',
+          inPlan: '✓ Im Kochplan',
           noMatches:
             'Noch kein naher Treffer. Wähle eine weitere Zutat aus oder ändere deine Auswahl.',
         }
@@ -255,6 +293,8 @@ export default function CookWithWhatYouHavePage({
                 : `${count} more ingredients needed`,
           missingLabel: 'Still need',
           openRecipe: 'Open recipe',
+          addToPlan: '+ Add to Cooking Plan',
+          inPlan: '✓ In Cooking Plan',
           noMatches:
             'No close match yet. Add another ingredient or change your selection.',
         };
@@ -304,9 +344,26 @@ export default function CookWithWhatYouHavePage({
           </div>
         )}
 
-        <Link href={`/recipes/${recipe.slug}`} className={styles.openRecipe}>
-          {copy.openRecipe} →
-        </Link>
+        <div className={styles.recipeActions}>
+          <Link href={`/recipes/${recipe.slug}`} className={styles.openRecipe}>
+            {copy.openRecipe} →
+          </Link>
+
+          <button
+            type="button"
+            className={`${styles.planButton} ${
+              plannedRecipeIds.includes(recipe.id)
+                ? styles.planButtonActive
+                : ''
+            }`}
+            aria-pressed={plannedRecipeIds.includes(recipe.id)}
+            onClick={() => handleCookingPlanToggle(recipe.id)}
+          >
+            {plannedRecipeIds.includes(recipe.id)
+              ? copy.inPlan
+              : copy.addToPlan}
+          </button>
+        </div>
       </div>
     </article>
   );
@@ -394,7 +451,7 @@ export default function CookWithWhatYouHavePage({
                 <button
                   type="button"
                   className={styles.clearButton}
-                  onClick={() => setSelectedIngredientIds([])}
+                  onClick={clearSelectedIngredients}
                 >
                   {copy.clear}
                 </button>
