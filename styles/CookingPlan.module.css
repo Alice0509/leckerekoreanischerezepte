@@ -208,3 +208,263 @@
     max-width: 900px;
   }
 }
+
+.shoppingSection {
+  display: grid;
+  gap: 20px;
+  margin-top: 42px;
+  padding-top: 34px;
+  border-top: 1px solid #e5ddd4;
+}
+
+.shoppingHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.shoppingHeader h2 {
+  margin: 0;
+  color: #342b26;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+}
+
+.shoppingIntro {
+  max-width: 720px;
+  margin: 9px 0 0;
+  color: #655a54;
+  line-height: 1.65;
+}
+
+.shoppingProgress {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 12px;
+  color: #625850;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.shoppingResetButton {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid #d8d0c7;
+  border-radius: 10px;
+  background: #fff;
+  color: #78594d;
+  font: inherit;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
+.shoppingList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.shoppingItem {
+  padding: 16px;
+  border: 1px solid #e6dfd7;
+  border-radius: 16px;
+  background: #fffdf9;
+  transition:
+    opacity 0.15s ease,
+    background 0.15s ease;
+}
+
+.shoppingItemChecked {
+  background: #f4f3ef;
+  opacity: 0.65;
+}
+
+.shoppingCheckLabel {
+  display: flex;
+  min-height: 32px;
+  align-items: flex-start;
+  gap: 11px;
+  cursor: pointer;
+}
+
+.shoppingCheckbox {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  margin: 2px 0 0;
+  accent-color: #607953;
+  cursor: pointer;
+}
+
+.shoppingIngredientName {
+  color: #302721;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.shoppingItemChecked .shoppingIngredientName {
+  text-decoration: line-through;
+}
+
+.shoppingUses {
+  display: grid;
+  gap: 7px;
+  margin: 10px 0 0 31px;
+  padding: 0;
+  list-style: none;
+}
+
+.shoppingUses li {
+  display: grid;
+  grid-template-columns: minmax(70px, auto) minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+}
+
+.shoppingQuantity {
+  color: #413832;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.shoppingRecipe {
+  overflow: hidden;
+  color: #786d65;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .shoppingSection {
+    margin-top: 32px;
+    padding-top: 28px;
+  }
+
+  .shoppingHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .shoppingProgress {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .shoppingList {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .shoppingItem {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .shoppingUses {
+    margin-left: 31px;
+  }
+
+  .shoppingUses li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .shoppingRecipe {
+    white-space: normal;
+  }
+}
+
+.shoppingItem {
+  touch-action: pan-y;
+}
+
+.checkedSection {
+  margin-top: 8px;
+  border-top: 1px solid #e5ddd4;
+  padding-top: 14px;
+}
+
+.checkedSummary {
+  width: fit-content;
+  color: #655a54;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.checkedList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+@media (max-width: 768px) {
+  .shoppingSection {
+    gap: 16px;
+  }
+
+  .shoppingList,
+  .checkedList {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .shoppingItem {
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+
+  .shoppingCheckLabel {
+    min-height: 26px;
+    gap: 9px;
+  }
+
+  .shoppingCheckbox {
+    width: 19px;
+    height: 19px;
+    margin-top: 1px;
+  }
+
+  .shoppingIngredientName {
+    font-size: 0.96rem;
+    line-height: 1.3;
+  }
+
+  .shoppingUses {
+    gap: 3px;
+    margin: 3px 0 0 28px;
+  }
+
+  .shoppingUses li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 8px;
+    line-height: 1.3;
+  }
+
+  .shoppingQuantity {
+    font-size: 0.88rem;
+    line-height: 1.3;
+  }
+
+  .shoppingRecipe {
+    font-size: 0.78rem;
+    line-height: 1.3;
+  }
+
+  .checkedSection {
+    margin-top: 4px;
+    padding-top: 12px;
+  }
+
+  .checkedSummary {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}

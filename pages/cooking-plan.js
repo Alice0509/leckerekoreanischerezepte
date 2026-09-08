@@ -2,11 +2,13 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   createEmptyCookingPlan,
   readCookingPlan,
   removeRecipeFromCookingPlan,
+  setCookingPlanIngredientChecked,
+  writeCookingPlan,
 } from '../lib/cookingPlanStorage';
 import styles from '../styles/CookingPlan.module.css';
 
@@ -27,6 +29,7 @@ export default function CookingPlanPage({ recipeCatalog }) {
 
   const [plan, setPlan] = useState(createEmptyCookingPlan());
   const [hasLoaded, setHasLoaded] = useState(false);
+  const shoppingTouchStartRef = useRef(null);
 
   useEffect(() => {
     setPlan(readCookingPlan());
@@ -39,8 +42,112 @@ export default function CookingPlanPage({ recipeCatalog }) {
     [plan.recipeIds, recipeCatalog]
   );
 
+  const shoppingIngredients = useMemo(() => {
+    const groups = new Map();
+
+    for (const recipe of selectedRecipes) {
+      for (const ingredient of recipe.ingredients || []) {
+        if (!ingredient.ingredientId) continue;
+
+        if (!groups.has(ingredient.ingredientId)) {
+          groups.set(ingredient.ingredientId, {
+            ingredientId: ingredient.ingredientId,
+            name: ingredient.name,
+            uses: [],
+          });
+        }
+
+        groups.get(ingredient.ingredientId).uses.push({
+          recipeId: recipe.id,
+          recipeTitle: recipe.titel,
+          recipeIngredientId: ingredient.recipeIngredientId,
+          quantity: ingredient.quantity,
+        });
+      }
+    }
+
+    return [...groups.values()].sort((a, b) =>
+      a.name.localeCompare(b.name, mappedLocale)
+    );
+  }, [selectedRecipes, mappedLocale]);
+
+  const checkedShoppingCount = shoppingIngredients.filter((ingredient) =>
+    plan.checkedIngredientIds.includes(ingredient.ingredientId)
+  ).length;
+
   const handleRemoveRecipe = (recipeId) => {
-    setPlan(removeRecipeFromCookingPlan(recipeId));
+    const nextPlan = removeRecipeFromCookingPlan(recipeId);
+
+    const remainingIngredientIds = new Set(
+      nextPlan.recipeIds.flatMap((remainingRecipeId) =>
+        (recipeCatalog[remainingRecipeId]?.ingredients || []).map(
+          (ingredient) => ingredient.ingredientId
+        )
+      )
+    );
+
+    setPlan(
+      writeCookingPlan({
+        ...nextPlan,
+        checkedIngredientIds: nextPlan.checkedIngredientIds.filter(
+          (ingredientId) => remainingIngredientIds.has(ingredientId)
+        ),
+      })
+    );
+  };
+
+  const handleShoppingIngredientToggle = (ingredientId) => {
+    const checked = !plan.checkedIngredientIds.includes(ingredientId);
+
+    setPlan(setCookingPlanIngredientChecked(ingredientId, checked));
+  };
+
+  const handleShoppingTouchStart = (event, ingredientId) => {
+    const touch = event.touches[0];
+
+    shoppingTouchStartRef.current = {
+      ingredientId,
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+  };
+
+  const handleShoppingTouchEnd = (event, ingredientId) => {
+    const start = shoppingTouchStartRef.current;
+    shoppingTouchStartRef.current = null;
+
+    if (!start || start.ingredientId !== ingredientId) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - start.x;
+    const deltaY = touch.clientY - start.y;
+
+    if (Math.abs(deltaX) < 55 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    const checked = plan.checkedIngredientIds.includes(ingredientId);
+
+    if (deltaX > 0 && !checked) {
+      setPlan(setCookingPlanIngredientChecked(ingredientId, true));
+    }
+
+    if (deltaX < 0 && checked) {
+      setPlan(setCookingPlanIngredientChecked(ingredientId, false));
+    }
+  };
+
+  const handleShoppingTouchCancel = () => {
+    shoppingTouchStartRef.current = null;
+  };
+
+  const handleShoppingReset = () => {
+    setPlan(
+      writeCookingPlan({
+        ...plan,
+        checkedIngredientIds: [],
+      })
+    );
   };
 
   const copy =
@@ -60,6 +167,17 @@ export default function CookingPlanPage({ recipeCatalog }) {
             'Füge auf einer Rezeptseite Gerichte hinzu, die du zusammen kochen möchtest.',
           browse: 'Rezepte entdecken',
           loading: 'Kochplan wird geladen …',
+          shoppingEyebrow: 'Alles für deine Gerichte',
+          shoppingTitle: 'Gemeinsame Einkaufsliste',
+          shoppingIntro:
+            'Gleiche Zutaten werden zusammengefasst. Die Mengen bleiben pro Rezept getrennt.',
+          shoppingProgress: (checked, total) =>
+            checked === total && total > 0
+              ? 'Alles abgehakt ✓'
+              : `${checked} von ${total} abgehakt`,
+          resetShopping: 'Zurücksetzen',
+          usedFor: 'Für',
+          checkedItems: (count) => `Erledigt (${count})`,
         }
       : {
           pageTitle: 'My Cooking Plan | Hansik Young',
@@ -76,6 +194,17 @@ export default function CookingPlanPage({ recipeCatalog }) {
             'Add dishes from recipe pages when you want to cook them together.',
           browse: 'Browse recipes',
           loading: 'Loading your cooking plan …',
+          shoppingEyebrow: 'Everything for your recipes',
+          shoppingTitle: 'Combined Shopping List',
+          shoppingIntro:
+            'Shared ingredients are grouped together. Quantities stay separate for each recipe.',
+          shoppingProgress: (checked, total) =>
+            checked === total && total > 0
+              ? 'All checked ✓'
+              : `${checked} of ${total} checked`,
+          resetShopping: 'Reset',
+          usedFor: 'For',
+          checkedItems: (count) => `Checked (${count})`,
         };
 
   return (
@@ -155,6 +284,179 @@ export default function CookingPlanPage({ recipeCatalog }) {
                 </article>
               ))}
             </div>
+
+            <section className={styles.shoppingSection}>
+              <div className={styles.shoppingHeader}>
+                <div>
+                  <p className={styles.eyebrow}>{copy.shoppingEyebrow}</p>
+                  <h2>{copy.shoppingTitle}</h2>
+                  <p className={styles.shoppingIntro}>{copy.shoppingIntro}</p>
+                </div>
+
+                <div className={styles.shoppingProgress}>
+                  <span aria-live="polite">
+                    {copy.shoppingProgress(
+                      checkedShoppingCount,
+                      shoppingIngredients.length
+                    )}
+                  </span>
+
+                  {checkedShoppingCount > 0 && (
+                    <button
+                      type="button"
+                      className={styles.shoppingResetButton}
+                      onClick={handleShoppingReset}
+                    >
+                      {copy.resetShopping}
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.shoppingList}>
+                {shoppingIngredients
+                  .filter(
+                    (ingredient) =>
+                      !plan.checkedIngredientIds.includes(
+                        ingredient.ingredientId
+                      )
+                  )
+                  .map((ingredient) => {
+                    const recipeCount = new Set(
+                      ingredient.uses.map((use) => use.recipeId)
+                    ).size;
+
+                    return (
+                      <article
+                        key={ingredient.ingredientId}
+                        className={styles.shoppingItem}
+                        onTouchStart={(event) =>
+                          handleShoppingTouchStart(
+                            event,
+                            ingredient.ingredientId
+                          )
+                        }
+                        onTouchEnd={(event) =>
+                          handleShoppingTouchEnd(event, ingredient.ingredientId)
+                        }
+                        onTouchCancel={handleShoppingTouchCancel}
+                      >
+                        <label className={styles.shoppingCheckLabel}>
+                          <input
+                            type="checkbox"
+                            checked={false}
+                            onChange={() =>
+                              handleShoppingIngredientToggle(
+                                ingredient.ingredientId
+                              )
+                            }
+                            className={styles.shoppingCheckbox}
+                          />
+
+                          <span className={styles.shoppingIngredientName}>
+                            {ingredient.name}
+                          </span>
+                        </label>
+
+                        <ul className={styles.shoppingUses}>
+                          {ingredient.uses.map((use) => (
+                            <li
+                              key={`${use.recipeIngredientId}-${use.recipeId}`}
+                            >
+                              <span className={styles.shoppingQuantity}>
+                                {use.quantity}
+                              </span>
+
+                              {recipeCount > 1 && (
+                                <span className={styles.shoppingRecipe}>
+                                  {use.recipeTitle}
+                                </span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </article>
+                    );
+                  })}
+              </div>
+
+              {checkedShoppingCount > 0 && (
+                <details className={styles.checkedSection}>
+                  <summary className={styles.checkedSummary}>
+                    {copy.checkedItems(checkedShoppingCount)}
+                  </summary>
+
+                  <div className={styles.checkedList}>
+                    {shoppingIngredients
+                      .filter((ingredient) =>
+                        plan.checkedIngredientIds.includes(
+                          ingredient.ingredientId
+                        )
+                      )
+                      .map((ingredient) => {
+                        const recipeCount = new Set(
+                          ingredient.uses.map((use) => use.recipeId)
+                        ).size;
+
+                        return (
+                          <article
+                            key={ingredient.ingredientId}
+                            className={`${styles.shoppingItem} ${styles.shoppingItemChecked}`}
+                            onTouchStart={(event) =>
+                              handleShoppingTouchStart(
+                                event,
+                                ingredient.ingredientId
+                              )
+                            }
+                            onTouchEnd={(event) =>
+                              handleShoppingTouchEnd(
+                                event,
+                                ingredient.ingredientId
+                              )
+                            }
+                            onTouchCancel={handleShoppingTouchCancel}
+                          >
+                            <label className={styles.shoppingCheckLabel}>
+                              <input
+                                type="checkbox"
+                                checked
+                                onChange={() =>
+                                  handleShoppingIngredientToggle(
+                                    ingredient.ingredientId
+                                  )
+                                }
+                                className={styles.shoppingCheckbox}
+                              />
+
+                              <span className={styles.shoppingIngredientName}>
+                                {ingredient.name}
+                              </span>
+                            </label>
+
+                            <ul className={styles.shoppingUses}>
+                              {ingredient.uses.map((use) => (
+                                <li
+                                  key={`${use.recipeIngredientId}-${use.recipeId}`}
+                                >
+                                  <span className={styles.shoppingQuantity}>
+                                    {use.quantity}
+                                  </span>
+
+                                  {recipeCount > 1 && (
+                                    <span className={styles.shoppingRecipe}>
+                                      {use.recipeTitle}
+                                    </span>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          </article>
+                        );
+                      })}
+                  </div>
+                </details>
+              )}
+            </section>
           </section>
         )}
       </main>
