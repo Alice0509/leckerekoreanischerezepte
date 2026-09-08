@@ -68,6 +68,7 @@ const Navbar = () => {
     mappedLocale === 'de'
       ? {
           recipes: 'Rezepte',
+          recipeFinder: 'Rezept-Finder',
           cookingPlan: 'Kochplan',
           ingredients: 'Zutaten',
           about: 'Über uns',
@@ -77,6 +78,7 @@ const Navbar = () => {
         }
       : {
           recipes: 'Recipes',
+          recipeFinder: 'Recipe Finder',
           cookingPlan: 'Cooking Plan',
           ingredients: 'Ingredients',
           about: 'About Us',
@@ -105,6 +107,10 @@ const Navbar = () => {
         <div className={styles.desktopNav}>
           <Link href="/#all-recipes" className={styles.navLink}>
             {labels.recipes}
+          </Link>
+
+          <Link href="/cook-with-what-you-have" className={styles.navLink}>
+            {labels.recipeFinder}
           </Link>
 
           <Link href="/cooking-plan" className={styles.navLink}>
@@ -222,6 +228,14 @@ const Navbar = () => {
                 onClick={() => setMenuOpen(false)}
               >
                 {labels.recipes}
+              </Link>
+
+              <Link
+                href="/cook-with-what-you-have"
+                className={styles.mobileMenuLink}
+                onClick={() => setMenuOpen(false)}
+              >
+                {labels.recipeFinder}
               </Link>
 
               <Link
