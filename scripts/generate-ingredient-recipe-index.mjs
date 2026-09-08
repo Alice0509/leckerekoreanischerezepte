@@ -4,7 +4,10 @@ import { createRequire } from 'node:module';
 import nextEnv from '@next/env';
 import { createClient } from 'contentful';
 import contentfulPagination from '../lib/contentfulPagination.cjs';
-import { getCanonicalIngredientEntryId } from '../lib/ingredientSlugs.js';
+import {
+  getCanonicalIngredientEntryId,
+  getCanonicalIngredientSlug,
+} from '../lib/ingredientSlugs.js';
 
 const require = createRequire(import.meta.url);
 
@@ -26,10 +29,16 @@ if (!SPACE_ID || !ACCESS_TOKEN) {
 }
 
 const ROOT = process.cwd();
-const OUTPUT_PATH = path.join(
+const INGREDIENT_INDEX_OUTPUT_PATH = path.join(
   ROOT,
   'lib',
   'generated-ingredient-recipe-index.json'
+);
+
+const COOKING_PLAN_OUTPUT_PATH = path.join(
+  ROOT,
+  'lib',
+  'generated-cooking-plan-data.json'
 );
 
 const LOCALES = ['de', 'en'];
@@ -86,11 +95,18 @@ const createLocaleIndex = async (locale) => {
       .map((entry) => [entry.sys.id, entry])
   );
 
+  const ingredientById = new Map(
+    includedEntries
+      .filter((entry) => getContentTypeId(entry) === 'ingredient')
+      .map((entry) => [entry.sys.id, entry])
+  );
+
   const assetById = new Map(
     includedAssets.map((asset) => [asset.sys.id, asset])
   );
 
   const recipesByIngredientId = new Map();
+  const recipesById = {};
 
   for (const recipe of response.items) {
     const recipeIngredientReferences = Array.isArray(recipe.fields?.ingredients)
@@ -109,18 +125,58 @@ const createLocaleIndex = async (locale) => {
     }
 
     const ingredientIds = new Set();
+    const shoppingIngredients = [];
 
     for (const reference of recipeIngredientReferences) {
       const recipeIngredient = reference?.fields
         ? reference
         : recipeIngredientById.get(reference?.sys?.id);
 
-      const ingredientId = recipeIngredient?.fields?.ingredient?.sys?.id;
+      const ingredientReference = recipeIngredient?.fields?.ingredient;
+      const ingredientId = ingredientReference?.sys?.id;
 
-      if (ingredientId) {
-        ingredientIds.add(ingredientId);
+      if (!ingredientId) {
+        continue;
       }
+
+      const canonicalIngredientId = getCanonicalIngredientEntryId(ingredientId);
+
+      if (!canonicalIngredientId) {
+        continue;
+      }
+
+      const referencedIngredient = ingredientReference?.fields
+        ? ingredientReference
+        : ingredientById.get(ingredientId);
+
+      const canonicalIngredient =
+        ingredientById.get(canonicalIngredientId) || referencedIngredient;
+
+      ingredientIds.add(ingredientId);
+
+      shoppingIngredients.push({
+        recipeIngredientId:
+          recipeIngredient?.sys?.id || reference?.sys?.id || '',
+        ingredientId: canonicalIngredientId,
+        name:
+          canonicalIngredient?.fields?.name ||
+          referencedIngredient?.fields?.name ||
+          'Unknown Ingredient',
+        slug: getCanonicalIngredientSlug({
+          entryId: canonicalIngredientId,
+          fallbackSlug:
+            canonicalIngredient?.fields?.slug ||
+            referencedIngredient?.fields?.slug ||
+            '',
+        }),
+        quantity: recipeIngredient?.fields?.quantity || '',
+      });
     }
+
+    recipesById[recipeRecord.id] = {
+      ...recipeRecord,
+      ingredients: shoppingIngredients,
+    };
 
     for (const ingredientId of ingredientIds) {
       const canonicalIngredientId = getCanonicalIngredientEntryId(ingredientId);
@@ -139,18 +195,27 @@ const createLocaleIndex = async (locale) => {
     }
   }
 
-  return new Map(
-    [...recipesByIngredientId.entries()].map(([ingredientId, recipeMap]) => [
-      ingredientId,
-      [...recipeMap.values()],
-    ])
-  );
+  return {
+    ingredientIndex: new Map(
+      [...recipesByIngredientId.entries()].map(([ingredientId, recipeMap]) => [
+        ingredientId,
+        [...recipeMap.values()],
+      ])
+    ),
+    recipesById,
+  };
 };
 
 const localeIndexes = {};
+const cookingPlanData = {};
 
 for (const locale of LOCALES) {
-  localeIndexes[locale] = await createLocaleIndex(locale);
+  const localeData = await createLocaleIndex(locale);
+
+  localeIndexes[locale] = localeData.ingredientIndex;
+  cookingPlanData[locale] = {
+    recipesById: localeData.recipesById,
+  };
 }
 
 const allIngredientIds = new Set();
@@ -173,8 +238,14 @@ for (const ingredientId of [...allIngredientIds].sort((a, b) =>
 }
 
 await fs.writeFile(
-  OUTPUT_PATH,
+  INGREDIENT_INDEX_OUTPUT_PATH,
   `${JSON.stringify(ingredientRecipeIndex, null, 2)}\n`,
+  'utf8'
+);
+
+await fs.writeFile(
+  COOKING_PLAN_OUTPUT_PATH,
+  `${JSON.stringify(cookingPlanData, null, 2)}\n`,
   'utf8'
 );
 
@@ -192,4 +263,12 @@ console.log(
   } ingredients, ${recipeReferenceCounts.de} DE references, ${
     recipeReferenceCounts.en
   } EN references`
+);
+
+console.log(
+  `Cooking plan data generated: ${
+    Object.keys(cookingPlanData.de.recipesById).length
+  } DE recipes, ${
+    Object.keys(cookingPlanData.en.recipesById).length
+  } EN recipes`
 );
