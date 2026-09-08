@@ -28,6 +28,11 @@ import {
   readPersistedCheckIds,
   writePersistedCheckIds,
 } from '../../lib/recipeStateStorage';
+import {
+  addRecipeToCookingPlan,
+  isRecipeInCookingPlan,
+  removeRecipeFromCookingPlan,
+} from '../../lib/cookingPlanStorage';
 
 const { getRecipeEntriesFromSnapshot, getRecipeResponseFromSnapshot } =
   contentfulBuildSnapshot;
@@ -732,6 +737,7 @@ const RecipeDetail = ({ recipe, error }) => {
   const [checkedIngredients, setCheckedIngredients] = useState(
     safeRecipe.ingredients ? safeRecipe.ingredients.map(() => false) : []
   );
+  const [isInCookingPlan, setIsInCookingPlan] = useState(false);
   const [checkedPrep, setCheckedPrep] = useState(
     safeRecipe.ingredients ? safeRecipe.ingredients.map(() => false) : []
   );
@@ -744,6 +750,10 @@ const RecipeDetail = ({ recipe, error }) => {
   const recipeSlug = Array.isArray(router.query.slug)
     ? router.query.slug[0]
     : router.query.slug || '';
+
+  useEffect(() => {
+    setIsInCookingPlan(isRecipeInCookingPlan(safeRecipe.id));
+  }, [safeRecipe.id]);
 
   const ingredientStorageKey = recipeSlug
     ? `hansikyoung:recipe:${mappedLocale}:${recipeSlug}:ingredients:v1`
@@ -878,6 +888,19 @@ const RecipeDetail = ({ recipe, error }) => {
         // Ignore storage cleanup failures.
       }
     }
+  };
+
+  const handleCookingPlanToggle = () => {
+    if (!safeRecipe.id) return;
+
+    if (isInCookingPlan) {
+      removeRecipeFromCookingPlan(safeRecipe.id);
+      setIsInCookingPlan(false);
+      return;
+    }
+
+    addRecipeToCookingPlan(safeRecipe.id);
+    setIsInCookingPlan(true);
   };
 
   const [isSliderReady, setIsSliderReady] = useState(false);
@@ -1160,6 +1183,24 @@ const RecipeDetail = ({ recipe, error }) => {
             {mappedLocale === 'de' ? 'Zubereitung' : 'Instructions'}
           </a>
         </nav>
+
+        <button
+          type="button"
+          className={`${styles.cookingPlanButton} ${
+            isInCookingPlan ? styles.cookingPlanButtonActive : ''
+          }`}
+          onClick={handleCookingPlanToggle}
+          aria-pressed={isInCookingPlan}
+        >
+          <span aria-hidden="true">{isInCookingPlan ? '✓' : '+'}</span>
+          {isInCookingPlan
+            ? mappedLocale === 'de'
+              ? 'Im Kochplan'
+              : 'Added to Cooking Plan'
+            : mappedLocale === 'de'
+              ? 'Zum Kochplan hinzufügen'
+              : 'Add to Cooking Plan'}
+        </button>
 
         {hasStructuredSteps && (
           <button
