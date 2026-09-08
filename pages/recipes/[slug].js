@@ -24,6 +24,15 @@ import contentfulPagination from '../../lib/contentfulPagination.cjs';
 const { fetchAllEntries } = contentfulPagination;
 
 import contentfulBuildSnapshot from '../../lib/contentfulBuildSnapshot.cjs';
+import {
+  readPersistedCheckIds,
+  writePersistedCheckIds,
+} from '../../lib/recipeStateStorage';
+import {
+  addRecipeToCookingPlan,
+  isRecipeInCookingPlan,
+  removeRecipeFromCookingPlan,
+} from '../../lib/cookingPlanStorage';
 
 const { getRecipeEntriesFromSnapshot, getRecipeResponseFromSnapshot } =
   contentfulBuildSnapshot;
@@ -43,60 +52,6 @@ const renderContent = (content) => {
   if (typeof content === 'string') return content;
   if (content.nodeType) return documentToReactComponents(content);
   return content;
-};
-
-const RECIPE_STATE_TTL_MS = 48 * 60 * 60 * 1000;
-
-const readPersistedCheckIds = (key) => {
-  if (typeof window === 'undefined' || !key) return [];
-
-  try {
-    const raw = window.localStorage.getItem(key);
-    if (!raw) return [];
-
-    const parsed = JSON.parse(raw);
-
-    if (!parsed?.savedAt || !Array.isArray(parsed.ids)) {
-      window.localStorage.removeItem(key);
-      return [];
-    }
-
-    if (Date.now() - parsed.savedAt > RECIPE_STATE_TTL_MS) {
-      window.localStorage.removeItem(key);
-      return [];
-    }
-
-    return parsed.ids.filter((id) => typeof id === 'string');
-  } catch {
-    try {
-      window.localStorage.removeItem(key);
-    } catch {
-      // Ignore storage cleanup failures.
-    }
-
-    return [];
-  }
-};
-
-const writePersistedCheckIds = (key, ids) => {
-  if (typeof window === 'undefined' || !key) return;
-
-  try {
-    if (!ids.length) {
-      window.localStorage.removeItem(key);
-      return;
-    }
-
-    window.localStorage.setItem(
-      key,
-      JSON.stringify({
-        savedAt: Date.now(),
-        ids,
-      })
-    );
-  } catch {
-    // Ignore storage write failures.
-  }
 };
 
 const richTextToPlainText = (content) => {
@@ -610,6 +565,7 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
 
           return {
             id: recipeIngredient.sys.id,
+            ingredientId: ingredientRef?.sys?.id || null,
             name: ingredientInfo?.name || 'Unknown Ingredient',
             slug: ingredientInfo?.slug || null,
             quantity: recipeIngredient.fields.quantity || '',
@@ -781,6 +737,7 @@ const RecipeDetail = ({ recipe, error }) => {
   const [checkedIngredients, setCheckedIngredients] = useState(
     safeRecipe.ingredients ? safeRecipe.ingredients.map(() => false) : []
   );
+  const [isInCookingPlan, setIsInCookingPlan] = useState(false);
   const [checkedPrep, setCheckedPrep] = useState(
     safeRecipe.ingredients ? safeRecipe.ingredients.map(() => false) : []
   );
@@ -793,6 +750,10 @@ const RecipeDetail = ({ recipe, error }) => {
   const recipeSlug = Array.isArray(router.query.slug)
     ? router.query.slug[0]
     : router.query.slug || '';
+
+  useEffect(() => {
+    setIsInCookingPlan(isRecipeInCookingPlan(safeRecipe.id));
+  }, [safeRecipe.id]);
 
   const ingredientStorageKey = recipeSlug
     ? `hansikyoung:recipe:${mappedLocale}:${recipeSlug}:ingredients:v1`
@@ -927,6 +888,19 @@ const RecipeDetail = ({ recipe, error }) => {
         // Ignore storage cleanup failures.
       }
     }
+  };
+
+  const handleCookingPlanToggle = () => {
+    if (!safeRecipe.id) return;
+
+    if (isInCookingPlan) {
+      removeRecipeFromCookingPlan(safeRecipe.id);
+      setIsInCookingPlan(false);
+      return;
+    }
+
+    addRecipeToCookingPlan(safeRecipe.id);
+    setIsInCookingPlan(true);
   };
 
   const [isSliderReady, setIsSliderReady] = useState(false);
@@ -1209,6 +1183,24 @@ const RecipeDetail = ({ recipe, error }) => {
             {mappedLocale === 'de' ? 'Zubereitung' : 'Instructions'}
           </a>
         </nav>
+
+        <button
+          type="button"
+          className={`${styles.cookingPlanButton} ${
+            isInCookingPlan ? styles.cookingPlanButtonActive : ''
+          }`}
+          onClick={handleCookingPlanToggle}
+          aria-pressed={isInCookingPlan}
+        >
+          <span aria-hidden="true">{isInCookingPlan ? '✓' : '+'}</span>
+          {isInCookingPlan
+            ? mappedLocale === 'de'
+              ? 'Im Kochplan'
+              : 'Added to Cooking Plan'
+            : mappedLocale === 'de'
+              ? 'Zum Kochplan hinzufügen'
+              : 'Add to Cooking Plan'}
+        </button>
 
         {hasStructuredSteps && (
           <button

@@ -1240,3 +1240,33 @@
     font-size: 0.72rem;
   }
 }
+
+.cookingPlanButton {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 10px 16px;
+  border: 1px solid #b7c9ad;
+  border-radius: 12px;
+  background: #f5f8f1;
+  color: #49613d;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cookingPlanButtonActive {
+  border-color: #789369;
+  background: #e9f2e3;
+  color: #36502c;
+}
+
+@media (max-width: 768px) {
+  .cookingPlanButton {
+    width: 100%;
+  }
+}
