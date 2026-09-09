@@ -17,7 +17,7 @@
     "audit:recipes:en": "node scripts/audit-english-recipes.mjs",
     "audit:recipes:de": "node scripts/audit-german-recipes.mjs",
     "audit:recipes:categories": "node scripts/audit-recipe-categories.mjs",
-    "audit:recipes": "npm run audit:recipes:en && npm run audit:recipes:de && npm run audit:recipes:categories",
+    "audit:recipes": "npm run audit:recipes:en && npm run audit:recipes:de && npm run audit:recipes:categories && npm run audit:recipes:publishing",
     "audit:ingredients:slugs": "node scripts/audit-ingredient-slugs.mjs",
     "migrate:ingredients:priority": "node scripts/migrate-priority-ingredients.mjs",
     "migrate:ingredients:secondary": "node scripts/migrate-secondary-ingredients.mjs",
@@ -31,7 +31,8 @@
     "check:pwa": "node scripts/check-pwa-domain-safety.mjs",
     "check:clarity": "node scripts/check-clarity-consent-safety.mjs",
     "generate:contentful-snapshot": "node scripts/generate-contentful-build-snapshot.mjs",
-    "generate:recipe-page-data": "node scripts/generate-static-recipe-page-data.mjs"
+    "generate:recipe-page-data": "node scripts/generate-static-recipe-page-data.mjs",
+    "audit:recipes:publishing": "node scripts/audit-recipe-publishing.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",

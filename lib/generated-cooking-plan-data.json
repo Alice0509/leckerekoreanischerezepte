@@ -2302,7 +2302,7 @@
             "ingredientId": "6g42vVsU6ryPS65cHmIkTl",
             "name": "Gehackter Knoblauch",
             "slug": "minced-garlic",
-            "quantity": "1/3 E\bL (~5ml)"
+            "quantity": "1/3 EL (~5 ml)"
           }
         ]
       },
@@ -2727,7 +2727,7 @@
             "ingredientId": "6g42vVsU6ryPS65cHmIkTl",
             "name": "Gehackter Knoblauch",
             "slug": "minced-garlic",
-            "quantity": "2/3 \bEL"
+            "quantity": "2/3 EL"
           },
           {
             "recipeIngredientId": "3q5t3N2IryTnEIS6m42nlv",
