@@ -177,6 +177,46 @@ const checkControlCharacters = ({ recipe, field, value }) => {
   });
 };
 
+const SUSPICIOUS_WHITESPACE_CODES = new Set([
+  0x0009, // tab
+  0x000a, // line feed
+  0x000d, // carriage return
+  0x00a0, // no-break space
+  0x2007, // figure space
+  0x200b, // zero-width space
+  0x202f, // narrow no-break space
+  0x2060, // word joiner
+  0xfeff, // zero-width no-break space / BOM
+]);
+
+const checkSuspiciousWhitespace = ({ recipe, field, value }) => {
+  if (typeof value !== 'string') return;
+
+  const details = [];
+
+  [...value].forEach((char, index) => {
+    const code = char.codePointAt(0);
+
+    if (SUSPICIOUS_WHITESPACE_CODES.has(code)) {
+      details.push({
+        code: `U+${code.toString(16).toUpperCase().padStart(4, '0')}`,
+        index,
+        text: JSON.stringify(value),
+      });
+    }
+  });
+
+  if (!details.length) return;
+
+  addFinding({
+    severity: 'critical',
+    recipe,
+    field,
+    message: 'Contains suspicious whitespace or zero-width character',
+    details,
+  });
+};
+
 const checkOptionalLocalizedParity = ({ recipe, entry, field, label }) => {
   const enValue = getLocalizedValue(entry, field, 'en');
   const deValue = getLocalizedValue(entry, field, 'de');
@@ -220,6 +260,16 @@ for (const entry of recipes) {
       'seoDescription',
     ]) {
       checkControlCharacters({
+        recipe,
+        field: `${field}.${locale}`,
+        value: getLocalizedValue(entry, field, locale),
+      });
+    }
+  }
+
+  for (const locale of LOCALES) {
+    for (const field of ['titel', 'slug', 'seoTitle']) {
+      checkSuspiciousWhitespace({
         recipe,
         field: `${field}.${locale}`,
         value: getLocalizedValue(entry, field, locale),
@@ -310,8 +360,56 @@ for (const entry of recipes) {
     }
 
     for (const locale of LOCALES) {
+      const ingredientEntry = getLocalizedValue(
+        recipeIngredient,
+        'ingredient',
+        locale
+      );
+
+      if (!ingredientEntry?.fields) {
+        addFinding({
+          severity: 'critical',
+          recipe,
+          field: `recipeIngredient.${recipeIngredientId}.ingredient.${locale}`,
+          message: 'Ingredient reference is unresolved',
+        });
+
+        continue;
+      }
+
+      for (const field of ['name', 'slug']) {
+        const value = getLocalizedValue(ingredientEntry, field, locale);
+
+        if (!hasValue(value)) {
+          addFinding({
+            severity: 'critical',
+            recipe,
+            field: `ingredient.${ingredientEntry.sys.id}.${field}.${locale}`,
+            message: `Ingredient ${field} is missing`,
+          });
+        } else {
+          checkSuspiciousWhitespace({
+            recipe,
+            field: `ingredient.${ingredientEntry.sys.id}.${field}.${locale}`,
+            value,
+          });
+        }
+      }
+    }
+
+    for (const locale of LOCALES) {
       for (const field of ['title', 'quantity', 'prepNote']) {
         checkControlCharacters({
+          recipe,
+          field: `recipeIngredient.${recipeIngredientId}.${field}.${locale}`,
+          value: getLocalizedValue(recipeIngredient, field, locale),
+        });
+      }
+    }
+
+    for (const locale of LOCALES) {
+      for (const field of ['title', 'quantity', 'prepNote']) {
+        checkSuspiciousWhitespace({
           recipe,
           field: `recipeIngredient.${recipeIngredientId}.${field}.${locale}`,
           value: getLocalizedValue(recipeIngredient, field, locale),
@@ -395,6 +493,26 @@ for (const entry of recipes) {
       });
 
       checkControlCharacters({
+        recipe,
+        field: `step.${step.sys.id}.doneWhen.${locale}`,
+        value: getLocalizedValue(step, 'doneWhen', locale),
+      });
+    }
+
+    checkSuspiciousWhitespace({
+      recipe,
+      field: `step.${step.sys.id}.stepName`,
+      value: getAnyValue(step, 'stepName'),
+    });
+
+    checkSuspiciousWhitespace({
+      recipe,
+      field: `step.${step.sys.id}.heatLevel`,
+      value: getAnyValue(step, 'heatLevel'),
+    });
+
+    for (const locale of LOCALES) {
+      checkSuspiciousWhitespace({
         recipe,
         field: `step.${step.sys.id}.doneWhen.${locale}`,
         value: getLocalizedValue(step, 'doneWhen', locale),
