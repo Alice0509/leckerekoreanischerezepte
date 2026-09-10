@@ -1270,3 +1270,49 @@
     width: 100%;
   }
 }
+
+/* Ingredients used in each normal recipe step */
+.stepIngredientsUsed {
+  margin-top: 9px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: #f6f8f3;
+}
+
+.stepIngredientsUsedLabel {
+  display: block;
+  color: #65705f;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.stepIngredientsUsedList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 8px;
+  margin: 5px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stepIngredientsUsedList li {
+  color: #3f4d3a;
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.stepIngredientsUsedList li:not(:last-child)::after {
+  content: ' ·';
+  color: #9aa394;
+}
+
+@media (max-width: 768px) {
+  .stepIngredientsUsed {
+    margin-top: 8px;
+    padding: 9px 10px;
+  }
+
+  .stepIngredientsUsedList li {
+    font-size: 0.88rem;
+  }
+}
