@@ -1230,14 +1230,6 @@ const RecipeDetail = ({ recipe, error }) => {
           />
         )}
 
-        {!guide.isDefault && (
-          <section className={styles.recipeGuideIntro}>
-            <p className={styles.guideEyebrow}>{guide.eyebrow}</p>
-            <h2>{guide.introTitle}</h2>
-            <p>{guide.intro}</p>
-          </section>
-        )}
-
         <div className={styles.contentWrapper}>
           <aside id="ingredients" className={styles.ingredientsColumn}>
             <div className={styles.ingredientSectionHeader}>
@@ -1358,6 +1350,14 @@ const RecipeDetail = ({ recipe, error }) => {
           </aside>
 
           <section className={styles.instructionsColumn}>
+            {!guide.isDefault && (
+              <section className={styles.recipeGuideIntro}>
+                <p className={styles.guideEyebrow}>{guide.eyebrow}</p>
+                <h2>{guide.introTitle}</h2>
+                <p>{guide.intro}</p>
+              </section>
+            )}
+
             {description && (
               <section className={styles.recipeNotes}>
                 <h3>
@@ -1435,6 +1435,27 @@ const RecipeDetail = ({ recipe, error }) => {
                                 {renderContent(step.description)}
                               </div>
                             </div>
+
+                            {step.ingredientsUsed?.length > 0 && (
+                              <div className={styles.stepIngredientsUsed}>
+                                <span
+                                  className={styles.stepIngredientsUsedLabel}
+                                >
+                                  {mappedLocale === 'de'
+                                    ? 'Für diesen Schritt'
+                                    : 'Used in this step'}
+                                </span>
+
+                                <ul className={styles.stepIngredientsUsedList}>
+                                  {step.ingredientsUsed.map((ingredient) => (
+                                    <li key={ingredient.id}>
+                                      {ingredient.name}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+
                             {step.image && (
                               <div className={styles.stepImage}>
                                 <Image
