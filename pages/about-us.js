@@ -82,6 +82,8 @@ const AboutUs = () => {
   };
 
   const t = content[lang];
+  const publicEmail =
+    lang === 'de' ? 'hello@hansikyoung.de' : 'hello@hansikyoung.com';
   const seoUrls = getSeoUrls({ locale: lang, path: '/about-us' });
   const canonicalUrl = seoUrls.canonicalUrl;
 
@@ -179,10 +181,7 @@ const AboutUs = () => {
         </section>
 
         <p className={styles.contact}>
-          📧 {t.contact}:{' '}
-          <a href="mailto:joan.korean.rezepte@gmail.com">
-            joan.korean.rezepte@gmail.com
-          </a>
+          📧 {t.contact}: <a href={`mailto:${publicEmail}`}>{publicEmail}</a>
         </p>
       </div>
     </>

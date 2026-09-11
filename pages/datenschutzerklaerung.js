@@ -43,8 +43,8 @@ const Datenschutzerklaerung = () => (
         Angaben siehe Impressum
         <br />
         E-Mail:{' '}
-        <a href="mailto:joan.korean.rezepte@gmail.com" className={styles.link}>
-          joan.korean.rezepte@gmail.com
+        <a href="mailto:hello@hansikyoung.de" className={styles.link}>
+          hello@hansikyoung.de
         </a>
       </p>
 
@@ -349,8 +349,8 @@ const Datenschutzerklaerung = () => (
       </p>
 
       <p className={styles.paragraph}>
-        <a href="mailto:joan.korean.rezepte@gmail.com" className={styles.link}>
-          joan.korean.rezepte@gmail.com
+        <a href="mailto:hello@hansikyoung.de" className={styles.link}>
+          hello@hansikyoung.de
         </a>
       </p>
 

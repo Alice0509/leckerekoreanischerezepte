@@ -102,6 +102,8 @@ const Support = () => {
   };
 
   const t = content[lang];
+  const publicEmail =
+    lang === 'de' ? 'hello@hansikyoung.de' : 'hello@hansikyoung.com';
 
   const privacyHref =
     lang === 'de' ? '/datenschutzerklaerung' : '/privacy-policy';
@@ -125,11 +127,8 @@ const Support = () => {
           <h2 className={styles.sectionTitle}>{t.emailTitle}</h2>
           <p className={styles.text}>{t.emailText}</p>
 
-          <a
-            href="mailto:joan.korean.rezepte@gmail.com"
-            className={styles.email}
-          >
-            joan.korean.rezepte@gmail.com
+          <a href={`mailto:${publicEmail}`} className={styles.email}>
+            {publicEmail}
           </a>
 
           <ContactForm />

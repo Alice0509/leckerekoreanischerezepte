@@ -26,7 +26,7 @@ const DeleteData = () => {
     }
 
     // mailto 링크 생성
-    const mailtoLink = `mailto:joan.korean.rezepte@gmail.com?subject=Data%20Deletion%20Request&body=Email:%20${encodeURIComponent(email)}%0A%0AMessage:%20${encodeURIComponent(message)}`;
+    const mailtoLink = `mailto:hello@hansikyoung.com?subject=Data%20Deletion%20Request&body=Email:%20${encodeURIComponent(email)}%0A%0AMessage:%20${encodeURIComponent(message)}`;
 
     // mailto 링크 열기
     window.location.href = mailtoLink;
