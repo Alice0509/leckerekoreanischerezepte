@@ -32,8 +32,8 @@ const Imprint = () => (
 
       <p className={styles.paragraph}>
         Email:{' '}
-        <a href="mailto:joan.korean.rezepte@gmail.com" className={styles.link}>
-          joan.korean.rezepte@gmail.com
+        <a href="mailto:hello@hansikyoung.com" className={styles.link}>
+          hello@hansikyoung.com
         </a>
       </p>
 
