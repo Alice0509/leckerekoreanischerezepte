@@ -25,7 +25,22 @@ export const recipeIngredient = defineType({
       title: 'Ingredient',
       type: 'reference',
       to: [{type: 'ingredient'}],
-      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: 'legacyIngredientTargetId',
+      title: 'Legacy ingredient target ID',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+
+    defineField({
+      name: 'legacyIngredientTargetType',
+      title: 'Legacy ingredient target type',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
     }),
 
     defineField({
