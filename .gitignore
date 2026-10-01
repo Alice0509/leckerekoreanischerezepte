@@ -49,3 +49,6 @@ next-env.d.ts
 /public/sitemap-de.xml
 /public/sitemap-en.xml
 /public/data/recipes/
+
+# local CMS migration source data
+/migration-data/
