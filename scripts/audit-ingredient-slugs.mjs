@@ -1,29 +1,12 @@
 import fs from 'node:fs';
-import dotenv from 'dotenv';
-import { createClient } from 'contentful';
-import contentfulPagination from '../lib/contentfulPagination.cjs';
+import { createRequire } from 'node:module';
 import { isIndexableIngredientSlug } from '../lib/ingredientDetailRoutes.js';
 
-const { fetchAllEntries, fetchAllEntriesResponse } = contentfulPagination;
-
-dotenv.config({ path: '.env.local' });
-
-const requiredEnvironmentVariables = [
-  'CONTENTFUL_SPACE_ID',
-  'CONTENTFUL_ACCESS_TOKEN',
-];
-
-for (const variableName of requiredEnvironmentVariables) {
-  if (!process.env[variableName]) {
-    console.error(`Missing environment variable: ${variableName}`);
-    process.exit(1);
-  }
-}
-
-const client = createClient({
-  space: process.env.CONTENTFUL_SPACE_ID,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-});
+const require = createRequire(import.meta.url);
+const {
+  getIngredientDatasetFromSnapshot,
+  getRecipeDatasetFromSnapshot,
+} = require('../lib/contentfulBuildSnapshot.cjs');
 
 const LOCALES = ['de', 'en'];
 
@@ -138,14 +121,57 @@ const severityOrder = {
   medium: 2,
 };
 
-const ingredientItems = await fetchAllEntries(client.withAllLocales, {
-  content_type: 'ingredient',
-});
+const mergeLocalizedEntries = (deItems, enItems) => {
+  const deById = new Map(deItems.map((entry) => [entry.sys.id, entry]));
+  const enById = new Map(enItems.map((entry) => [entry.sys.id, entry]));
+  const ids = [...new Set([...deById.keys(), ...enById.keys()])];
 
-const recipeResponse = await fetchAllEntriesResponse(client.withAllLocales, {
-  content_type: 'recipe',
-  include: 2,
-});
+  return ids.map((id) => {
+    const deEntry = deById.get(id);
+    const enEntry = enById.get(id);
+    const names = new Set([
+      ...Object.keys(deEntry?.fields || {}),
+      ...Object.keys(enEntry?.fields || {}),
+    ]);
+    const fields = {};
+
+    for (const name of names) {
+      fields[name] = {
+        de: deEntry?.fields?.[name],
+        en: enEntry?.fields?.[name],
+      };
+    }
+
+    return {
+      sys: deEntry?.sys || enEntry?.sys,
+      fields,
+    };
+  });
+};
+
+const deIngredients = getIngredientDatasetFromSnapshot('de');
+const enIngredients = getIngredientDatasetFromSnapshot('en');
+const deRecipes = getRecipeDatasetFromSnapshot('de');
+const enRecipes = getRecipeDatasetFromSnapshot('en');
+
+if (
+  !deIngredients?.items ||
+  !enIngredients?.items ||
+  !deRecipes?.items ||
+  !enRecipes?.items
+) {
+  throw new Error('Missing DE/EN build snapshot.');
+}
+
+const ingredientItems = mergeLocalizedEntries(
+  deIngredients.items,
+  enIngredients.items
+);
+
+const recipeResponse = {
+  items: mergeLocalizedEntries(deRecipes.items, enRecipes.items),
+  includes: { Entry: [] },
+};
 
 const allIncludedEntries = [
   ...recipeResponse.items,

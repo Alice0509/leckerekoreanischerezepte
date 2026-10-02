@@ -1,24 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import nextEnv from '@next/env';
-import { createClient } from 'contentful';
+import { createRequire } from 'node:module';
 
-const { loadEnvConfig } = nextEnv;
-loadEnvConfig(process.cwd());
-
-const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
-const ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
-
-if (!SPACE_ID || !ACCESS_TOKEN) {
-  throw new Error(
-    'CONTENTFUL_SPACE_ID 또는 CONTENTFUL_ACCESS_TOKEN이 없습니다.'
-  );
-}
-
-const client = createClient({
-  space: SPACE_ID,
-  accessToken: ACCESS_TOKEN,
-});
+const require = createRequire(import.meta.url);
+const { getRecipeDatasetFromSnapshot } =
+  require('../lib/contentfulBuildSnapshot.cjs');
 
 const normalizeWhitespace = (value) =>
   String(value || '')
@@ -95,29 +81,13 @@ const shorten = (text, length = 240) => {
 };
 
 const fetchAllRecipes = async () => {
-  const limit = 1000;
-  let skip = 0;
-  const items = [];
+  const response = getRecipeDatasetFromSnapshot('en');
 
-  while (true) {
-    const response = await client.getEntries({
-      content_type: 'recipe',
-      locale: 'en',
-      include: 3,
-      limit,
-      skip,
-    });
-
-    items.push(...response.items);
-
-    if (response.items.length === 0 || items.length >= response.total) {
-      break;
-    }
-
-    skip += response.items.length;
+  if (!response?.items) {
+    throw new Error('Missing EN recipe snapshot.');
   }
 
-  return items;
+  return response.items;
 };
 
 const recipes = await fetchAllRecipes();

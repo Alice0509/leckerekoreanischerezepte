@@ -1,22 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import nextEnv from '@next/env';
-import { createClient } from 'contentful';
+import { createRequire } from 'node:module';
 
-const { loadEnvConfig } = nextEnv;
-loadEnvConfig(process.cwd());
-
-const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
-const ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
-
-if (!SPACE_ID || !ACCESS_TOKEN) {
-  throw new Error('CONTENTFUL_SPACE_ID oder CONTENTFUL_ACCESS_TOKEN fehlt.');
-}
-
-const client = createClient({
-  space: SPACE_ID,
-  accessToken: ACCESS_TOKEN,
-});
+const require = createRequire(import.meta.url);
+const { getRecipeDatasetFromSnapshot } =
+  require('../lib/contentfulBuildSnapshot.cjs');
 
 const TARGET_LOCALE = 'de';
 const FALLBACK_LOCALE = 'en';
@@ -117,29 +105,73 @@ const ENGLISH_TITLE_PATTERNS = [
 const findMatches = (text, patterns) =>
   patterns.filter(({ regex }) => regex.test(text)).map(({ label }) => label);
 
-const fetchAllRecipes = async () => {
-  const limit = 1000;
-  let skip = 0;
-  const items = [];
+const mergeSteps = (deSteps = [], enSteps = []) => {
+  const deById = new Map(deSteps.map((step) => [step.sys.id, step]));
+  const enById = new Map(enSteps.map((step) => [step.sys.id, step]));
+  const ids = [...new Set([...deById.keys(), ...enById.keys()])];
 
-  while (true) {
-    const response = await client.withAllLocales.getEntries({
-      content_type: 'recipe',
-      include: 3,
-      limit,
-      skip,
-    });
+  return ids.map((id) => {
+    const deStep = deById.get(id);
+    const enStep = enById.get(id);
+    const names = new Set([
+      ...Object.keys(deStep?.fields || {}),
+      ...Object.keys(enStep?.fields || {}),
+    ]);
+    const fields = {};
 
-    items.push(...response.items);
-
-    if (response.items.length === 0 || items.length >= response.total) {
-      break;
+    for (const name of names) {
+      fields[name] = {
+        de: deStep?.fields?.[name],
+        en: enStep?.fields?.[name],
+      };
     }
 
-    skip += response.items.length;
+    return { sys: deStep?.sys || enStep?.sys, fields };
+  });
+};
+
+const mergeRecipe = (deEntry, enEntry) => {
+  const names = new Set([
+    ...Object.keys(deEntry?.fields || {}),
+    ...Object.keys(enEntry?.fields || {}),
+  ]);
+  const fields = {};
+
+  for (const name of names) {
+    if (name === 'steps') continue;
+
+    fields[name] = {
+      de: deEntry?.fields?.[name],
+      en: enEntry?.fields?.[name],
+    };
   }
 
-  return items;
+  const steps = mergeSteps(
+    deEntry?.fields?.steps || [],
+    enEntry?.fields?.steps || []
+  );
+
+  fields.steps = { de: steps, en: steps };
+
+  return {
+    sys: deEntry?.sys || enEntry?.sys,
+    fields,
+  };
+};
+
+const fetchAllRecipes = async () => {
+  const de = getRecipeDatasetFromSnapshot('de');
+  const en = getRecipeDatasetFromSnapshot('en');
+
+  if (!de?.items || !en?.items) {
+    throw new Error('Missing DE/EN recipe snapshot.');
+  }
+
+  const enById = new Map(en.items.map((entry) => [entry.sys.id, entry]));
+
+  return de.items.map((entry) =>
+    mergeRecipe(entry, enById.get(entry.sys.id))
+  );
 };
 
 const recipes = await fetchAllRecipes();

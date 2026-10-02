@@ -1,26 +1,14 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import nextEnv from '@next/env';
-import { createClient } from 'contentful';
-
-const { loadEnvConfig } = nextEnv;
-loadEnvConfig(process.cwd());
-
-const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
-const ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
-
-if (!SPACE_ID || !ACCESS_TOKEN) {
-  throw new Error(
-    'CONTENTFUL_SPACE_ID 또는 CONTENTFUL_ACCESS_TOKEN이 없습니다.'
-  );
-}
+import { createClient } from '@sanity/client';
 
 const client = createClient({
-  space: SPACE_ID,
-  accessToken: ACCESS_TOKEN,
+  projectId: process.env.SANITY_PROJECT_ID || 'o9hshko6',
+  dataset: process.env.SANITY_DATASET || 'production',
+  apiVersion: process.env.SANITY_API_VERSION || '2025-08-15',
+  useCdn: false,
 });
 
-const allLocalesClient = client.withAllLocales;
 const LOCALES = ['en', 'de'];
 
 const getLocalizedValue = (entry, field, locale) =>
@@ -109,28 +97,76 @@ const findControlCharacters = (input) => {
 };
 
 const fetchAllRecipes = async () => {
-  const items = [];
-  const limit = 1000;
-  let skip = 0;
+  const docs = await client.fetch(`*[_type == "recipe"]{
+    _id,
+    titel,
+    description,
+    instructions,
+    seoTitle,
+    seoDescription,
+    slug,
+    image,
+    "ingredients": ingredients[]->{
+      _id,
+      title,
+      quantity,
+      prepNote,
+      "ingredient": ingredient->{
+        _id,
+        name,
+        slug
+      }
+    },
+    "steps": steps[]->{
+      _id,
+      stepName,
+      stepNumber,
+      description,
+      timerDuration,
+      heatLevel,
+      doneWhen,
+      "ingredientsUsed": ingredientsUsed[]->{ _id }
+    }
+  }`);
 
-  while (true) {
-    const response = await allLocalesClient.getEntries({
-      content_type: 'recipe',
-      include: 4,
-      limit,
-      skip,
-    });
+  const toEntry = (doc) => {
+    if (!doc) return null;
 
-    items.push(...response.items);
+    const fields = { ...doc };
+    delete fields._id;
 
-    if (response.items.length === 0 || items.length >= response.total) {
-      break;
+    if (Array.isArray(fields.ingredients)) {
+      fields.ingredients = {
+        en: fields.ingredients.map(toEntry),
+        de: fields.ingredients.map(toEntry),
+      };
     }
 
-    skip += response.items.length;
-  }
+    if (fields.ingredient?._id) {
+      fields.ingredient = {
+        en: toEntry(fields.ingredient),
+        de: toEntry(fields.ingredient),
+      };
+    }
 
-  return items;
+    if (Array.isArray(fields.steps)) {
+      fields.steps = {
+        en: fields.steps.map(toEntry),
+        de: fields.steps.map(toEntry),
+      };
+    }
+
+    if (Array.isArray(fields.ingredientsUsed)) {
+      fields.ingredientsUsed = fields.ingredientsUsed.map(toEntry);
+    }
+
+    return {
+      sys: { id: doc._id },
+      fields,
+    };
+  };
+
+  return docs.map(toEntry);
 };
 
 const ALLOWED_HEAT_LEVELS = new Set([
