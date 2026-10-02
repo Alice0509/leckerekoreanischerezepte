@@ -1,8 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createRequire } from 'node:module';
-import nextEnv from '@next/env';
-import { createClient } from 'contentful';
 import { INDEXABLE_INGREDIENT_SLUGS } from '../lib/ingredientDetailRoutes.js';
 import {
   RECIPE_CATEGORY_ORDER,
@@ -11,21 +9,9 @@ import {
 
 const require = createRequire(import.meta.url);
 
-const { loadEnvConfig } = nextEnv;
 const {
   getRecipeDatasetFromSnapshot,
 } = require('../lib/contentfulBuildSnapshot.cjs');
-
-loadEnvConfig(process.cwd());
-
-const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
-const ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
-
-if (!SPACE_ID || !ACCESS_TOKEN) {
-  throw new Error(
-    'CONTENTFUL_SPACE_ID 또는 CONTENTFUL_ACCESS_TOKEN이 없습니다.'
-  );
-}
 
 const ROOT = process.cwd();
 const GENERATED_ROUTES_PATH = path.join(
@@ -42,13 +28,6 @@ const SITE_ORIGINS = {
 };
 
 const STATIC_SITEMAP_PATHS = ['/', '/about-us', '/gallery', '/ingredients'];
-
-const client = createClient({
-  space: SPACE_ID,
-  accessToken: ACCESS_TOKEN,
-});
-
-const localizedClient = client.withAllLocales;
 
 const normalizeSlug = (value) => {
   if (typeof value !== 'string') return '';
@@ -77,28 +56,6 @@ const getLocalizedValue = (localizedField, language) => {
   });
 
   return matchingLocale ? normalizeSlug(localizedField[matchingLocale]) : '';
-};
-
-const fetchRecipePage = async ({ skip, limit }) => {
-  const baseQuery = {
-    content_type: 'recipe',
-    skip,
-    limit,
-    include: 0,
-  };
-
-  try {
-    return await localizedClient.getEntries({
-      ...baseQuery,
-      select: ['sys.id', 'sys.updatedAt', 'fields.slug'],
-    });
-  } catch (error) {
-    console.warn(
-      'Contentful select 쿼리를 사용할 수 없어 전체 필드 조회로 다시 시도합니다.'
-    );
-
-    return localizedClient.getEntries(baseQuery);
-  }
 };
 
 const getSnapshotRecipesWithAllLocales = () => {
@@ -150,33 +107,15 @@ const getSnapshotRecipesWithAllLocales = () => {
 const fetchAllRecipes = async () => {
   const snapshotRecipes = getSnapshotRecipesWithAllLocales();
 
-  if (snapshotRecipes) {
-    console.log(
-      `[seo assets] build snapshot: ${snapshotRecipes.length} recipes`
-    );
-
-    return snapshotRecipes;
+  if (!snapshotRecipes) {
+    throw new Error('Missing recipe build snapshot.');
   }
 
-  console.log('[seo assets] Contentful fallback');
+  console.log(
+    `[seo assets] build snapshot: ${snapshotRecipes.length} recipes`
+  );
 
-  const limit = 1000;
-  let skip = 0;
-  const items = [];
-
-  while (true) {
-    const response = await fetchRecipePage({ skip, limit });
-
-    items.push(...response.items);
-
-    if (response.items.length === 0 || items.length >= response.total) {
-      break;
-    }
-
-    skip += response.items.length;
-  }
-
-  return items;
+  return snapshotRecipes;
 };
 
 const toIsoDate = (value) => {

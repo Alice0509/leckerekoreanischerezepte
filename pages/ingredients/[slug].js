@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import client from '../../lib/contentful';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -565,15 +564,13 @@ export async function getStaticPaths({ locales }) {
 
       const snapshotEntries = getIngredientEntriesFromSnapshot(mappedLocale);
 
-      const res = snapshotEntries
-        ? { items: snapshotEntries }
-        : await client.getEntries({
-            content_type: 'ingredient',
-            select: 'fields.slug,fields.description',
-            locale: mappedLocale,
-            include: 0,
-            limit: 1000,
-          });
+      if (!snapshotEntries) {
+        throw new Error(
+          `Missing ${mappedLocale.toUpperCase()} ingredient snapshot.`
+        );
+      }
+
+      const res = { items: snapshotEntries };
 
       const seenSlugs = new Set();
 
@@ -619,10 +616,9 @@ export async function getStaticPaths({ locales }) {
   }
 }
 
-export async function getStaticProps({ params, locale, revalidateReason }) {
+export async function getStaticProps({ params, locale }) {
   try {
     const mappedLocale = locale === 'de' ? 'de' : 'en';
-    const useBuildSnapshot = revalidateReason === 'build';
     const requestedSlug = params.slug;
     const slugResolution = resolveIngredientSlug(requestedSlug);
 
@@ -644,62 +640,24 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
       };
     }
 
-    let ingredientRes = useBuildSnapshot
-      ? getIngredientResponseFromSnapshot({
-          locale: mappedLocale,
-          entryId: slugResolution?.primaryEntryId || null,
-          slug: requestedSlug,
-        })
-      : null;
+    let ingredientRes = getIngredientResponseFromSnapshot({
+      locale: mappedLocale,
+      entryId: slugResolution?.primaryEntryId || null,
+      slug: requestedSlug,
+    });
 
     if (!ingredientRes) {
-      if (slugResolution?.primaryEntryId) {
-        ingredientRes = await client.getEntries({
-          content_type: 'ingredient',
-          'sys.id': slugResolution.primaryEntryId,
-          locale: mappedLocale,
-          include: 1,
-          limit: 1,
-        });
-      } else {
-        ingredientRes = await client.getEntries({
-          content_type: 'ingredient',
-          'fields.slug': requestedSlug,
-          locale: mappedLocale,
-          include: 1,
-          limit: 1,
-        });
-      }
+      throw new Error(
+        `Missing ${mappedLocale.toUpperCase()} ingredient snapshot for ${requestedSlug}.`
+      );
     }
 
     if (!ingredientRes.items.length && mappedLocale === 'de') {
-      ingredientRes = useBuildSnapshot
-        ? getIngredientResponseFromSnapshot({
-            locale: 'en',
-            entryId: slugResolution?.primaryEntryId || null,
-            slug: requestedSlug,
-          })
-        : null;
-
-      if (!ingredientRes) {
-        if (slugResolution?.primaryEntryId) {
-          ingredientRes = await client.getEntries({
-            content_type: 'ingredient',
-            'sys.id': slugResolution.primaryEntryId,
-            locale: 'en',
-            include: 1,
-            limit: 1,
-          });
-        } else {
-          ingredientRes = await client.getEntries({
-            content_type: 'ingredient',
-            'fields.slug': requestedSlug,
-            locale: 'en',
-            include: 1,
-            limit: 1,
-          });
-        }
-      }
+      ingredientRes = getIngredientResponseFromSnapshot({
+        locale: 'en',
+        entryId: slugResolution?.primaryEntryId || null,
+        slug: requestedSlug,
+      });
     }
 
     if (!ingredientRes.items.length) {
@@ -724,34 +682,19 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
       seoDescription: item.fields.seoDescription || null,
     };
 
-    let favoriteRes = useBuildSnapshot
-      ? getFavoriteResponseFromSnapshot(mappedLocale, ingredient.id)
-      : null;
+    let favoriteRes = getFavoriteResponseFromSnapshot(
+      mappedLocale,
+      ingredient.id
+    );
 
     if (!favoriteRes) {
-      favoriteRes = await client.getEntries({
-        content_type: 'favoriteItem',
-        locale: mappedLocale,
-        include: 2,
-        limit: 1000,
-        'fields.relatedIngredients.sys.id': ingredient.id,
-      });
+      throw new Error(
+        `Missing ${mappedLocale.toUpperCase()} favorite snapshot.`
+      );
     }
 
     if (!favoriteRes.items.length && mappedLocale === 'de') {
-      favoriteRes = useBuildSnapshot
-        ? getFavoriteResponseFromSnapshot('en', ingredient.id)
-        : null;
-
-      if (!favoriteRes) {
-        favoriteRes = await client.getEntries({
-          content_type: 'favoriteItem',
-          locale: 'en',
-          include: 2,
-          limit: 1000,
-          'fields.relatedIngredients.sys.id': ingredient.id,
-        });
-      }
+      favoriteRes = getFavoriteResponseFromSnapshot('en', ingredient.id);
     }
 
     const favoriteProducts = favoriteRes.items.map((fav) => {

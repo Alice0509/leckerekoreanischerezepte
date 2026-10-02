@@ -1,6 +1,8 @@
 // pages/index.js
 import React, { useState, useMemo, useEffect } from 'react';
-import client from '../lib/contentful';
+import contentfulBuildSnapshot from '../lib/contentfulBuildSnapshot.cjs';
+
+const { getRecipeDatasetFromSnapshot } = contentfulBuildSnapshot;
 import Fuse from 'fuse.js';
 import styles from '../styles/Home.module.css';
 import { getSeoUrls } from '../lib/siteUrls';
@@ -31,14 +33,11 @@ export async function getStaticProps({ locale }) {
       };
     }
 
-    const recipeRes = await client.getEntries({
-      content_type: 'recipe',
-      locale: mappedLocale,
-      include: 1,
-      select:
-        'fields.slug,fields.titel,fields.category,fields.categories,fields.image,fields.youTubeUrl,fields.description',
-      limit: 1000,
-    });
+    const recipeRes = getRecipeDatasetFromSnapshot(mappedLocale);
+
+    if (!recipeRes?.items) {
+      throw new Error(`Missing ${mappedLocale.toUpperCase()} recipe snapshot.`);
+    }
 
     const assetsMap = {};
     recipeRes.includes.Asset?.forEach((asset) => {

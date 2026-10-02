@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
-import client from '../../lib/contentful';
 import Image from 'next/image';
 import styles from '../../styles/RecipeDetail.module.css';
 import { getRecipeSeoUrls } from '../../lib/localizedRoutes';
@@ -19,10 +18,6 @@ import Timer from '../../components/Timer';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
 import Head from 'next/head';
-import contentfulPagination from '../../lib/contentfulPagination.cjs';
-
-const { fetchAllEntries } = contentfulPagination;
-
 import contentfulBuildSnapshot from '../../lib/contentfulBuildSnapshot.cjs';
 import {
   readPersistedCheckIds,
@@ -427,26 +422,6 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
   return defaultGuide;
 };
 
-const relatedRecipeCatalogCache = new Map();
-
-const getRelatedRecipeCatalog = (locale) => {
-  if (!relatedRecipeCatalogCache.has(locale)) {
-    const request = fetchAllEntries(client, {
-      content_type: 'recipe',
-      locale,
-      include: 1,
-      select: 'sys.id,fields.slug,fields.titel,fields.image,fields.categories',
-    }).catch((error) => {
-      relatedRecipeCatalogCache.delete(locale);
-      throw error;
-    });
-
-    relatedRecipeCatalogCache.set(locale, request);
-  }
-
-  return relatedRecipeCatalogCache.get(locale);
-};
-
 export async function getStaticPaths({ locales }) {
   try {
     const allPaths = [];
@@ -454,14 +429,13 @@ export async function getStaticPaths({ locales }) {
     for (const locale of locales) {
       const mappedLocale = locale === 'de' ? 'de' : 'en';
 
-      const recipeEntries =
-        getRecipeEntriesFromSnapshot(mappedLocale) ||
-        (await fetchAllEntries(client, {
-          content_type: 'recipe',
-          select: 'fields.slug',
-          locale: mappedLocale,
-          include: 0,
-        }));
+      const recipeEntries = getRecipeEntriesFromSnapshot(mappedLocale);
+
+      if (!recipeEntries) {
+        throw new Error(
+          `Missing ${mappedLocale.toUpperCase()} recipe snapshot.`
+        );
+      }
 
       const localePaths = recipeEntries
         .filter((item) => item.fields.slug)
@@ -486,24 +460,17 @@ export async function getStaticPaths({ locales }) {
   }
 }
 
-export async function getStaticProps({ params, locale, revalidateReason }) {
+export async function getStaticProps({ params, locale }) {
   try {
     const { slug } = params;
     const mappedLocale = locale === 'de' ? 'de' : 'en';
-    const useBuildSnapshot = revalidateReason === 'build';
+    const res = getRecipeResponseFromSnapshot(mappedLocale, slug);
 
-    const snapshotResponse = useBuildSnapshot
-      ? getRecipeResponseFromSnapshot(mappedLocale, slug)
-      : null;
-
-    const res =
-      snapshotResponse ||
-      (await client.getEntries({
-        content_type: 'recipe',
-        'fields.slug': slug.toLowerCase(),
-        locale: mappedLocale,
-        include: 3,
-      }));
+    if (!res) {
+      throw new Error(
+        `Missing ${mappedLocale.toUpperCase()} recipe snapshot for ${slug}.`
+      );
+    }
 
     if (!res.items.length) {
       return { props: { recipe: null } };
@@ -630,9 +597,13 @@ export async function getStaticProps({ params, locale, revalidateReason }) {
 
     if (categoryEntryId) {
       try {
-        const recipeCatalog =
-          (useBuildSnapshot && getRecipeEntriesFromSnapshot(mappedLocale)) ||
-          (await getRelatedRecipeCatalog(mappedLocale));
+        const recipeCatalog = getRecipeEntriesFromSnapshot(mappedLocale);
+
+        if (!recipeCatalog) {
+          throw new Error(
+            `Missing ${mappedLocale.toUpperCase()} recipe snapshot.`
+          );
+        }
 
         const categoryRecipes = recipeCatalog.filter(
           (item) => getRecipeCategoryEntryId(item.fields) === categoryEntryId
