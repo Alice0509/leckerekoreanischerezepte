@@ -446,6 +446,7 @@ const makeLocaleEntries = (locale) => {
       seoTitle: localized(doc.seoTitle, locale),
       seoDescription: localized(doc.seoDescription, locale),
       updatedDate: doc.updatedDate,
+      legacyContentfulUpdatedAt: doc.legacyContentfulUpdatedAt,
     })
   );
 

@@ -804,6 +804,8 @@ function transformEntry(entry) {
       ),
       updatedDate:
         unwrap(fields.updatedDate),
+      legacyContentfulUpdatedAt:
+        entry.sys?.updatedAt,
     }
   }
 
