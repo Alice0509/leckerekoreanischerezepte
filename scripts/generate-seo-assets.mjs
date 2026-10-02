@@ -79,18 +79,24 @@ const getSnapshotRecipesWithAllLocales = () => {
       const current = recipesById.get(id) || {
         sys: {
           id,
-          updatedAt: entry.sys?.updatedAt || '',
+          updatedAt: '',
         },
         fields: {
           slug: {},
         },
       };
 
+      const publicUpdatedAt =
+        entry.fields?.updatedDate ||
+        entry.fields?.legacyContentfulUpdatedAt ||
+        entry.sys?.updatedAt ||
+        '';
+
       const currentUpdatedAt = new Date(current.sys.updatedAt || 0).getTime();
-      const entryUpdatedAt = new Date(entry.sys?.updatedAt || 0).getTime();
+      const entryUpdatedAt = new Date(publicUpdatedAt || 0).getTime();
 
       if (entryUpdatedAt > currentUpdatedAt) {
-        current.sys.updatedAt = entry.sys.updatedAt;
+        current.sys.updatedAt = publicUpdatedAt;
       }
 
       current.fields.slug[locale] = entry.fields?.slug || '';

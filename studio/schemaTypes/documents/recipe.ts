@@ -15,6 +15,15 @@ export const recipe = defineType({
     }),
 
     defineField({
+      name: 'legacyContentfulUpdatedAt',
+      title: 'Legacy Contentful updated at',
+      type: 'datetime',
+      description: 'Original Contentful sys.updatedAt preserved for migration history.',
+      readOnly: true,
+      hidden: true,
+    }),
+
+    defineField({
       name: 'titel',
       title: 'Title',
       type: 'localizedString',
