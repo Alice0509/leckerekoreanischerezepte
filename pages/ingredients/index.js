@@ -4,7 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { getSeoUrls } from '../../lib/siteUrls';
-import client from '../../lib/contentful';
+import contentfulBuildSnapshot from '../../lib/contentfulBuildSnapshot.cjs';
+
+const { getIngredientDatasetFromSnapshot } = contentfulBuildSnapshot;
 import {
   getCanonicalIngredientEntryId,
   getCanonicalIngredientSlug,
@@ -72,12 +74,13 @@ export async function getStaticProps({ locale }) {
       };
     }
 
-    const res = await client.getEntries({
-      content_type: 'ingredient',
-      locale: mappedLocale,
-      include: 1,
-      limit: 1000,
-    });
+    const res = getIngredientDatasetFromSnapshot(mappedLocale);
+
+    if (!res?.items) {
+      throw new Error(
+        `Missing ${mappedLocale.toUpperCase()} ingredient snapshot.`
+      );
+    }
 
     if (!res.items) {
       console.warn(

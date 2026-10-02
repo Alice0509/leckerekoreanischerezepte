@@ -1,26 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import nextEnv from '@next/env';
-import { createClient } from 'contentful';
+import { createRequire } from 'node:module';
 
-const { loadEnvConfig } = nextEnv;
-loadEnvConfig(process.cwd());
-
-const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
-const ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
-
-if (!SPACE_ID || !ACCESS_TOKEN) {
-  throw new Error(
-    'CONTENTFUL_SPACE_ID 또는 CONTENTFUL_ACCESS_TOKEN이 없습니다.'
-  );
-}
-
-const client = createClient({
-  space: SPACE_ID,
-  accessToken: ACCESS_TOKEN,
-});
-
-const allLocalesClient = client.withAllLocales;
+const require = createRequire(import.meta.url);
+const { getRecipeDatasetFromSnapshot } =
+  require('../lib/contentfulBuildSnapshot.cjs');
 
 const CANONICAL_CATEGORIES = {
   '7yj6rIPLvfnAKYEbtXJfGZ': {
@@ -90,8 +74,20 @@ const richTextToPlainText = (value, seen = new WeakSet()) => {
 
 const getPlainText = (value) => normalizeWhitespace(richTextToPlainText(value));
 
-const getLocalizedValue = (entry, field, locale) =>
-  entry?.fields?.[field]?.[locale];
+const getLocalizedValue = (entry, field, locale) => {
+  const value = entry?.fields?.[field];
+
+  if (
+    value &&
+    typeof value === 'object' &&
+    !Array.isArray(value) &&
+    locale in value
+  ) {
+    return value[locale];
+  }
+
+  return value;
+};
 
 const getLocalizedText = (entry, field, locale) =>
   getPlainText(getLocalizedValue(entry, field, locale));
@@ -133,28 +129,32 @@ const getEntryLabel = (entry, locale) => {
 };
 
 const fetchAllRecipes = async () => {
-  const recipes = [];
-  const limit = 1000;
-  let skip = 0;
+  const de = getRecipeDatasetFromSnapshot('de');
+  const en = getRecipeDatasetFromSnapshot('en');
 
-  while (true) {
-    const response = await allLocalesClient.getEntries({
-      content_type: 'recipe',
-      include: 4,
-      limit,
-      skip,
-    });
-
-    recipes.push(...response.items);
-
-    if (response.items.length === 0 || recipes.length >= response.total) {
-      break;
-    }
-
-    skip += response.items.length;
+  if (!de?.items || !en?.items) {
+    throw new Error('Missing DE/EN recipe snapshot.');
   }
 
-  return recipes;
+  const enById = new Map(en.items.map((entry) => [entry.sys.id, entry]));
+
+  return de.items.map((deEntry) => {
+    const enEntry = enById.get(deEntry.sys.id);
+    const names = new Set([
+      ...Object.keys(deEntry?.fields || {}),
+      ...Object.keys(enEntry?.fields || {}),
+    ]);
+    const fields = {};
+
+    for (const name of names) {
+      fields[name] = {
+        de: deEntry?.fields?.[name],
+        en: enEntry?.fields?.[name],
+      };
+    }
+
+    return { sys: deEntry.sys, fields };
+  });
 };
 
 const recipes = await fetchAllRecipes();

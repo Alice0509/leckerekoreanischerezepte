@@ -27,6 +27,7 @@ const query = `{
   "steps": *[_type == "step"] | order(_createdAt asc),
   "categories": *[_type == "category"] | order(_createdAt asc),
   "favorites": *[_type == "favoriteItem"] | order(_createdAt asc),
+  "galleries": *[_type == "gallery"] | order(_createdAt asc),
   "assets": *[_type in ["sanity.imageAsset", "sanity.fileAsset"]]{
     _id,
     _type,
@@ -409,6 +410,15 @@ const makeLocaleEntries = (locale) => {
     })
   );
 
+  const galleries = (data.galleries || []).map((doc) =>
+    makeEntry(doc, 'gallery', locale, {
+      titel: localized(doc.titel, locale),
+      bild: assetToContentful(doc.bild, locale),
+      location: localized(doc.location, locale),
+      businessName: localized(doc.businessName, locale),
+    })
+  );
+
   const recipes = (data.recipes || []).map((doc) =>
     makeEntry(doc, 'recipe', locale, {
       titel: localized(doc.titel, locale),
@@ -468,6 +478,9 @@ const makeLocaleEntries = (locale) => {
       Entry: [...ingredients.values()],
       Asset: allAssets,
     }),
+    galleries: response(galleries, {
+      Asset: allAssets,
+    }),
   };
 };
 
@@ -506,6 +519,12 @@ for (const locale of ['de', 'en']) {
   if (localeData.favorites.items.length !== 4) {
     throw new Error(
       `Expected 4 ${locale.toUpperCase()} favorites, got ${localeData.favorites.items.length}`
+    );
+  }
+
+  if (localeData.galleries.items.length !== 5) {
+    throw new Error(
+      `Expected 5 ${locale.toUpperCase()} galleries, got ${localeData.galleries.items.length}`
     );
   }
 }

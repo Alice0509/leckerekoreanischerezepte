@@ -1,6 +1,9 @@
 // pages/gallery.js
 import { useEffect, useState } from 'react';
-import client from '../lib/contentful';
+import contentfulBuildSnapshot from '../lib/contentfulBuildSnapshot.cjs';
+
+const { getFavoriteDatasetFromSnapshot, getGalleryDatasetFromSnapshot } =
+  contentfulBuildSnapshot;
 import Image from 'next/image';
 import styles from '../styles/Gallery.module.css';
 import { useRouter } from 'next/router';
@@ -14,18 +17,12 @@ export async function getStaticProps({ locale }) {
   const lang = locale === 'de' ? 'de' : 'en';
 
   // ── Gallery items ─────────────────────────────
-  const galleryRes = await client.getEntries({
-    content_type: 'gallery',
-    locale: lang,
-    include: 2,
-  });
+  const galleryRes = getGalleryDatasetFromSnapshot(lang);
+  const favRes = getFavoriteDatasetFromSnapshot(lang);
 
-  // ── Favorite items ────────────────────────────
-  const favRes = await client.getEntries({
-    content_type: 'favoriteItem',
-    locale: lang,
-    include: 1,
-  });
+  if (!galleryRes?.items || !favRes?.items) {
+    throw new Error(`Missing ${lang.toUpperCase()} gallery snapshot.`);
+  }
 
   const galleryItems = galleryRes.items.map((it) => {
     const imgAsset =

@@ -1,9 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createRequire } from 'node:module';
-import nextEnv from '@next/env';
-import { createClient } from 'contentful';
-import contentfulPagination from '../lib/contentfulPagination.cjs';
 import {
   getCanonicalIngredientEntryId,
   getCanonicalIngredientSlug,
@@ -11,22 +8,9 @@ import {
 
 const require = createRequire(import.meta.url);
 
-const { loadEnvConfig } = nextEnv;
-const { fetchAllEntriesResponse } = contentfulPagination;
 const {
   getRecipeDatasetFromSnapshot,
 } = require('../lib/contentfulBuildSnapshot.cjs');
-
-loadEnvConfig(process.cwd());
-
-const SPACE_ID = process.env.CONTENTFUL_SPACE_ID;
-const ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
-
-if (!SPACE_ID || !ACCESS_TOKEN) {
-  throw new Error(
-    'CONTENTFUL_SPACE_ID 또는 CONTENTFUL_ACCESS_TOKEN이 없습니다.'
-  );
-}
 
 const ROOT = process.cwd();
 const INGREDIENT_INDEX_OUTPUT_PATH = path.join(
@@ -43,11 +27,6 @@ const COOKING_PLAN_OUTPUT_PATH = path.join(
 
 const LOCALES = ['de', 'en'];
 const DEFAULT_IMAGE = '/images/default.png';
-
-const client = createClient({
-  space: SPACE_ID,
-  accessToken: ACCESS_TOKEN,
-});
 
 const getContentTypeId = (entry) => entry?.sys?.contentType?.sys?.id || '';
 
@@ -70,20 +49,16 @@ const getAssetUrl = (imageField, assetById) => {
 };
 
 const createLocaleIndex = async (locale) => {
-  const snapshotResponse = getRecipeDatasetFromSnapshot(locale);
+  const response = getRecipeDatasetFromSnapshot(locale);
 
-  const response =
-    snapshotResponse ||
-    (await fetchAllEntriesResponse(client, {
-      content_type: 'recipe',
-      locale,
-      include: 2,
-    }));
+  if (!response?.items) {
+    throw new Error(
+      `Missing ${locale.toUpperCase()} recipe snapshot.`
+    );
+  }
 
   console.log(
-    `[ingredient index] ${locale.toUpperCase()}: ${
-      snapshotResponse ? 'build snapshot' : 'Contentful fallback'
-    }`
+    `[ingredient index] ${locale.toUpperCase()}: build snapshot`
   );
 
   const includedEntries = response.includes?.Entry || [];

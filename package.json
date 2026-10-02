@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:checked": "npm run audit:content && npm run build",
+    "build:checked": "npm run generate:sanity-snapshot && npm run audit:content && npm run build",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write .",
