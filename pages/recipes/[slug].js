@@ -645,7 +645,10 @@ export async function getStaticProps({ params, locale }) {
       seoTitle: recipeEntry.fields.seoTitle || null,
       seoDescription: recipeEntry.fields.seoDescription || null,
       updatedDate:
-        recipeEntry.fields.updatedDate || recipeEntry.sys.updatedAt || null,
+        recipeEntry.fields.updatedDate ||
+        recipeEntry.fields.legacyContentfulUpdatedAt ||
+        recipeEntry.sys.updatedAt ||
+        null,
     };
 
     return {
