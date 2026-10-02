@@ -779,7 +779,9 @@ function transformEntry(entry) {
         `${id}.videoFile`
       ),
       youTubeUrl:
-        unwrap(fields.youTubeUrl),
+        typeof unwrap(fields.youTubeUrl) === 'string'
+          ? unwrap(fields.youTubeUrl)
+          : undefined,
       slug: localizedObject(
         fields.slug,
         'localizedSlug'
