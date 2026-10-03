@@ -164,6 +164,12 @@ module.exports = withPWA(
       remotePatterns: [
         {
           protocol: 'https',
+          hostname: 'cdn.sanity.io',
+          port: '',
+          pathname: '/images/o9hshko6/production/**',
+        },
+        {
+          protocol: 'https',
           hostname: 'images.ctfassets.net',
         },
         {
