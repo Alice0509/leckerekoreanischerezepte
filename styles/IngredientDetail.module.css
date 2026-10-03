@@ -941,3 +941,7 @@
     margin-top: 42px;
   }
 }
+
+.overviewGridWithoutImage {
+  grid-template-columns: 1fr;
+}

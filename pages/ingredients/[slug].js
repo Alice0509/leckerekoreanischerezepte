@@ -21,8 +21,10 @@ import contentfulBuildSnapshot from '../../lib/contentfulBuildSnapshot.cjs';
 import purchaseLinks from '../../lib/purchaseLinks.cjs';
 import PurchaseLink from '../../components/PurchaseLink';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure';
+import ingredientGuideProfiles from '../../lib/ingredientGuideProfiles.cjs';
 
 const { getPurchaseLinks } = purchaseLinks;
+const { getIngredientGuideProfile } = ingredientGuideProfiles;
 
 const {
   getIngredientEntriesFromSnapshot,
@@ -41,13 +43,11 @@ const ingredientCache = {};
 const richTextToPlainText = (content) => {
   if (!content) return '';
   if (typeof content === 'string') return content.trim();
+  if (content.nodeType === 'text') return content.value || '';
 
   if (content.content && Array.isArray(content.content)) {
     return content.content
-      .map((block) => {
-        if (!block?.content) return '';
-        return block.content.map((node) => node.value || '').join('');
-      })
+      .map(richTextToPlainText)
       .join(' ')
       .replace(/\s+/g, ' ')
       .trim();
@@ -72,6 +72,9 @@ const hasAnyKeyword = (value, keywords) => {
 };
 
 const getIngredientGuide = ({ mainTitle, subTitle, slug, mappedLocale }) => {
+  const specificGuide = getIngredientGuideProfile(slug, mappedLocale);
+  if (specificGuide) return specificGuide;
+
   const label = mainTitle || 'Zutat';
   const cleanLabel = stripParentheses(label);
   const combined = `${label} ${subTitle || ''} ${slug || ''}`;
@@ -521,7 +524,7 @@ const getFaqItems = ({ guide, mainTitle, mappedLocale }) => {
     return [
       {
         question: `Wo kann ich ${label} in Deutschland kaufen?`,
-        answer: `Meist findest du ${label} im Asia-Markt, in koreanischen Online-Shops oder in größeren Supermärkten mit gutem Asia-Regal.`,
+        answer: guide.buyPlaces.join(', '),
       },
       {
         question: `Wofür verwendet man ${label}?`,
@@ -534,7 +537,8 @@ const getFaqItems = ({ guide, mainTitle, mappedLocale }) => {
       {
         question: `Wie lagere ich ${label}?`,
         answer:
-          'Orientiere dich immer an der Verpackung. Viele koreanische Pasten und geöffnete Produkte bleiben gut verschlossen im Kühlschrank am besten.',
+          guide.storage ||
+          'Beachte die Aufbewahrungshinweise auf der Verpackung.',
       },
     ];
   }
@@ -542,7 +546,7 @@ const getFaqItems = ({ guide, mainTitle, mappedLocale }) => {
   return [
     {
       question: `Where can I buy ${label}?`,
-      answer: `You can usually find ${label} in Asian grocery stores, Korean online shops, or larger supermarkets with a good Asian food section.`,
+      answer: guide.buyPlaces.join(', '),
     },
     {
       question: `How do I use ${label}?`,
@@ -555,7 +559,7 @@ const getFaqItems = ({ guide, mainTitle, mappedLocale }) => {
     {
       question: `How should I store ${label}?`,
       answer:
-        'Always follow the package instructions. Many Korean pastes and opened products keep best sealed in the fridge.',
+        guide.storage || 'Follow the storage instructions on the package.',
     },
   ];
 };
@@ -931,7 +935,7 @@ const IngredientDetail = ({
           {subTitle && <p className={styles.subtitle}>{subTitle}</p>}
           <p className={styles.heroText}>{guide.intro}</p>
           <section
-            className={styles.overviewGrid}
+            className={`${styles.overviewGrid} ${!bild ? styles.overviewGridWithoutImage : ''}`}
             aria-label="Ingredient overview"
           >
             {bild && (
@@ -1000,6 +1004,58 @@ const IngredientDetail = ({
             </Link>
           </nav>
         </header>
+
+        <section
+          className={styles.guideSection}
+          aria-labelledby="ingredient-description-title"
+        >
+          <h2 id="ingredient-description-title">
+            {isGerman ? 'Was ist diese Zutat?' : 'What is this ingredient?'}
+          </h2>
+          <div className={styles.description}>
+            {richTextToPlainText(description) ? (
+              documentToReactComponents(description)
+            ) : (
+              <p>{guide.intro}</p>
+            )}
+          </div>
+        </section>
+
+        <section className={styles.guideGrid}>
+          <article className={styles.infoCard}>
+            <h2>{isGerman ? 'Wo kaufen?' : 'Where to buy it'}</h2>
+            <ul>
+              {guide.buyPlaces.map((place) => (
+                <li key={place}>{place}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className={styles.infoCard}>
+            <h2>{isGerman ? 'Wofür verwenden?' : 'How to use it'}</h2>
+            <ul>
+              {guide.uses.map((use) => (
+                <li key={use}>{use}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className={styles.infoCard}>
+            <h2>{isGerman ? 'Worauf achten?' : 'What to check'}</h2>
+            <ul>
+              {guide.tips.map((tip) => (
+                <li key={tip}>{tip}</li>
+              ))}
+            </ul>
+          </article>
+        </section>
+
+        <section className={styles.guideSection}>
+          <h2>
+            {isGerman ? 'Kann man es ersetzen?' : 'Can you substitute it?'}
+          </h2>
+          <p className={styles.substituteText}>{guide.substitute}</p>
+        </section>
 
         {relatedRecipes.length > 0 && (
           <section id="recipes" className={styles.relatedSection}>
@@ -1077,63 +1133,6 @@ const IngredientDetail = ({
                         />
                       </div>
                     )}
-
-                    <section className={styles.guideSection}>
-                      <h2>
-                        {isGerman
-                          ? 'Was ist diese Zutat?'
-                          : 'What is this ingredient?'}
-                      </h2>
-                      <div className={styles.description}>
-                        {description
-                          ? documentToReactComponents(description)
-                          : isGerman
-                            ? 'Keine Beschreibung verfügbar.'
-                            : 'No description available.'}
-                      </div>
-                    </section>
-
-                    <section className={styles.guideGrid}>
-                      <article className={styles.infoCard}>
-                        <h2>{isGerman ? 'Wo kaufen?' : 'Where to buy it'}</h2>
-                        <ul>
-                          {guide.buyPlaces.map((place) => (
-                            <li key={place}>{place}</li>
-                          ))}
-                        </ul>
-                      </article>
-
-                      <article className={styles.infoCard}>
-                        <h2>
-                          {isGerman ? 'Wofür verwenden?' : 'How to use it'}
-                        </h2>
-                        <ul>
-                          {guide.uses.map((use) => (
-                            <li key={use}>{use}</li>
-                          ))}
-                        </ul>
-                      </article>
-
-                      <article className={styles.infoCard}>
-                        <h2>{isGerman ? 'Worauf achten?' : 'What to check'}</h2>
-                        <ul>
-                          {guide.tips.map((tip) => (
-                            <li key={tip}>{tip}</li>
-                          ))}
-                        </ul>
-                      </article>
-                    </section>
-
-                    <section className={styles.guideSection}>
-                      <h2>
-                        {isGerman
-                          ? 'Kann man es ersetzen?'
-                          : 'Can you substitute it?'}
-                      </h2>
-                      <p className={styles.substituteText}>
-                        {guide.substitute}
-                      </p>
-                    </section>
 
                     <div className={styles.favoriteContent}>
                       <h3>{product.title}</h3>
