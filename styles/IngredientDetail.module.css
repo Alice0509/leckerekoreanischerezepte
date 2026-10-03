@@ -199,6 +199,14 @@
   min-height: 44px;
 }
 
+.shoppingLinks li + li {
+  margin-top: 20px;
+}
+
+.shoppingRegion .shoppingProductTitle {
+  margin-bottom: 6px;
+}
+
 .substituteText,
 .sectionIntro {
   color: #4a423c;

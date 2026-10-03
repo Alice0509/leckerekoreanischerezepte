@@ -1069,7 +1069,11 @@ const IngredientDetail = ({
                   {group.stores.length > 0 && (
                     <ul className={styles.shoppingLinks}>
                       {group.stores.map((store) => (
-                        <li key={store.name}>
+                        <li key={`${store.name}:${store.productTitle}`}>
+                          <p className={styles.shoppingProductTitle}>
+                            <strong>{store.productTitle}</strong>
+                          </p>
+                          <p>{store.note}</p>
                           <PurchaseLink
                             link={store.link}
                             locale={mappedLocale}
