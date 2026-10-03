@@ -270,6 +270,16 @@ module.exports = withPWA(
       return [
         ...getLegacyRecipeRedirects(),
         ...getLocalizedRecipeRedirects(),
+        ...[
+          ['de', 'www.leckere-koreanische-rezepte.de'],
+          ['en', 'www.hansikyoung.com'],
+        ].map(([locale, host]) => ({
+          source: `/${locale}/ingredients/Gochujang`,
+          has: [{ type: 'host', value: host }],
+          destination: `https://${host}/ingredients/gochujang`,
+          permanent: true,
+          locale: false,
+        })),
         {
           source: '/de/ingredients/-gebraute-sojasosse',
           has: [

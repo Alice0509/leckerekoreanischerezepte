@@ -949,8 +949,11 @@ const RecipeDetail = ({ recipe, error }) => {
       ? `${titel || 'Rezept'} Rezept | ${category || 'Korean Food'} | Hansik Young`
       : `${titel || 'Recipe'} Recipe | ${category || 'Korean Food'} | Hansik Young`;
 
-  const pageTitle = seoTitle
-    ? `${stripHtmlLikeWhitespace(seoTitle)} | Hansik Young`
+  const cleanSeoTitle = stripHtmlLikeWhitespace(seoTitle || '');
+  const pageTitle = cleanSeoTitle
+    ? /\|\s*Hansik Young\s*$/i.test(cleanSeoTitle)
+      ? cleanSeoTitle
+      : `${cleanSeoTitle} | Hansik Young`
     : fallbackPageTitle;
 
   const seoUrls = getRecipeSeoUrls({
@@ -1246,8 +1249,8 @@ const RecipeDetail = ({ recipe, error }) => {
                 <p className={styles.ingredientsHelp}>
                   {ingredients.some(shouldLinkIngredient)
                     ? mappedLocale === 'de'
-                      ? 'Hake ab, was du schon zu Hause hast oder beim Einkaufen in den Wagen gelegt hast. Über „Guide“ findest du weitere Informationen.'
-                      : 'Check off what you already have at home or add to your cart while shopping. Open “Guide” for ingredient details.'
+                      ? 'Hake ab, was du schon zu Hause hast oder beim Einkaufen in den Wagen gelegt hast. Klicke auf einen verlinkten Zutatennamen, um mehr darüber zu erfahren.'
+                      : 'Check off what you already have at home or add to your cart while shopping. Select a linked ingredient name for details.'
                     : mappedLocale === 'de'
                       ? 'Hake ab, was du schon zu Hause hast oder beim Einkaufen in den Wagen gelegt hast.'
                       : 'Check off what you already have at home or add to your cart while shopping.'}
@@ -1270,37 +1273,40 @@ const RecipeDetail = ({ recipe, error }) => {
                         <input
                           id={checkboxId}
                           type="checkbox"
+                          aria-label={ingredient.name}
                           checked={checkedIngredients[index]}
                           onChange={() => handleIngredientCheckboxChange(index)}
                           className={styles.ingredientCheckbox}
                         />
 
                         <div className={styles.ingredientContent}>
+                          {hasIngredientGuide ? (
+                            <Link
+                              href={`/ingredients/${ingredient.slug}`}
+                              className={`${styles.ingredientNameLink} ${
+                                checkedIngredients[index] ? styles.checked : ''
+                              }`}
+                            >
+                              {ingredient.name}
+                            </Link>
+                          ) : (
+                            <label
+                              htmlFor={checkboxId}
+                              className={`${styles.ingredientCheckLabel} ${styles.ingredientName} ${
+                                checkedIngredients[index] ? styles.checked : ''
+                              }`}
+                            >
+                              {ingredient.name}
+                            </label>
+                          )}
                           <label
                             htmlFor={checkboxId}
                             className={`${styles.ingredientCheckLabel} ${
                               checkedIngredients[index] ? styles.checked : ''
                             }`}
                           >
-                            <span className={styles.ingredientName}>
-                              {ingredient.name}
-                            </span>{' '}
                             <strong>{ingredient.quantity}</strong>
                           </label>
-
-                          {hasIngredientGuide && (
-                            <Link
-                              href={`/ingredients/${ingredient.slug}`}
-                              className={styles.ingredientGuideLink}
-                              aria-label={
-                                mappedLocale === 'de'
-                                  ? `Guide zu ${ingredient.name} öffnen`
-                                  : `Open the guide for ${ingredient.name}`
-                              }
-                            >
-                              Guide
-                            </Link>
-                          )}
                         </div>
                       </li>
                     );

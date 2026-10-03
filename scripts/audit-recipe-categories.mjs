@@ -3,8 +3,9 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const { getRecipeDatasetFromSnapshot } =
-  require('../lib/contentfulBuildSnapshot.cjs');
+const {
+  getRecipeDatasetFromSnapshot,
+} = require('../lib/contentfulBuildSnapshot.cjs');
 
 const CANONICAL_CATEGORIES = {
   '7yj6rIPLvfnAKYEbtXJfGZ': {
@@ -226,13 +227,15 @@ for (const recipe of recipes) {
       );
     }
 
-    if (legacyDe !== expected.de) {
+    // Linked categories are sufficient for recipes created by the chat importer.
+    // Check legacy labels when present, without requiring duplicate text fields.
+    if (legacyDe && legacyDe !== expected.de) {
       issues.push(
         `Legacy category.de: expected "${expected.de}", found "${legacyDe || '(missing)'}"`
       );
     }
 
-    if (legacyEn !== expected.en) {
+    if (legacyEn && legacyEn !== expected.en) {
       issues.push(
         `Legacy category.en: expected "${expected.en}", found "${legacyEn || '(missing)'}"`
       );
