@@ -2,13 +2,14 @@ import {defineField, defineType} from 'sanity'
 
 export const ingredient = defineType({
   name: 'ingredient',
-  title: 'Ingredient',
+  title: '식재료 사전',
   type: 'document',
 
   fields: [
     defineField({
       name: 'legacyContentfulId',
-      title: 'Legacy Contentful ID',
+      hidden: true,
+      title: '이전 기록 ID',
       type: 'string',
       description: 'Original Contentful entry ID preserved for migration traceability.',
       readOnly: true,
@@ -16,25 +17,25 @@ export const ingredient = defineType({
 
     defineField({
       name: 'name',
-      title: 'Name',
+      title: '식재료 이름',
       type: 'localizedString',
     }),
 
     defineField({
       name: 'slug',
-      title: 'Slug',
+      title: '페이지 주소 · Slug',
       type: 'localizedSlug',
     }),
 
     defineField({
       name: 'germanMeatCut',
-      title: 'German meat cut',
+      title: '독일 정육점 명칭 · 선택',
       type: 'localizedString',
     }),
 
     defineField({
       name: 'bild',
-      title: 'Image',
+      title: '사진',
       type: 'image',
       options: {
         hotspot: true,
@@ -43,19 +44,19 @@ export const ingredient = defineType({
 
     defineField({
       name: 'description',
-      title: 'Description',
+      title: '식재료 소개',
       type: 'localizedPortableText',
     }),
 
     defineField({
       name: 'seoTitle',
-      title: 'SEO title',
+      title: '검색 결과 제목 · 선택',
       type: 'localizedString',
     }),
 
     defineField({
       name: 'seoDescription',
-      title: 'SEO description',
+      title: '검색 결과 설명 · 선택',
       type: 'localizedText',
     }),
   ],

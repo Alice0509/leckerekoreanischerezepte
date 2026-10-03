@@ -2,13 +2,14 @@ import {defineField, defineType} from 'sanity'
 
 export const category = defineType({
   name: 'category',
-  title: 'Category',
+  title: '분류',
   type: 'document',
 
   fields: [
     defineField({
       name: 'legacyContentfulId',
-      title: 'Legacy Contentful ID',
+      hidden: true,
+      title: '이전 기록 ID',
       type: 'string',
       description: 'Original Contentful entry ID preserved for migration traceability.',
       readOnly: true,
@@ -16,13 +17,13 @@ export const category = defineType({
 
     defineField({
       name: 'name',
-      title: 'Name',
+      title: '분류 이름',
       type: 'localizedString',
     }),
 
     defineField({
       name: 'image',
-      title: 'Image',
+      title: '사진',
       type: 'image',
       options: {
         hotspot: true,
@@ -31,7 +32,7 @@ export const category = defineType({
 
     defineField({
       name: 'order',
-      title: 'Order',
+      title: '표시 순서',
       type: 'number',
       validation: (Rule) => Rule.integer(),
     }),

@@ -35,7 +35,8 @@
     "generate:contentful-snapshot": "node scripts/generate-contentful-build-snapshot.mjs",
     "generate:recipe-page-data": "node scripts/generate-static-recipe-page-data.mjs",
     "audit:recipes:publishing": "node scripts/audit-recipe-publishing.mjs",
-    "generate:sanity-snapshot": "node scripts/generate-sanity-build-snapshot.mjs"
+    "generate:sanity-snapshot": "node scripts/generate-sanity-build-snapshot.mjs",
+    "test:recipe-editor": "node --test tests/recipe-editor.test.mjs"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^16.0.0",
