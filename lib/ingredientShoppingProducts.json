@@ -1,0 +1,90 @@
+{
+  "wheat-flour-type-550": {
+    "de": [
+      {
+        "name": "REWE",
+        "productTitle": "REWE Beste Wahl Weizenmehl Type 550 · 1 kg",
+        "note": "Produktbeispiel für die im Rezept genannte Mehlsorte. Verfügbarkeit und Preis hängen vom ausgewählten Standort ab.",
+        "url": "https://www.rewe.de/shop/p/rewe-beste-wahl-weizenmehl-type-550-1kg/9959918"
+      }
+    ]
+  },
+  "azukibeanpaste": {
+    "de": [
+      {
+        "name": "momogo",
+        "productTitle": "Imuraya Yude Azuki · 200 g",
+        "note": "Die auf dem Zutatenbild gezeigte Produktlinie, hier in einer 200-g-Dose. Süß eingekochte Bohnen mit Stückchen; für eine Brötchenfüllung sollte die Masse ihre Form halten.",
+        "url": "https://www.momogo.de/produkt/imuraya-yude-azuki-200g-susse-japanische-rotbohnen-in-dosen"
+      }
+    ],
+    "en": [
+      {
+        "name": "Weee!",
+        "productTitle": "Shirakiku sweet red bean paste, tsubuan · 500 g",
+        "note": "Alternative brand to the Imuraya can shown above. This is a chunky red bean paste; for buns, choose a filling that holds its shape.",
+        "url": "https://www.weee.com/en/product/Shirakiku-Red-Bean-Paste-Tsubuan--Coarse/81864"
+      }
+    ]
+  },
+  "sb-golden-curry-roux": {
+    "de": [
+      {
+        "name": "momogo",
+        "productTitle": "S&B Golden Curry, mittelscharf · 220 g",
+        "note": "Die 220-g-Packung passt zur im Rezept genannten Packungsgröße. Wähle den gewünschten Schärfegrad; das Rezept verwendet 110 g.",
+        "url": "https://www.momogo.de/produkt/s-b-golden-curry-mittelscharf-220g"
+      }
+    ],
+    "en": [
+      {
+        "name": "Weee!",
+        "productTitle": "S&B Golden Curry, MildHot · 220 g",
+        "note": "A 220-g package of Golden Curry roux. Check the heat level on the product page; the recipe uses 110 g.",
+        "url": "https://www.weee.com/en/product/S-B-Golden-Curry-Japanese-Curry-MildHot-Flavor220g/3002497/"
+      }
+    ]
+  },
+  "gochujang": {
+    "de": [
+      {
+        "name": "Asiafoodland",
+        "productTitle": "O’Food Gochujang · 500 g",
+        "note": "Marke und Packungsgröße entsprechen dem Zutatenbild. Prüfe die aktuelle Zutatenliste und Schärfe auf der Verkaufsseite; die Verpackung kann je nach Markt abweichen.",
+        "url": "https://www.asiafoodland.de/gochujang-koreanische-chilipaste-red-pepper-500-g.html"
+      }
+    ],
+    "en": [
+      {
+        "name": "Weee!",
+        "productTitle": "Chung Jung One O’Food Gochujang · 500 g",
+        "note": "The brand and pack size shown in the ingredient photo. Check the current label, ingredients and heat level on the product page.",
+        "url": "https://www.weee.com/en/product/Chung-Jung-One-O-Food-Gochujang/107127"
+      }
+    ]
+  },
+  "gochugaru": {
+    "de": [
+      {
+        "name": "Handokmall",
+        "productTitle": "Shinseonmi Chilipulver für Kimchi · 454 g",
+        "note": "Die Marke aus dem Zutatenbild, hier als Kimchi-Variante. Prüfe die Körnung und die aktuelle Packung im Shop.",
+        "url": "https://handokmall.de/de/shinseonmi-chilipulver-fuer-kimchi-454g/15551"
+      },
+      {
+        "name": "Handokmall",
+        "productTitle": "Shinseonmi Chilipulver, fein · 454 g",
+        "note": "Fein gemahlene Variante derselben Marke. Wähle fein oder für Kimchi passend zum Rezept.",
+        "url": "https://handokmall.de/de/shinseonmi-chilipulver-fein-454g/15563"
+      }
+    ],
+    "en": [
+      {
+        "name": "Weee!",
+        "productTitle": "Jayone red chili powder, coarse · 220 g",
+        "note": "Alternative brand to the Shinseonmi package shown above. This is coarse gochugaru; check whether your recipe calls for coarse flakes or a finer powder.",
+        "url": "https://www.weee.com/en/product/Jayone-Red-Chili-Powder--Coarse/80457"
+      }
+    ]
+  }
+}

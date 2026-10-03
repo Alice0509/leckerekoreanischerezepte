@@ -174,11 +174,11 @@ test('shop directories render once without personal product notes and keep count
     if (locale === 'en') {
       assert.match(visible(html), /Your country/);
       assert.match(visible(html), /United States/);
-      assert.match(html, /Browse Weee! \(US\)/);
+      assert.match(html, /View product at Weee!/);
       assert.doesNotMatch(html, /rewe\.de|asiafoodland\.de/);
     } else {
       assert.match(visible(html), /Deutschland/);
-      assert.doesNotMatch(html, /sayweee\.com/);
+      assert.doesNotMatch(html, /weee\.com/);
     }
   }
 });
@@ -188,7 +188,8 @@ test('an approved shop directory link renders its advertising label and disclosu
     enabled: true,
     entries: [
       {
-        sourceUrl: 'https://www.sayweee.com/',
+        sourceUrl:
+          'https://www.weee.com/en/product/Chung-Jung-One-O-Food-Gochujang/107127',
         affiliateUrl: 'https://tracking.example/approved',
         locale: 'en',
         advertiserName: 'Weee!',
@@ -201,6 +202,21 @@ test('an approved shop directory link renders its advertising label and disclosu
   assert.match(visible(html), /Ad · Affiliate link/);
   assert.match(html, /Affiliate disclosure/);
   assert.match(visible(html), /United States/);
+  assert.match(visible(html), /Chung Jung One O’Food Gochujang · 500 g/);
+});
+
+test('both German gochugaru product variants render with distinct destinations and descriptions', () => {
+  const shoppingGuide = getIngredientShoppingGuide('gochugaru', 'de', {
+    entries: [],
+    enabled: false,
+  });
+  const html = render('gochugaru', 'de', [], {}, { shoppingGuide });
+  for (const product of shoppingGuide.groups[0].stores) {
+    assert.ok(html.includes(product.link.href));
+    assert.ok(visible(html).includes(product.productTitle));
+    assert.ok(visible(html).includes(product.note));
+  }
+  assert.equal((html.match(/Produkt bei Handokmall ansehen/g) || []).length, 2);
 });
 function visible(html) {
   return html
