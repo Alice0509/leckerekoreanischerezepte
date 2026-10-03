@@ -1,0 +1,131 @@
+{
+  "expectedEnglishHash": "79b73f3c9f7092149a7fa29266d0171f7f067c268f1b7e429b5222b9cc6b1c12",
+  "blocks": [
+    {
+      "_type": "block",
+      "_key": "gochugaru-en-0",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "gochugaru-en-text-0",
+          "text": "Gochugaru (고춧가루) is dried red chili used in Korean cooking. It adds chili flavor, heat and red color to kimchi, seasoned vegetables, stews and sauces. Its heat level varies by product.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "gochugaru-en-1",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "gochugaru-en-text-1",
+          "text": "Choosing coarse flakes or fine powder",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "gochugaru-en-2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "gochugaru-en-text-2",
+          "text": "Check the grind called for in your recipe. Coarse gochugaru is commonly sold for kimchi, while fine powder gives a smoother texture in sauces. Read the product label rather than judging only by the package color or brand. Check the country of origin separately: a Korean-style product is not necessarily made from chilies grown in Korea.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "gochugaru-en-3",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "gochugaru-en-text-3",
+          "text": "Gochugaru is different from gochujang",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "gochugaru-en-4",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "gochugaru-en-text-4",
+          "text": "Gochugaru is dried chili; gochujang is a fermented chili paste. They have different textures and flavors, and some recipes use both. Do not replace one with the other in equal amounts.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "gochugaru-en-5",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "gochugaru-en-text-5",
+          "text": "Buying and substituting",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "gochugaru-en-6",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "gochugaru-en-text-6",
+          "text": "Look for gochugaru or Korean chili flakes at a local Asian supermarket or an online shop that delivers to your country. Compare the grind, ingredients, heat level and pack size. Generic chili powder may be a blend containing other spices. Other pure chilies can change the heat and flavor, so they are not exact replacements. The product options below distinguish different grinds and alternative brands.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "gochugaru-en-7",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "gochugaru-en-text-7",
+          "text": "Storage",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "gochugaru-en-8",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "gochugaru-en-text-8",
+          "text": "Keep the package tightly closed and dry, and use a clean, dry spoon. Follow the manufacturer’s storage instructions. Choose a pack size you can use regularly.",
+          "marks": []
+        }
+      ]
+    }
+  ]
+}
