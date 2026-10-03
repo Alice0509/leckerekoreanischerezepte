@@ -1,0 +1,70 @@
+{
+  "_createdAt": "2026-10-01T21:23:31Z",
+  "_id": "45AmuOcPL5dEMn8AXNlRGD",
+  "_rev": "MkzIlesDIMzd9qSpNFBKdl",
+  "_type": "ingredient",
+  "_updatedAt": "2026-10-01T21:24:48Z",
+  "bild": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-33ecc5b7d2ef4773670ca650db38645f67c94c43-790x1084-jpg",
+      "_type": "reference"
+    }
+  },
+  "description": {
+    "_type": "localizedPortableText",
+    "de": [
+      {
+        "_key": "2b72f79cd97c",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "71f7d6db7c99",
+            "_type": "span",
+            "marks": [],
+            "text": "Gochugaru (koreanisches Chilipulver) ist etwas schwieriger zu beschaffen, denn in Korea bevorzugt man oft das Chilipulver, das von Familien auf dem Land selbst angebaut und in der Sonne gut getrocknet wurde. Deshalb gibt es in diesem Bereich oft keine besonders bekannten Marken. Da ich es nicht immer aus Korea mitbringen kann, kaufe ich Gochugaru meist in koreanischen Märkten in Frankfurt oder Düsseldorf. Auch bei Go Asia findet man Gochugaru der Marke \"Ourhome\". Ich selbst bestelle jedoch häufig über den koreanischen Online-Shop https://handokmall.de/kr. "
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      }
+    ],
+    "en": [
+      {
+        "_key": "e21564b94152",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "80f46b5d1b1b",
+            "_type": "span",
+            "marks": [],
+            "text": "Gochugaru (koreanisches Chilipulver) ist etwas schwieriger zu beschaffen, denn in Korea bevorzugt man oft das Chilipulver, das von Familien auf dem Land selbst angebaut und in der Sonne gut getrocknet wurde. Deshalb gibt es in diesem Bereich oft keine besonders bekannten Marken. Da ich es nicht immer aus Korea mitbringen kann, kaufe ich Gochugaru meist in koreanischen Märkten in Frankfurt oder Düsseldorf. Auch bei Go Asia findet man Gochugaru der Marke \"Ourhome\". Ich selbst bestelle jedoch häufig über den koreanischen Online-Shop https://handokmall.de/kr."
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      }
+    ]
+  },
+  "legacyContentfulId": "45AmuOcPL5dEMn8AXNlRGD",
+  "name": {
+    "_type": "localizedString",
+    "de": "Gochugaru(Korean Chilipulver)",
+    "en": "Gochugaru(Korean chili powder)"
+  },
+  "seoDescription": {
+    "_type": "localizedText",
+    "de": "Was ist Gochugaru, wo kann man koreanisches Chilipulver in Deutschland kaufen und wofür verwendet man es? Ein einfacher Guide für Kimchi, Suppen und Banchan.",
+    "en": "What is gochugaru, where can you buy Korean chili flakes, and how do you use them? A simple guide for kimchi, soups, banchan, and Korean cooking."
+  },
+  "seoTitle": {
+    "_type": "localizedString",
+    "de": "Gochugaru kaufen in Deutschland – koreanisches Chilipulver für Kimchi",
+    "en": "Where to Buy Gochugaru – Korean Chili Flakes for Kimchi"
+  },
+  "slug": {
+    "_type": "localizedSlug",
+    "de": "gochugaru",
+    "en": "gochugaru"
+  }
+}

@@ -233,6 +233,13 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
           <a href="#all-ingredients" className={styles.jumpLink}>
             {isGerman ? 'Alle Zutaten durchsuchen' : 'Browse all ingredients'}
           </a>
+          <p>
+            <Link href="/korean-pantry" className={styles.jumpLink}>
+              {isGerman
+                ? 'Neu beim koreanischen Kochen? Grundzutaten kennenlernen →'
+                : 'New to Korean cooking? Start your pantry here →'}
+            </Link>
+          </p>
         </section>
 
         <section

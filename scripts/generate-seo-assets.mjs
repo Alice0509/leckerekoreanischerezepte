@@ -27,7 +27,13 @@ const SITE_ORIGINS = {
   en: 'https://www.hansikyoung.com',
 };
 
-const STATIC_SITEMAP_PATHS = ['/', '/about-us', '/gallery', '/ingredients'];
+const STATIC_SITEMAP_PATHS = [
+  '/',
+  '/about-us',
+  '/gallery',
+  '/ingredients',
+  '/korean-pantry',
+];
 
 const normalizeSlug = (value) => {
   if (typeof value !== 'string') return '';
