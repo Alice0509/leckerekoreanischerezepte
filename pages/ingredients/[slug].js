@@ -22,9 +22,11 @@ import purchaseLinks from '../../lib/purchaseLinks.cjs';
 import PurchaseLink from '../../components/PurchaseLink';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure';
 import ingredientGuideProfiles from '../../lib/ingredientGuideProfiles.cjs';
+import ingredientShoppingGuides from '../../lib/ingredientShoppingGuides.cjs';
 
 const { getPurchaseLinks } = purchaseLinks;
 const { getIngredientGuideProfile } = ingredientGuideProfiles;
+const { getIngredientShoppingGuide } = ingredientShoppingGuides;
 
 const {
   getIngredientEntriesFromSnapshot,
@@ -739,6 +741,7 @@ export async function getStaticProps({ params, locale }) {
     const props = {
       ingredient,
       favoriteProducts,
+      shoppingGuide: getIngredientShoppingGuide(ingredient.slug, mappedLocale),
       relatedRecipes,
       mappedLocale,
     };
@@ -768,6 +771,7 @@ const IngredientDetail = ({
   relatedRecipes,
   error,
   mappedLocale,
+  shoppingGuide = null,
 }) => {
   const router = useRouter();
   const hasAffiliateLinks = favoriteProducts.some((product) =>
@@ -1049,6 +1053,47 @@ const IngredientDetail = ({
             </ul>
           </article>
         </section>
+
+        {shoppingGuide && (
+          <section
+            className={styles.guideSection}
+            aria-labelledby="ingredient-shopping-title"
+          >
+            <h2 id="ingredient-shopping-title">{shoppingGuide.title}</h2>
+            <p className={styles.sectionIntro}>{shoppingGuide.intro}</p>
+            <div className={styles.shoppingRegions}>
+              {shoppingGuide.groups.map((group) => (
+                <article key={group.region} className={styles.shoppingRegion}>
+                  <h3>{group.title}</h3>
+                  <p>{group.note}</p>
+                  {group.stores.length > 0 && (
+                    <ul className={styles.shoppingLinks}>
+                      {group.stores.map((store) => (
+                        <li key={store.name}>
+                          <PurchaseLink
+                            link={store.link}
+                            locale={mappedLocale}
+                            className={styles.favoriteLink}
+                          >
+                            {store.label}
+                          </PurchaseLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </article>
+              ))}
+            </div>
+            {shoppingGuide.groups.some((group) =>
+              group.stores.some((store) => store.link.isAffiliate)
+            ) && (
+              <AffiliateDisclosure
+                locale={mappedLocale}
+                className={styles.sectionIntro}
+              />
+            )}
+          </section>
+        )}
 
         <section className={styles.guideSection}>
           <h2>

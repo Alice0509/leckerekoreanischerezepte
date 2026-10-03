@@ -12,6 +12,32 @@ const {
 const {
   getIngredientGuideProfile,
 } = require('../lib/ingredientGuideProfiles.cjs');
+const {
+  getIngredientShoppingGuide,
+} = require('../lib/ingredientShoppingGuides.cjs');
+
+const purchaseModule = { exports: {} };
+vm.runInNewContext(
+  ts.transpileModule(
+    fs.readFileSync(
+      path.join(__dirname, '../components/PurchaseLink.js'),
+      'utf8'
+    ),
+    {
+      compilerOptions: {
+        jsx: ts.JsxEmit.React,
+        module: ts.ModuleKind.CommonJS,
+        esModuleInterop: true,
+      },
+    }
+  ).outputText,
+  {
+    React,
+    module: purchaseModule,
+    exports: purchaseModule.exports,
+    require: () => ({ label: 'affiliate-label' }),
+  }
+);
 
 // Render the actual page with framework boundaries stubbed. Keep React and the
 // rich-text renderer real so a missing or duplicated description fails here.
@@ -64,11 +90,11 @@ const modules = {
   '../../lib/ingredientDetailRoutes': { isIndexableIngredientSlug: () => true },
   '../../lib/contentfulBuildSnapshot.cjs': {},
   '../../lib/purchaseLinks.cjs': {},
-  '../../components/PurchaseLink': (props) =>
-    React.createElement('a', { href: props.link.href }, props.children),
+  '../../components/PurchaseLink': purchaseModule.exports.default,
   '../../components/AffiliateDisclosure': () =>
     React.createElement('p', null, 'Affiliate disclosure'),
   '../../lib/ingredientGuideProfiles.cjs': { getIngredientGuideProfile },
+  '../../lib/ingredientShoppingGuides.cjs': require('../lib/ingredientShoppingGuides.cjs'),
 };
 const pageModule = { exports: {} };
 vm.runInNewContext(
@@ -103,7 +129,13 @@ const description = {
     },
   ],
 };
-function render(slug, locale = 'en', favoriteProducts = [], extra = {}) {
+function render(
+  slug,
+  locale = 'en',
+  favoriteProducts = [],
+  extra = {},
+  pageProps = {}
+) {
   return renderToStaticMarkup(
     React.createElement(IngredientDetail, {
       ingredient: {
@@ -118,9 +150,58 @@ function render(slug, locale = 'en', favoriteProducts = [], extra = {}) {
       favoriteProducts,
       relatedRecipes: [],
       error: null,
+      ...pageProps,
     })
   );
 }
+
+test('shop directories render once without personal product notes and keep country labels', () => {
+  for (const locale of ['en', 'de']) {
+    const shoppingGuide = getIngredientShoppingGuide('gochujang', locale, {
+      entries: [],
+      enabled: false,
+    });
+    const html = render('gochujang', locale, [], {}, { shoppingGuide });
+    assert.equal(
+      (html.match(/id="ingredient-shopping-title"/g) || []).length,
+      1
+    );
+    assert.match(html, /rel="noopener noreferrer"/);
+    assert.doesNotMatch(
+      html,
+      /Affiliate disclosure|affiliate-label|My shopping notes|Meine Einkaufsliste zu/
+    );
+    if (locale === 'en') {
+      assert.match(visible(html), /Your country/);
+      assert.match(visible(html), /United States/);
+      assert.match(html, /Browse Weee! \(US\)/);
+      assert.doesNotMatch(html, /rewe\.de|asiafoodland\.de/);
+    } else {
+      assert.match(visible(html), /Deutschland/);
+      assert.doesNotMatch(html, /sayweee\.com/);
+    }
+  }
+});
+
+test('an approved shop directory link renders its advertising label and disclosure without CMS products', () => {
+  const shoppingGuide = getIngredientShoppingGuide('gochujang', 'en', {
+    enabled: true,
+    entries: [
+      {
+        sourceUrl: 'https://www.sayweee.com/',
+        affiliateUrl: 'https://tracking.example/approved',
+        locale: 'en',
+        advertiserName: 'Weee!',
+        approved: true,
+      },
+    ],
+  });
+  const html = render('gochujang', 'en', [], {}, { shoppingGuide });
+  assert.match(html, /rel="sponsored noopener"/);
+  assert.match(visible(html), /Ad · Affiliate link/);
+  assert.match(html, /Affiliate disclosure/);
+  assert.match(visible(html), /United States/);
+});
 function visible(html) {
   return html
     .replace(/<script[\s\S]*?<\/script>/g, '')
