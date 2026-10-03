@@ -502,30 +502,32 @@ const snapshot = {
   },
 };
 
+// Keep the migration inventory as a minimum completeness check, not a cap.
+// Publishing new content must not require changing this build script.
 for (const locale of ['de', 'en']) {
   const localeData = snapshot.locales[locale];
 
-  if (localeData.recipes.items.length !== 52) {
+  if (localeData.recipes.items.length < 52) {
     throw new Error(
-      `Expected 52 ${locale.toUpperCase()} recipes, got ${localeData.recipes.items.length}`
+      `Expected at least 52 ${locale.toUpperCase()} recipes, got ${localeData.recipes.items.length}`
     );
   }
 
-  if (localeData.ingredients.items.length !== 143) {
+  if (localeData.ingredients.items.length < 143) {
     throw new Error(
-      `Expected 143 ${locale.toUpperCase()} ingredients, got ${localeData.ingredients.items.length}`
+      `Expected at least 143 ${locale.toUpperCase()} ingredients, got ${localeData.ingredients.items.length}`
     );
   }
 
-  if (localeData.favorites.items.length !== 4) {
+  if (localeData.favorites.items.length < 4) {
     throw new Error(
-      `Expected 4 ${locale.toUpperCase()} favorites, got ${localeData.favorites.items.length}`
+      `Expected at least 4 ${locale.toUpperCase()} favorites, got ${localeData.favorites.items.length}`
     );
   }
 
-  if (localeData.galleries.items.length !== 5) {
+  if (localeData.galleries.items.length < 5) {
     throw new Error(
-      `Expected 5 ${locale.toUpperCase()} galleries, got ${localeData.galleries.items.length}`
+      `Expected at least 5 ${locale.toUpperCase()} galleries, got ${localeData.galleries.items.length}`
     );
   }
 }
