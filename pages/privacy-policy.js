@@ -16,7 +16,7 @@ const PrivacyPolicy = () => (
     <div className={styles.container}>
       <h1 className={styles.heading1}>Privacy Policy</h1>
 
-      <p className={styles.paragraph}>Last updated: August 2, 2026</p>
+      <p className={styles.paragraph}>Last updated: October 3, 2026</p>
 
       <p className={styles.paragraph}>
         This Privacy Policy explains how Hansik Young collects and uses
@@ -95,14 +95,28 @@ const PrivacyPolicy = () => (
       <h2 className={styles.heading2}>Content management and media delivery</h2>
 
       <p className={styles.paragraph}>
-        The recipes, ingredient texts and some media assets on this website are
-        managed through Contentful. When pages or media files are loaded,
-        Contentful may process technical request data in order to deliver this
-        content.
+        Recipes and ingredient texts are managed through Sanity and fetched
+        during website builds. Visitors receive the generated pages from our
+        hosting provider. Images may be loaded from Sanity&apos;s content
+        delivery network (cdn.sanity.io).
       </p>
 
       <p className={styles.paragraph}>
-        Provider: Contentful GmbH, Max-Urich-Straße 3, 13355 Berlin, Germany.
+        When your browser requests an image from Sanity, technical data such as
+        your IP address, the requested file and the time of access may be
+        processed to deliver the image and protect the service against abuse.
+      </p>
+
+      <p className={styles.paragraph}>
+        Provider: Sanity (Sanity AS / Sanity US Inc.). Further information:{' '}
+        <a
+          href="https://www.sanity.io/legal/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          Sanity Privacy Policy
+        </a>
       </p>
 
       <h2 className={styles.heading2}>Cookies and consent</h2>

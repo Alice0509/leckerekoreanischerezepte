@@ -1,6 +1,10 @@
 // pages/gallery.js
-import { useEffect, useState } from 'react';
 import contentfulBuildSnapshot from '../lib/contentfulBuildSnapshot.cjs';
+import purchaseLinks from '../lib/purchaseLinks.cjs';
+import PurchaseLink from '../components/PurchaseLink';
+import AffiliateDisclosure from '../components/AffiliateDisclosure';
+
+const { getPurchaseLinks } = purchaseLinks;
 
 const { getFavoriteDatasetFromSnapshot, getGalleryDatasetFromSnapshot } =
   contentfulBuildSnapshot;
@@ -11,7 +15,7 @@ import { NextSeo } from 'next-seo';
 import { getSeoUrls } from '../lib/siteUrls';
 
 /* -----------------------------------------------------------
-   1) STATIC CONTENTFUL FETCH (Gallery + Favorite Items)
+   1) STATIC SANITY SNAPSHOT (Gallery + Favorite Items)
 ----------------------------------------------------------- */
 export async function getStaticProps({ locale }) {
   const lang = locale === 'de' ? 'de' : 'en';
@@ -48,9 +52,7 @@ export async function getStaticProps({ locale }) {
         ? [base.link]
         : [];
 
-    const links = rawLinks
-      .filter((x) => typeof x === 'string' && x.trim() !== '')
-      .map((x) => x.trim());
+    const links = getPurchaseLinks(rawLinks, lang);
 
     return {
       id: it.sys.id,
@@ -90,48 +92,9 @@ export default function Gallery({ galleryItems, favorites }) {
           'My personal shopping list for Korean ingredients, products, and kitchen basics — plus small photos from my everyday kitchen.',
       };
 
-  /* -----------------------------------------------------------
-     Favorite Links Checker
-  ----------------------------------------------------------- */
-  const [validLinks, setValidLinks] = useState({});
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    favorites.forEach((favorite) => {
-      (favorite.links || []).forEach((url, index) => {
-        fetch(url, {
-          method: 'HEAD',
-          signal: controller.signal,
-        })
-          .then((response) => {
-            const isAvailable =
-              response.status !== 404 && response.status !== 410;
-
-            setValidLinks((previous) => ({
-              ...previous,
-              [favorite.id]: {
-                ...(previous[favorite.id] || {}),
-                [index]: isAvailable,
-              },
-            }));
-          })
-          .catch((error) => {
-            if (error.name === 'AbortError') return;
-
-            setValidLinks((previous) => ({
-              ...previous,
-              [favorite.id]: {
-                ...(previous[favorite.id] || {}),
-                [index]: true,
-              },
-            }));
-          });
-      });
-    });
-
-    return () => controller.abort();
-  }, [favorites]);
+  const hasAffiliateLinks = favorites.some((favorite) =>
+    favorite.links.some((link) => link.isAffiliate)
+  );
 
   /* -----------------------------------------------------------
      3) RENDER
@@ -182,11 +145,15 @@ export default function Gallery({ galleryItems, favorites }) {
             {isDE ? 'Meine Einkaufsliste' : 'My Shopping List'}
           </h2>
 
-          <p className={styles.notice}>
-            {isDE
-              ? '※ Hinweis: Diese Links sind keine Werbung oder Affiliate-Links. Das ist meine persönliche Einkaufsliste mit Produkten, die ich im Alltag oft verwende.'
-              : '※ Note: These links are not ads or affiliate links — this is my personal shopping list with products I often use in daily life.'}
-          </p>
+          {hasAffiliateLinks ? (
+            <AffiliateDisclosure locale={lang} className={styles.notice} />
+          ) : (
+            <p className={styles.notice}>
+              {isDE
+                ? '※ Hinweis: Diese Links sind keine Werbung oder Affiliate-Links. Das ist meine persönliche Einkaufsliste mit Produkten, die ich im Alltag oft verwende.'
+                : '※ Note: These links are not ads or affiliate links — this is my personal shopping list with products I often use in daily life.'}
+            </p>
+          )}
 
           <div className={styles.memoGrid}>
             {favorites.map((f, idx) => {
@@ -196,11 +163,6 @@ export default function Gallery({ galleryItems, favorites }) {
                   : idx % 3 === 1
                     ? styles.memoPink
                     : styles.memoBlue;
-
-              const liveLinks = (f.links || []).filter((_, linkIdx) => {
-                const status = validLinks[f.id]?.[linkIdx];
-                return status !== false;
-              });
 
               return (
                 <article
@@ -222,20 +184,19 @@ export default function Gallery({ galleryItems, favorites }) {
                     <h3>{f.title}</h3>
                     {f.memo && <p className={styles.memoText}>{f.memo}</p>}
 
-                    {liveLinks.length > 0 && (
+                    {f.links.length > 0 && (
                       <ul className={styles.memoLinksList}>
-                        {liveLinks.map((url, linkIdx) => (
-                          <li key={url}>
-                            <a
-                              href={url}
-                              target="_blank"
-                              rel="noreferrer"
+                        {f.links.map((link, linkIdx) => (
+                          <li key={link.href}>
+                            <PurchaseLink
+                              link={link}
+                              locale={lang}
                               className={styles.memoLink}
                             >
                               {isDE
                                 ? `Link ${linkIdx + 1}`
                                 : `Link ${linkIdx + 1}`}
-                            </a>
+                            </PurchaseLink>
                           </li>
                         ))}
                       </ul>

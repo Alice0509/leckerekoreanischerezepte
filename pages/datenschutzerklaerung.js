@@ -17,8 +17,8 @@ const Datenschutzerklaerung = () => (
       <h1 className={styles.heading1}>Datenschutzerklärung</h1>
 
       <p className={styles.paragraph}>
-        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand vom 2.
-        August 2026.
+        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand vom 3.
+        Oktober 2026.
       </p>
 
       <p className={styles.paragraph}>
@@ -108,15 +108,29 @@ const Datenschutzerklaerung = () => (
       </h2>
 
       <p className={styles.paragraph}>
-        Rezepte, Zutaten-Texte und einige Medieninhalte dieser Website werden
-        über Contentful verwaltet. Beim Laden von Seiten oder Medien können
-        technische Anfragedaten verarbeitet werden, um diese Inhalte
-        auszuliefern.
+        Rezepte und Zutaten-Texte werden über Sanity verwaltet und beim
+        Erstellen der Website abgerufen. Besucherinnen und Besucher erhalten die
+        erzeugten Seiten von unserem Hosting-Anbieter. Bilder können über das
+        Content Delivery Network von Sanity (cdn.sanity.io) geladen werden.
       </p>
 
       <p className={styles.paragraph}>
-        Anbieter: Contentful GmbH, Max-Urich-Straße 3, 13355 Berlin,
-        Deutschland.
+        Wenn Ihr Browser ein Bild von Sanity abruft, können technische Daten wie
+        Ihre IP-Adresse, die angeforderte Datei und der Zeitpunkt des Zugriffs
+        verarbeitet werden, um das Bild auszuliefern und den Dienst vor
+        Missbrauch zu schützen.
+      </p>
+
+      <p className={styles.paragraph}>
+        Anbieter: Sanity (Sanity AS / Sanity US Inc.). Weitere Informationen:{' '}
+        <a
+          href="https://www.sanity.io/legal/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          Datenschutzerklärung von Sanity
+        </a>
       </p>
 
       <h2 className={styles.heading2}>6. Cookies und Einwilligung</h2>

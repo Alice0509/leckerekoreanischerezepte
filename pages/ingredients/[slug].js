@@ -18,6 +18,11 @@ import {
   isIndexableIngredientSlug,
 } from '../../lib/ingredientDetailRoutes';
 import contentfulBuildSnapshot from '../../lib/contentfulBuildSnapshot.cjs';
+import purchaseLinks from '../../lib/purchaseLinks.cjs';
+import PurchaseLink from '../../components/PurchaseLink';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure';
+
+const { getPurchaseLinks } = purchaseLinks;
 
 const {
   getIngredientEntriesFromSnapshot,
@@ -708,9 +713,7 @@ export async function getStaticProps({ params, locale }) {
           ? [fav.fields.link]
           : [];
 
-      const links = rawLinks.filter(
-        (link) => typeof link === 'string' && link.trim() !== ''
-      );
+      const links = getPurchaseLinks(rawLinks, mappedLocale);
 
       return {
         id: fav.sys.id,
@@ -763,6 +766,9 @@ const IngredientDetail = ({
   mappedLocale,
 }) => {
   const router = useRouter();
+  const hasAffiliateLinks = favoriteProducts.some((product) =>
+    product.links.some((link) => link.isAffiliate)
+  );
 
   const safeIngredient = ingredient || {
     name: '',
@@ -1041,6 +1047,12 @@ const IngredientDetail = ({
                 : 'I keep products here that I buy myself or use in everyday cooking.'}
             </p>
 
+            {hasAffiliateLinks && (
+              <AffiliateDisclosure
+                locale={mappedLocale}
+                className={styles.sectionIntro}
+              />
+            )}
             <div className={styles.favoriteGrid}>
               {favoriteProducts.map((product, index) => {
                 const colorClass =
@@ -1129,18 +1141,17 @@ const IngredientDetail = ({
 
                       {product.links.length > 0 && (
                         <ul className={styles.favoriteLinks}>
-                          {product.links.map((url, idx) => (
-                            <li key={url}>
-                              <a
-                                href={url}
-                                target="_blank"
-                                rel="noreferrer"
+                          {product.links.map((link, idx) => (
+                            <li key={link.href}>
+                              <PurchaseLink
+                                link={link}
+                                locale={mappedLocale}
                                 className={styles.favoriteLink}
                               >
                                 {isGerman
                                   ? `Link ${idx + 1}`
                                   : `Link ${idx + 1}`}
-                              </a>
+                              </PurchaseLink>
                             </li>
                           ))}
                         </ul>
