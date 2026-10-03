@@ -14,8 +14,9 @@ const published = {
   _updatedAt: '2026-10-03',
   name: { en: 'Japanese curry roux', de: 'Japanische Curry-Roux' },
   slug: {
-    en: { current: 'sb-golden-curry-roux' },
-    de: { current: 'sb-golden-curry-roux' },
+    _type: 'localizedSlug',
+    en: 'sb-golden-curry-roux',
+    de: 'sb-golden-curry-roux',
   },
   description: {
     en: [{ _type: 'block', children: [{ text: 'Global introduction' }] }],
@@ -107,4 +108,21 @@ test('wrong project, missing ingredient and invalid image produce no writes', as
     /JPEG/
   );
   assert.deepEqual(invalid.writes, []);
+});
+
+test('a changed or malformed localized slug aborts before uploading a photo', async () => {
+  for (const slug of [
+    { en: 'different-ingredient', de: 'sb-golden-curry-roux' },
+    { en: 'sb-golden-curry-roux', de: 'different-ingredient' },
+    {
+      en: { current: 'sb-golden-curry-roux' },
+      de: { current: 'sb-golden-curry-roux' },
+    },
+    { en: 'sb-golden-curry-roux' },
+    null,
+  ]) {
+    const { client, writes } = fixture([[{ ...published, slug }, null]]);
+    await assert.rejects(createGoldenCurryPhotoDraft(client, photo), /주소/);
+    assert.deepEqual(writes, []);
+  }
 });

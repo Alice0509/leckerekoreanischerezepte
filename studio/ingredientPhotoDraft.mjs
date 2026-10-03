@@ -18,8 +18,8 @@ export async function createGoldenCurryPhotoDraft(client, imageBytes) {
     return {status: 'already-has-photo', id: GOLDEN_CURRY_ID}
   }
   if (
-    published.slug?.en?.current !== 'sb-golden-curry-roux' ||
-    published.slug?.de?.current !== 'sb-golden-curry-roux'
+    published.slug?.en !== 'sb-golden-curry-roux' ||
+    published.slug?.de !== 'sb-golden-curry-roux'
   ) {
     throw new Error('식재료 주소가 준비 당시와 다릅니다. 변경하지 않았습니다.')
   }
