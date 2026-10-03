@@ -959,25 +959,29 @@
   font-weight: 500;
 }
 
-.ingredientGuideLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 30px;
-  padding: 4px 9px;
-  border: 1px solid rgba(126, 170, 141, 0.35);
-  border-radius: 999px;
-  background: #eef6f0;
+.ingredientNameLink {
+  display: block;
+  min-width: 0;
   color: #42634c;
-  font-size: 0.76rem;
-  font-weight: 800;
-  line-height: 1;
-  text-decoration: none;
-  white-space: nowrap;
+  font-weight: 500;
+  line-height: 1.45;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-.ingredientGuideLink:hover {
-  background: #deece1;
+.ingredientNameLink:hover {
+  color: #294e35;
+}
+
+.ingredientNameLink:focus-visible {
+  outline: 2px solid #42634c;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.ingredientNameLink.checked {
+  color: #888;
+  text-decoration: underline line-through;
 }
 
 .ingredientShoppingNote {
@@ -1037,10 +1041,10 @@
     font-size: 0.98rem;
   }
 
-  .ingredientGuideLink {
+  .ingredientNameLink {
     min-height: 34px;
-    padding: 5px 10px;
-    font-size: 0.78rem;
+    padding-top: 2px;
+    font-size: 0.98rem;
   }
 
   .ingredientShoppingNote {
@@ -1055,8 +1059,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .ingredientGuideLink {
-    background: #eef6f0;
+  .ingredientNameLink {
     color: #42634c;
   }
 
