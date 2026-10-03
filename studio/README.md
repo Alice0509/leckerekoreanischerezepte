@@ -1,3 +1,7 @@
+# Hansik Young 편집 화면
+
+[레시피 작성·발행 안내](../docs/sanity-recipe-workflow.ko.md)에서 입력 순서와 Studio 웹 배포 방법을 확인하세요.
+
 # Sanity Clean Content Studio
 
 Congratulations, you have now installed the Sanity Content Studio, an open-source real-time content editing environment connected to the Sanity backend.
