@@ -1,0 +1,110 @@
+.hansik-import {
+  box-sizing: border-box;
+  overflow-y: auto;
+  height: 100%;
+  padding: 24px;
+  color: var(--card-fg-color, #222);
+  background: var(--card-bg-color, #fff);
+  font-family: inherit;
+  line-height: 1.7;
+}
+.hansik-import > * {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hansik-import h1 {
+  font-size: 26px;
+}
+.hansik-import h2 {
+  font-size: 20px;
+}
+.hansik-import section {
+  margin-top: 24px;
+  border: 1px solid #8886;
+  border-radius: 8px;
+  padding: 20px;
+}
+.hansik-import label {
+  display: block;
+  margin: 12px 0;
+}
+.hansik-import input[type='file'],
+.hansik-import textarea,
+.hansik-import select {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  font: inherit;
+  color: inherit;
+  background: inherit;
+  border: 1px solid #888;
+  border-radius: 4px;
+}
+.hansik-import textarea {
+  font-family: monospace;
+  font-size: 14px;
+}
+.hansik-import button,
+.hansik-import-buttons a {
+  display: inline-block;
+  padding: 10px 16px;
+  margin: 6px 8px 6px 0;
+  border: 1px solid #888;
+  border-radius: 6px;
+  background: inherit;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+.hansik-import button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.hansik-import :focus-visible {
+  outline: 3px solid #5975d9;
+  outline-offset: 3px;
+}
+.hansik-import-preview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.hansik-import-preview section {
+  overflow-wrap: anywhere;
+}
+.hansik-import-preview p,
+.hansik-import-preview li {
+  white-space: pre-wrap;
+}
+.hansik-import-preview li {
+  margin-bottom: 12px;
+}
+.hansik-import-confirm input {
+  margin-right: 10px;
+}
+.hansik-import-error,
+.hansik-import-notice {
+  white-space: pre-wrap;
+  border: 2px solid #888;
+  border-radius: 6px;
+  padding: 16px;
+}
+.hansik-import-error {
+  border-color: #cc6b56;
+}
+.hansik-import-notice {
+  border-color: #48836b;
+}
+@media (max-width: 800px) {
+  .hansik-import-preview {
+    grid-template-columns: 1fr;
+  }
+  .hansik-import {
+    padding: 16px;
+  }
+}
