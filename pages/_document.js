@@ -21,6 +21,10 @@ class MyDocument extends Document {
     return (
       <Html lang={lang}>
         <Head>
+          <meta
+            name="p:domain_verify"
+            content="ea5e83aa476e1f706b39d3f897743221"
+          />
           {/* Inter Font Import */}
           <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
