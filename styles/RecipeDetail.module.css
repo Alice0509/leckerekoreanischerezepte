@@ -137,6 +137,7 @@
 }
 
 .stepItem {
+  scroll-margin-top: 6rem;
   margin-bottom: 15px;
   padding: 8px;
   border-bottom: 1px solid #eee;
@@ -1332,4 +1333,10 @@
   color: inherit;
   font-weight: 600;
   text-underline-offset: 3px;
+}
+
+.publicationDate {
+  margin: 0.75rem 0 0;
+  color: #52665b;
+  font-size: 0.875rem;
 }
