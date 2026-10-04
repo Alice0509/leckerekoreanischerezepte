@@ -16,7 +16,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Timer from '../../components/Timer';
 import recipeCompanions from '../../lib/recipeCompanions.cjs';
-const { companionId, prioritizeCompanions } = recipeCompanions;
+const { companionIds, companionReason, prioritizeCompanions } =
+  recipeCompanions;
 import RecipeMeasurementGuide from '../../components/RecipeMeasurementGuide';
 import RecipeSharePanel from '../../components/RecipeSharePanel';
 import recipeSearch from '../../lib/recipeSearchDetails.cjs';
@@ -127,6 +128,8 @@ const buildRelatedRecipes = ({ items, currentEntryId, locale, limit = 3 }) => {
       slug: item.fields.slug,
       title: item.fields.titel,
       image: getRelatedRecipeImageUrl(item.fields.image),
+      category: getRecipeCategoryFromFields(item.fields, language).label,
+      reason: companionReason(currentEntryId, item.sys.id, language),
     }));
 };
 
@@ -596,7 +599,8 @@ export async function getStaticProps({ params, locale }) {
 
     let relatedRecipes = [];
 
-    if (categoryEntryId || companionId(recipeEntry.sys.id)) {
+    const preferredIds = companionIds(recipeEntry.sys.id);
+    if (categoryEntryId || preferredIds.length > 0) {
       try {
         const recipeCatalog = getRecipeEntriesFromSnapshot(mappedLocale);
 
@@ -610,7 +614,7 @@ export async function getStaticProps({ params, locale }) {
           (item) =>
             (categoryEntryId &&
               getRecipeCategoryEntryId(item.fields) === categoryEntryId) ||
-            item.sys.id === companionId(recipeEntry.sys.id)
+            preferredIds.includes(item.sys.id)
         );
 
         relatedRecipes = buildRelatedRecipes({
@@ -1540,8 +1544,8 @@ const RecipeDetail = ({ recipe, error }) => {
 
             <h2 id="related-recipes-title">
               {mappedLocale === 'de'
-                ? `Mehr aus „${category}“`
-                : `More from ${category}`}
+                ? 'Was du als Nächstes kochen kannst'
+                : 'What to cook next'}
             </h2>
 
             <div className={styles.relatedRecipesGrid}>
@@ -1565,9 +1569,14 @@ const RecipeDetail = ({ recipe, error }) => {
 
                   <div className={styles.relatedRecipeContent}>
                     <span className={styles.relatedRecipeCategory}>
-                      {category}
+                      {relatedRecipe.category}
                     </span>
                     <h3>{relatedRecipe.title}</h3>
+                    {relatedRecipe.reason && (
+                      <p className={styles.relatedRecipeReason}>
+                        {relatedRecipe.reason}
+                      </p>
+                    )}
                   </div>
                 </Link>
               ))}
