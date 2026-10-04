@@ -1,0 +1,890 @@
+{
+  "documents": [
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "MTVJJZTDiOrFtOjZxK4La",
+      "_rev": "seeJ8sDCx2bMNJQ2OyT5qN",
+      "_type": "recipe",
+      "_updatedAt": "2026-10-02T20:48:43Z",
+      "categories": [
+        {
+          "_key": "844457a081c0",
+          "_ref": "NqJXw3ssjQAEgpPxtBnXX",
+          "_type": "reference"
+        }
+      ],
+      "category": {
+        "_type": "localizedString",
+        "de": "Streetfood",
+        "en": "Street food"
+      },
+      "description": {
+        "_type": "localizedPortableText",
+        "de": [
+          {
+            "_key": "c9192ed538ad",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "6a4cfbd3b50d",
+                "_type": "span",
+                "marks": ["strong", "em"],
+                "text": "Tteokbokki sind koreanische Reiskuchen in einer süß-scharfen Sauce. In Deutschland findest du Tteokbokki-Reiskuchen meist tiefgekühlt oder vakuumverpackt im Asia-Markt."
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "ff0ca8234237",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "c8c1ae18ea33",
+                "_type": "span",
+                "marks": [],
+                "text": "Das ist meine einfache Alltagsversion von Tteokbokki. In Korea gibt es viele verschiedene Arten von Tteokbokki – mit unterschiedlichen Saucen, Zutaten und Reiskuchen. Diese Version ist bewusst schlicht gehalten und funktioniert gut, wenn du zu Hause schnell etwas Warmes und Scharfes kochen möchtest."
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "1c9792a2a532",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "3f85abcd3f1e",
+                "_type": "span",
+                "marks": [],
+                "text": "Bei Tteokbokki gibt es verschiedene Arten von Reiskuchen. Reistteok ist meist etwas zäher, während Mil-tteok aus Weizenmehl oft weicher ist und die Sauce gut aufnimmt. In Korea haben viele Menschen ihre eigene Vorliebe dafür. Ich nehme in Deutschland meistens einfach die Sorte, die ich im Asia-Markt finde."
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "16f96214c442",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "aada318a6989",
+                "_type": "span",
+                "marks": [],
+                "text": "Tteokbokki-Reiskuchen findest du in Deutschland oft tiefgekühlt oder vakuumverpackt im Asia-Markt. Wenn sie gefroren sind, weiche ich sie vor dem Kochen kurz in Wasser ein, damit sie gleichmäßiger garen."
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "99553a8c5f5b",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "0172b88a4058",
+                "_type": "span",
+                "marks": [],
+                "text": "Eine kleine Sache ist bei koreanischen Rezepten wichtig: Der koreanische Esslöffel ist etwas kleiner als ein normaler deutscher Esslöffel. Viele koreanische Alltagsrezepte benutzen trotzdem Löffelangaben, weil es zu Hause praktisch ist. Ich versuche die Mengen hier so anzugeben, dass du das Rezept auch in Deutschland gut nachkochen kannst."
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "11367e88a308",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "a534331f6e37",
+                "_type": "span",
+                "marks": [],
+                "text": ""
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "en": [
+          {
+            "_key": "246875214f74",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "25c78d3e9ba9",
+                "_type": "span",
+                "marks": [],
+                "text": "Tteokbokki is a Korean rice cake dish cooked in a sweet and spicy sauce. Tteokbokki rice cakes are usually sold frozen or vacuum-packed at Asian grocery stores or Korean online shops."
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "bbfa4ad8eafb",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "db181bae167c",
+                "_type": "span",
+                "marks": [],
+                "text": "This is my simple everyday version of tteokbokki. In Korea, there are many different varieties with different sauces, toppings, and types of rice cakes. This version is intentionally simple and works well when you want something warm, spicy, and quick at home."
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "5a13de35cb80",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "b66ef2d6a7a3",
+                "_type": "span",
+                "marks": [],
+                "text": "There are two common types of rice cakes for tteokbokki. Rice tteok is usually chewier, while mil-tteok, made with wheat flour, is often softer and absorbs the sauce well. Many people in Korea have their own preference, but either type works for this recipe."
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "0fabd09d6856",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "dbf76eb96cd8",
+                "_type": "span",
+                "marks": [],
+                "text": "If the rice cakes are frozen, soak them briefly in water before cooking so they soften and cook more evenly."
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "6a222074c24e",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "907c9f736931",
+                "_type": "span",
+                "marks": [],
+                "text": "Traditional Korean home recipes often use ordinary spoon measurements. For clarity, the quantities in this recipe are written so they are easy to follow with standard measuring spoons."
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "0f357f20f0b7",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "497370672503",
+                "_type": "span",
+                "marks": [],
+                "text": ""
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ]
+      },
+      "image": [
+        {
+          "_key": "7d9ef8b2603b",
+          "_type": "image",
+          "asset": {
+            "_ref": "image-5b49418eba01867159b4888038d4cdc222618fc0-1080x1080-png",
+            "_type": "reference"
+          }
+        }
+      ],
+      "ingredients": [
+        {
+          "_key": "ede7384690ae",
+          "_ref": "785cn7YXS6Rf4mrMzLWM9j",
+          "_type": "reference"
+        },
+        {
+          "_key": "57ee77063e12",
+          "_ref": "59RnPH8WeiSfouImHseyKF",
+          "_type": "reference"
+        },
+        {
+          "_key": "fc7692043c72",
+          "_ref": "7Gu7LFzVvBTN4tKa0EQPzC",
+          "_type": "reference"
+        },
+        {
+          "_key": "848962efd8d2",
+          "_ref": "13SNXZqqxFSjf3zDoeco5n",
+          "_type": "reference"
+        },
+        {
+          "_key": "1d265094d069",
+          "_ref": "guQvL5oO2rRvTPqVa3bdx",
+          "_type": "reference"
+        },
+        {
+          "_key": "67b08b471f2c",
+          "_ref": "3rjhq1WC6jCpXbbVe93JzS",
+          "_type": "reference"
+        },
+        {
+          "_key": "805eb0dc9103",
+          "_ref": "53DcpNGdx7vAaCEP1syhV2",
+          "_type": "reference"
+        }
+      ],
+      "instructions": {
+        "_type": "localizedPortableText",
+        "de": [
+          {
+            "_key": "e6c7652357d8",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "426b57bd9fe2",
+                "_type": "span",
+                "marks": [],
+                "text": "Bringe 360 ml Wasser in einem Topf zum Kochen. Gib die Tteokbokki-Reiskuchen dazu. Wenn sie gefroren sind, weiche sie vorher kurz in Wasser ein."
+              }
+            ],
+            "level": 1,
+            "listItem": "number",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "40b2392ad867",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "8e470354af35",
+                "_type": "span",
+                "marks": [],
+                "text": "Wenn das Wasser wieder kocht, gib die Sauce-Zutaten dazu und verrühre alles gut. Rühre während des Kochens regelmäßig um, damit die Reiskuchen nicht am Topfboden kleben bleiben."
+              }
+            ],
+            "level": 1,
+            "listItem": "number",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "135935b32237",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "0f543f655c22",
+                "_type": "span",
+                "marks": [],
+                "text": "Köchele alles, bis die Sauce etwas eingekocht ist und leicht glänzt. Schneide die Lauchzwiebel mit einer Schere klein und streue Sesam darüber."
+              }
+            ],
+            "level": 1,
+            "listItem": "number",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "7b8b0ab3c445",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "605c6f8cd235",
+                "_type": "span",
+                "marks": [],
+                "text": "Sofort servieren. Wenn du die Tteokbokki sättigender machen möchtest, kannst du Eomuk, Kohl, gekochte Eier oder etwas mehr Sesam dazugeben."
+              }
+            ],
+            "level": 1,
+            "listItem": "number",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "c90980588bed",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "403813bd5862",
+                "_type": "span",
+                "marks": [],
+                "text": ""
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "en": [
+          {
+            "_key": "23d25a3fba01",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "7c4720cf7e0b",
+                "_type": "span",
+                "marks": [],
+                "text": "Bring 360 ml of water to a boil in a pot. Add the tteokbokki rice cakes. If the rice cakes are frozen, soak them briefly in water first."
+              }
+            ],
+            "level": 1,
+            "listItem": "number",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "36e61fb1d6e8",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "a69784d055c6",
+                "_type": "span",
+                "marks": [],
+                "text": "When the water starts boiling again, add the sauce ingredients and mix well. Keep stirring often while the rice cakes cook, so they do not stick to the bottom."
+              }
+            ],
+            "level": 1,
+            "listItem": "number",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "17ebbb5dd412",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "9014d3b2f672",
+                "_type": "span",
+                "marks": [],
+                "text": "Simmer until the sauce has reduced and becomes slightly glossy. Cut the green onion into small pieces with scissors and sprinkle sesame seeds on top."
+              }
+            ],
+            "level": 1,
+            "listItem": "number",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "1228ac4c786d",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "873826c968fc",
+                "_type": "span",
+                "marks": [],
+                "text": "Serve right away. If you want to make it more filling, you can add eomuk, cabbage, boiled eggs, or extra sesame seeds."
+              }
+            ],
+            "level": 1,
+            "listItem": "number",
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "0f790d91c9a6",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "33b3c1f9cf5a",
+                "_type": "span",
+                "marks": [],
+                "text": ""
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ]
+      },
+      "legacyContentfulId": "MTVJJZTDiOrFtOjZxK4La",
+      "legacyContentfulUpdatedAt": "2026-08-17T15:21:30.744Z",
+      "preparationTime": {
+        "_type": "localizedNumber",
+        "de": 30,
+        "en": 30
+      },
+      "seoDescription": {
+        "_type": "localizedText",
+        "de": "Ein praktisches Tteokbokki Rezept mit koreanischen Reiskuchen, Gochujang und Gochugaru – süß, scharf und glänzend wie in Korea.",
+        "en": "A practical tteokbokki recipe with Korean rice cakes, gochujang, and gochugaru for a glossy, sweet, and spicy sauce."
+      },
+      "seoTitle": {
+        "_type": "localizedString",
+        "de": "Tteokbokki Rezept – koreanische Reiskuchen in scharfer Sauce",
+        "en": "Tteokbokki Recipe – Korean Rice Cakes in Spicy Sauce"
+      },
+      "servings": {
+        "_type": "localizedNumber",
+        "de": 2,
+        "en": 2
+      },
+      "slug": {
+        "_type": "localizedSlug",
+        "de": "tteokbokki",
+        "en": "tteokbokki"
+      },
+      "steps": [
+        {
+          "_key": "2322cf31fdd5",
+          "_ref": "7D025TPyvwF8T46n9QOn2r",
+          "_type": "reference"
+        },
+        {
+          "_key": "ec6f45f2f0ff",
+          "_ref": "2l8OctBJ2yLcMofEBZ7ncp",
+          "_type": "reference"
+        },
+        {
+          "_key": "9e1fd9dba69d",
+          "_ref": "33TlrZWkEbVEJSoV3bPX7d",
+          "_type": "reference"
+        },
+        {
+          "_key": "f0e57d724a21",
+          "_ref": "7uV0rTYRQlcIyz8ChfpzFY",
+          "_type": "reference"
+        }
+      ],
+      "titel": {
+        "_type": "localizedString",
+        "de": "Tteokbokki (떡볶이)",
+        "en": "Tteokbokki (떡볶이)"
+      },
+      "updatedDate": "2026-06-08T20:10+02:00"
+    },
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "75UfpJXs9YtOZKMg6qu4wv",
+      "_rev": "JvPYpz8fI9X3Uqv2WwVy0s",
+      "_type": "ingredient",
+      "_updatedAt": "2026-10-01T21:23:31Z",
+      "legacyContentfulId": "75UfpJXs9YtOZKMg6qu4wv",
+      "name": {
+        "_type": "localizedString",
+        "de": "Tteokbokki-Tteok ",
+        "en": "Tteokbokki-Tteok "
+      },
+      "seoDescription": {
+        "_type": "localizedText",
+        "de": "Was sind Tteokbokki-Reiskuchen, wo kann man sie kaufen und worauf sollte man achten? Ein einfacher Guide für koreanische Reiskuchen und Tteokbokki.",
+        "en": "What are tteokbokki rice cakes, where can you buy them, and how do you use them? A simple guide to Korean rice cakes for tteokbokki and home cooking."
+      },
+      "seoTitle": {
+        "_type": "localizedString",
+        "de": "Tteokbokki-Tteok kaufen – koreanische Reiskuchen für Tteokbokki",
+        "en": "Where to Buy Tteokbokki Tteok – Korean Rice Cakes Guide"
+      },
+      "slug": {
+        "_type": "localizedSlug",
+        "de": "tteokbokki-tteok",
+        "en": "tteokbokki-tteok"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "785cn7YXS6Rf4mrMzLWM9j",
+      "_rev": "fRYqy7Dy1LWxaVLh0aQKbD",
+      "_type": "recipeIngredient",
+      "_updatedAt": "2026-10-01T21:24:48Z",
+      "ingredient": {
+        "_key": "37feff10e252",
+        "_ref": "75UfpJXs9YtOZKMg6qu4wv",
+        "_type": "reference"
+      },
+      "legacyContentfulId": "785cn7YXS6Rf4mrMzLWM9j",
+      "quantity": {
+        "_type": "localizedString",
+        "de": " 300 g",
+        "en": " 300 g"
+      },
+      "title": {
+        "_type": "localizedString",
+        "de": "Zutat11",
+        "en": "Zutat11"
+      }
+    },
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "59RnPH8WeiSfouImHseyKF",
+      "_rev": "fRYqy7Dy1LWxaVLh0aQKbD",
+      "_type": "recipeIngredient",
+      "_updatedAt": "2026-10-01T21:24:48Z",
+      "ingredient": {
+        "_key": "f918462276b0",
+        "_ref": "7n2iUHpmF65BcZBKme02fT",
+        "_type": "reference"
+      },
+      "legacyContentfulId": "59RnPH8WeiSfouImHseyKF",
+      "quantity": {
+        "_type": "localizedString",
+        "de": "360 ml",
+        "en": "360 ml"
+      },
+      "title": {
+        "_type": "localizedString",
+        "de": "Zutat12",
+        "en": "Zutat12"
+      }
+    },
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "7Gu7LFzVvBTN4tKa0EQPzC",
+      "_rev": "fRYqy7Dy1LWxaVLh0aQKbD",
+      "_type": "recipeIngredient",
+      "_updatedAt": "2026-10-01T21:24:48Z",
+      "ingredient": {
+        "_key": "2e0971e5d185",
+        "_ref": "3pxIpo3j2wLFFl5lzgsdFm",
+        "_type": "reference"
+      },
+      "legacyContentfulId": "7Gu7LFzVvBTN4tKa0EQPzC",
+      "quantity": {
+        "_type": "localizedString",
+        "de": "1 Stück",
+        "en": "1 piece"
+      },
+      "title": {
+        "_type": "localizedString",
+        "de": "Zutat13",
+        "en": "Zutat13"
+      }
+    },
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "13SNXZqqxFSjf3zDoeco5n",
+      "_rev": "fRYqy7Dy1LWxaVLh0aQKbD",
+      "_type": "recipeIngredient",
+      "_updatedAt": "2026-10-01T21:24:48Z",
+      "ingredient": {
+        "_key": "1b3e776a1506",
+        "_ref": "31qLwPpZYSKIi7ZpC41EZp",
+        "_type": "reference"
+      },
+      "legacyContentfulId": "13SNXZqqxFSjf3zDoeco5n",
+      "quantity": {
+        "_type": "localizedString",
+        "de": "1,3 EL",
+        "en": "1.3 tbsp"
+      },
+      "title": {
+        "_type": "localizedString",
+        "de": "Zutat14",
+        "en": "Zutat14"
+      }
+    },
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "guQvL5oO2rRvTPqVa3bdx",
+      "_rev": "fRYqy7Dy1LWxaVLh0aQKbD",
+      "_type": "recipeIngredient",
+      "_updatedAt": "2026-10-01T21:24:48Z",
+      "ingredient": {
+        "_key": "b02795cd701a",
+        "_ref": "6RSnr3tjQL678rUrO7KbXi",
+        "_type": "reference"
+      },
+      "legacyContentfulId": "guQvL5oO2rRvTPqVa3bdx",
+      "quantity": {
+        "_type": "localizedString",
+        "de": "2 EL",
+        "en": "2 tbsp"
+      },
+      "title": {
+        "_type": "localizedString",
+        "de": "Zutat15",
+        "en": "Zutat15"
+      }
+    },
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "3rjhq1WC6jCpXbbVe93JzS",
+      "_rev": "fRYqy7Dy1LWxaVLh0aQKbD",
+      "_type": "recipeIngredient",
+      "_updatedAt": "2026-10-01T21:24:48Z",
+      "ingredient": {
+        "_key": "51853a4a1019",
+        "_ref": "45AmuOcPL5dEMn8AXNlRGD",
+        "_type": "reference"
+      },
+      "legacyContentfulId": "3rjhq1WC6jCpXbbVe93JzS",
+      "quantity": {
+        "_type": "localizedString",
+        "de": "1 EL",
+        "en": "1 tbsp"
+      },
+      "title": {
+        "_type": "localizedString",
+        "de": "Zutat16",
+        "en": "Zutat16"
+      }
+    },
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "53DcpNGdx7vAaCEP1syhV2",
+      "_rev": "fRYqy7Dy1LWxaVLh0aQKbD",
+      "_type": "recipeIngredient",
+      "_updatedAt": "2026-10-01T21:24:48Z",
+      "ingredient": {
+        "_key": "e502c4388d87",
+        "_ref": "4xHLnk2plaHbaxJGKmijJA",
+        "_type": "reference"
+      },
+      "legacyContentfulId": "53DcpNGdx7vAaCEP1syhV2",
+      "quantity": {
+        "_type": "localizedString",
+        "de": "1,3 EL",
+        "en": "1,3 tbsp"
+      },
+      "title": {
+        "_type": "localizedString",
+        "de": "Zutat17",
+        "en": "Zutat17"
+      }
+    },
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "7D025TPyvwF8T46n9QOn2r",
+      "_rev": "JvPYpz8fI9X3Uqv2WwVy0s",
+      "_type": "step",
+      "_updatedAt": "2026-10-01T21:23:31Z",
+      "description": {
+        "_type": "localizedPortableText",
+        "de": [
+          {
+            "_key": "93b21a437208",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "6489c47c24a5",
+                "_type": "span",
+                "marks": [],
+                "text": "Bringe 360 ml Wasser in einem Topf zum Kochen. Gib die Tteokbokki-Reiskuchen dazu. Wenn sie gefroren sind, weiche sie vorher kurz in Wasser ein. "
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "en": [
+          {
+            "_key": "aecab3484320",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "ef84cb886d18",
+                "_type": "span",
+                "marks": [],
+                "text": "Bring 360 ml of water to a boil in a pot. Add the tteokbokki rice cakes. If the rice cakes are frozen, soak them briefly in water first. "
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ]
+      },
+      "image": [],
+      "ingredientsUsed": [],
+      "legacyContentfulId": "7D025TPyvwF8T46n9QOn2r",
+      "stepName": "TTK1",
+      "stepNumber": 1
+    },
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "2l8OctBJ2yLcMofEBZ7ncp",
+      "_rev": "JvPYpz8fI9X3Uqv2WwVy0s",
+      "_type": "step",
+      "_updatedAt": "2026-10-01T21:23:31Z",
+      "description": {
+        "_type": "localizedPortableText",
+        "de": [
+          {
+            "_key": "bd5707fa8529",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "78d66b924145",
+                "_type": "span",
+                "marks": [],
+                "text": "Wenn das Wasser wieder kocht, gib die Sauce-Zutaten dazu und verrühre alles gut. Rühre während des Kochens regelmäßig um, damit die Reiskuchen nicht am Topfboden kleben bleiben. "
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "en": [
+          {
+            "_key": "253f2a97f76c",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "e568c6ce9cd3",
+                "_type": "span",
+                "marks": [],
+                "text": "When the water starts boiling again, add the sauce ingredients and mix well. Keep stirring often while the rice cakes cook, so they do not stick to the bottom. "
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ]
+      },
+      "image": [],
+      "ingredientsUsed": [],
+      "legacyContentfulId": "2l8OctBJ2yLcMofEBZ7ncp",
+      "stepName": "TTK2",
+      "stepNumber": 2
+    },
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "33TlrZWkEbVEJSoV3bPX7d",
+      "_rev": "JvPYpz8fI9X3Uqv2WwVy0s",
+      "_type": "step",
+      "_updatedAt": "2026-10-01T21:23:31Z",
+      "description": {
+        "_type": "localizedPortableText",
+        "de": [
+          {
+            "_key": "7efd33e867a3",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "a67445e9c97b",
+                "_type": "span",
+                "marks": [],
+                "text": "Köchele alles, bis die Sauce etwas eingekocht ist und leicht glänzt. Schneide die Lauchzwiebel mit einer Schere klein und streue Sesam darüber. "
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "en": [
+          {
+            "_key": "448c0be71a9e",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "9b04175a3205",
+                "_type": "span",
+                "marks": [],
+                "text": "Simmer until the sauce has reduced and becomes slightly glossy. Cut the green onion into small pieces with scissors and sprinkle sesame seeds on top. "
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ]
+      },
+      "image": [],
+      "ingredientsUsed": [],
+      "legacyContentfulId": "33TlrZWkEbVEJSoV3bPX7d",
+      "stepName": "TTK3",
+      "stepNumber": 3
+    },
+    {
+      "_createdAt": "2026-10-01T21:23:31Z",
+      "_id": "7uV0rTYRQlcIyz8ChfpzFY",
+      "_rev": "JvPYpz8fI9X3Uqv2WwVy0s",
+      "_type": "step",
+      "_updatedAt": "2026-10-01T21:23:31Z",
+      "description": {
+        "_type": "localizedPortableText",
+        "de": [
+          {
+            "_key": "7b348e8e3f15",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "cd9532849b41",
+                "_type": "span",
+                "marks": [],
+                "text": "Sofort servieren. Wenn du die Tteokbokki sättigender machen möchtest, kannst du Eomuk, Kohl, gekochte Eier oder etwas mehr Sesam dazugeben."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "en": [
+          {
+            "_key": "db4a81dc85c7",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "d56f38152431",
+                "_type": "span",
+                "marks": [],
+                "text": "Serve right away. If you want to make it more filling, you can add eomuk, cabbage, boiled eggs, or extra sesame seeds."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "da0f8cdac143",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "a7eeda888222",
+                "_type": "span",
+                "marks": [],
+                "text": ""
+              }
+            ],
+            "markDefs": [],
+            "style": "h2"
+          },
+          {
+            "_key": "b1cf8999fecf",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "4ce4a2a31784",
+                "_type": "span",
+                "marks": [],
+                "text": ""
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ]
+      },
+      "image": [],
+      "ingredientsUsed": [],
+      "legacyContentfulId": "7uV0rTYRQlcIyz8ChfpzFY",
+      "stepName": "TTK4",
+      "stepNumber": 4
+    }
+  ]
+}
