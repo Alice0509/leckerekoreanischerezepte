@@ -917,6 +917,14 @@
   line-height: 1.4;
 }
 
+.relatedRecipeReason {
+  margin: 8px 0 0;
+  color: #5d554f;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 700px) {
   .relatedRecipesSection {
     margin-top: 30px;
