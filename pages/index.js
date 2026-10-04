@@ -4,8 +4,8 @@ import contentfulBuildSnapshot from '../lib/contentfulBuildSnapshot.cjs';
 
 const { getRecipeDatasetFromSnapshot } = contentfulBuildSnapshot;
 import Fuse from 'fuse.js';
-import recipeFreshness from '../lib/recipeFreshness.cjs';
-const { latestRecipes } = recipeFreshness;
+import homeRecipeSelection from '../lib/homeRecipeSelection.cjs';
+const { selectHomeRecipes } = homeRecipeSelection;
 import styles from '../styles/Home.module.css';
 import { getSeoUrls } from '../lib/siteUrls';
 import {
@@ -125,6 +125,17 @@ export async function getStaticProps({ locale }) {
 }
 
 const Home = ({ recipes, error, freshnessCheckedAt }) => {
+  const [selectionTime, setSelectionTime] = useState(freshnessCheckedAt);
+  useEffect(() => {
+    const refresh = () => setSelectionTime(Date.now());
+    refresh();
+    const interval = window.setInterval(refresh, 60000);
+    window.addEventListener('focus', refresh);
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener('focus', refresh);
+    };
+  }, []);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const itemsPerPage = 12;
@@ -178,8 +189,8 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
   }, [searchedItems, itemsPerPage]);
 
   const featuredRecipes = useMemo(
-    () => latestRecipes(recipes, freshnessCheckedAt),
-    [recipes, freshnessCheckedAt]
+    () => selectHomeRecipes(recipes, selectionTime),
+    [recipes, selectionTime]
   );
 
   const seoCopy =
@@ -277,19 +288,34 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
             <div className={styles.previewHeader}>
               <h2 className={styles.previewTitle}>
                 {mappedLocale === 'de-DE'
-                  ? 'Neueste Rezepte'
-                  : 'Latest Recipes'}
+                  ? 'Neue Rezepte & Wochenempfehlung'
+                  : 'Latest Recipes & This Week’s Pick'}
               </h2>
             </div>
 
             <div className={styles.featuredGrid}>
-              {featuredRecipes.map((item) => (
-                <RecipeCard
-                  key={item.id}
-                  recipe={item}
-                  locale={locale}
-                  freshnessCheckedAt={freshnessCheckedAt}
-                />
+              {featuredRecipes.map(({ recipe: item, role }) => (
+                <div key={item.id} className={styles.featuredSlot}>
+                  <p className={styles.featuredLabel}>
+                    {role === 'weekly'
+                      ? locale === 'de'
+                        ? 'Diese Woche empfohlen'
+                        : 'This week’s pick'
+                      : role === 'archive'
+                        ? locale === 'de'
+                          ? 'Aus meiner Küche'
+                          : 'From my kitchen'
+                        : locale === 'de'
+                          ? 'Zuletzt veröffentlicht'
+                          : 'Recently published'}
+                  </p>
+                  <RecipeCard
+                    recipe={item}
+                    locale={locale}
+                    freshnessCheckedAt={freshnessCheckedAt}
+                    recommended={role === 'weekly'}
+                  />
+                </div>
               ))}
             </div>
           </section>

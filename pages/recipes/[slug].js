@@ -18,6 +18,7 @@ import Timer from '../../components/Timer';
 import recipeCompanions from '../../lib/recipeCompanions.cjs';
 const { companionId, prioritizeCompanions } = recipeCompanions;
 import RecipeMeasurementGuide from '../../components/RecipeMeasurementGuide';
+import RecipeSharePanel from '../../components/RecipeSharePanel';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
 import Head from 'next/head';
@@ -1263,6 +1264,30 @@ const RecipeDetail = ({ recipe, error }) => {
                 </p>
 
                 <RecipeMeasurementGuide locale={mappedLocale} />
+                {safeRecipe.id === 'chat-recipe-japanese-golden-curry' &&
+                  ingredients
+                    .filter(
+                      (item) =>
+                        item.ingredientId ===
+                          'ingredient-sb-golden-curry-roux' &&
+                        item.slug &&
+                        hasIngredientDetailPage({
+                          slug: item.slug,
+                          description: item.description,
+                        })
+                    )
+                    .map((item) => (
+                      <p
+                        key={item.ingredientId}
+                        className={styles.curryIngredientGuide}
+                      >
+                        <Link href={`/ingredients/${item.slug}`}>
+                          {mappedLocale === 'de'
+                            ? 'Golden Curry kennenlernen: Packung, Verwendung und Tipps'
+                            : 'Learn about Golden Curry: the package, how to use it and kitchen tips'}
+                        </Link>
+                      </p>
+                    ))}
 
                 <ul className={styles.ingredientsList}>
                   {ingredients.map((ingredient, index) => {
@@ -1551,6 +1576,15 @@ const RecipeDetail = ({ recipe, error }) => {
             </div>
           </section>
         )}
+
+        <RecipeSharePanel
+          title={titel}
+          description={richTextToPlainText(description)}
+          canonicalUrl={canonicalUrl}
+          imageUrl={images[0] || null}
+          slug={safeRecipe.slug}
+          locale={mappedLocale}
+        />
 
         <DisqusComments post={recipe} />
 

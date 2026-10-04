@@ -245,8 +245,30 @@
 ============================== */
 .featuredGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.featuredSlot {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.featuredSlot > article {
+  flex: 1;
+  height: auto;
+}
+.featuredLabel {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #476346;
+}
+@media (prefers-color-scheme: dark) {
+  .featuredLabel {
+    color: #bad2b4;
+  }
 }
 
 .allRecipesSection {
