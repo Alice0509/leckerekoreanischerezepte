@@ -1,0 +1,488 @@
+{
+  "recipeId": "chat-recipe-bibim-noodle-sauce",
+  "context": {
+    "slug": {
+      "_type": "localizedSlug",
+      "de": "bibim-noodle-sauce",
+      "en": "bibim-noodle-sauce"
+    },
+    "ingredients": [
+      {
+        "_key": "i1",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-1",
+        "_type": "reference"
+      },
+      {
+        "_key": "i2",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-2",
+        "_type": "reference"
+      },
+      {
+        "_key": "i3",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-3",
+        "_type": "reference"
+      },
+      {
+        "_key": "i4",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-4",
+        "_type": "reference"
+      },
+      {
+        "_key": "i5",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-5",
+        "_type": "reference"
+      },
+      {
+        "_key": "i6",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-6",
+        "_type": "reference"
+      },
+      {
+        "_key": "i7",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-7",
+        "_type": "reference"
+      },
+      {
+        "_key": "i8",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-8",
+        "_type": "reference"
+      },
+      {
+        "_key": "i9",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-9",
+        "_type": "reference"
+      }
+    ],
+    "steps": [
+      {
+        "_key": "s1",
+        "_ref": "chat-recipe-bibim-noodle-sauce-step-1",
+        "_type": "reference"
+      },
+      {
+        "_key": "s2",
+        "_ref": "chat-recipe-bibim-noodle-sauce-step-2",
+        "_type": "reference"
+      },
+      {
+        "_key": "s3",
+        "_ref": "chat-recipe-bibim-noodle-sauce-step-3",
+        "_type": "reference"
+      }
+    ]
+  },
+  "updates": [
+    {
+      "id": "chat-recipe-bibim-noodle-sauce",
+      "type": "recipe",
+      "before": {
+        "description": {
+          "_type": "localizedPortableText",
+          "de": [
+            {
+              "_key": "p1",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Eine süße, scharfe und leicht säuerliche koreanische Sauce zum Vermengen mit den Nudeln, die du gerade zu Hause hast: Udon, Spaghetti, dünne koreanische Nudeln, Kalguksu oder Ramen-Nudeln. Gehackter Knoblauch, Sesamöl, Gochugaru, Gochujang und Jin-Ganjang sorgen für die Würze; Apfelessig und Zucker gleichen den Geschmack aus. Die Zutaten werden nur vermischt, die Sauce muss nicht gekocht werden. Zum Schluss mit Sesamsamen bestreuen."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "p2",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Die Menge ist für ungefähr 2 Portionen gedacht. Die Angaben sind ein Mengenverhältnis, gemessen mit einem gewöhnlichen koreanischen Esslöffel aus dem Besteck, kein genaues 15-ml-Maß. Verwende für alle Saucenzutaten denselben Löffel und behalte beim Vergrößern oder Verkleinern die Verhältnisse bei. Die angegebenen etwa 5 Minuten sind eine Schätzung nur für die Sauce; Nudeln kochen und Gemüse vorbereiten dauert zusätzlich."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "p3",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Dazu passen nach Wahl Weißkohl, Blattsalat, Perillablätter, Frühlingszwiebeln oder Knoblauchschnittlauch. Nudeln und Gemüse sind frei wählbare Beilagen, deshalb stehen ihre Mengen nicht in der Zutatenliste der Sauce. Gib die Sauce nach und nach zu den Nudeln und passe die Menge an das verwendete Gemüse an."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ],
+          "en": [
+            {
+              "_key": "p1",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "A sweet, spicy and tangy Korean sauce for tossing with the noodles you have at home: udon, spaghetti, thin Korean noodles, kalguksu or ramen noodles. Minced garlic, sesame oil, gochugaru, gochujang and Jin-Ganjang give it its savory flavor, while apple cider vinegar and sugar balance the sauce. Simply mix the ingredients; the sauce does not need cooking. Finish with sesame seeds."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "p2",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "This batch is for approximately 2 servings. The quantities are a ratio measured with an ordinary Korean eating spoon, not calibrated 15 ml tablespoons. Use the same spoon for every sauce ingredient and keep the proportions when scaling. The listed preparation time of about 5 minutes is an estimate for making the sauce only; cooking the noodles and preparing vegetables take additional time."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "p3",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Serve with any combination of cabbage, lettuce, perilla leaves, scallions or garlic chives. Noodles and vegetables are serving choices, so their amounts are not included in the sauce ingredient list. Add the sauce gradually to suit the amount of noodles and vegetables you use."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ]
+        }
+      },
+      "set": {
+        "description": {
+          "_type": "localizedPortableText",
+          "en": [
+            {
+              "_type": "block",
+              "_key": "p1",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "text",
+                  "text": "A sweet, spicy and tangy Korean sauce for tossing with the noodles you have at home: udon, spaghetti, thin Korean noodles, kalguksu or ramen noodles. Minced garlic, sesame oil, gochugaru, gochujang and Jin-Ganjang give it its savory flavor, while apple cider vinegar and sugar balance the sauce. Simply mix the ingredients; the sauce does not need cooking. Finish with sesame seeds.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "p2",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "text",
+                  "text": "This batch is intended for approximately 2 servings. The sauce amounts are a volume ratio: 1 part is one spoonful using the same spoon throughout, and 2 parts is two spoonfuls. You can choose an ordinary eating spoon or a marked measuring spoon, including a 15 ml metric tablespoon. Keep dry ingredients level and measure pastes consistently. Korean rice spoons and other cutlery spoons vary in size, so they are not an exact conversion to a measuring tablespoon. A larger spoon makes more sauce; add it gradually to the noodles. The listed preparation time of about 5 minutes is an estimate for making the sauce only; cooking noodles and preparing vegetables take additional time.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "p3",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "text",
+                  "text": "Serve with any combination of cabbage, lettuce, perilla leaves, scallions or garlic chives. Noodles and vegetables are serving choices, so their amounts are not included in the sauce ingredient list. Add the sauce gradually to suit the amount of noodles and vegetables you use.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "de": [
+            {
+              "_type": "block",
+              "_key": "p1",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "text",
+                  "text": "Eine süße, scharfe und leicht säuerliche koreanische Sauce zum Vermengen mit den Nudeln, die du gerade zu Hause hast: Udon, Spaghetti, dünne koreanische Nudeln, Kalguksu oder Ramen-Nudeln. Gehackter Knoblauch, Sesamöl, Gochugaru, Gochujang und Jin-Ganjang sorgen für die Würze; Apfelessig und Zucker gleichen den Geschmack aus. Die Zutaten werden nur vermischt, die Sauce muss nicht gekocht werden. Zum Schluss mit Sesamsamen bestreuen.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "p2",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "text",
+                  "text": "Die Menge ist für ungefähr 2 Portionen gedacht. Die Saucenmengen sind ein Verhältnis nach Volumen: 1 Teil ist ein Löffel, 2 Teile sind zwei Löffel – immer mit demselben Löffel gemessen. Du kannst einen Bestecklöffel oder einen beschrifteten Messlöffel wählen, auch einen metrischen 15-ml-Esslöffel. Trockene Zutaten gestrichen und Pasten gleichmäßig abmessen. Koreanische Reislöffel und andere Bestecklöffel sind unterschiedlich groß; sie lassen sich nicht exakt in Messlöffel umrechnen. Ein größerer Löffel ergibt mehr Sauce; gib sie nach und nach zu den Nudeln. Die angegebenen etwa 5 Minuten sind eine Schätzung nur für die Sauce; Nudeln kochen und Gemüse vorbereiten dauert zusätzlich.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "p3",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "text",
+                  "text": "Dazu passen nach Wahl Weißkohl, Blattsalat, Perillablätter, Frühlingszwiebeln oder Knoblauchschnittlauch. Nudeln und Gemüse sind frei wählbare Beilagen, deshalb stehen ihre Mengen nicht in der Zutatenliste der Sauce. Gib die Sauce nach und nach zu den Nudeln und passe die Menge an das verwendete Gemüse an.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "chat-recipe-bibim-noodle-sauce-ingredient-1",
+      "type": "recipeIngredient",
+      "before": {
+        "quantity": {
+          "_type": "localizedString",
+          "de": "2 Löffelmaße (koreanischer Esslöffel)",
+          "en": "2 spoonfuls (Korean eating spoon)"
+        }
+      },
+      "set": {
+        "quantity": {
+          "_type": "localizedString",
+          "en": "2 parts",
+          "de": "2 Teile"
+        }
+      }
+    },
+    {
+      "id": "chat-recipe-bibim-noodle-sauce-ingredient-2",
+      "type": "recipeIngredient",
+      "before": {
+        "quantity": {
+          "_type": "localizedString",
+          "de": "1 Löffelmaß (koreanischer Esslöffel)",
+          "en": "1 spoonful (Korean eating spoon)"
+        }
+      },
+      "set": {
+        "quantity": {
+          "_type": "localizedString",
+          "en": "1 part",
+          "de": "1 Teil"
+        }
+      }
+    },
+    {
+      "id": "chat-recipe-bibim-noodle-sauce-ingredient-3",
+      "type": "recipeIngredient",
+      "before": {
+        "quantity": {
+          "_type": "localizedString",
+          "de": "2 Löffelmaße (koreanischer Esslöffel)",
+          "en": "2 spoonfuls (Korean eating spoon)"
+        }
+      },
+      "set": {
+        "quantity": {
+          "_type": "localizedString",
+          "en": "2 parts",
+          "de": "2 Teile"
+        }
+      }
+    },
+    {
+      "id": "chat-recipe-bibim-noodle-sauce-ingredient-4",
+      "type": "recipeIngredient",
+      "before": {
+        "quantity": {
+          "_type": "localizedString",
+          "de": "2 Löffelmaße (koreanischer Esslöffel)",
+          "en": "2 spoonfuls (Korean eating spoon)"
+        }
+      },
+      "set": {
+        "quantity": {
+          "_type": "localizedString",
+          "en": "2 parts",
+          "de": "2 Teile"
+        }
+      }
+    },
+    {
+      "id": "chat-recipe-bibim-noodle-sauce-ingredient-5",
+      "type": "recipeIngredient",
+      "before": {
+        "quantity": {
+          "_type": "localizedString",
+          "de": "2 Löffelmaße (koreanischer Esslöffel)",
+          "en": "2 spoonfuls (Korean eating spoon)"
+        }
+      },
+      "set": {
+        "quantity": {
+          "_type": "localizedString",
+          "en": "2 parts",
+          "de": "2 Teile"
+        }
+      }
+    },
+    {
+      "id": "chat-recipe-bibim-noodle-sauce-ingredient-6",
+      "type": "recipeIngredient",
+      "before": {
+        "quantity": {
+          "_type": "localizedString",
+          "de": "1,5 Löffelmaße (koreanischer Esslöffel)",
+          "en": "1.5 spoonfuls (Korean eating spoon)"
+        }
+      },
+      "set": {
+        "quantity": {
+          "_type": "localizedString",
+          "en": "1.5 parts",
+          "de": "1,5 Teile"
+        }
+      }
+    },
+    {
+      "id": "chat-recipe-bibim-noodle-sauce-ingredient-7",
+      "type": "recipeIngredient",
+      "before": {
+        "quantity": {
+          "_type": "localizedString",
+          "de": "1 Löffelmaß (koreanischer Esslöffel)",
+          "en": "1 spoonful (Korean eating spoon)"
+        }
+      },
+      "set": {
+        "quantity": {
+          "_type": "localizedString",
+          "en": "1 part",
+          "de": "1 Teil"
+        }
+      }
+    },
+    {
+      "id": "chat-recipe-bibim-noodle-sauce-ingredient-8",
+      "type": "recipeIngredient",
+      "before": {
+        "quantity": {
+          "_type": "localizedString",
+          "de": "3 Löffelmaße (koreanischer Esslöffel)",
+          "en": "3 spoonfuls (Korean eating spoon)"
+        }
+      },
+      "set": {
+        "quantity": {
+          "_type": "localizedString",
+          "en": "3 parts",
+          "de": "3 Teile"
+        }
+      }
+    },
+    {
+      "id": "chat-recipe-bibim-noodle-sauce-step-1",
+      "type": "step",
+      "before": {
+        "description": {
+          "_type": "localizedPortableText",
+          "de": [
+            {
+              "_key": "p1",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Gehackten Knoblauch, Sesamöl, Gochugaru, Gochujang, Jin-Ganjang, Apfelessig, Matsul und Zucker in eine Schüssel geben. Gründlich verrühren, bis alles gleichmäßig vermischt ist. Für alle Mengenverhältnisse denselben gewöhnlichen koreanischen Esslöffel aus dem Besteck verwenden. Die Sauce muss nicht gekocht werden."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ],
+          "en": [
+            {
+              "_key": "p1",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Put the minced garlic, sesame oil, gochugaru, gochujang, Jin-Ganjang, apple cider vinegar, matsul and sugar in a bowl. Stir thoroughly until the ingredients are evenly combined. Use the same ordinary Korean eating spoon for all the ratio measurements; the sauce does not need cooking."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ]
+        }
+      },
+      "set": {
+        "description": {
+          "_type": "localizedPortableText",
+          "en": [
+            {
+              "_type": "block",
+              "_key": "p1",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "text",
+                  "text": "Put the minced garlic, sesame oil, gochugaru, gochujang, Jin-Ganjang, apple cider vinegar, matsul and sugar in a bowl. Use one spoon as your measure for all the listed parts: for example, 2 parts means two spoonfuls, and 1.5 parts means one and a half. Keep dry ingredients level and measure pastes consistently. Stir thoroughly until evenly combined. The sauce does not need cooking.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "de": [
+            {
+              "_type": "block",
+              "_key": "p1",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "text",
+                  "text": "Gehackten Knoblauch, Sesamöl, Gochugaru, Gochujang, Jin-Ganjang, Apfelessig, Matsul und Zucker in eine Schüssel geben. Alle angegebenen Teile mit demselben Löffel abmessen: 2 Teile sind zum Beispiel zwei Löffel, 1,5 Teile sind eineinhalb. Trockene Zutaten gestrichen und Pasten gleichmäßig abmessen. Gründlich verrühren, bis alles gleichmäßig vermischt ist. Die Sauce muss nicht gekocht werden.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

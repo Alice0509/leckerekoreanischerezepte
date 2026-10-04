@@ -1,0 +1,46 @@
+.guide {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border: 1px solid #dce5db;
+  border-radius: 10px;
+  background: #f6f9f4;
+  color: #334b37;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.guide summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.guide summary:focus-visible {
+  outline: 2px solid #42634c;
+  outline-offset: 4px;
+}
+
+.guide p {
+  margin: 12px 0;
+}
+
+.guide dl {
+  margin: 0;
+}
+
+.guide dt {
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.guide dd {
+  margin: 4px 0 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .guide {
+    background: #24342a;
+    border-color: #4b6252;
+    color: #e1eddf;
+  }
+}
