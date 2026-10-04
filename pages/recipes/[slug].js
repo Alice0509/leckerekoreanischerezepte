@@ -19,6 +19,9 @@ import recipeCompanions from '../../lib/recipeCompanions.cjs';
 const { companionId, prioritizeCompanions } = recipeCompanions;
 import RecipeMeasurementGuide from '../../components/RecipeMeasurementGuide';
 import RecipeSharePanel from '../../components/RecipeSharePanel';
+import recipeSearch from '../../lib/recipeSearchDetails.cjs';
+const { orderedRecipeSteps, recipeSearchDetails, serializeRecipeSchema } =
+  recipeSearch;
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
 import Head from 'next/head';
@@ -79,12 +82,6 @@ const truncateText = (text, maxLength = 155) => {
   if (!clean) return '';
   if (clean.length <= maxLength) return clean;
   return `${clean.slice(0, maxLength - 3).trim()}...`;
-};
-
-const formatDurationISO = (minutes) => {
-  const num = Number(minutes);
-  if (!Number.isFinite(num) || num <= 0) return undefined;
-  return `PT${Math.round(num)}M`;
 };
 
 const getRelatedRecipeImageUrl = (imageField) => {
@@ -639,6 +636,7 @@ export async function getStaticProps({ params, locale }) {
       category: categoryLabel,
       relatedRecipes,
       preparationTime: recipeEntry.fields.preparationTime || null,
+      firstPublishedAt: recipeEntry.fields.firstPublishedAt || null,
       servings: recipeEntry.fields.servings || null,
       ingredients,
       instructions:
@@ -695,6 +693,7 @@ const RecipeDetail = ({ recipe, error }) => {
     seoTitle: null,
     seoDescription: null,
     updatedDate: null,
+    firstPublishedAt: null,
   };
 
   const {
@@ -713,6 +712,7 @@ const RecipeDetail = ({ recipe, error }) => {
     seoTitle,
     seoDescription,
     updatedDate,
+    firstPublishedAt,
   } = safeRecipe;
 
   const [checkedIngredients, setCheckedIngredients] = useState(
@@ -972,27 +972,21 @@ const RecipeDetail = ({ recipe, error }) => {
   const ogImage =
     images[0] || thumbnailUrl || `${seoUrls.siteOrigin}/images/default.png`;
 
-  const schemaInstructions =
-    steps && steps.length > 0
-      ? [...steps]
-          .sort((a, b) => a.stepNumber - b.stepNumber)
-          .map((step) => ({
-            '@type': 'HowToStep',
-            name:
-              mappedLocale === 'de'
-                ? `Schritt ${step.stepNumber}`
-                : `Step ${step.stepNumber}`,
-            text: stripHtmlLikeWhitespace(
-              richTextToPlainText(step.description)
-            ),
-            image: step.image || undefined,
-          }))
-      : [
-          {
-            '@type': 'HowToStep',
-            text: stripHtmlLikeWhitespace(richTextToPlainText(instructions)),
-          },
-        ];
+  const searchDetails = recipeSearchDetails({
+    preparationTime,
+    servings,
+    firstPublishedAt,
+    updatedDate,
+    steps,
+    instructions,
+    canonicalUrl,
+    locale: mappedLocale,
+    toPlainText: (content) =>
+      stripHtmlLikeWhitespace(richTextToPlainText(content)),
+  });
+  const visibleSteps = orderedRecipeSteps(steps, (content) =>
+    stripHtmlLikeWhitespace(richTextToPlainText(content))
+  );
 
   const guide = getRecipeGuide({
     title: titel,
@@ -1001,7 +995,7 @@ const RecipeDetail = ({ recipe, error }) => {
     mappedLocale,
   });
 
-  const hasStructuredSteps = Boolean(steps?.some((step) => step?.description));
+  const hasStructuredSteps = visibleSteps.length > 0;
 
   const recipeSchema = {
     '@context': 'https://schema.org',
@@ -1011,15 +1005,11 @@ const RecipeDetail = ({ recipe, error }) => {
     image: images.length > 0 ? images : [ogImage],
     recipeCategory: category || 'Korean Food',
     inLanguage: mappedLocale,
-    prepTime: formatDurationISO(preparationTime),
-    totalTime: formatDurationISO(preparationTime),
-    recipeYield: servings ? `${servings}` : undefined,
+    ...searchDetails,
     recipeIngredient: ingredients.map(
       (ingredient) =>
         `${ingredient.name}${ingredient.quantity ? ` - ${ingredient.quantity}` : ''}`
     ),
-    recipeInstructions: schemaInstructions,
-    dateModified: updatedDate || undefined,
     video: youTubeUrl
       ? {
           '@type': 'VideoObject',
@@ -1075,7 +1065,7 @@ const RecipeDetail = ({ recipe, error }) => {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(recipeSchema),
+            __html: serializeRecipeSchema(recipeSchema),
           }}
         />
       </Head>
@@ -1107,6 +1097,17 @@ const RecipeDetail = ({ recipe, error }) => {
               </span>
             )}
           </div>
+          {searchDetails.datePublished && (
+            <p className={styles.publicationDate}>
+              {mappedLocale === 'de' ? 'Veröffentlicht am ' : 'Published '}
+              <time dateTime={searchDetails.datePublished}>
+                {new Intl.DateTimeFormat(mappedLocale, {
+                  dateStyle: 'medium',
+                  timeZone: 'UTC',
+                }).format(new Date(searchDetails.datePublished))}
+              </time>
+            </p>
+          )}
         </header>
 
         <div className={styles.imageWrapper}>
@@ -1408,82 +1409,79 @@ const RecipeDetail = ({ recipe, error }) => {
                       : 'How I cook it'}
                   </h3>
                   <ol className={styles.stepList}>
-                    {[...steps]
-                      .filter((step) => step?.description)
-                      .sort((a, b) => (a.stepNumber ?? 0) - (b.stepNumber ?? 0))
-                      .map((step, index) => (
-                        <li key={index} className={styles.stepItem}>
-                          <div className={styles.stepHeader}>
-                            <input
-                              id={`step-checkbox-${index}`}
-                              type="checkbox"
-                              checked={checkedSteps[index]}
-                              onChange={() => handleStepCheckboxChange(index)}
-                              className={styles.stepCheckbox}
-                            />
-                            <label
-                              htmlFor={`step-checkbox-${index}`}
-                              className={styles.stepNumber}
-                            >
-                              {step.stepNumber}.
-                            </label>
+                    {visibleSteps.map((step, index) => (
+                      <li
+                        key={index}
+                        id={`step-${index + 1}`}
+                        className={styles.stepItem}
+                      >
+                        <div className={styles.stepHeader}>
+                          <input
+                            id={`step-checkbox-${index}`}
+                            type="checkbox"
+                            checked={checkedSteps[index]}
+                            onChange={() => handleStepCheckboxChange(index)}
+                            className={styles.stepCheckbox}
+                          />
+                          <label
+                            htmlFor={`step-checkbox-${index}`}
+                            className={styles.stepNumber}
+                          >
+                            {step.stepNumber}.
+                          </label>
 
-                            {step.timerDuration && (
-                              <span
-                                className={styles.stepTimer}
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                <Timer duration={step.timerDuration} />
-                              </span>
-                            )}
-                          </div>
-
-                          <div className={styles.stepContent}>
-                            <div
-                              className={
-                                checkedSteps[index] ? styles.checked : ''
-                              }
+                          {step.timerDuration && (
+                            <span
+                              className={styles.stepTimer}
+                              onClick={(e) => e.stopPropagation()}
                             >
-                              <div className={styles.stepDescription}>
-                                {renderContent(step.description)}
-                              </div>
+                              <Timer duration={step.timerDuration} />
+                            </span>
+                          )}
+                        </div>
+
+                        <div className={styles.stepContent}>
+                          <div
+                            className={
+                              checkedSteps[index] ? styles.checked : ''
+                            }
+                          >
+                            <div className={styles.stepDescription}>
+                              {renderContent(step.description)}
                             </div>
-
-                            {step.ingredientsUsed?.length > 0 && (
-                              <div className={styles.stepIngredientsUsed}>
-                                <span
-                                  className={styles.stepIngredientsUsedLabel}
-                                >
-                                  {mappedLocale === 'de'
-                                    ? 'Für diesen Schritt'
-                                    : 'Used in this step'}
-                                </span>
-
-                                <ul className={styles.stepIngredientsUsedList}>
-                                  {step.ingredientsUsed.map((ingredient) => (
-                                    <li key={ingredient.id}>
-                                      {ingredient.name}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-
-                            {step.image && (
-                              <div className={styles.stepImage}>
-                                <Image
-                                  src={step.image}
-                                  alt={`Step ${step.stepNumber} image`}
-                                  width={600}
-                                  height={400}
-                                  loading="lazy"
-                                  style={{ width: '100%', height: 'auto' }}
-                                />
-                              </div>
-                            )}
                           </div>
-                        </li>
-                      ))}
+
+                          {step.ingredientsUsed?.length > 0 && (
+                            <div className={styles.stepIngredientsUsed}>
+                              <span className={styles.stepIngredientsUsedLabel}>
+                                {mappedLocale === 'de'
+                                  ? 'Für diesen Schritt'
+                                  : 'Used in this step'}
+                              </span>
+
+                              <ul className={styles.stepIngredientsUsedList}>
+                                {step.ingredientsUsed.map((ingredient) => (
+                                  <li key={ingredient.id}>{ingredient.name}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          {step.image && (
+                            <div className={styles.stepImage}>
+                              <Image
+                                src={step.image}
+                                alt={`Step ${step.stepNumber} image`}
+                                width={600}
+                                height={400}
+                                loading="lazy"
+                                style={{ width: '100%', height: 'auto' }}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </li>
+                    ))}
                   </ol>
                 </div>
               </>
