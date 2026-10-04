@@ -86,5 +86,33 @@
         "url": "https://www.weee.com/en/product/Jayone-Red-Chili-Powder--Coarse/80457"
       }
     ]
+  },
+  "sesame-oil": {
+    "de": [
+      {
+        "name": "Asiafoodland",
+        "productTitle": "Ottogi geröstetes Sesamöl · 160 ml",
+        "note": "Produktbeispiel aus gerösteten Sesamsamen. Prüfe Zutaten und Flaschengröße; es ist keine Sesamdressing-Sauce.",
+        "url": "https://www.asiafoodland.de/food/oel-essig-fischsauce/oele-fette/ottogi-koreanisches-sesamoel-100-pur-160-ml.html"
+      }
+    ],
+    "en": [
+      {
+        "name": "Weee!",
+        "productTitle": "Otoki Premium Roasted Sesame Oil · 10.82 fl oz",
+        "note": "A toasted sesame oil option. The retailer uses the name Otoki; check the current label, ingredients and bottle size.",
+        "url": "https://www.weee.com/en/product/Otoki-Premium-Roasted-Sesame-Oil/85092"
+      }
+    ]
+  },
+  "jinganjang": {
+    "de": [
+      {
+        "name": "Handokmall",
+        "productTitle": "Sempio Sojasauce Jin S · 860 ml",
+        "note": "Produktbeispiel für Jin-Ganjang. Jin S ist eine eigene Produktlinie, nicht identisch mit Jin Gold. Prüfe die aktuelle Packung und Zutaten.",
+        "url": "https://handokmall.de/de/sempio-sojasauce-jin-s-860ml/12394"
+      }
+    ]
   }
 }

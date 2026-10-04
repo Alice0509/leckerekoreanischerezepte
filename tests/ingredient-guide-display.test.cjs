@@ -258,11 +258,14 @@ test('multiple shopping products do not duplicate the ingredient guide', () => {
   for (const product of products) assert.ok(html.includes(product.title));
 });
 
-test('flour, bean paste and curry show specific guidance and matching FAQ structured data', () => {
+test('ingredient-specific guides render their uses and matching FAQ in both languages', () => {
   for (const slug of [
     'wheat-flour-type-550',
     'azukibeanpaste',
     'sb-golden-curry-roux',
+    'sesame-oil',
+    'jinganjang',
+    'gochugaru',
   ])
     for (const locale of ['en', 'de']) {
       const profile = getIngredientGuideProfile(slug, locale);
@@ -288,6 +291,9 @@ test('English product guidance is global and flour does not recommend paste stor
     'wheat-flour-type-550',
     'azukibeanpaste',
     'sb-golden-curry-roux',
+    'sesame-oil',
+    'jinganjang',
+    'gochugaru',
   ]) {
     const english = visible(render(slug));
     assert.doesNotMatch(

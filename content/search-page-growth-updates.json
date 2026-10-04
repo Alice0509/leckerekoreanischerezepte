@@ -1,0 +1,575 @@
+{
+  "projectId": "o9hshko6",
+  "dataset": "production",
+  "preparedAt": "2026-10-04",
+  "recipes": [
+    {
+      "id": "4scruZVHnEMVsSTYtN5sl9",
+      "slug": {
+        "_type": "localizedSlug",
+        "de": "chogochujang",
+        "en": "chogochujang"
+      },
+      "before": {
+        "seoTitle": {
+          "_type": "localizedString",
+          "de": "Chogochujang Rezept – koreanische süß-scharfe Gochujang-Sauce",
+          "en": "Chogochujang Recipe – Korean Sweet and Spicy Gochujang Sauce"
+        },
+        "seoDescription": {
+          "_type": "localizedText",
+          "de": "Ein einfaches Chogochujang Rezept mit Gochujang, Essig und Zucker. Perfekt als koreanische Sauce für Gemüse, Bibimbap, Fisch oder Salat.",
+          "en": "An easy chogochujang recipe with gochujang, vinegar, and sugar. A Korean sweet and spicy sauce for vegetables, bibimbap, fish, or salads."
+        },
+        "description": {
+          "_type": "localizedPortableText",
+          "de": [
+            {
+              "_key": "840a78d9d297",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "06b449bca697",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "In Korea gibt es so viele verschiedene Soßen, ähnlich wie in Deutschland, wo es viele Soßen für Pommes gibt – nicht nur Mayonnaise. Eine der beliebtesten Soßen in Korea ist "
+                },
+                {
+                  "_key": "786d6a7e29f1",
+                  "_type": "span",
+                  "marks": [
+                    "strong"
+                  ],
+                  "text": "Chogochujang"
+                },
+                {
+                  "_key": "97bc30e792ec",
+                  "_type": "span",
+                  "marks": [],
+                  "text": ", eine Soße auf Basis von Gochujang (koreanische Chilipaste) und Essig."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "b65ddd4afd76",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "e28593aed698",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Diese Soße passt perfekt zu blanchiertem Brokkoli, Dashima (Kombu-Seegras), gekochtem Tintenfisch und verschiedenen Arten von Jeon (koreanische Pfannkuchen). Viele Regionen in Korea genießen diese Gerichte mit Chogochujang."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "2447334b0387",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "fa6a881c68ca",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Wenn Sie süß-scharfe Geschmäcker mögen, sollten Sie diese Soße unbedingt ausprobieren. Sie schmeckt sogar lecker, wenn man sie mit Reis mischt!"
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "51d8a73721d1",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "30aa555e5179",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "\n"
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "dbf03ddf29a6",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "b9b345b19669",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "\n"
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ],
+          "en": [
+            {
+              "_key": "a2ed539ea5c7",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "487a41e8b1a4",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Korean cooking includes many sauces designed for dipping, mixing, and seasoning. One of the most popular is chogochujang, a sweet, sour, and spicy sauce made with gochujang and vinegar."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "b6f96fc120fc",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "78dc9b02e3b5",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Chogochujang pairs especially well with blanched vegetables, dashima or kombu seaweed, boiled squid, seafood, and different types of jeon. It can also be used as a dressing for salads or mixed into rice dishes."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "500ca66f1e08",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "d780fbc3aa52",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "The balance between sweetness, acidity, and heat can be adjusted easily. Add a little more vinegar for a sharper sauce or more sugar or syrup for a sweeter flavor."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ]
+        }
+      },
+      "set": {
+        "seoTitle": {
+          "_type": "localizedString",
+          "de": "Chogochujang Rezept: süß-saure Gochujang-Sauce",
+          "en": "Chogochujang Recipe: Korean Sweet, Sour & Spicy Sauce"
+        },
+        "seoDescription": {
+          "_type": "localizedText",
+          "de": "Chogochujang in 5 Minuten mischen: koreanische süß-saure Gochujang-Sauce mit Essig, ideal zu blanchiertem Gemüse, Meeresfrüchten und Jeon.",
+          "en": "Mix chogochujang in 5 minutes with gochujang, vinegar and sweetener. A Korean dipping sauce for blanched vegetables, seafood and jeon."
+        },
+        "description": {
+          "_type": "localizedPortableText",
+          "de": [
+            {
+              "_key": "growth-chogochujang-de",
+              "_type": "block",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_key": "growth-chogochujang-de-text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Chogochujang (초고추장) ist eine süße, säuerliche und scharfe koreanische Dip-Sauce aus Gochujang und Essig. Dieses Rezept dauert etwa 5 Minuten: Die Zutaten werden einfach vermischt und nach Geschmack abgeschmeckt."
+                }
+              ]
+            },
+            {
+              "_key": "840a78d9d297",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "06b449bca697",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "In Korea gibt es so viele verschiedene Soßen, ähnlich wie in Deutschland, wo es viele Soßen für Pommes gibt – nicht nur Mayonnaise. Eine der beliebtesten Soßen in Korea ist "
+                },
+                {
+                  "_key": "786d6a7e29f1",
+                  "_type": "span",
+                  "marks": [
+                    "strong"
+                  ],
+                  "text": "Chogochujang"
+                },
+                {
+                  "_key": "97bc30e792ec",
+                  "_type": "span",
+                  "marks": [],
+                  "text": ", eine Soße auf Basis von Gochujang (koreanische Chilipaste) und Essig."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "b65ddd4afd76",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "e28593aed698",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Diese Soße passt perfekt zu blanchiertem Brokkoli, Dashima (Kombu-Seegras), gekochtem Tintenfisch und verschiedenen Arten von Jeon (koreanische Pfannkuchen). Viele Regionen in Korea genießen diese Gerichte mit Chogochujang."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "2447334b0387",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "fa6a881c68ca",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Wenn Sie süß-scharfe Geschmäcker mögen, sollten Sie diese Soße unbedingt ausprobieren. Sie schmeckt sogar lecker, wenn man sie mit Reis mischt!"
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "51d8a73721d1",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "30aa555e5179",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "\n"
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "dbf03ddf29a6",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "b9b345b19669",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "\n"
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ],
+          "en": [
+            {
+              "_key": "growth-chogochujang-en",
+              "_type": "block",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_key": "growth-chogochujang-en-text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Chogochujang (초고추장) is a sweet, sour and spicy Korean dipping sauce made with gochujang and vinegar. This recipe takes about 5 minutes: simply mix the ingredients and adjust the balance to taste."
+                }
+              ]
+            },
+            {
+              "_key": "a2ed539ea5c7",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "487a41e8b1a4",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Korean cooking includes many sauces designed for dipping, mixing, and seasoning. One of the most popular is chogochujang, a sweet, sour, and spicy sauce made with gochujang and vinegar."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "b6f96fc120fc",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "78dc9b02e3b5",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Chogochujang pairs especially well with blanched vegetables, dashima or kombu seaweed, boiled squid, seafood, and different types of jeon. It can also be used as a dressing for salads or mixed into rice dishes."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "500ca66f1e08",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "d780fbc3aa52",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "The balance between sweetness, acidity, and heat can be adjusted easily. Add a little more vinegar for a sharper sauce or more sugar or syrup for a sweeter flavor."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1WsefXmdbl6zzAkwV7RRPC",
+      "slug": {
+        "_type": "localizedSlug",
+        "de": "miyeokguk",
+        "en": "miyeokguk"
+      },
+      "before": {
+        "seoTitle": {
+          "_type": "localizedString",
+          "de": "Miyeokguk Rezept – koreanische Algensuppe mit Rindfleisch",
+          "en": "Easy Miyeokguk Recipe – Korean Seaweed Soup with Beef"
+        },
+        "seoDescription": {
+          "_type": "localizedText",
+          "de": "Miyeokguk ist eine koreanische Algensuppe mit Rindfleisch. Entdecke das traditionelle Rezept und erfahre, warum die Suppe an Geburtstagen gegessen wird.",
+          "en": "Learn how to make miyeokguk, a traditional Korean seaweed soup with beef. This warming soup is closely connected to birthdays and family traditions in Korea."
+        },
+        "description": {
+          "_type": "localizedPortableText",
+          "de": [
+            {
+              "_key": "a5f629687b1a",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "66fb1a30293c",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Miyeokguk hat in Korea eine besondere kulturelle Bedeutung. Traditionell essen Frauen die Suppe nach der Geburt. Außerdem wird sie an Geburtstagen serviert – als Erinnerung an die Mutter und an den Tag der eigenen Geburt."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "624aea209675",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "a24c8f892fd6",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "In unserer Familie gehört Miyeokguk zu den Gerichten, die wir besonders gern essen. Der wichtigste Bestandteil ist getrocknetes Miyeok, eine Algenart, die du in koreanischen oder gut sortierten asiatischen Lebensmittelgeschäften findest. Die Algen nehmen beim Einweichen stark an Volumen zu, daher reichen 20–25 g für einen großen Topf."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "72fa14df35d3",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "56f6bfeff0d3",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Die Suppe schmeckt besonders gut, wenn sie langsam und lange köchelt. Du kannst sie auch am Vortag zubereiten, denn am nächsten Tag ist ihr Geschmack oft noch kräftiger."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ],
+          "en": [
+            {
+              "_key": "e38250c5f9c5",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "cd098e199133",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Miyeokguk holds a special place in Korean culture. It is traditionally eaten by women after giving birth and is also served on birthdays as a way of remembering one’s mother and the day of one’s birth."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "3a0afeda9d53",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "d576b034d716",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "In our family, miyeokguk is one of our favorite soups. Its main ingredient is dried miyeok, a type of seaweed available at Korean and well-stocked Asian grocery stores. It expands considerably when soaked, so 20–25 g is enough for a large pot."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "459043511e03",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "68791b8d850f",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "The soup develops a deeper flavor when simmered slowly. You can also prepare it a day ahead, as miyeokguk often tastes even better the following day."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ]
+        }
+      },
+      "set": {
+        "seoTitle": {
+          "_type": "localizedString",
+          "de": "Miyeokguk Rezept: koreanische Algensuppe mit Rindfleisch",
+          "en": "Miyeokguk Recipe: Korean Seaweed Soup with Beef"
+        },
+        "seoDescription": {
+          "_type": "localizedText",
+          "de": "Miyeokguk mit getrockneten Algen und Rindfleisch kochen. Koreanische Geburtstagssuppe mit Anleitung zum Einweichen, Abspülen und Köcheln.",
+          "en": "Make miyeokguk with dried seaweed and beef. A Korean birthday soup with soaking, rinsing and simmering steps, served with rice."
+        },
+        "description": {
+          "_type": "localizedPortableText",
+          "de": [
+            {
+              "_key": "growth-miyeokguk-de",
+              "_type": "block",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_key": "growth-miyeokguk-de-text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Miyeokguk (미역국) ist eine koreanische Algensuppe, hier mit getrocknetem Miyeok und Rindfleisch zubereitet und mit Reis serviert. Das Rezept erklärt das Einweichen und Abspülen der Algen sowie den Aufbau der Brühe und das Köcheln der Suppe."
+                }
+              ]
+            },
+            {
+              "_key": "a5f629687b1a",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "66fb1a30293c",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Miyeokguk hat in Korea eine besondere kulturelle Bedeutung. Traditionell essen Frauen die Suppe nach der Geburt. Außerdem wird sie an Geburtstagen serviert – als Erinnerung an die Mutter und an den Tag der eigenen Geburt."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "624aea209675",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "a24c8f892fd6",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "In unserer Familie gehört Miyeokguk zu den Gerichten, die wir besonders gern essen. Der wichtigste Bestandteil ist getrocknetes Miyeok, eine Algenart, die du in koreanischen oder gut sortierten asiatischen Lebensmittelgeschäften findest. Die Algen nehmen beim Einweichen stark an Volumen zu, daher reichen 20–25 g für einen großen Topf."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "72fa14df35d3",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "56f6bfeff0d3",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Die Suppe schmeckt besonders gut, wenn sie langsam und lange köchelt. Du kannst sie auch am Vortag zubereiten, denn am nächsten Tag ist ihr Geschmack oft noch kräftiger."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ],
+          "en": [
+            {
+              "_key": "growth-miyeokguk-en",
+              "_type": "block",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_key": "growth-miyeokguk-en-text",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Miyeokguk (미역국) is Korean seaweed soup, made here with dried miyeok and beef and served with rice. This recipe guides you through soaking and rinsing the seaweed, then building the broth and simmering the soup."
+                }
+              ]
+            },
+            {
+              "_key": "e38250c5f9c5",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "cd098e199133",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "Miyeokguk holds a special place in Korean culture. It is traditionally eaten by women after giving birth and is also served on birthdays as a way of remembering one’s mother and the day of one’s birth."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "3a0afeda9d53",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "d576b034d716",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "In our family, miyeokguk is one of our favorite soups. Its main ingredient is dried miyeok, a type of seaweed available at Korean and well-stocked Asian grocery stores. It expands considerably when soaked, so 20–25 g is enough for a large pot."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            },
+            {
+              "_key": "459043511e03",
+              "_type": "block",
+              "children": [
+                {
+                  "_key": "68791b8d850f",
+                  "_type": "span",
+                  "marks": [],
+                  "text": "The soup develops a deeper flavor when simmered slowly. You can also prepare it a day ahead, as miyeokguk often tastes even better the following day."
+                }
+              ],
+              "markDefs": [],
+              "style": "normal"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
