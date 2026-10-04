@@ -1,0 +1,1635 @@
+[
+  {
+    "_createdAt": "2026-10-01T21:23:31Z",
+    "_id": "iqvr9JyBrbxsh9PSeFW86",
+    "_rev": "seeJ8sDCx2bMNJQ2OyT5qN",
+    "_type": "recipe",
+    "_updatedAt": "2026-10-02T20:48:43Z",
+    "categories": [
+      {
+        "_key": "d2cd21a33cd5",
+        "_ref": "7vzRvIoPuR1UhwlABtgjNq",
+        "_type": "reference"
+      }
+    ],
+    "category": {
+      "_type": "localizedString",
+      "de": "Süßes & Gebäck",
+      "en": "Sweets & baking"
+    },
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "f9c0e519ee2a",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "45158e67de63",
+              "_type": "span",
+              "marks": [],
+              "text": "Soboro-Brot ist ein klassisches koreanisches Bäckereibrot mit einer süßen, krümeligen Oberfläche. Besonders typisch ist das knusprige Soboro-Topping aus Butter, Erdnussbutter, Zucker und Mehl. Ich bereite das Topping während der ersten Gärung des Brotteigs zu, sodass sich beide Arbeitsschritte gut miteinander verbinden lassen. Das Topping ist unkompliziert: Die Zutaten werden einfach miteinander vermischt und anschließend auf den weichen Brotteig gedrückt."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "6fee7813c84f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "fa6a4d1d84a7",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "7615cb49a496",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "64124d849130",
+              "_type": "span",
+              "marks": [],
+              "text": "Soboro bread is a classic Korean bakery bread with a sweet, crumbly topping. Its characteristic texture comes from a simple soboro topping made with butter, peanut butter, sugar, and flour. I prepare the topping while the bread dough is going through its first rise, so the two parts of the recipe fit together easily. The topping itself is simple to make: the ingredients are mixed together and then pressed onto the soft bread dough."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "image": [
+      {
+        "_key": "e95b2b542142",
+        "_type": "image",
+        "asset": {
+          "_ref": "image-4d7bd39b5290e51563ff84f49f8b7fd2a2364a8f-1572x1074-jpg",
+          "_type": "reference"
+        }
+      },
+      {
+        "_key": "e7ee8114e8d1",
+        "_type": "image",
+        "asset": {
+          "_ref": "image-a15784029c7373e780e75fc6b16d97c7b8ec76e0-1174x1564-jpg",
+          "_type": "reference"
+        }
+      },
+      {
+        "_key": "f441bfe1ec9f",
+        "_type": "image",
+        "asset": {
+          "_ref": "image-81e8720bfc7add8ddfa6dd7b5ad990a7ca7c97a8-1174x1564-jpg",
+          "_type": "reference"
+        }
+      }
+    ],
+    "ingredients": [
+      {
+        "_key": "df24f696c988",
+        "_ref": "7wdF0KDD9U4IETAYnWG2h1",
+        "_type": "reference"
+      },
+      {
+        "_key": "0fb6cd7a1d1e",
+        "_ref": "7wpBcNfhNgjxxouAkmdUeT",
+        "_type": "reference"
+      },
+      {
+        "_key": "d2550ba1b817",
+        "_ref": "4aXGtKI2BlnIVnONAzd3hi",
+        "_type": "reference"
+      },
+      {
+        "_key": "fbb64a239265",
+        "_ref": "3PPRiM5bMdTNFVRPBRlx8c",
+        "_type": "reference"
+      },
+      {
+        "_key": "966a401364b4",
+        "_ref": "6cR09SwqlBSZheeDyfK2Rj",
+        "_type": "reference"
+      },
+      {
+        "_key": "d7e0f9abacbb",
+        "_ref": "5u0nJeUavyvAgJLqGTxENp",
+        "_type": "reference"
+      },
+      {
+        "_key": "143186b86a95",
+        "_ref": "7C84RZRwAReMzRqjVm5rFg",
+        "_type": "reference"
+      },
+      {
+        "_key": "d7cc267fa468",
+        "_ref": "46f0ki7Yt3bqQMSRMDOdy9",
+        "_type": "reference"
+      },
+      {
+        "_key": "aec0233cff39",
+        "_ref": "5RKlXkdyOPGPbrZGbQZH8J",
+        "_type": "reference"
+      },
+      {
+        "_key": "19dc0b02d120",
+        "_ref": "1YLVA5b7jF63B3WqhLosIh",
+        "_type": "reference"
+      },
+      {
+        "_key": "23060471c883",
+        "_ref": "2Pnk71qA8fc1epr1Ir5oAh",
+        "_type": "reference"
+      }
+    ],
+    "instructions": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "93d6af210587",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "3de0a84e998d",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "847370b8acf5",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "e2f7f1f1cd19",
+              "_type": "span",
+              "marks": [],
+              "text": "und Hefe vermischen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "640c5236ff13",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "0f1b672f579e",
+              "_type": "span",
+              "marks": [],
+              "text": "Den Teig in einer Teigmaschine kneten. Sobald er zusammenkommt, Butter hinzufügen und weiterkneten, bis er glatt ist."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "04fea5a6deae",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "6b3e00adbc02",
+              "_type": "span",
+              "marks": [],
+              "text": "Den Teig abgedeckt etwa 50 Minuten an einem warmen Ort gehen lassen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "301a48c8a131",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d7e51f349773",
+              "_type": "span",
+              "marks": [],
+              "text": "In der Zwischenzeit die Soboro-Keksmischung vorbereiten."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "5fdb5094b4a8",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "1e02facc08a8",
+              "_type": "span",
+              "marks": [],
+              "text": "Nach der ersten Gärung den Teig entgasen und in 8 Stücke teilen. Diese abgedeckt etwa 10 Minuten ruhen lassen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "f6e6e0e15240",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7b7e410802be",
+              "_type": "span",
+              "marks": [],
+              "text": "Die Teigstücke flach ausrollen und mit den Händen leicht zusammendrücken."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "4bdeaa3f79dc",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "5c1ac8560a0b",
+              "_type": "span",
+              "marks": [],
+              "text": "Die Soboro-Mischung auf den Brotteig geben und leicht in die Mitte drücken."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "411cf852ef14",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "c023c5d91aa8",
+              "_type": "span",
+              "marks": [],
+              "text": "Den Teig auf ein Backblech legen und nochmals 45 Minuten gehen lassen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "8b584082301d",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "0bc3b549a7c5",
+              "_type": "span",
+              "marks": [],
+              "text": "Den Ofen auf 190 Grad vorheizen und die Brote etwa 10 Minuten backen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "34a4975b1d02",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "24695068ecd4",
+              "_type": "span",
+              "marks": [],
+              "text": "Soboro-Brot ist fertig!"
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "2f916520a306",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "72db6eb1033f",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "2b223eedf011",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "424299c4872e",
+              "_type": "span",
+              "marks": [],
+              "text": "Mix the bread dough in a bowl with lukewarm milk, egg, flour, sugar, salt, and yeast."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "7ef2f357ebc8",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "11737509fd3b",
+              "_type": "span",
+              "marks": [],
+              "text": "Knead the dough in a stand mixer. Once it comes together, add butter and continue kneading until smooth."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "3f5eadb4b2cd",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b06593da6b37",
+              "_type": "span",
+              "marks": [],
+              "text": "Cover the dough and let it rise in a warm place for about 50 minutes."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "daaf20a642a7",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "1a3e265b99c5",
+              "_type": "span",
+              "marks": [],
+              "text": "In the meantime, prepare the Soboro cookie mixture."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "b5bc7ddc25e0",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "99dd218436c6",
+              "_type": "span",
+              "marks": [],
+              "text": "After the first proofing, punch down the dough to release air and divide it into 8 pieces. Cover and let them rest for about 10 minutes."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "3e6a4d06bfe8",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7de4f6fe0ccc",
+              "_type": "span",
+              "marks": [],
+              "text": "Roll out each piece of dough and gently press it together with your hands."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "43794814e53e",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7fdec6e34243",
+              "_type": "span",
+              "marks": [],
+              "text": "Place the Soboro mixture on top of the bread dough and gently press it into the center."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "c839ba6a607c",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "453f2c3b7b9e",
+              "_type": "span",
+              "marks": [],
+              "text": "Place the dough pieces on a baking sheet and let them rise again for 45 minutes."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "b7702eb52315",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "e4c7b21d6ea0",
+              "_type": "span",
+              "marks": [],
+              "text": "Preheat the oven to 190°C and bake the bread for about 10 minutes."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "a48cedb882be",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "81170d806105",
+              "_type": "span",
+              "marks": [],
+              "text": "Soboro bread is ready!"
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "fb7cd2cd97ff",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "30909b296b68",
+              "_type": "span",
+              "marks": [],
+              "text": "\n"
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "legacyContentfulId": "iqvr9JyBrbxsh9PSeFW86",
+    "legacyContentfulUpdatedAt": "2026-08-24T18:34:33.349Z",
+    "preparationTime": {
+      "_type": "localizedNumber",
+      "de": 180,
+      "en": 180
+    },
+    "seoDescription": {
+      "_type": "localizedText",
+      "de": "Weiches koreanisches Soboro-Brot mit einer knusprigen Streuselschicht aus Erdnussbutter, Mehl und Zucker – ein beliebter koreanischer Bäckereiklassiker.",
+      "en": "Make Korean soboro bread with soft yeast dough and a crumbly peanut streusel topping inspired by a classic Korean bakery favorite."
+    },
+    "seoTitle": {
+      "_type": "localizedString",
+      "de": "Soboro-Brot Rezept – koreanisches Streuselbrot",
+      "en": "Soboro Bread Recipe – Korean Streusel Bread"
+    },
+    "servings": {
+      "_type": "localizedNumber",
+      "de": 8,
+      "en": 8
+    },
+    "slug": {
+      "_type": "localizedSlug",
+      "de": "soboro-brot",
+      "en": "soboro-brot"
+    },
+    "steps": [
+      {
+        "_key": "756802cd9904",
+        "_ref": "5pXrUnN8NPiDJUCN1yGTnd",
+        "_type": "reference"
+      },
+      {
+        "_key": "d8ce2b2296d8",
+        "_ref": "bKtVE9tQMvGHduWzBWHlU",
+        "_type": "reference"
+      },
+      {
+        "_key": "a77c9d21e3cd",
+        "_ref": "6xF8ZXNkq9SJp5qS4cFxbE",
+        "_type": "reference"
+      },
+      {
+        "_key": "5c6777027156",
+        "_ref": "1MVUB9krFEiRSf0Kk5EQTm",
+        "_type": "reference"
+      },
+      {
+        "_key": "38931aeddb51",
+        "_ref": "1ChyvPscPpqDScHxVmqz3P",
+        "_type": "reference"
+      },
+      {
+        "_key": "16b27e654607",
+        "_ref": "xX6xhsstTWEmd3nl7vP9D",
+        "_type": "reference"
+      },
+      {
+        "_key": "9630f9e50523",
+        "_ref": "31vMxNIyVr5ycVBDN7R1o9",
+        "_type": "reference"
+      },
+      {
+        "_key": "989caf7419c9",
+        "_ref": "4fQhiiX0IIYS2NtoyAQD3o",
+        "_type": "reference"
+      }
+    ],
+    "titel": {
+      "_type": "localizedString",
+      "de": "Soboro-Brot (소보로빵)",
+      "en": "Soboro Bread (Korean Streusel Bread, 소보로빵)"
+    }
+  },
+  {
+    "_createdAt": "2026-10-01T21:23:31Z",
+    "_id": "6MrScHBmL3Q85jAADFwrSH",
+    "_rev": "seeJ8sDCx2bMNJQ2OyT5qN",
+    "_type": "recipe",
+    "_updatedAt": "2026-10-02T20:48:43Z",
+    "categories": [
+      {
+        "_key": "d02d426b685f",
+        "_ref": "7vzRvIoPuR1UhwlABtgjNq",
+        "_type": "reference"
+      }
+    ],
+    "category": {
+      "_type": "localizedString",
+      "de": "Süßes & Gebäck",
+      "en": "Sweets & baking"
+    },
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "9356b39d4e59",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "f6e4d7fffb6c",
+              "_type": "span",
+              "marks": [],
+              "text": "Dies ist eines der klassischsten Brote, das in Korea verkauft wird. Zu den Brotsorten, die Koreaner am häufigsten wählen, gehören das Soboro-Brot und dieses süße Azuki-Bohnenbrötchen, das Danpatbbang(단팥빵)."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "73191ff5760f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "0786365e68d6",
+              "_type": "span",
+              "marks": [],
+              "text": "Ich kaufe die Füllung für Danpatbbang meistens in einem ostasiatischen Markt hier in Deutschland. Sie wird oft in Dosenform verkauft und kommt aus Japan. Auf meiner Zutaten-Seite finden Sie dazu Fotos und Beschreibungen."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "f3d6e8bc97be",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "3b71a7f41a52",
+              "_type": "span",
+              "marks": [],
+              "text": "Danpatbbang is a classic Korean bread filled with sweet red bean paste. Along with soboro bread, it is one of the most familiar bakery treats in Korea."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "94b8fed741ef",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "11076816b6a4",
+              "_type": "span",
+              "marks": [],
+              "text": "Ready-made sweet red bean paste is often sold in cans or packages at Korean, Japanese, or other East Asian grocery stores. Using prepared filling makes this recipe much easier, but you can also make the red bean paste from scratch."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "b265c600f494",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "2974813d4d74",
+              "_type": "span",
+              "marks": [],
+              "text": "The soft bread and smooth, sweet filling make danpatbbang especially good with coffee, tea, or a glass of milk."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "image": [
+      {
+        "_key": "14e25606aa0b",
+        "_type": "image",
+        "asset": {
+          "_ref": "image-5b49a4f8dd3e22fa7c430e0569fe4b633366a1ab-1386x1550-jpg",
+          "_type": "reference"
+        }
+      }
+    ],
+    "ingredients": [
+      {
+        "_key": "c60cdc3eb945",
+        "_ref": "1tQKu80BBPpxJtQtzYCcGa",
+        "_type": "reference"
+      },
+      {
+        "_key": "2de55508759d",
+        "_ref": "2ipTvzjqPLK8aOOJ73uKgo",
+        "_type": "reference"
+      },
+      {
+        "_key": "ef2d6b2195ab",
+        "_ref": "2qK5qvn1A9jrPOZqLp9dMa",
+        "_type": "reference"
+      },
+      {
+        "_key": "1cf61039c63b",
+        "_ref": "6jOhYIdxKQbF4WzwhPnAT0",
+        "_type": "reference"
+      },
+      {
+        "_key": "2acf2b13f5f2",
+        "_ref": "4XCij23kV1ddTiix0ouFJu",
+        "_type": "reference"
+      },
+      {
+        "_key": "5862addbf86e",
+        "_ref": "iGcp7Z8qMhEcTehInD2fc",
+        "_type": "reference"
+      },
+      {
+        "_key": "a44625a5a0be",
+        "_ref": "34ohF5xt0y6V8TvTw326XL",
+        "_type": "reference"
+      },
+      {
+        "_key": "cfa6fbc08f5c",
+        "_ref": "2oVjZAN9vskC0sqCK5gFsD",
+        "_type": "reference"
+      },
+      {
+        "_key": "d150aeacdd47",
+        "_ref": "2S4pgCmoTxE96y6NhencmS",
+        "_type": "reference"
+      },
+      {
+        "_key": "a7766cfb8722",
+        "_ref": "67HAR2aETEeE7NQRSVbtrh",
+        "_type": "reference"
+      }
+    ],
+    "instructions": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "f3c3168140d1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "97bd820223e5",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "e7ffffc35e1d",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "39fc39348477",
+              "_type": "span",
+              "marks": [],
+              "text": "In eine Schüssel lauwarme Milch und Ei geben. Das Ei verquirlen und etwas davon aufbewahren, bevor es in die Schüssel kommt. Dann Weizenmehl, Zucker, Salz und Hefe abmessen und hinzufügen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "382b35a21adf",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7a1840823f33",
+              "_type": "span",
+              "marks": [],
+              "text": "Sobald sich der Teig im Teigkneter zu einer Kugel formt, die Butter hinzufügen und weiterkneten."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "92b6f6f64e34",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "18479aeef1ef",
+              "_type": "span",
+              "marks": [],
+              "text": "Den Teig für die erste Gärung etwa 50 Minuten ruhen lassen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "d088c2cbd16b",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "a3a4b0cd40dc",
+              "_type": "span",
+              "marks": [],
+              "text": "Währenddessen die Azuki-Bohnenpaste (Anko) in 40-g-Kugeln formen und bereitstellen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "15c360515dc0",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "ecf91c13693e",
+              "_type": "span",
+              "marks": [],
+              "text": "Nach der ersten Gärung den Teig durchkneten, um die Luft herauszulassen, und in 8 Stücke teilen. Den Teig mit Folie abdecken und etwa 10 Minuten für die Zwischenruhe ruhen lassen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "d5e86564f8c6",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "bcc0f9c1f7c2",
+              "_type": "span",
+              "marks": [],
+              "text": "Nach der Zwischenruhe den Teig flach ausrollen, die Bohnenpaste darauf legen und den Teig zu einer runden Form schließen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "300306d2e40d",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d2b1b2135976",
+              "_type": "span",
+              "marks": [],
+              "text": "Den Teig flach drücken und in der Mitte kräftig mit einem Nudelholz drücken. Mit einer Schere sechs Schnitte in den Teig machen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "1d21498e6cb6",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "22a5701476e3",
+              "_type": "span",
+              "marks": [],
+              "text": "Den Teig mit Abstand auf ein Backblech legen und für die zweite Gärung etwa 45 Minuten ruhen lassen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "b4521c68b4d6",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "df70d39d2fc0",
+              "_type": "span",
+              "marks": [],
+              "text": "Nach der Gärung das aufbewahrte Ei mit etwas Wasser vermischen und den Teig damit bestreichen. Für die Dekoration Walnüsse, schwarze Sesamsamen oder andere Nüsse verwenden."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "a697d8b7f9a7",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "ce08b6dfae22",
+              "_type": "span",
+              "marks": [],
+              "text": "Im vorgeheizten Ofen bei 190 Grad etwa 10 Minuten backen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "f73460dc14d8",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "21d9e7e4daed",
+              "_type": "span",
+              "marks": [],
+              "text": "Die süßen Bohnenbrötchen (Danpatbbang) sind fertig! Es entstehen etwa 7-8 Brötchen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "309ca9f9ef0c",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "97ccdc36d216",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "f2b14a226c8d",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "0b36fc66cd2c",
+              "_type": "span",
+              "marks": [],
+              "text": "In a bowl, add lukewarm milk and an egg. Beat the egg, reserving a little for later, and then add it to the bowl. Measure and add wheat flour, sugar, salt, and yeast."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "f61f523ee683",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "2cc28f137f33",
+              "_type": "span",
+              "marks": [],
+              "text": "Once the dough forms a ball in the mixer, add butter and continue kneading."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "a423949760c7",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "bafb7b46cb4a",
+              "_type": "span",
+              "marks": [],
+              "text": "Let the dough rest for the first rise, about 50 minutes."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "91db4b3635e8",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "a4a98398ea32",
+              "_type": "span",
+              "marks": [],
+              "text": "Meanwhile, shape the azuki bean paste (anko) into 40 g balls and set aside."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "0c8a5e792dd6",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "184677b17173",
+              "_type": "span",
+              "marks": [],
+              "text": "After the first rise, knead the dough to release the air and divide it into 8 pieces. Cover with plastic wrap and let it rest for about 10 minutes."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "2ba37a55e2cd",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "81b7ff8e9649",
+              "_type": "span",
+              "marks": [],
+              "text": "After resting, roll each piece of dough flat, place a ball of bean paste in the center, and seal it into a round shape."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "57ac64a19f01",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "fe6d3e559d8c",
+              "_type": "span",
+              "marks": [],
+              "text": "Flatten the dough slightly, then press firmly in the center with a rolling pin. Make six cuts in the dough with scissors."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "1ad6a700531c",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "220acbbe8a3e",
+              "_type": "span",
+              "marks": [],
+              "text": "Place the dough pieces with space between them on a baking sheet and let them rise for the second time, about 45 minutes."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "5f61271d9bec",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "cb9f6114d30b",
+              "_type": "span",
+              "marks": [],
+              "text": "After the second rise, mix the reserved egg with a little water and brush it over the dough. For decoration, you can use walnuts, black sesame seeds, or other nuts."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "7799a1aa0a8d",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b7c3fbbed587",
+              "_type": "span",
+              "marks": [],
+              "text": "Bake in a preheated oven at 190°C for about 10 minutes."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "2c3537a01469",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "aaf62e8b6226",
+              "_type": "span",
+              "marks": [],
+              "text": "The sweet bean buns (Danpatbbang) are ready! This recipe yields about 7-8 buns."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "1b90df41210a",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "63a60b9ce606",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "legacyContentfulId": "6MrScHBmL3Q85jAADFwrSH",
+    "legacyContentfulUpdatedAt": "2026-08-24T18:12:33.837Z",
+    "preparationTime": {
+      "_type": "localizedNumber",
+      "de": 150,
+      "en": 150
+    },
+    "seoDescription": {
+      "_type": "localizedText",
+      "de": "Ein einfaches Danpatbbang Rezept mit weichem Hefeteig und süßer roter Bohnenpaste – koreanisches Gebäck für zu Hause.",
+      "en": "A homemade danpatbbang recipe for soft Korean bread filled with sweet red bean paste, a classic Korean bakery favorite."
+    },
+    "seoTitle": {
+      "_type": "localizedString",
+      "de": "Danpatbbang Rezept – koreanisches rotes Bohnenbrot",
+      "en": "Danpatbbang Recipe – Korean Red Bean Bread"
+    },
+    "servings": {
+      "_type": "localizedNumber",
+      "de": 8,
+      "en": 8
+    },
+    "slug": {
+      "_type": "localizedSlug",
+      "de": "danpatbbang",
+      "en": "danpatbbang"
+    },
+    "steps": [
+      {
+        "_key": "916e5e1c5398",
+        "_ref": "3gFDnISJ1RFLbOSrNaEWs4",
+        "_type": "reference"
+      },
+      {
+        "_key": "8d3137b3e50b",
+        "_ref": "7cHXL1lJhlF2aUxSniN2RG",
+        "_type": "reference"
+      },
+      {
+        "_key": "9ef32eabb9af",
+        "_ref": "1yFZezfv9ZdWxzEg67Bn99",
+        "_type": "reference"
+      },
+      {
+        "_key": "298119a817eb",
+        "_ref": "wCLLD8m71fyokX6SgHwSh",
+        "_type": "reference"
+      },
+      {
+        "_key": "34c924a9bee3",
+        "_ref": "2Pu2CCcnHZiTJlNFi8z5Gm",
+        "_type": "reference"
+      },
+      {
+        "_key": "96b9b906aa3a",
+        "_ref": "3l7AKAMduYALsPVBi5WQnT",
+        "_type": "reference"
+      },
+      {
+        "_key": "dcef97c4a3c0",
+        "_ref": "1Shd99spdVTwjpHlEewSrt",
+        "_type": "reference"
+      },
+      {
+        "_key": "3eed0199173b",
+        "_ref": "1FKr9VGoHRAXx8z007DBiL",
+        "_type": "reference"
+      }
+    ],
+    "titel": {
+      "_type": "localizedString",
+      "de": "Danpatbbang (Koreanisches rotes Bohnenbrot, 단팥빵)",
+      "en": "Danpatbbang (Korean Red Bean Bread, 단팥빵)"
+    }
+  },
+  {
+    "_createdAt": "2026-10-01T21:23:31Z",
+    "_id": "31qLwPpZYSKIi7ZpC41EZp",
+    "_rev": "seeJ8sDCx2bMNJQ2P1sTLT",
+    "_type": "ingredient",
+    "_updatedAt": "2026-10-03T18:17:36Z",
+    "bild": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-5719ae8cd08d3edcfbecbaa3afcb42ef40197722-1082x860-jpg",
+        "_type": "reference"
+      }
+    },
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "gochujang-de-0",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-0",
+              "_type": "span",
+              "marks": [],
+              "text": "Gochujang (고추장) ist eine dicke, fermentierte koreanische Chilipaste. Sie verbindet Schärfe, Süße und einen herzhaften Geschmack und eignet sich für Saucen, Marinaden und Pfannengerichte. Geschmack und Schärfe unterscheiden sich je nach Produkt."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-de-1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-1",
+              "_type": "span",
+              "marks": [],
+              "text": "Die passende Paste auswählen"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-de-2",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-2",
+              "_type": "span",
+              "marks": [],
+              "text": "Achte auf die Bezeichnung Gochujang oder Korean Red Pepper Paste. Eine fertige Gochujang-Sauce kann bereits weitere Gewürze enthalten und ist nicht dieselbe Zutat wie die reine Paste im Rezept. Entscheidend sind Produktname und Schärfegrad, nicht die Farbe der Verpackung."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-de-3",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-3",
+              "_type": "span",
+              "marks": [],
+              "text": "Gochujang oder Gochugaru?"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-de-4",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-4",
+              "_type": "span",
+              "marks": [],
+              "text": "Gochujang ist eine gewürzte Paste. Gochugaru besteht aus getrockneten koreanischen Chiliflocken oder Chilipulver. Konsistenz und Verwendung sind unterschiedlich; die beiden Zutaten lassen sich nicht einfach löffelweise austauschen."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-de-5",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-5",
+              "_type": "span",
+              "marks": [],
+              "text": "Wofür verwendet man Gochujang?"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-de-6",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-6",
+              "_type": "span",
+              "marks": [],
+              "text": "Die Paste passt in Bibimbap-Sauce, Tteokbokki-Sauce und Marinaden. Für Chogochujang wird sie unter anderem mit Essig vermischt; bei Bokkeum Gochujang entsteht daraus eine gekochte Würzpaste. Die verlinkten Rezepte unten zeigen Mengen und Zubereitungsschritte."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-de-7",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-7",
+              "_type": "span",
+              "marks": [],
+              "text": "Was eignet sich als Gochujang-Ersatz?"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-de-8",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-8",
+              "_type": "span",
+              "marks": [],
+              "text": "Als Notlösung können Miso oder Doenjang mit koreanischen Chiliflocken und etwas Süße einzelne Geschmacksnoten annähern. Die Mischung ist kein gleichwertiger Ersatz. Vorsichtig abschmecken; wenn Gochujang das Gericht prägt, möglichst die Originalzutat verwenden."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-de-9",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-9",
+              "_type": "span",
+              "marks": [],
+              "text": "Gochujang in Deutschland finden"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-de-10",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-10",
+              "_type": "span",
+              "marks": [],
+              "text": "Suche in koreanischen oder asiatischen Lebensmittelgeschäften und bei Lebensmittel-Onlineshops mit Lieferung nach Deutschland nach Gochujang oder koreanischer Chilipaste. Prüfe Produktbeschreibung und Schärfegrad. Auch beim Einkauf in Deutschland lässt sich die Schärfe nicht allein aus dem Verkaufsland ableiten."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-de-11",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-11",
+              "_type": "span",
+              "marks": [],
+              "text": "Nach dem Öffnen"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-de-12",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-de-12",
+              "_type": "span",
+              "marks": [],
+              "text": "Beachte die Aufbewahrungshinweise auf der Packung, verschließe den Behälter und verwende einen sauberen Löffel."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "gochujang-en-0",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-0",
+              "_type": "span",
+              "marks": [],
+              "text": "Gochujang (고추장) is a thick, fermented Korean red pepper paste. It brings heat, sweetness and a savory depth to sauces, marinades and stir-fries. The balance varies between products, so choose the heat level that suits your cooking."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-en-1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-1",
+              "_type": "span",
+              "marks": [],
+              "text": "Choosing a paste for cooking"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-en-2",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-2",
+              "_type": "span",
+              "marks": [],
+              "text": "Look for gochujang or Korean red pepper paste on the label. A ready-made gochujang sauce may already contain extra seasonings; it is different from the plain paste called for in a recipe. Check the product name and heat level rather than judging by the color of the tub."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-en-3",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-3",
+              "_type": "span",
+              "marks": [],
+              "text": "Gochujang versus gochugaru"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-en-4",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-4",
+              "_type": "span",
+              "marks": [],
+              "text": "Gochujang is a seasoned paste; gochugaru is dried Korean red pepper in flakes or powder. They have different textures and roles in a recipe, so do not swap them spoon for spoon."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-en-5",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-5",
+              "_type": "span",
+              "marks": [],
+              "text": "How to use it"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-en-6",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-6",
+              "_type": "span",
+              "marks": [],
+              "text": "Mix it into the sauce for bibimbap, cook it into tteokbokki sauce, or use it in marinades. Chogochujang combines the paste with vinegar and other seasonings, while bokkeum gochujang turns it into a cooked condiment. Explore the linked recipes below for quantities and steps."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-en-7",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-7",
+              "_type": "span",
+              "marks": [],
+              "text": "What can replace gochujang?"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-en-8",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-8",
+              "_type": "span",
+              "marks": [],
+              "text": "In a pinch, miso or doenjang mixed with Korean chili flakes and a little sweetener can approximate some of its flavors. This is an improvised alternative, not the same paste. Adjust to taste; when gochujang is central to the dish, use the original ingredient if possible."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-en-9",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-9",
+              "_type": "span",
+              "marks": [],
+              "text": "Where to look"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-en-10",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-10",
+              "_type": "span",
+              "marks": [],
+              "text": "Start with Korean or Asian grocery stores and online food retailers serving your country. Search for gochujang or Korean red pepper paste; check the product and delivery area before ordering."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "gochujang-en-11",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-11",
+              "_type": "span",
+              "marks": [],
+              "text": "After opening"
+            }
+          ],
+          "markDefs": [],
+          "style": "h2"
+        },
+        {
+          "_key": "gochujang-en-12",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text-en-12",
+              "_type": "span",
+              "marks": [],
+              "text": "Follow the storage instructions on your package, keep the container closed, and use a clean spoon."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "legacyContentfulId": "31qLwPpZYSKIi7ZpC41EZp",
+    "name": {
+      "_type": "localizedString",
+      "de": "Gochujang (koreanische Chilipaste)",
+      "en": "Gochujang (Korean chili paste)"
+    },
+    "seoDescription": {
+      "_type": "localizedText",
+      "de": "Gochujang einfach erklärt: Geschmack, Verwendung, Unterschied zu Gochugaru und mögliche Ersatz-Zutaten. Tipps für den Einkauf in Deutschland.",
+      "en": "Learn what gochujang tastes like, how to use Korean red pepper paste, how it differs from gochugaru, and what to try when you need a substitute."
+    },
+    "seoTitle": {
+      "_type": "localizedString",
+      "de": "Gochujang: Verwendung, Ersatz und Einkauf in Deutschland",
+      "en": "Gochujang: Taste, Uses and Substitutes"
+    },
+    "slug": {
+      "_type": "localizedSlug",
+      "de": "gochujang",
+      "en": "gochujang"
+    }
+  }
+]
