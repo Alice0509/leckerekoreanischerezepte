@@ -943,9 +943,10 @@
 /* Separate checklist actions from ingredient guide navigation */
 .ingredientContent {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 8px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3px;
   align-items: start;
+  overflow-wrap: anywhere;
 }
 
 .ingredientContent .ingredientCheckLabel {

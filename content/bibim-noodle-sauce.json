@@ -1,0 +1,114 @@
+{
+  "format": "hansik-recipe-v1",
+  "key": "bibim-noodle-sauce",
+  "title": {
+    "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스)",
+    "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스)"
+  },
+  "description": {
+    "en": "A sweet, spicy and tangy Korean sauce for tossing with the noodles you have at home: udon, spaghetti, thin Korean noodles, kalguksu or ramen noodles. Minced garlic, sesame oil, gochugaru, gochujang and Jin-Ganjang give it its savory flavor, while apple cider vinegar and sugar balance the sauce. Simply mix the ingredients; the sauce does not need cooking. Finish with sesame seeds.\n\nThis batch is intended for approximately 2 servings. The sauce amounts are a volume ratio: 1 part is one spoonful using the same spoon throughout, and 2 parts is two spoonfuls. You can choose an ordinary eating spoon or a marked measuring spoon, including a 15 ml metric tablespoon. Keep dry ingredients level and measure pastes consistently. Korean rice spoons and other cutlery spoons vary in size, so they are not an exact conversion to a measuring tablespoon. A larger spoon makes more sauce; add it gradually to the noodles. The listed preparation time of about 5 minutes is an estimate for making the sauce only; cooking noodles and preparing vegetables take additional time.\n\nServe with any combination of cabbage, lettuce, perilla leaves, scallions or garlic chives. Noodles and vegetables are serving choices, so their amounts are not included in the sauce ingredient list. Add the sauce gradually to suit the amount of noodles and vegetables you use.",
+    "de": "Eine süße, scharfe und leicht säuerliche koreanische Sauce zum Vermengen mit den Nudeln, die du gerade zu Hause hast: Udon, Spaghetti, dünne koreanische Nudeln, Kalguksu oder Ramen-Nudeln. Gehackter Knoblauch, Sesamöl, Gochugaru, Gochujang und Jin-Ganjang sorgen für die Würze; Apfelessig und Zucker gleichen den Geschmack aus. Die Zutaten werden nur vermischt, die Sauce muss nicht gekocht werden. Zum Schluss mit Sesamsamen bestreuen.\n\nDie Menge ist für ungefähr 2 Portionen gedacht. Die Saucenmengen sind ein Verhältnis nach Volumen: 1 Teil ist ein Löffel, 2 Teile sind zwei Löffel – immer mit demselben Löffel gemessen. Du kannst einen Bestecklöffel oder einen beschrifteten Messlöffel wählen, auch einen metrischen 15-ml-Esslöffel. Trockene Zutaten gestrichen und Pasten gleichmäßig abmessen. Koreanische Reislöffel und andere Bestecklöffel sind unterschiedlich groß; sie lassen sich nicht exakt in Messlöffel umrechnen. Ein größerer Löffel ergibt mehr Sauce; gib sie nach und nach zu den Nudeln. Die angegebenen etwa 5 Minuten sind eine Schätzung nur für die Sauce; Nudeln kochen und Gemüse vorbereiten dauert zusätzlich.\n\nDazu passen nach Wahl Weißkohl, Blattsalat, Perillablätter, Frühlingszwiebeln oder Knoblauchschnittlauch. Nudeln und Gemüse sind frei wählbare Beilagen, deshalb stehen ihre Mengen nicht in der Zutatenliste der Sauce. Gib die Sauce nach und nach zu den Nudeln und passe die Menge an das verwendete Gemüse an."
+  },
+  "slug": {
+    "en": "bibim-noodle-sauce",
+    "de": "bibim-noodle-sauce"
+  },
+  "preparationMinutes": 5,
+  "servings": 2,
+  "categoryIds": [
+    "3QTRNQE0N96BJUaUpxP3CV"
+  ],
+  "ingredients": [
+    {
+      "ingredientId": "6g42vVsU6ryPS65cHmIkTl",
+      "quantity": {
+        "en": "2 parts",
+        "de": "2 Teile"
+      }
+    },
+    {
+      "ingredientId": "1Z9oHNVxVc7AhslG98QByK",
+      "quantity": {
+        "en": "1 part",
+        "de": "1 Teil"
+      }
+    },
+    {
+      "ingredientId": "45AmuOcPL5dEMn8AXNlRGD",
+      "quantity": {
+        "en": "2 parts",
+        "de": "2 Teile"
+      }
+    },
+    {
+      "ingredientId": "31qLwPpZYSKIi7ZpC41EZp",
+      "quantity": {
+        "en": "2 parts",
+        "de": "2 Teile"
+      }
+    },
+    {
+      "ingredientId": "4xHLnk2plaHbaxJGKmijJA",
+      "quantity": {
+        "en": "2 parts",
+        "de": "2 Teile"
+      }
+    },
+    {
+      "ingredientId": "2DZJOAn100yy1CmpQantqx",
+      "quantity": {
+        "en": "1.5 parts",
+        "de": "1,5 Teile"
+      }
+    },
+    {
+      "ingredientId": "2PrQ3yAwqUWeDBHBGU5Ayy",
+      "quantity": {
+        "en": "1 part",
+        "de": "1 Teil"
+      }
+    },
+    {
+      "ingredientId": "6RSnr3tjQL678rUrO7KbXi",
+      "quantity": {
+        "en": "3 parts",
+        "de": "3 Teile"
+      }
+    },
+    {
+      "ingredientId": "1Fg7ooxS0o5QQaw9LpP0iR",
+      "quantity": {
+        "en": "to taste, for finishing",
+        "de": "nach Geschmack, zum Bestreuen"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "description": {
+        "en": "Put the minced garlic, sesame oil, gochugaru, gochujang, Jin-Ganjang, apple cider vinegar, matsul and sugar in a bowl. Use one spoon as your measure for all the listed parts: for example, 2 parts means two spoonfuls, and 1.5 parts means one and a half. Keep dry ingredients level and measure pastes consistently. Stir thoroughly until evenly combined. The sauce does not need cooking.",
+        "de": "Gehackten Knoblauch, Sesamöl, Gochugaru, Gochujang, Jin-Ganjang, Apfelessig, Matsul und Zucker in eine Schüssel geben. Alle angegebenen Teile mit demselben Löffel abmessen: 2 Teile sind zum Beispiel zwei Löffel, 1,5 Teile sind eineinhalb. Trockene Zutaten gestrichen und Pasten gleichmäßig abmessen. Gründlich verrühren, bis alles gleichmäßig vermischt ist. Die Sauce muss nicht gekocht werden."
+      }
+    },
+    {
+      "description": {
+        "en": "To use the sauce, cook your choice of udon, spaghetti, thin Korean noodles, kalguksu or ramen noodles according to the package instructions and drain well. Prepare whichever vegetables you want to add: wash cabbage, lettuce, perilla leaves, scallions or garlic chives as needed and cut into bite-sized pieces or thin strips.",
+        "de": "Zum Servieren Udon, Spaghetti, dünne koreanische Nudeln, Kalguksu oder Ramen-Nudeln nach Packungsanweisung garen und gut abtropfen lassen. Gewünschtes Gemüse vorbereiten: Weißkohl, Blattsalat, Perillablätter, Frühlingszwiebeln oder Knoblauchschnittlauch nach Bedarf waschen und in mundgerechte Stücke oder feine Streifen schneiden."
+      }
+    },
+    {
+      "description": {
+        "en": "Add the sauce to the drained noodles a little at a time and toss to coat. Mix in or serve alongside the vegetables you chose. Finish with sesame seeds to taste and serve. Adjust how much sauce you use to the amount of noodles and vegetables; you do not have to add the whole batch at once.",
+        "de": "Die Sauce nach und nach zu den abgetropften Nudeln geben und gut vermengen. Das ausgewählte Gemüse untermischen oder dazu servieren. Nach Geschmack mit Sesamsamen bestreuen und servieren. Die Saucenmenge an Nudeln und Gemüse anpassen; nicht die ganze Menge auf einmal zugeben."
+      }
+    }
+  ],
+  "seoTitle": {
+    "en": "Bibim Noodle Sauce – Sweet and Spicy Korean Sauce",
+    "de": "Bibim-Nudelsauce – süß-scharfe koreanische Sauce"
+  },
+  "seoDescription": {
+    "en": "Mix a sweet and spicy Korean noodle sauce with gochujang, sesame oil and apple cider vinegar. Toss with udon, spaghetti or ramen and finish with sesame seeds.",
+    "de": "Süß-scharfe koreanische Nudelsauce mit Gochujang, Sesamöl und Apfelessig mischen. Für Udon, Spaghetti oder Ramen, mit Gemüse und Sesam nach Geschmack."
+  }
+}

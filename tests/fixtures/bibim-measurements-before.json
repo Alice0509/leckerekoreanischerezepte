@@ -1,0 +1,532 @@
+[
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce",
+    "_rev": "716lLGM4clTjEsWT4iwJ6u",
+    "_type": "recipe",
+    "_updatedAt": "2026-10-04T09:40:24Z",
+    "categories": [
+      {
+        "_key": "c1",
+        "_ref": "3QTRNQE0N96BJUaUpxP3CV",
+        "_type": "reference"
+      }
+    ],
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Eine süße, scharfe und leicht säuerliche koreanische Sauce zum Vermengen mit den Nudeln, die du gerade zu Hause hast: Udon, Spaghetti, dünne koreanische Nudeln, Kalguksu oder Ramen-Nudeln. Gehackter Knoblauch, Sesamöl, Gochugaru, Gochujang und Jin-Ganjang sorgen für die Würze; Apfelessig und Zucker gleichen den Geschmack aus. Die Zutaten werden nur vermischt, die Sauce muss nicht gekocht werden. Zum Schluss mit Sesamsamen bestreuen."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "p2",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Die Menge ist für ungefähr 2 Portionen gedacht. Die Angaben sind ein Mengenverhältnis, gemessen mit einem gewöhnlichen koreanischen Esslöffel aus dem Besteck, kein genaues 15-ml-Maß. Verwende für alle Saucenzutaten denselben Löffel und behalte beim Vergrößern oder Verkleinern die Verhältnisse bei. Die angegebenen etwa 5 Minuten sind eine Schätzung nur für die Sauce; Nudeln kochen und Gemüse vorbereiten dauert zusätzlich."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "p3",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Dazu passen nach Wahl Weißkohl, Blattsalat, Perillablätter, Frühlingszwiebeln oder Knoblauchschnittlauch. Nudeln und Gemüse sind frei wählbare Beilagen, deshalb stehen ihre Mengen nicht in der Zutatenliste der Sauce. Gib die Sauce nach und nach zu den Nudeln und passe die Menge an das verwendete Gemüse an."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "A sweet, spicy and tangy Korean sauce for tossing with the noodles you have at home: udon, spaghetti, thin Korean noodles, kalguksu or ramen noodles. Minced garlic, sesame oil, gochugaru, gochujang and Jin-Ganjang give it its savory flavor, while apple cider vinegar and sugar balance the sauce. Simply mix the ingredients; the sauce does not need cooking. Finish with sesame seeds."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "p2",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "This batch is for approximately 2 servings. The quantities are a ratio measured with an ordinary Korean eating spoon, not calibrated 15 ml tablespoons. Use the same spoon for every sauce ingredient and keep the proportions when scaling. The listed preparation time of about 5 minutes is an estimate for making the sauce only; cooking the noodles and preparing vegetables take additional time."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "p3",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Serve with any combination of cabbage, lettuce, perilla leaves, scallions or garlic chives. Noodles and vegetables are serving choices, so their amounts are not included in the sauce ingredient list. Add the sauce gradually to suit the amount of noodles and vegetables you use."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "image": [
+      {
+        "_key": "da5524ca7ba1",
+        "_type": "image",
+        "asset": {
+          "_ref": "image-aeb7ea097497fdb0daa85744418679f40fe530a1-1362x1155-png",
+          "_type": "reference"
+        }
+      }
+    ],
+    "ingredients": [
+      {
+        "_key": "i1",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-1",
+        "_type": "reference"
+      },
+      {
+        "_key": "i2",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-2",
+        "_type": "reference"
+      },
+      {
+        "_key": "i3",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-3",
+        "_type": "reference"
+      },
+      {
+        "_key": "i4",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-4",
+        "_type": "reference"
+      },
+      {
+        "_key": "i5",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-5",
+        "_type": "reference"
+      },
+      {
+        "_key": "i6",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-6",
+        "_type": "reference"
+      },
+      {
+        "_key": "i7",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-7",
+        "_type": "reference"
+      },
+      {
+        "_key": "i8",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-8",
+        "_type": "reference"
+      },
+      {
+        "_key": "i9",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-9",
+        "_type": "reference"
+      }
+    ],
+    "preparationTime": {
+      "_type": "localizedNumber",
+      "de": 5,
+      "en": 5
+    },
+    "seoDescription": {
+      "_type": "localizedText",
+      "de": "Süß-scharfe koreanische Nudelsauce mit Gochujang, Sesamöl und Apfelessig mischen. Für Udon, Spaghetti oder Ramen, mit Gemüse und Sesam nach Geschmack.",
+      "en": "Mix a sweet and spicy Korean noodle sauce with gochujang, sesame oil and apple cider vinegar. Toss with udon, spaghetti or ramen and finish with sesame seeds."
+    },
+    "seoTitle": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce – süß-scharfe koreanische Sauce",
+      "en": "Bibim Noodle Sauce – Sweet and Spicy Korean Sauce"
+    },
+    "servings": {
+      "_type": "localizedNumber",
+      "de": 2,
+      "en": 2
+    },
+    "slug": {
+      "_type": "localizedSlug",
+      "de": "bibim-noodle-sauce",
+      "en": "bibim-noodle-sauce"
+    },
+    "steps": [
+      {
+        "_key": "s1",
+        "_ref": "chat-recipe-bibim-noodle-sauce-step-1",
+        "_type": "reference"
+      },
+      {
+        "_key": "s2",
+        "_ref": "chat-recipe-bibim-noodle-sauce-step-2",
+        "_type": "reference"
+      },
+      {
+        "_key": "s3",
+        "_ref": "chat-recipe-bibim-noodle-sauce-step-3",
+        "_type": "reference"
+      }
+    ],
+    "titel": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스)",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스)"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-1",
+    "_rev": "jtzXmr5sPTxAjhSjhonzg3",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:37:49Z",
+    "ingredient": {
+      "_ref": "6g42vVsU6ryPS65cHmIkTl",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "2 Löffelmaße (koreanischer Esslöffel)",
+      "en": "2 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 1",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 1"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-2",
+    "_rev": "seeJ8sDCx2bMNJQ2P45XeV",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:02Z",
+    "ingredient": {
+      "_ref": "1Z9oHNVxVc7AhslG98QByK",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "1 Löffelmaß (koreanischer Esslöffel)",
+      "en": "1 spoonful (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 2",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 2"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-3",
+    "_rev": "jtzXmr5sPTxAjhSjhoo1Lq",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:12Z",
+    "ingredient": {
+      "_ref": "45AmuOcPL5dEMn8AXNlRGD",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "2 Löffelmaße (koreanischer Esslöffel)",
+      "en": "2 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 3",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 3"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-4",
+    "_rev": "jtzXmr5sPTxAjhSjhoo29L",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:23Z",
+    "ingredient": {
+      "_ref": "31qLwPpZYSKIi7ZpC41EZp",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "2 Löffelmaße (koreanischer Esslöffel)",
+      "en": "2 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 4",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 4"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-5",
+    "_rev": "716lLGM4clTjEsWT4iw4sm",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:34Z",
+    "ingredient": {
+      "_ref": "4xHLnk2plaHbaxJGKmijJA",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "2 Löffelmaße (koreanischer Esslöffel)",
+      "en": "2 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 5",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 5"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-6",
+    "_rev": "716lLGM4clTjEsWT4iw6IG",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:45Z",
+    "ingredient": {
+      "_ref": "2DZJOAn100yy1CmpQantqx",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "1,5 Löffelmaße (koreanischer Esslöffel)",
+      "en": "1.5 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 6",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 6"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-7",
+    "_rev": "716lLGM4clTjEsWT4iw7IE",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:54Z",
+    "ingredient": {
+      "_ref": "2PrQ3yAwqUWeDBHBGU5Ayy",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "1 Löffelmaß (koreanischer Esslöffel)",
+      "en": "1 spoonful (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 7",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 7"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-8",
+    "_rev": "716lLGM4clTjEsWT4iw8Wm",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:39:03Z",
+    "ingredient": {
+      "_ref": "6RSnr3tjQL678rUrO7KbXi",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "3 Löffelmaße (koreanischer Esslöffel)",
+      "en": "3 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 8",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 8"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-9",
+    "_rev": "seeJ8sDCx2bMNJQ2P45fCV",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:39:12Z",
+    "ingredient": {
+      "_ref": "1Fg7ooxS0o5QQaw9LpP0iR",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "nach Geschmack, zum Bestreuen",
+      "en": "to taste, for finishing"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 9",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 9"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-step-1",
+    "_rev": "716lLGM4clTjEsWT4iwCI4",
+    "_type": "step",
+    "_updatedAt": "2026-10-04T09:39:38Z",
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Gehackten Knoblauch, Sesamöl, Gochugaru, Gochujang, Jin-Ganjang, Apfelessig, Matsul und Zucker in eine Schüssel geben. Gründlich verrühren, bis alles gleichmäßig vermischt ist. Für alle Mengenverhältnisse denselben gewöhnlichen koreanischen Esslöffel aus dem Besteck verwenden. Die Sauce muss nicht gekocht werden."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Put the minced garlic, sesame oil, gochugaru, gochujang, Jin-Ganjang, apple cider vinegar, matsul and sugar in a bowl. Stir thoroughly until the ingredients are evenly combined. Use the same ordinary Korean eating spoon for all the ratio measurements; the sauce does not need cooking."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "stepName": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 1",
+    "stepNumber": 1
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-step-2",
+    "_rev": "seeJ8sDCx2bMNJQ2P45hax",
+    "_type": "step",
+    "_updatedAt": "2026-10-04T09:39:50Z",
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Zum Servieren Udon, Spaghetti, dünne koreanische Nudeln, Kalguksu oder Ramen-Nudeln nach Packungsanweisung garen und gut abtropfen lassen. Gewünschtes Gemüse vorbereiten: Weißkohl, Blattsalat, Perillablätter, Frühlingszwiebeln oder Knoblauchschnittlauch nach Bedarf waschen und in mundgerechte Stücke oder feine Streifen schneiden."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "To use the sauce, cook your choice of udon, spaghetti, thin Korean noodles, kalguksu or ramen noodles according to the package instructions and drain well. Prepare whichever vegetables you want to add: wash cabbage, lettuce, perilla leaves, scallions or garlic chives as needed and cut into bite-sized pieces or thin strips."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "stepName": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 2",
+    "stepNumber": 2
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-step-3",
+    "_rev": "seeJ8sDCx2bMNJQ2P45iMl",
+    "_type": "step",
+    "_updatedAt": "2026-10-04T09:39:58Z",
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Die Sauce nach und nach zu den abgetropften Nudeln geben und gut vermengen. Das ausgewählte Gemüse untermischen oder dazu servieren. Nach Geschmack mit Sesamsamen bestreuen und servieren. Die Saucenmenge an Nudeln und Gemüse anpassen; nicht die ganze Menge auf einmal zugeben."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Add the sauce to the drained noodles a little at a time and toss to coat. Mix in or serve alongside the vegetables you chose. Finish with sesame seeds to taste and serve. Adjust how much sauce you use to the amount of noodles and vegetables; you do not have to add the whole batch at once."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "stepName": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 3",
+    "stepNumber": 3
+  }
+]

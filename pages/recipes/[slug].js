@@ -15,6 +15,7 @@ import {
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Timer from '../../components/Timer';
+import RecipeMeasurementGuide from '../../components/RecipeMeasurementGuide';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
 import Head from 'next/head';
@@ -1255,6 +1256,8 @@ const RecipeDetail = ({ recipe, error }) => {
                       ? 'Hake ab, was du schon zu Hause hast oder beim Einkaufen in den Wagen gelegt hast.'
                       : 'Check off what you already have at home or add to your cart while shopping.'}
                 </p>
+
+                <RecipeMeasurementGuide locale={mappedLocale} />
 
                 <ul className={styles.ingredientsList}>
                   {ingredients.map((ingredient, index) => {
