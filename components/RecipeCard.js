@@ -20,7 +20,12 @@ const getRecipeThumbnail = (recipe) => {
   return '/images/default.png';
 };
 
-const RecipeCard = ({ recipe, locale = 'en', freshnessCheckedAt }) => {
+const RecipeCard = ({
+  recipe,
+  locale = 'en',
+  freshnessCheckedAt,
+  recommended = false,
+}) => {
   const [checkedAt, setCheckedAt] = useState(freshnessCheckedAt);
 
   useEffect(() => {
@@ -46,12 +51,26 @@ const RecipeCard = ({ recipe, locale = 'en', freshnessCheckedAt }) => {
     <article className={styles.card}>
       <Link href={`/recipes/${recipe.slug}`} className={styles.link}>
         <div className={styles.imageWrap}>
-          {isNewRecipe(recipe.firstPublishedAt, checkedAt) && (
+          {(recommended || isNewRecipe(recipe.firstPublishedAt, checkedAt)) && (
             <span
               className={styles.newBadge}
-              aria-label={locale === 'de' ? 'Neues Rezept' : 'New recipe'}
+              aria-label={
+                recommended
+                  ? locale === 'de'
+                    ? 'Wochenempfehlung'
+                    : 'This week’s recommended recipe'
+                  : locale === 'de'
+                    ? 'Neues Rezept'
+                    : 'New recipe'
+              }
             >
-              {locale === 'de' ? 'NEU' : 'NEW'}
+              {recommended
+                ? locale === 'de'
+                  ? 'EMPFEHLUNG'
+                  : 'WEEKLY PICK'
+                : locale === 'de'
+                  ? 'NEU'
+                  : 'NEW'}
             </span>
           )}
           <Image
