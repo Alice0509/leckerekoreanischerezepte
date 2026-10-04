@@ -4,6 +4,8 @@ import contentfulBuildSnapshot from '../lib/contentfulBuildSnapshot.cjs';
 
 const { getRecipeDatasetFromSnapshot } = contentfulBuildSnapshot;
 import Fuse from 'fuse.js';
+import recipeFreshness from '../lib/recipeFreshness.cjs';
+const { latestRecipes } = recipeFreshness;
 import styles from '../styles/Home.module.css';
 import { getSeoUrls } from '../lib/siteUrls';
 import {
@@ -29,6 +31,7 @@ export async function getStaticProps({ locale }) {
       return {
         props: {
           recipes: recipesCache[mappedLocale],
+          freshnessCheckedAt: new Date().toISOString(),
         },
       };
     }
@@ -90,6 +93,7 @@ export async function getStaticProps({ locale }) {
 
       return {
         id: item.sys.id,
+        firstPublishedAt: item.fields.firstPublishedAt || null,
         slug: item.fields.slug,
         titel: item.fields.titel,
         category: categoryData.label,
@@ -106,6 +110,7 @@ export async function getStaticProps({ locale }) {
     return {
       props: {
         recipes,
+        freshnessCheckedAt: new Date().toISOString(),
       },
     };
   } catch (error) {
@@ -119,7 +124,7 @@ export async function getStaticProps({ locale }) {
   }
 }
 
-const Home = ({ recipes, error }) => {
+const Home = ({ recipes, error, freshnessCheckedAt }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const itemsPerPage = 12;
@@ -172,7 +177,10 @@ const Home = ({ recipes, error }) => {
     return Math.ceil(searchedItems.length / itemsPerPage);
   }, [searchedItems, itemsPerPage]);
 
-  const featuredRecipes = useMemo(() => recipes.slice(0, 3), [recipes]);
+  const featuredRecipes = useMemo(
+    () => latestRecipes(recipes, freshnessCheckedAt),
+    [recipes, freshnessCheckedAt]
+  );
 
   const seoCopy =
     mappedLocale === 'de-DE'
@@ -269,14 +277,19 @@ const Home = ({ recipes, error }) => {
             <div className={styles.previewHeader}>
               <h2 className={styles.previewTitle}>
                 {mappedLocale === 'de-DE'
-                  ? 'Rezepte aus meiner Küche'
-                  : 'Recipes from My Kitchen'}
+                  ? 'Neueste Rezepte'
+                  : 'Latest Recipes'}
               </h2>
             </div>
 
             <div className={styles.featuredGrid}>
               {featuredRecipes.map((item) => (
-                <RecipeCard key={item.id} recipe={item} />
+                <RecipeCard
+                  key={item.id}
+                  recipe={item}
+                  locale={locale}
+                  freshnessCheckedAt={freshnessCheckedAt}
+                />
               ))}
             </div>
           </section>
@@ -377,7 +390,12 @@ const Home = ({ recipes, error }) => {
           <div className={styles.menuGrid}>
             {paginatedItems.length > 0 ? (
               paginatedItems.map((item) => (
-                <RecipeCard key={item.id} recipe={item} />
+                <RecipeCard
+                  key={item.id}
+                  recipe={item}
+                  locale={locale}
+                  freshnessCheckedAt={freshnessCheckedAt}
+                />
               ))
             ) : (
               <p className={styles.noResults}>

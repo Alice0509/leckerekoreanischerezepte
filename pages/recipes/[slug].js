@@ -15,6 +15,8 @@ import {
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Timer from '../../components/Timer';
+import recipeCompanions from '../../lib/recipeCompanions.cjs';
+const { companionId, prioritizeCompanions } = recipeCompanions;
 import RecipeMeasurementGuide from '../../components/RecipeMeasurementGuide';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
@@ -119,7 +121,7 @@ const buildRelatedRecipes = ({ items, currentEntryId, locale, limit = 3 }) => {
         ]
       : sortedItems;
 
-  return orderedItems
+  return prioritizeCompanions(orderedItems, currentEntryId)
     .filter((item) => item.sys.id !== currentEntryId)
     .slice(0, limit)
     .map((item) => ({
@@ -596,7 +598,7 @@ export async function getStaticProps({ params, locale }) {
 
     let relatedRecipes = [];
 
-    if (categoryEntryId) {
+    if (categoryEntryId || companionId(recipeEntry.sys.id)) {
       try {
         const recipeCatalog = getRecipeEntriesFromSnapshot(mappedLocale);
 
@@ -607,7 +609,10 @@ export async function getStaticProps({ params, locale }) {
         }
 
         const categoryRecipes = recipeCatalog.filter(
-          (item) => getRecipeCategoryEntryId(item.fields) === categoryEntryId
+          (item) =>
+            (categoryEntryId &&
+              getRecipeCategoryEntryId(item.fields) === categoryEntryId) ||
+            item.sys.id === companionId(recipeEntry.sys.id)
         );
 
         relatedRecipes = buildRelatedRecipes({

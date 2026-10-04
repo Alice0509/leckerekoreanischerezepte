@@ -315,7 +315,8 @@ export type Publication = {
 
 // Only the new recipe and its own linked documents can be published here.
 // Each create fails on an existing published ID; each draft is revision-guarded.
-export function preparePublication(id: string, bundle: Document[], catalog: Catalog): Publication {
+export function preparePublication(id: string, bundle: Document[], catalog: Catalog, publishedAt = new Date().toISOString()): Publication {
+  if (!Number.isFinite(Date.parse(publishedAt))) fail('첫 공개 날짜를 확인할 수 없습니다.')
   if (!/^chat-recipe-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id))
     fail('이 메뉴에서 가져온 새 레시피만 함께 발행할 수 있습니다.')
   const byId = new Map(bundle.map((doc) => [doc._id, doc]))
@@ -419,7 +420,11 @@ export function preparePublication(id: string, bundle: Document[], catalog: Cata
     void _rev
     void _createdAt
     void _updatedAt
-    const published = publicationCopy({...attributes, _id: doc._id.slice(7)}) as Document
+    const published = publicationCopy({
+      ...attributes,
+      _id: doc._id.slice(7),
+      ...(doc._type === 'recipe' ? {firstPublishedAt: publishedAt} : {}),
+    }) as Document
     mutations.push(
       {
         patch: {

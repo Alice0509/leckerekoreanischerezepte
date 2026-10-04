@@ -1,0 +1,1866 @@
+[
+  {
+    "_createdAt": "2026-10-01T21:23:31Z",
+    "_id": "1EflHHVSRKo4tSzbUD7aBX",
+    "_rev": "seeJ8sDCx2bMNJQ2OyT5qN",
+    "_type": "recipe",
+    "_updatedAt": "2026-10-02T20:48:43Z",
+    "categories": [
+      {
+        "_key": "463b3367fc76",
+        "_ref": "2HCHhhkHnB4b1PXkFNA6re",
+        "_type": "reference"
+      }
+    ],
+    "category": {
+      "_type": "localizedString",
+      "de": "Reis & Nudeln",
+      "en": "Rice & noodles"
+    },
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "c11c55c61e3f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "9e8d47690124",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Koreanische dünne Nudeln (Somyeon) oder mitteldicke Nudeln (Jungmyeon) sind Grundzutaten in vielen koreanischen Gerichten. Gekochte Nudeln lassen sich für eine Vielzahl von Rezepten wie Bibim Guksu (scharfe Misch-Nudeln), Festnudeln oder gebratene Tintenfischnudeln verwenden."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "20b8332e8aa3",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "044a9fa83583",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Korean thin noodles (somyeon) or medium noodles (jungmyeon) are staples in many dishes. Once boiled, they can be used for a variety of meals like bibim guksu (spicy mixed noodles), banquet noodles, or stir-fried squid with noodles. Here's a simple guide to cooking them perfectly."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "image": [
+      {
+        "_key": "524a5433fab6",
+        "_type": "image",
+        "asset": {
+          "_ref": "image-3e4dddecd28a1a6cbd785776a7b0685a1cca0d57-5651x3767-jpg",
+          "_type": "reference"
+        }
+      }
+    ],
+    "ingredients": [
+      {
+        "_key": "293a03a0f799",
+        "_ref": "5oTVbgTcytCglbG3Rt4wgq",
+        "_type": "reference"
+      },
+      {
+        "_key": "4c48cead0137",
+        "_ref": "dizIPfhPq9dmicNr4Zkp6",
+        "_type": "reference"
+      }
+    ],
+    "instructions": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "449b982190b9",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "54f3630f1ea2",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "ff0290524b66",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "0beddf70ad93",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Wasser zum Kochen bringen:\nGeben Sie 1 Liter Wasser in einen Topf und bringen Sie es zum Kochen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "5a907e0030ce",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "24232341664e",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Tipp: Im Gegensatz zu Pasta wird dem Wasser kein Salz hinzugefügt."
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "77e7475b3e7a",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "1123adc846b8",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Nudeln kochen:\nGeben Sie die Nudeln ins kochende Wasser."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "8d9e35e4adf4",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "e8cecfdd1bd5",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Somyeon: 3 Minuten 30 Sekunden–4 Minuten"
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "8e7abae22b6f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "34ffb62695b1",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Jungmyeon: 4–5 Minuten"
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "243f5ec92edd",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "4b861ceee795",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Tipp: Verwenden Sie einen Timer, um ein Überkochen zu vermeiden."
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "124a71300ed5",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "63de60a67b1d",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Schaum reduzieren:\nWährend des Kochens kann Schaum aufsteigen."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "9751a2bd4df2",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "9bdad2ac33f1",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Gießen Sie etwa 1/3 Tasse Wasser hinzu, um den Schaum zu reduzieren."
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "fb2eedf101b1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "59f079ca8365",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Dies trägt auch zu einer festeren Konsistenz der Nudeln bei."
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "ccc784f88217",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "4c0f0ba4ffcb",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Nudeln abspülen:\nLassen Sie die Nudeln abtropfen und spülen Sie sie zweimal mit kaltem Wasser ab."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "377741d0a70c",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "936defabf169",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "So wird überschüssige Stärke entfernt und die Textur verbessert."
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "a9471d8d37cc",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "709a7cdba6a5",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Servieren und Genießen:\nVerwenden Sie die vorbereiteten Nudeln für verschiedene Gerichte wie Festnudeln oder gebratene Rezepte."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "891a03998f97",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "c88dce27651c",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "e305d9b3333e",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b42edd87d33b",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "04a3450f4e88",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "461cec0f71a6",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "de6291b869b5",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "033a2a515231",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Boil Water:\nAdd 1L of water to a pot and bring it to a boil."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "081afad67042",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "a2c4ec5c9d8b",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Tip: Unlike pasta, no salt is added to the water."
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "a170fe7a5f7c",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "192eeeed7bf1",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Cook the Noodles:\nAdd the noodles to boiling water."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "b956a1096829",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "c0bbbb6e57f6",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Somyeon: 3 minutes 30 seconds–4 minutes"
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "8649c1940053",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d9def8dc11ab",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Jungmyeon: 4–5 minutes"
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "96d0091167fd",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "3cab9da9560a",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Tip: Set a timer to avoid overcooking."
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "66256f64d545",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7d1999fa9f09",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Manage the Foam:\nAs the noodles cook, foam may rise and overflow."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "f335ecab7fa8",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d2a2e2272c2c",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Add about 1/3 cup of water to calm the foam."
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "06240739495a",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "aa5929928009",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "This also helps maintain a firm texture in the noodles."
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "713546d8bd28",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "70a62543b53c",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Rinse the Noodles:\nDrain the cooked noodles and rinse them under cold running water twice."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "795b45053556",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "e8f0d5b5c161",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "This removes excess starch and improves texture."
+            }
+          ],
+          "level": 2,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "15b5eb0eaecc",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "c858e51dd58e",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Serve and Enjoy:\nUse the prepared noodles in various dishes like banquet noodles or stir-fried recipes."
+            }
+          ],
+          "level": 1,
+          "listItem": "number",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "36d2ed5b1163",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "a507c068d022",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "legacyContentfulId": "1EflHHVSRKo4tSzbUD7aBX",
+    "legacyContentfulUpdatedAt": "2026-07-19T16:08:25.613Z",
+    "preparationTime": {
+      "_type": "localizedNumber",
+      "de": 10,
+      "en": 10
+    },
+    "seoDescription": {
+      "_type": "localizedText",
+      "de": "So werden koreanische Somyeon oder Jungmyeon richtig gekocht, abgespült und gekühlt, damit sie für Bibim Guksu und Janchi Guksu bissfest bleiben.",
+      "en": "Learn how to boil, rinse, and cool Korean somyeon or jungmyeon so the noodles stay springy for bibim guksu, janchi guksu, and more."
+    },
+    "seoTitle": {
+      "_type": "localizedString",
+      "de": "Koreanische Nudeln kochen – Somyeon richtig zubereiten",
+      "en": "How to Cook Korean Noodles – Somyeon Guide"
+    },
+    "servings": {
+      "_type": "localizedNumber",
+      "de": 1,
+      "en": 1
+    },
+    "slug": {
+      "_type": "localizedSlug",
+      "de": "korean-noodles-cooking-guide",
+      "en": "korean-noodles-cooking-guide"
+    },
+    "steps": [
+      {
+        "_key": "3105bbb53238",
+        "_ref": "6OhgHi2uiboj0prTiYdtPZ",
+        "_type": "reference"
+      },
+      {
+        "_key": "2fd633226efb",
+        "_ref": "7EgzG7HpxL2hVEN2W54cTJ",
+        "_type": "reference"
+      },
+      {
+        "_key": "c69759d882c7",
+        "_ref": "5E2NdRkQZEmXG10SMQpWBx",
+        "_type": "reference"
+      },
+      {
+        "_key": "add4ba212cd5",
+        "_ref": "41jnSmslFO6EHHs1WpbxSC",
+        "_type": "reference"
+      },
+      {
+        "_key": "869b5943e3ca",
+        "_ref": "62a9Wq3zCKqE2mvLHF5zB5",
+        "_type": "reference"
+      }
+    ],
+    "titel": {
+      "_type": "localizedString",
+      "de": "Anleitung zum Kochen von Koreanischen Nudeln (국수삶기)",
+      "en": "Korean Noodles Cooking Guide (국수삶기)"
+    }
+  },
+  {
+    "_createdAt": "2026-10-01T21:23:31Z",
+    "_id": "41jnSmslFO6EHHs1WpbxSC",
+    "_rev": "MkzIlesDIMzd9qSpNFBKdl",
+    "_type": "step",
+    "_updatedAt": "2026-10-01T21:24:48Z",
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "e056232fd11f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "bfe36dafb5d7",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Nudeln abspülen:\nLassen Sie die Nudeln abtropfen und spülen Sie sie zweimal mit kaltem Wasser ab."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "7d0546ed9762",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b9d671ffb13b",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "So wird überschüssige Stärke entfernt und die Textur verbessert."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "c6ea4f5d8a35",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "e7c6705860b9",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "4fd0a5c44de4",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "6ca97406e70d",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Rinse the Noodles:\nDrain the cooked noodles and rinse them under cold running water twice."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "0f717777c8c9",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "24602ef0c9f4",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "This removes excess starch and improves texture."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "f78002ba85aa",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "07bd84659299",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "image": [
+      {
+        "_key": "98ea6965130b",
+        "_type": "image",
+        "asset": {
+          "_ref": "image-2c3a9716788ac35fec4299cddf001a18e35bf72a-6000x4000-jpg",
+          "_type": "reference"
+        }
+      }
+    ],
+    "ingredientsUsed": [],
+    "legacyContentfulId": "41jnSmslFO6EHHs1WpbxSC",
+    "stepName": "4",
+    "stepNumber": 4
+  },
+  {
+    "_createdAt": "2026-10-01T21:23:31Z",
+    "_id": "5E2NdRkQZEmXG10SMQpWBx",
+    "_rev": "MkzIlesDIMzd9qSpNFAleH",
+    "_type": "step",
+    "_updatedAt": "2026-10-01T21:23:31Z",
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "5fc8dc2c980b",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b10d36bfcb17",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Schaum reduzieren:\nWährend des Kochens kann Schaum aufsteigen."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "21d9d0e24a66",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "8340863ad05f",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Gießen Sie etwa 1/3 Tasse Wasser hinzu, um den Schaum zu reduzieren."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "fee9982e85f7",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "957858af08f5",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Dies trägt auch zu einer festeren Konsistenz der Nudeln bei."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "49bd97aaacac",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "4150a60e5012",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "1ed5b4263696",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "3687547db5b6",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Manage the Foam:\nAs the noodles cook, foam may rise and overflow."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "57823c34657e",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "574eb2bd634c",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Add about 1/3 cup of water to calm the foam."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "62bd9c30289a",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "0ca7af840b90",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "This also helps maintain a firm texture in the noodles."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "6870a95b53aa",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7c8e1fe6436e",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "image": [],
+    "ingredientsUsed": [],
+    "legacyContentfulId": "5E2NdRkQZEmXG10SMQpWBx",
+    "stepName": "3",
+    "stepNumber": 3
+  },
+  {
+    "_createdAt": "2026-10-01T21:23:31Z",
+    "_id": "5oTVbgTcytCglbG3Rt4wgq",
+    "_rev": "JvPYpz8fI9X3Uqv2WwWz1h",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-01T21:24:48Z",
+    "ingredient": {
+      "_key": "d8d55467fc98",
+      "_ref": "7n2iUHpmF65BcZBKme02fT",
+      "_type": "reference"
+    },
+    "legacyContentfulId": "5oTVbgTcytCglbG3Rt4wgq",
+    "quantity": {
+      "_type": "localizedString",
+      "de": " 1L",
+      "en": " 1L"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "kuks1",
+      "en": "kuks1"
+    }
+  },
+  {
+    "_createdAt": "2026-10-01T21:23:31Z",
+    "_id": "62a9Wq3zCKqE2mvLHF5zB5",
+    "_rev": "MkzIlesDIMzd9qSpNFAleH",
+    "_type": "step",
+    "_updatedAt": "2026-10-01T21:23:31Z",
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "5097889c3092",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "6251fae7a324",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Servieren und Genießen:\nVerwenden Sie die vorbereiteten Nudeln für verschiedene Gerichte wie Festnudeln oder gebratene Rezepte."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "0d02b0598151",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "da774f76da5b",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Serve and Enjoy:\nUse the prepared noodles in various dishes like banquet noodles or stir-fried recipes."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "image": [],
+    "ingredientsUsed": [],
+    "legacyContentfulId": "62a9Wq3zCKqE2mvLHF5zB5",
+    "stepName": "5",
+    "stepNumber": 5
+  },
+  {
+    "_createdAt": "2026-10-01T21:23:31Z",
+    "_id": "6OhgHi2uiboj0prTiYdtPZ",
+    "_rev": "MkzIlesDIMzd9qSpNFAleH",
+    "_type": "step",
+    "_updatedAt": "2026-10-01T21:23:31Z",
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "74b335ad87ed",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "92040ad819b7",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Wasser zum Kochen bringen:\nGeben Sie 1 Liter Wasser in einen Topf und bringen Sie es zum Kochen."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "40bdb94d39b4",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "f05db83206d0",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Tipp: Im Gegensatz zu Pasta wird dem Wasser kein Salz hinzugefügt."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "698c77d0e63a",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "d3bb0ba1bea0",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "b4c3ec7c71ad",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "9505cc55d6ff",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Boil Water:\nAdd 1L of water to a pot and bring it to a boil."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "66dc4ba6d91f",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "70b63bc54604",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Tip: Unlike pasta, no salt is added to the water."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "c73e81b59f3b",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "7cc2f6fe1af1",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "image": [],
+    "ingredientsUsed": [],
+    "legacyContentfulId": "6OhgHi2uiboj0prTiYdtPZ",
+    "stepName": "1",
+    "stepNumber": 1
+  },
+  {
+    "_createdAt": "2026-10-01T21:23:31Z",
+    "_id": "7EgzG7HpxL2hVEN2W54cTJ",
+    "_rev": "MkzIlesDIMzd9qSpNFBKdl",
+    "_type": "step",
+    "_updatedAt": "2026-10-01T21:24:48Z",
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "7b12d8773289",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "71d12bccaffb",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Nudeln kochen:\nGeben Sie die Nudeln ins kochende Wasser."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "e55f5f516603",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "04e03f2b27be",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Somyeon: 3 Minuten 30 Sekunden–4 Minuten"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "d03ec069694d",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "542b28eb86f4",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Jungmyeon: 4–5 Minuten"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "7ff2d93ed4c8",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "479efa9a74d3",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Tipp: Verwenden Sie einen Timer, um ein Überkochen zu vermeiden."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "3611e4c4da00",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "482cf4dc42a2",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "a38bc93400dd",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "22af76f11019",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Cook the Noodles:\nAdd the noodles to boiling water.Cook the Noodles:\nAdd the noodles to boiling water."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "3234d6830da1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "fd1313186177",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Somyeon: 3 minutes 30 seconds–4 minutes"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "bd9c39f2b152",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "c6d67d433270",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Jungmyeon: 4–5 minutes"
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "3421e5164902",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "e3981d738a70",
+              "_type": "span",
+              "marks": [
+                "strong"
+              ],
+              "text": "Tip: Set a timer to avoid overcooking."
+            }
+          ],
+          "level": 1,
+          "listItem": "bullet",
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "94a02470ce84",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "b0c3dd4caf25",
+              "_type": "span",
+              "marks": [],
+              "text": ""
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "image": [
+      {
+        "_key": "bc00166fbd5a",
+        "_type": "image",
+        "asset": {
+          "_ref": "image-27e485a640ed2fb1dc08b4ebf09a679eb7f65bce-6000x4000-jpg",
+          "_type": "reference"
+        }
+      }
+    ],
+    "ingredientsUsed": [],
+    "legacyContentfulId": "7EgzG7HpxL2hVEN2W54cTJ",
+    "stepName": "2",
+    "stepNumber": 2,
+    "timerDuration": 240
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce",
+    "_rev": "716lLGM4clTjEsWT4iwJ6u",
+    "_type": "recipe",
+    "_updatedAt": "2026-10-04T09:40:24Z",
+    "categories": [
+      {
+        "_key": "c1",
+        "_ref": "3QTRNQE0N96BJUaUpxP3CV",
+        "_type": "reference"
+      }
+    ],
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Eine süße, scharfe und leicht säuerliche koreanische Sauce zum Vermengen mit den Nudeln, die du gerade zu Hause hast: Udon, Spaghetti, dünne koreanische Nudeln, Kalguksu oder Ramen-Nudeln. Gehackter Knoblauch, Sesamöl, Gochugaru, Gochujang und Jin-Ganjang sorgen für die Würze; Apfelessig und Zucker gleichen den Geschmack aus. Die Zutaten werden nur vermischt, die Sauce muss nicht gekocht werden. Zum Schluss mit Sesamsamen bestreuen."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "p2",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Die Menge ist für ungefähr 2 Portionen gedacht. Die Angaben sind ein Mengenverhältnis, gemessen mit einem gewöhnlichen koreanischen Esslöffel aus dem Besteck, kein genaues 15-ml-Maß. Verwende für alle Saucenzutaten denselben Löffel und behalte beim Vergrößern oder Verkleinern die Verhältnisse bei. Die angegebenen etwa 5 Minuten sind eine Schätzung nur für die Sauce; Nudeln kochen und Gemüse vorbereiten dauert zusätzlich."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "p3",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Dazu passen nach Wahl Weißkohl, Blattsalat, Perillablätter, Frühlingszwiebeln oder Knoblauchschnittlauch. Nudeln und Gemüse sind frei wählbare Beilagen, deshalb stehen ihre Mengen nicht in der Zutatenliste der Sauce. Gib die Sauce nach und nach zu den Nudeln und passe die Menge an das verwendete Gemüse an."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "A sweet, spicy and tangy Korean sauce for tossing with the noodles you have at home: udon, spaghetti, thin Korean noodles, kalguksu or ramen noodles. Minced garlic, sesame oil, gochugaru, gochujang and Jin-Ganjang give it its savory flavor, while apple cider vinegar and sugar balance the sauce. Simply mix the ingredients; the sauce does not need cooking. Finish with sesame seeds."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "p2",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "This batch is for approximately 2 servings. The quantities are a ratio measured with an ordinary Korean eating spoon, not calibrated 15 ml tablespoons. Use the same spoon for every sauce ingredient and keep the proportions when scaling. The listed preparation time of about 5 minutes is an estimate for making the sauce only; cooking the noodles and preparing vegetables take additional time."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        },
+        {
+          "_key": "p3",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Serve with any combination of cabbage, lettuce, perilla leaves, scallions or garlic chives. Noodles and vegetables are serving choices, so their amounts are not included in the sauce ingredient list. Add the sauce gradually to suit the amount of noodles and vegetables you use."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "image": [
+      {
+        "_key": "da5524ca7ba1",
+        "_type": "image",
+        "asset": {
+          "_ref": "image-aeb7ea097497fdb0daa85744418679f40fe530a1-1362x1155-png",
+          "_type": "reference"
+        }
+      }
+    ],
+    "ingredients": [
+      {
+        "_key": "i1",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-1",
+        "_type": "reference"
+      },
+      {
+        "_key": "i2",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-2",
+        "_type": "reference"
+      },
+      {
+        "_key": "i3",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-3",
+        "_type": "reference"
+      },
+      {
+        "_key": "i4",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-4",
+        "_type": "reference"
+      },
+      {
+        "_key": "i5",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-5",
+        "_type": "reference"
+      },
+      {
+        "_key": "i6",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-6",
+        "_type": "reference"
+      },
+      {
+        "_key": "i7",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-7",
+        "_type": "reference"
+      },
+      {
+        "_key": "i8",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-8",
+        "_type": "reference"
+      },
+      {
+        "_key": "i9",
+        "_ref": "chat-recipe-bibim-noodle-sauce-ingredient-9",
+        "_type": "reference"
+      }
+    ],
+    "preparationTime": {
+      "_type": "localizedNumber",
+      "de": 5,
+      "en": 5
+    },
+    "seoDescription": {
+      "_type": "localizedText",
+      "de": "Süß-scharfe koreanische Nudelsauce mit Gochujang, Sesamöl und Apfelessig mischen. Für Udon, Spaghetti oder Ramen, mit Gemüse und Sesam nach Geschmack.",
+      "en": "Mix a sweet and spicy Korean noodle sauce with gochujang, sesame oil and apple cider vinegar. Toss with udon, spaghetti or ramen and finish with sesame seeds."
+    },
+    "seoTitle": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce – süß-scharfe koreanische Sauce",
+      "en": "Bibim Noodle Sauce – Sweet and Spicy Korean Sauce"
+    },
+    "servings": {
+      "_type": "localizedNumber",
+      "de": 2,
+      "en": 2
+    },
+    "slug": {
+      "_type": "localizedSlug",
+      "de": "bibim-noodle-sauce",
+      "en": "bibim-noodle-sauce"
+    },
+    "steps": [
+      {
+        "_key": "s1",
+        "_ref": "chat-recipe-bibim-noodle-sauce-step-1",
+        "_type": "reference"
+      },
+      {
+        "_key": "s2",
+        "_ref": "chat-recipe-bibim-noodle-sauce-step-2",
+        "_type": "reference"
+      },
+      {
+        "_key": "s3",
+        "_ref": "chat-recipe-bibim-noodle-sauce-step-3",
+        "_type": "reference"
+      }
+    ],
+    "titel": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스)",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스)"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-1",
+    "_rev": "jtzXmr5sPTxAjhSjhonzg3",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:37:49Z",
+    "ingredient": {
+      "_ref": "6g42vVsU6ryPS65cHmIkTl",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "2 Löffelmaße (koreanischer Esslöffel)",
+      "en": "2 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 1",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 1"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-2",
+    "_rev": "seeJ8sDCx2bMNJQ2P45XeV",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:02Z",
+    "ingredient": {
+      "_ref": "1Z9oHNVxVc7AhslG98QByK",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "1 Löffelmaß (koreanischer Esslöffel)",
+      "en": "1 spoonful (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 2",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 2"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-3",
+    "_rev": "jtzXmr5sPTxAjhSjhoo1Lq",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:12Z",
+    "ingredient": {
+      "_ref": "45AmuOcPL5dEMn8AXNlRGD",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "2 Löffelmaße (koreanischer Esslöffel)",
+      "en": "2 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 3",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 3"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-4",
+    "_rev": "jtzXmr5sPTxAjhSjhoo29L",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:23Z",
+    "ingredient": {
+      "_ref": "31qLwPpZYSKIi7ZpC41EZp",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "2 Löffelmaße (koreanischer Esslöffel)",
+      "en": "2 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 4",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 4"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-5",
+    "_rev": "716lLGM4clTjEsWT4iw4sm",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:34Z",
+    "ingredient": {
+      "_ref": "4xHLnk2plaHbaxJGKmijJA",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "2 Löffelmaße (koreanischer Esslöffel)",
+      "en": "2 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 5",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 5"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-6",
+    "_rev": "716lLGM4clTjEsWT4iw6IG",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:45Z",
+    "ingredient": {
+      "_ref": "2DZJOAn100yy1CmpQantqx",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "1,5 Löffelmaße (koreanischer Esslöffel)",
+      "en": "1.5 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 6",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 6"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-7",
+    "_rev": "716lLGM4clTjEsWT4iw7IE",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:38:54Z",
+    "ingredient": {
+      "_ref": "2PrQ3yAwqUWeDBHBGU5Ayy",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "1 Löffelmaß (koreanischer Esslöffel)",
+      "en": "1 spoonful (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 7",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 7"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-8",
+    "_rev": "716lLGM4clTjEsWT4iw8Wm",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:39:03Z",
+    "ingredient": {
+      "_ref": "6RSnr3tjQL678rUrO7KbXi",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "3 Löffelmaße (koreanischer Esslöffel)",
+      "en": "3 spoonfuls (Korean eating spoon)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 8",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 8"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-ingredient-9",
+    "_rev": "seeJ8sDCx2bMNJQ2P45fCV",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-04T09:39:12Z",
+    "ingredient": {
+      "_ref": "1Fg7ooxS0o5QQaw9LpP0iR",
+      "_type": "reference"
+    },
+    "quantity": {
+      "_type": "localizedString",
+      "de": "nach Geschmack, zum Bestreuen",
+      "en": "to taste, for finishing"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "Bibim-Nudelsauce (süß-scharfe koreanische Sauce, 면 비빔 소스) · 9",
+      "en": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 9"
+    }
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-step-1",
+    "_rev": "716lLGM4clTjEsWT4iwCI4",
+    "_type": "step",
+    "_updatedAt": "2026-10-04T09:39:38Z",
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Gehackten Knoblauch, Sesamöl, Gochugaru, Gochujang, Jin-Ganjang, Apfelessig, Matsul und Zucker in eine Schüssel geben. Gründlich verrühren, bis alles gleichmäßig vermischt ist. Für alle Mengenverhältnisse denselben gewöhnlichen koreanischen Esslöffel aus dem Besteck verwenden. Die Sauce muss nicht gekocht werden."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Put the minced garlic, sesame oil, gochugaru, gochujang, Jin-Ganjang, apple cider vinegar, matsul and sugar in a bowl. Stir thoroughly until the ingredients are evenly combined. Use the same ordinary Korean eating spoon for all the ratio measurements; the sauce does not need cooking."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "stepName": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 1",
+    "stepNumber": 1
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-step-2",
+    "_rev": "seeJ8sDCx2bMNJQ2P45hax",
+    "_type": "step",
+    "_updatedAt": "2026-10-04T09:39:50Z",
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Zum Servieren Udon, Spaghetti, dünne koreanische Nudeln, Kalguksu oder Ramen-Nudeln nach Packungsanweisung garen und gut abtropfen lassen. Gewünschtes Gemüse vorbereiten: Weißkohl, Blattsalat, Perillablätter, Frühlingszwiebeln oder Knoblauchschnittlauch nach Bedarf waschen und in mundgerechte Stücke oder feine Streifen schneiden."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "To use the sauce, cook your choice of udon, spaghetti, thin Korean noodles, kalguksu or ramen noodles according to the package instructions and drain well. Prepare whichever vegetables you want to add: wash cabbage, lettuce, perilla leaves, scallions or garlic chives as needed and cut into bite-sized pieces or thin strips."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "stepName": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 2",
+    "stepNumber": 2
+  },
+  {
+    "_createdAt": "2026-10-04T09:36:34Z",
+    "_id": "chat-recipe-bibim-noodle-sauce-step-3",
+    "_rev": "seeJ8sDCx2bMNJQ2P45iMl",
+    "_type": "step",
+    "_updatedAt": "2026-10-04T09:39:58Z",
+    "description": {
+      "_type": "localizedPortableText",
+      "de": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Die Sauce nach und nach zu den abgetropften Nudeln geben und gut vermengen. Das ausgewählte Gemüse untermischen oder dazu servieren. Nach Geschmack mit Sesamsamen bestreuen und servieren. Die Saucenmenge an Nudeln und Gemüse anpassen; nicht die ganze Menge auf einmal zugeben."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "en": [
+        {
+          "_key": "p1",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "text",
+              "_type": "span",
+              "marks": [],
+              "text": "Add the sauce to the drained noodles a little at a time and toss to coat. Mix in or serve alongside the vegetables you chose. Finish with sesame seeds to taste and serve. Adjust how much sauce you use to the amount of noodles and vegetables; you do not have to add the whole batch at once."
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ]
+    },
+    "stepName": "Bibim Noodle Sauce (Sweet and Spicy Korean Sauce, 면 비빔 소스) · 3",
+    "stepNumber": 3
+  },
+  {
+    "_createdAt": "2026-10-01T21:23:31Z",
+    "_id": "dizIPfhPq9dmicNr4Zkp6",
+    "_rev": "JvPYpz8fI9X3Uqv2WwWz5w",
+    "_type": "recipeIngredient",
+    "_updatedAt": "2026-10-01T21:24:48Z",
+    "ingredient": {
+      "_key": "d8c8ebbfa9e8",
+      "_ref": "Lj9TCj2BvXtjPWfXKXSmk",
+      "_type": "reference"
+    },
+    "legacyContentfulId": "dizIPfhPq9dmicNr4Zkp6",
+    "quantity": {
+      "_type": "localizedString",
+      "de": "oder Jungmyeon: 100g (etwa die Größe einer 2-Euro-Münze)",
+      "en": "or Jungmyeon: 100g (size of a €2 coin)"
+    },
+    "title": {
+      "_type": "localizedString",
+      "de": "kuks2",
+      "en": "kuks2"
+    }
+  }
+]

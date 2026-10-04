@@ -339,3 +339,28 @@ test('a child already published through Studio is reused, but an edited publishe
     /새 수정/
   );
 });
+
+test('first publication records the publish time, never the draft creation time or an injected date', () => {
+  const docs = ready();
+  const recipe = docs.at(-1);
+  recipe._createdAt = '2026-08-01T00:00:00Z';
+  recipe.firstPublishedAt = '2026-01-01T00:00:00Z';
+  const publishedAt = '2026-10-04T12:00:00Z';
+  const publication = preparePublication(
+    'chat-recipe-test-recipe',
+    docs,
+    catalog(),
+    publishedAt
+  );
+  const published = publication.mutations.find(
+    (item) => item.create?._type === 'recipe'
+  ).create;
+  assert.equal(published.firstPublishedAt, publishedAt);
+  assert.equal(published._createdAt, undefined);
+  assert.equal(recipe.firstPublishedAt, '2026-01-01T00:00:00Z');
+  assert.ok(
+    publication.mutations
+      .filter((item) => item.create?._type !== 'recipe' && item.create)
+      .every((item) => item.create.firstPublishedAt === undefined)
+  );
+});

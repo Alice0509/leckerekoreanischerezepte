@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createClient } from '@sanity/client';
+import recipeFreshness from '../lib/recipeFreshness.cjs';
+const { firstPublicationDate } = recipeFreshness;
 
 const projectId = process.env.SANITY_PROJECT_ID || 'o9hshko6';
 const dataset = process.env.SANITY_DATASET || 'production';
@@ -241,12 +243,7 @@ const consumeList = (blocks, start, level, listItem) => {
 
       if (nextLevel <= level) break;
 
-      const nested = consumeList(
-        blocks,
-        index,
-        nextLevel,
-        nextBlock.listItem
-      );
+      const nested = consumeList(blocks, index, nextLevel, nextBlock.listItem);
 
       item.content.push(nested.node);
       index = nested.next;
@@ -285,12 +282,7 @@ const portableTextToContentful = (blocks) => {
     }
 
     if (block.listItem) {
-      const list = consumeList(
-        blocks,
-        index,
-        block.level || 1,
-        block.listItem
-      );
+      const list = consumeList(blocks, index, block.level || 1, block.listItem);
 
       content.push(list.node);
       index = list.next;
@@ -307,10 +299,9 @@ const portableTextToContentful = (blocks) => {
       continue;
     }
 
-    const nodeType =
-      ['h2', 'h3', 'h4', 'h5'].includes(block.style)
-        ? `heading-${block.style.slice(1)}`
-        : 'paragraph';
+    const nodeType = ['h2', 'h3', 'h4', 'h5'].includes(block.style)
+      ? `heading-${block.style.slice(1)}`
+      : 'paragraph';
 
     content.push(textBlockToContentful(block, nodeType));
     index += 1;
@@ -340,7 +331,9 @@ const makeLocaleEntries = (locale) => {
         slug: localized(doc.slug, locale),
         germanMeatCut: localized(doc.germanMeatCut, locale),
         bild: assetToContentful(doc.bild, locale),
-        description: portableTextToContentful(localized(doc.description, locale)),
+        description: portableTextToContentful(
+          localized(doc.description, locale)
+        ),
         seoTitle: localized(doc.seoTitle, locale),
         seoDescription: localized(doc.seoDescription, locale),
       })
@@ -371,7 +364,9 @@ const makeLocaleEntries = (locale) => {
       makeEntry(doc, 'step', locale, {
         stepName: doc.stepName,
         stepNumber: doc.stepNumber,
-        description: portableTextToContentful(localized(doc.description, locale)),
+        description: portableTextToContentful(
+          localized(doc.description, locale)
+        ),
         image: (doc.image || [])
           .map((asset) => assetToContentful(asset, locale))
           .filter(Boolean),
@@ -432,7 +427,9 @@ const makeLocaleEntries = (locale) => {
       ingredients: (doc.ingredients || [])
         .map((reference) => recipeIngredients.get(reference?._ref))
         .filter(Boolean),
-      instructions: portableTextToContentful(localized(doc.instructions, locale)),
+      instructions: portableTextToContentful(
+        localized(doc.instructions, locale)
+      ),
       videoFile: assetToContentful(doc.videoFile, locale),
       youTubeUrl:
         typeof doc.youTubeUrl === 'string' ? doc.youTubeUrl : undefined,
@@ -445,6 +442,7 @@ const makeLocaleEntries = (locale) => {
         .filter(Boolean),
       seoTitle: localized(doc.seoTitle, locale),
       seoDescription: localized(doc.seoDescription, locale),
+      firstPublishedAt: firstPublicationDate(doc),
       updatedDate: doc.updatedDate,
       legacyContentfulUpdatedAt: doc.legacyContentfulUpdatedAt,
     })

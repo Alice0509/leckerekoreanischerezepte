@@ -189,6 +189,14 @@ export const recipe = defineType({
     }),
 
     defineField({
+      name: 'firstPublishedAt',
+      title: '첫 공개 날짜 · 새 글 표시',
+      type: 'datetime',
+      group: 'search',
+      description: '채팅 레시피의 일괄 발행 시 자동 기록됩니다. 일반 편집기로 만든 새 레시피는 실제 첫 공개 날짜를 입력하세요. 수정할 때는 바꾸지 않습니다. 이전한 레시피에 오늘 날짜를 넣지 마세요.',
+    }),
+
+    defineField({
       name: 'updatedDate',
       description: '레시피 내용을 실제로 업데이트한 날짜를 입력하세요.',
       group: 'search',
