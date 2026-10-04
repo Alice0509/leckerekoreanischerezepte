@@ -19,10 +19,15 @@ const asianIngredients = [
   'sb-golden-curry-roux',
   'gochujang',
   'gochugaru',
+  'sesame-oil',
 ];
 
 test('every shopping destination is a specific product with its own title and variant note', () => {
-  for (const slug of ['wheat-flour-type-550', ...asianIngredients]) {
+  for (const slug of [
+    'wheat-flour-type-550',
+    'jinganjang',
+    ...asianIngredients,
+  ]) {
     for (const locale of ['en', 'de']) {
       const guide = getIngredientShoppingGuide(slug, locale, {
         entries: [],
@@ -35,7 +40,7 @@ test('every shopping destination is a specific product with its own title and va
         assert.notEqual(url.pathname, '/');
         assert.match(
           url.pathname,
-          /\/(?:product|produkt|shop\/p|de|gochujang-)/
+          /\/(?:product|produkt|shop\/p|de|food|gochujang-)/
         );
         assert.ok(product.productTitle.length > 10);
         assert.ok(product.note.length > 20);
@@ -127,6 +132,29 @@ test('unreviewed ingredients get no invented retailer recommendation', () => {
   for (const slug of ['pizza-dough', 'toString', '__proto__', undefined]) {
     assert.equal(getIngredientShoppingGuide(slug, 'en'), null);
   }
+});
+
+test('Jin Ganjang has a verified German product but no empty or invented US shop group', () => {
+  const english = getIngredientShoppingGuide('jinganjang', 'en', {
+    entries: [],
+    enabled: false,
+  });
+  assert.deepEqual(
+    english.groups.map((group) => group.region),
+    ['local']
+  );
+  const german = getIngredientShoppingGuide('jinganjang', 'de', {
+    entries: [],
+    enabled: false,
+  });
+  const product = german.groups[0].stores[0];
+  assert.match(product.productTitle, /Jin S.*860 ml/);
+  assert.match(product.note, /nicht identisch mit Jin Gold/);
+  assert.equal(
+    product.link.href,
+    'https://handokmall.de/de/sempio-sojasauce-jin-s-860ml/12394'
+  );
+  assert.equal(product.link.isAffiliate, false);
 });
 
 test('disabled or unapproved affiliate links never enter the shopping guide props', () => {
