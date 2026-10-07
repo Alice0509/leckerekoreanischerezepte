@@ -6,6 +6,7 @@ import { getRecipeSeoUrls } from '../../lib/localizedRoutes';
 import {
   getRecipeCategoryEntryId,
   getRecipeCategoryFromFields,
+  getRecipeCategorySlug,
 } from '../../lib/recipeCategories';
 import { getCanonicalIngredientSlug } from '../../lib/ingredientSlugs';
 import {
@@ -21,8 +22,12 @@ const { companionIds, companionReason, prioritizeCompanions } =
 import RecipeMeasurementGuide from '../../components/RecipeMeasurementGuide';
 import RecipeSharePanel from '../../components/RecipeSharePanel';
 import recipeSearch from '../../lib/recipeSearchDetails.cjs';
-const { orderedRecipeSteps, recipeSearchDetails, serializeRecipeSchema } =
-  recipeSearch;
+const {
+  orderedRecipeSteps,
+  recipeSearchDetails,
+  recipeIdentity,
+  serializeRecipeSchema,
+} = recipeSearch;
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getYouTubeThumbnail } from '../../lib/getYouTubeThumbnail';
 import Head from 'next/head';
@@ -638,6 +643,7 @@ export async function getStaticProps({ params, locale }) {
         'Default description: Find delicious recipes and tips.',
       images,
       category: categoryLabel,
+      categorySlug: getRecipeCategorySlug(categoryData.key),
       relatedRecipes,
       preparationTime: recipeEntry.fields.preparationTime || null,
       firstPublishedAt: recipeEntry.fields.firstPublishedAt || null,
@@ -705,6 +711,7 @@ const RecipeDetail = ({ recipe, error }) => {
     description,
     images,
     category,
+    categorySlug,
     relatedRecipes,
     preparationTime,
     servings,
@@ -973,6 +980,13 @@ const RecipeDetail = ({ recipe, error }) => {
     currentSlug: safeRecipe.slug,
   });
   const canonicalUrl = seoUrls.canonicalUrl;
+  const identity = recipeIdentity({
+    canonicalUrl,
+    locale: mappedLocale,
+    title: titel,
+    categorySlug,
+    category,
+  });
   const ogImage =
     images[0] || thumbnailUrl || `${seoUrls.siteOrigin}/images/default.png`;
 
@@ -1004,6 +1018,9 @@ const RecipeDetail = ({ recipe, error }) => {
   const recipeSchema = {
     '@context': 'https://schema.org',
     '@type': 'Recipe',
+    '@id': `${canonicalUrl}#recipe`,
+    url: canonicalUrl,
+    author: identity.author,
     name: titel || 'Recipe',
     description: descriptionText,
     image: images.length > 0 ? images : [ogImage],
@@ -1072,11 +1089,45 @@ const RecipeDetail = ({ recipe, error }) => {
             __html: serializeRecipeSchema(recipeSchema),
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeRecipeSchema(identity.breadcrumbSchema),
+          }}
+        />
       </Head>
 
       <div className={styles.container}>
+        <nav
+          className={styles.breadcrumbs}
+          aria-label={
+            mappedLocale === 'de' ? 'Brotkrümelnavigation' : 'Breadcrumb'
+          }
+        >
+          <ol>
+            {identity.breadcrumbs.map((item) => (
+              <li key={item.url}>
+                {item.href ? (
+                  <Link href={item.href}>{item.name}</Link>
+                ) : (
+                  <span aria-current="page">{item.name}</span>
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
         <header className={styles.header}>
           <h1 className={styles.title}>{titel}</h1>
+          <p className={styles.authorLine}>
+            {mappedLocale === 'de' ? 'Rezept von ' : 'Recipe by '}
+            <Link href="/about-us">{identity.author.name}</Link>
+            {' · '}
+            <Link href="/about-us">
+              {mappedLocale === 'de'
+                ? 'Über Hansik Young'
+                : 'About Hansik Young'}
+            </Link>
+          </p>
 
           <div
             className={styles.summary}
