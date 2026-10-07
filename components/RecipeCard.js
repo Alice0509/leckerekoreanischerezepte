@@ -3,6 +3,7 @@ import Image from 'next/image';
 import recipeFreshness from '../lib/recipeFreshness.cjs';
 const { isNewRecipe } = recipeFreshness;
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from '../styles/RecipeCard.module.css';
 import { getYouTubeThumbnail } from '../lib/getYouTubeThumbnail';
 
@@ -22,10 +23,15 @@ const getRecipeThumbnail = (recipe) => {
 
 const RecipeCard = ({
   recipe,
-  locale = 'en',
+  locale,
   freshnessCheckedAt,
   recommended = false,
+  showDescription = false,
+  headingLevel = 2,
+  priority = false,
 }) => {
+  const router = useRouter();
+  const activeLocale = locale || router.locale || 'en';
   const [checkedAt, setCheckedAt] = useState(freshnessCheckedAt);
 
   useEffect(() => {
@@ -46,6 +52,7 @@ const RecipeCard = ({
   }, [recipe]);
 
   const titel = recipe.titel || recipe.title || 'Untitled recipe';
+  const Title = headingLevel === 3 ? 'h3' : 'h2';
 
   return (
     <article className={styles.card}>
@@ -56,35 +63,46 @@ const RecipeCard = ({
               className={styles.newBadge}
               aria-label={
                 recommended
-                  ? locale === 'de'
+                  ? activeLocale === 'de'
                     ? 'Wochenempfehlung'
                     : 'This week’s recommended recipe'
-                  : locale === 'de'
+                  : activeLocale === 'de'
                     ? 'Neues Rezept'
                     : 'New recipe'
               }
             >
               {recommended
-                ? locale === 'de'
+                ? activeLocale === 'de'
                   ? 'EMPFEHLUNG'
                   : 'WEEKLY PICK'
-                : locale === 'de'
+                : activeLocale === 'de'
                   ? 'NEU'
                   : 'NEW'}
             </span>
           )}
           <Image
             src={thumbnail}
-            alt={`${titel} Thumbnail`}
+            alt={titel}
             width={600}
             height={600}
             className={styles.image}
-            priority={false}
+            sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 400px"
+            priority={priority}
           />
         </div>
 
         <div className={styles.content}>
-          <h2 className={styles.title}>{titel}</h2>
+          {typeof recipe.category === 'string' && recipe.category && (
+            <p className={styles.category}>{recipe.category}</p>
+          )}
+          <Title className={styles.title}>{titel}</Title>
+          {showDescription && recipe.descriptionText && (
+            <p className={styles.description}>{recipe.descriptionText}</p>
+          )}
+          <span className={styles.readRecipe} aria-hidden="true">
+            {activeLocale === 'de' ? 'Zum Rezept' : 'View recipe'}{' '}
+            <span>→</span>
+          </span>
         </div>
       </Link>
     </article>

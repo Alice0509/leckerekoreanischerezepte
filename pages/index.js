@@ -144,15 +144,6 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
   const mappedLocale = locale === 'de' ? 'de-DE' : 'en-US';
   const currentPage = parseInt(query.page) || 1;
 
-  const fuse = useMemo(
-    () =>
-      new Fuse(recipes, {
-        keys: ['titel', 'descriptionText'],
-        threshold: 0.3,
-      }),
-    [recipes]
-  );
-
   const categories = useMemo(() => {
     const presentCategories = new Set(recipes.map((item) => item.categoryKey));
 
@@ -172,6 +163,15 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
       return matchesCategory;
     });
   }, [recipes, selectedCategory]);
+
+  const fuse = useMemo(
+    () =>
+      new Fuse(filteredItems, {
+        keys: ['titel', 'descriptionText'],
+        threshold: 0.3,
+      }),
+    [filteredItems]
+  );
 
   const searchedItems = useMemo(() => {
     if (!searchTerm) return filteredItems;
@@ -247,7 +247,7 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
 
       <div className={styles.container}>
         {/* HERO */}
-        <section className={styles.heroSection}>
+        <section className={`${styles.heroSection} ${styles.homeHero}`}>
           <div className={styles.heroText}>
             <p className={styles.heroEyebrow}>
               {mappedLocale === 'de-DE'
@@ -257,14 +257,14 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
 
             <h1 className={styles.heroTitle}>
               {mappedLocale === 'de-DE'
-                ? 'Koreanische Hausmannskost mit Zutaten, die du in Deutschland findest'
-                : 'Warm Korean recipes for everyday home cooking'}
+                ? 'Koreanische Hausmannskost für deine Küche'
+                : 'Korean home cooking, made for your kitchen'}
             </h1>
 
             <p className={styles.heroDescription}>
               {mappedLocale === 'de-DE'
-                ? 'Einfache koreanische Rezepte, ehrliche Zutaten-Tipps und warme Familiengerichte – gekocht in Deutschland, mit koreanischem Herzen.'
-                : 'Simple Korean recipes, honest ingredient tips, and family-style dishes — made for real kitchens, wherever you live.'}
+                ? 'Rezepte aus meiner Küche, Zutaten-Tipps und praktische Alternativen zum koreanischen Kochen in Deutschland.'
+                : 'Recipes from my kitchen, ingredient guides and practical substitutions for everyday Korean cooking.'}
             </p>
 
             <div className={styles.heroButtons}>
@@ -279,22 +279,33 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
                   : 'Read ingredient guide'}
               </Link>
             </div>
+            <Link href="/about-us" className={styles.authorLink}>
+              {locale === 'de' ? 'Lerne Joan kennen →' : 'Meet Joan →'}
+            </Link>
           </div>
         </section>
 
         {/* FEATURED RECIPES */}
         {featuredRecipes.length > 0 && (
-          <section className={styles.previewSection}>
+          <section
+            className={styles.previewSection}
+            aria-labelledby="featured-title"
+          >
             <div className={styles.previewHeader}>
-              <h2 className={styles.previewTitle}>
+              <h2 id="featured-title" className={styles.previewTitle}>
                 {mappedLocale === 'de-DE'
-                  ? 'Neue Rezepte & Wochenempfehlung'
-                  : 'Latest Recipes & This Week’s Pick'}
+                  ? 'Frisch aus meiner Küche'
+                  : 'Fresh from the kitchen'}
               </h2>
             </div>
 
+            <p className={styles.previewNotice}>
+              {locale === 'de'
+                ? 'Zwei neue Rezepte und eine Empfehlung für diese Woche.'
+                : 'Two recent recipes and one pick for the week.'}
+            </p>
             <div className={styles.featuredGrid}>
-              {featuredRecipes.map(({ recipe: item, role }) => (
+              {featuredRecipes.map(({ recipe: item, role }, index) => (
                 <div key={item.id} className={styles.featuredSlot}>
                   <p className={styles.featuredLabel}>
                     {role === 'weekly'
@@ -314,6 +325,9 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
                     locale={locale}
                     freshnessCheckedAt={freshnessCheckedAt}
                     recommended={role === 'weekly'}
+                    showDescription
+                    headingLevel={3}
+                    priority={index === 0}
                   />
                 </div>
               ))}
@@ -371,10 +385,16 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
         </section>
 
         {/* ALL RECIPES */}
-        <section id="all-recipes" className={styles.allRecipesSection}>
+        <section
+          id="all-recipes"
+          className={styles.allRecipesSection}
+          aria-labelledby="all-recipes-title"
+        >
           <div className={styles.previewHeader}>
-            <h2 className={styles.previewTitle}>
-              {mappedLocale === 'de-DE' ? 'Alle Rezepte' : 'All Recipes'}
+            <h2 id="all-recipes-title" className={styles.previewTitle}>
+              {mappedLocale === 'de-DE'
+                ? 'Finde dein nächstes Rezept'
+                : 'Find your next recipe'}
             </h2>
           </div>
 
@@ -382,6 +402,9 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
             <div className={styles.filterContainer}>
               <select
                 id="categorySelect"
+                aria-label={
+                  locale === 'de' ? 'Rezeptkategorie' : 'Recipe category'
+                }
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className={styles.categorySelect}
@@ -398,13 +421,16 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
             </div>
 
             <div className={styles.searchContainer}>
-              <FaSearch className={styles.icon} />
+              <FaSearch className={styles.icon} aria-hidden="true" />
               <input
-                type="text"
+                type="search"
+                aria-label={
+                  locale === 'de' ? 'Rezepte suchen' : 'Search recipes'
+                }
                 placeholder={
                   mappedLocale === 'de-DE'
-                    ? 'Rezept suchen...'
-                    : 'Search recipes...'
+                    ? 'Suche, z. B. Kimchi oder Nudeln'
+                    : 'Search, e.g. kimchi or noodles'
                 }
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -413,6 +439,9 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
             </div>
           </div>
 
+          <p className={styles.resultCount} role="status" aria-live="polite">
+            {searchedItems.length} {locale === 'de' ? 'Rezepte' : 'recipes'}
+          </p>
           <div className={styles.menuGrid}>
             {paginatedItems.length > 0 ? (
               paginatedItems.map((item) => (
@@ -421,6 +450,7 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
                   recipe={item}
                   locale={locale}
                   freshnessCheckedAt={freshnessCheckedAt}
+                  headingLevel={3}
                 />
               ))
             ) : (
@@ -435,6 +465,9 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
           <div className={styles.pagination}>
             {currentPage > 1 && (
               <button
+                aria-label={
+                  locale === 'de' ? 'Vorherige Seite' : 'Previous page'
+                }
                 onClick={() => handlePageChange(currentPage - 1)}
                 className={styles.pageButton}
               >
@@ -444,6 +477,7 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
             {Array.from({ length: computedTotalPages }, (_, index) => (
               <button
                 key={index}
+                aria-current={currentPage === index + 1 ? 'page' : undefined}
                 onClick={() => handlePageChange(index + 1)}
                 className={
                   currentPage === index + 1
@@ -456,6 +490,7 @@ const Home = ({ recipes, error, freshnessCheckedAt }) => {
             ))}
             {currentPage < computedTotalPages && (
               <button
+                aria-label={locale === 'de' ? 'Nächste Seite' : 'Next page'}
                 onClick={() => handlePageChange(currentPage + 1)}
                 className={styles.pageButton}
               >
