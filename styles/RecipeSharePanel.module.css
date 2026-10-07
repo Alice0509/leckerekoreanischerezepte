@@ -40,7 +40,8 @@
 }
 .panel summary:focus-visible,
 .actions button:focus-visible,
-.manualText:focus-visible {
+.manualText:focus-visible,
+.pinText:focus-visible {
   outline: 3px solid #42634c;
   outline-offset: 3px;
 }
@@ -62,4 +63,42 @@
 }
 .status:empty {
   display: none;
+}
+.pinterest {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(120, 80, 45, 0.14);
+}
+.pinterest h3 {
+  color: #2f241f;
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem;
+}
+.pinField {
+  margin: 1rem 0;
+}
+.pinField label {
+  display: block;
+  color: #2f241f;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.pinText {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem;
+  border: 1px solid #9faaa0;
+  border-radius: 8px;
+  background: #fff;
+  color: #2f241f;
+  font: inherit;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  resize: vertical;
+  margin-bottom: 0.5rem;
+}
+.panel .pinNote {
+  font-size: 0.9rem;
+  line-height: 1.5;
 }

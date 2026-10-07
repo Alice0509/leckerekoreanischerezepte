@@ -14,7 +14,7 @@
 
 1. 새 ZIP의 `apply-and-open-pr.sh`로 검토용 PR을 만들고 검토 후 merge합니다. Vercel Production이 Ready인지 확인합니다.
 2. 홈에서 최신 2개와 추천 1개를 확인하고, 카레 페이지의 Golden Curry 안내 링크를 눌러 봅니다.
-3. 각 레시피 아래 ‘Share this recipe / Dieses Rezept teilen’을 열면 해당 언어의 정확한 링크와 짧은 소개를 복사하거나 사진으로 만든 1080×1350 PNG를 다운로드할 수 있습니다. 계정 연결이나 유료 이미지 서비스는 사용하지 않습니다.
+3. 각 레시피 아래 ‘Share this recipe / Dieses Rezept teilen’을 열면 해당 언어의 정확한 링크와 짧은 소개를 복사하거나 사진으로 만든 1080×1350 PNG를 다운로드할 수 있습니다. Pinterest용 1000×1500 PNG와 제목·설명·링크를 각각 준비하는 기능도 있습니다. 자세한 순서는 `docs/pinterest-recipe-sharing.ko.md`를 참고합니다. 계정 연결이나 유료 이미지 서비스는 사용하지 않습니다.
 4. ZIP에는 현재 비빔 소스 사진을 활용한 EN/DE 공유 이미지와 `share-captions.txt`를 넣었습니다. 실제 사진 전체를 유지하며, 소스 사진을 완성 비빔면 사진으로 바꾸지 않습니다.
 5. 지난 단계에서 아직 공개하지 않은 파스타 설명을 반영하려면 ZIP의 `update-noodle-pasta.sh --dry-run`, 이어서 `--apply`를 실행합니다. 초안이나 준비 이후 수정이 있으면 덮어쓰지 않고 중단합니다. Studio에서 해당 레시피를 동시에 편집하지 마세요.
 
