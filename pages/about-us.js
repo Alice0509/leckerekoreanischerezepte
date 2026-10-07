@@ -4,6 +4,9 @@ import { getSeoUrls } from '../lib/siteUrls';
 import styles from '../styles/AboutUs.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import recipeSearch from '../lib/recipeSearchDetails.cjs';
+
+const { AUTHOR_ID, serializeRecipeSchema } = recipeSearch;
 
 const AboutUs = () => {
   const router = useRouter();
@@ -16,6 +19,7 @@ const AboutUs = () => {
       description:
         'Hansik Young is my personal archive of Korean home cooking, with recipes, ingredient notes, and dishes I actually cook at home.',
       h1: 'About Hansik Young',
+      authorIntro: "I'm Joan, the home cook behind Hansik Young.",
       intro:
         'Hansik Young is my personal archive of Korean home cooking. I collect the dishes I really cook at home — everyday meals, soups, stews, side dishes, sauces, and small kitchen basics.',
       secondParagraph:
@@ -50,6 +54,8 @@ const AboutUs = () => {
       description:
         'Hansik Young ist ein persönliches Archiv für koreanische Hausmannskost in Deutschland – mit Rezepten, Zutaten-Notizen und Gerichten, die ich wirklich zu Hause koche.',
       h1: 'Über Hansik Young',
+      authorIntro:
+        'Ich bin Joan und koche die Gerichte, die ich hier bei Hansik Young sammle, zu Hause.',
       intro:
         'Hansik Young ist mein persönliches Archiv für koreanische Hausmannskost in Deutschland. Ich sammle hier Gerichte, die ich zu Hause wirklich koche — Alltagsgerichte, Suppen, Eintöpfe, Beilagen, Saucen und kleine Küchenbasics.',
       secondParagraph:
@@ -125,10 +131,22 @@ const AboutUs = () => {
         url={canonicalUrl}
         title={t.title}
         images={[`${seoUrls.siteOrigin}/images/about-us-og-image.png`]}
-        authorName="Joan von Hansik Young"
+        authorName="Joan"
         publisherName="Hansik Young"
         publisherLogo={`${seoUrls.siteOrigin}/images/logo.png`}
         description={t.description}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: serializeRecipeSchema({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            '@id': AUTHOR_ID,
+            name: 'Joan',
+            url: canonicalUrl,
+          }),
+        }}
       />
 
       <div className={styles.container}>
@@ -144,6 +162,9 @@ const AboutUs = () => {
           />
         </div>
 
+        <p id="joan" className={styles.intro}>
+          {t.authorIntro}
+        </p>
         <p className={styles.intro}>{t.intro}</p>
         <p className={styles.intro}>{t.secondParagraph}</p>
 

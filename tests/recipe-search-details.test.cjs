@@ -3,6 +3,8 @@ const assert = require('node:assert/strict');
 const {
   orderedRecipeSteps,
   recipeSearchDetails,
+  recipeIdentity,
+  AUTHOR_ID,
   serializeRecipeSchema,
 } = require('../lib/recipeSearchDetails.cjs');
 const { firstPublicationDate } = require('../lib/recipeFreshness.cjs');
@@ -13,6 +15,100 @@ const base = {
   locale: 'en',
   toPlainText,
 };
+
+test('both languages identify the same public author and link to their own category and author page', () => {
+  for (const [locale, origin, slug] of [
+    ['en', 'https://www.hansikyoung.com', 'easy-japanese-golden-curry'],
+    [
+      'de',
+      'https://www.leckere-koreanische-rezepte.de',
+      'einfaches-japanisches-golden-curry',
+    ],
+  ]) {
+    const canonicalUrl = `${origin}/recipes/${slug}`;
+    const identity = recipeIdentity({
+      canonicalUrl,
+      locale,
+      title: 'Golden Curry',
+      categorySlug: 'main-dishes',
+      category: locale === 'de' ? 'Hauptgerichte' : 'Main dishes',
+    });
+    assert.deepEqual(identity.author, {
+      '@type': 'Person',
+      '@id': AUTHOR_ID,
+      name: 'Joan',
+      url: `${origin}/about-us`,
+    });
+    assert.equal(
+      identity.breadcrumbs[0].name,
+      locale === 'de' ? 'Startseite' : 'Home'
+    );
+    assert.equal(identity.breadcrumbs[1].href, '/categories/main-dishes');
+    assert.equal(
+      identity.breadcrumbs[1].url,
+      `${origin}/categories/main-dishes`
+    );
+    assert.equal(identity.breadcrumbs[2].url, canonicalUrl);
+    assert.equal(identity.breadcrumbs[2].href, undefined);
+    assert.deepEqual(
+      identity.breadcrumbSchema.itemListElement.map((item) => item.position),
+      [1, 2, 3]
+    );
+    assert.deepEqual(
+      identity.breadcrumbSchema.itemListElement.map((item) => [
+        item.name,
+        item.item,
+      ]),
+      identity.breadcrumbs.map((item) => [item.name, item.url])
+    );
+  }
+});
+
+test('missing or unsafe category paths do not create an invented breadcrumb destination', () => {
+  for (const categorySlug of [
+    undefined,
+    '',
+    '../recipes',
+    'sauces?redirect=bad',
+    'https://example.com',
+  ]) {
+    const identity = recipeIdentity({
+      ...base,
+      title: 'Bibim sauce',
+      categorySlug,
+      category: 'Sauces',
+    });
+    assert.equal(identity.breadcrumbs.length, 2);
+    assert.equal(identity.breadcrumbs.at(-1).url, base.canonicalUrl);
+    assert.deepEqual(
+      identity.breadcrumbSchema.itemListElement.map((item) => item.position),
+      [1, 2]
+    );
+  }
+});
+
+test('breadcrumb recipe text is serialized safely and author identity does not expose credentials', () => {
+  const identity = recipeIdentity({
+    ...base,
+    title: '</script><p>Soup & rice</p>',
+    categorySlug: 'soups-stews',
+    category: 'Soups & stews',
+  });
+  const serialized = serializeRecipeSchema(identity.breadcrumbSchema);
+  assert.ok(!serialized.includes('</script>'));
+  assert.equal(
+    JSON.parse(serialized).itemListElement.at(-1).name,
+    '</script><p>Soup & rice</p>'
+  );
+  for (const canonicalUrl of [
+    'http://www.hansikyoung.com/recipes/soup',
+    'https://name:password@www.hansikyoung.com/recipes/soup',
+  ]) {
+    assert.throws(() =>
+      recipeIdentity({ ...base, canonicalUrl, title: 'Soup' })
+    );
+  }
+});
 
 test('one known overall duration is never duplicated as a separate preparation or cooking duration', () => {
   const details = recipeSearchDetails({
