@@ -1686,13 +1686,13 @@ const RecipeDetail = ({ recipe, error }) => {
             <Link href="/gallery" className={styles.recipeNextCard}>
               <span>
                 {mappedLocale === 'de'
-                  ? 'Meine Einkaufsliste'
-                  : 'My shopping list'}
+                  ? 'Zutaten & Küchenhelfer'
+                  : 'Kitchen Picks'}
               </span>
               <small>
                 {mappedLocale === 'de'
-                  ? 'Produkte und Küchenbasics aus meinem Alltag'
-                  : 'Products and kitchen basics from my everyday cooking'}
+                  ? 'Auswahl-Guides und persönliche Produktnotizen'
+                  : 'Selection guides and personal product notes'}
               </small>
             </Link>
           </div>

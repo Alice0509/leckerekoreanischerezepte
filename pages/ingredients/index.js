@@ -345,21 +345,21 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
         <section className={styles.shoppingListCta}>
           <div>
             <p className={styles.kicker}>
-              {isGerman ? 'Meine Favoriten' : 'My favorites'}
+              {isGerman ? 'Zutaten & Küchenhelfer' : 'Kitchen Picks'}
             </p>
             <h2>
               {isGerman
-                ? 'Du möchtest sehen, was ich selbst nutze?'
-                : 'Want to see what I actually use?'}
+                ? 'Zutaten und Küchenhelfer gezielt auswählen'
+                : 'Choose ingredients and kitchen tools'}
             </h2>
             <p>
               {isGerman
-                ? 'In meinen Favoriten sammle ich Zutaten, Produkte und Küchenbasics, die ich selbst kaufe oder im Alltag benutze.'
-                : 'In my favorites, I collect ingredients, products, and kitchen basics I buy myself or use in everyday cooking.'}
+                ? 'Grundzutaten, Küchen-Guides und persönliche Produktnotizen mit passenden Rezepten.'
+                : 'Pantry basics, tool guides and personal product notes with recipes to put ingredients to use.'}
             </p>
           </div>
           <Link href="/gallery" className={styles.ctaButton}>
-            {isGerman ? 'Favoriten ansehen' : 'View favorites'}
+            {isGerman ? 'Auswahl ansehen' : 'Explore picks'}
           </Link>
         </section>
 

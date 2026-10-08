@@ -1258,7 +1258,7 @@ const IngredientDetail = ({
         )}
 
         <Link href="/gallery" className={styles.backLink}>
-          {isGerman ? 'Meine Einkaufsliste →' : 'My shopping notes →'}
+          {isGerman ? 'Zutaten & Küchenhelfer →' : 'Kitchen Picks →'}
         </Link>
 
         <section className={styles.faqSection}>
