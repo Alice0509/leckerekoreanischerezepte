@@ -17,12 +17,12 @@ ORIGINS = {
 PAGES = [
     ("DE 홈", "de", "/", "Koreanische Hausmannskost"),
     ("DE 재료", "de", "/ingredients", "Koreanische Zutaten"),
-    ("DE 즐겨찾기", "de", "/gallery", "Meine Einkaufsliste"),
+    ("DE 즐겨찾기", "de", "/gallery", "Zutaten & Küchenhelfer"),
     ("DE 소개", "de", "/about-us", "Über Hansik Young"),
     ("DE 레시피", "de", "/recipes/miyeokguk", None),
     ("EN 홈", "en", "/", "Warm Korean recipes"),
     ("EN 재료", "en", "/ingredients", "Korean ingredients"),
-    ("EN 즐겨찾기", "en", "/gallery", "My Shopping List"),
+    ("EN 즐겨찾기", "en", "/gallery", "Kitchen Picks"),
     ("EN 소개", "en", "/about-us", "About Hansik Young"),
     ("EN 레시피", "en", "/recipes/miyeokguk", None),
 ]
