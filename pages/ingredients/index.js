@@ -230,16 +230,17 @@ const Ingredients = ({ ingredients, error, mappedLocale }) => {
               ? 'Hier findest du koreanische Grundzutaten, ehrliche Einkaufstipps und einfache Erklärungen für die Küche in Deutschland – von Gochujang und Kimchi bis Reis, Sesamöl und Doenjang.'
               : 'Find practical guides to Korean pantry basics, with shopping tips, substitutions and recipe ideas for everyday Korean cooking.'}
           </p>
-          <a href="#all-ingredients" className={styles.jumpLink}>
-            {isGerman ? 'Alle Zutaten durchsuchen' : 'Browse all ingredients'}
-          </a>
-          <p>
-            <Link href="/korean-pantry" className={styles.jumpLink}>
-              {isGerman
-                ? 'Neu beim koreanischen Kochen? Grundzutaten kennenlernen →'
-                : 'New to Korean cooking? Start your pantry here →'}
+          <div className={styles.heroActions}>
+            <a href="#all-ingredients" className={styles.heroAction}>
+              {isGerman ? 'Alle Zutaten' : 'Browse ingredients'}
+            </a>
+            <Link
+              href="/korean-pantry"
+              className={`${styles.heroAction} ${styles.secondaryAction}`}
+            >
+              {isGerman ? 'Grundzutaten' : 'Pantry basics'}
             </Link>
-          </p>
+          </div>
         </section>
 
         <section
