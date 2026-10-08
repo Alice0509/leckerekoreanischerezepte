@@ -46,37 +46,6 @@
   line-height: 1.75;
 }
 
-.overviewActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin-top: 18px;
-}
-
-.primaryButton,
-.secondaryButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 0 18px;
-  border-radius: 999px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.primaryButton {
-  background: #1f1a17;
-  color: #fff;
-}
-
-.secondaryButton {
-  background: #fff7ec;
-  color: #1f1a17;
-  border: 1px solid rgba(139, 74, 32, 0.22);
-}
-
 .overviewGrid {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
@@ -440,12 +409,6 @@
     border-color: rgba(255, 255, 255, 0.08);
   }
 
-  .secondaryButton {
-    background: #2b2520;
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.12);
-  }
-
   .relatedContent h3 {
     color: #f2f2f3 !important;
   }
@@ -488,11 +451,6 @@
   .favoriteGrid,
   .relatedGrid {
     grid-template-columns: 1fr;
-  }
-
-  .overviewActions {
-    align-items: stretch;
-    flex-direction: column;
   }
 }
 
@@ -561,18 +519,6 @@
   }
 }
 
-.tertiaryLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 0 10px;
-  color: #6b4a38;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
 .faqItem summary {
   position: relative;
   padding: 16px 38px 16px 0;
@@ -637,29 +583,6 @@
     margin: 0;
     font-size: 1rem;
     line-height: 1.6;
-  }
-
-  .overviewActions {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 9px;
-    margin-top: 17px;
-  }
-
-  .primaryButton,
-  .secondaryButton {
-    width: 100%;
-    min-height: 48px;
-    padding: 7px 10px;
-    font-size: 0.88rem;
-    line-height: 1.2;
-    text-align: center;
-  }
-
-  .tertiaryLink {
-    grid-column: 1 / -1;
-    min-height: 36px;
-    font-size: 0.9rem;
   }
 
   .overviewGrid {
@@ -777,10 +700,6 @@
   .faqItem summary {
     color: #2f2a26 !important;
   }
-
-  .tertiaryLink {
-    color: #f1b071;
-  }
 }
 
 @media (max-width: 700px) {
@@ -880,24 +799,6 @@
     line-height: 1.65;
   }
 
-  .overviewActions {
-    max-width: 760px;
-    justify-content: flex-start;
-    margin-top: 18px;
-  }
-
-  .primaryButton,
-  .secondaryButton {
-    flex: 1 1 260px;
-    max-width: 360px;
-  }
-
-  .tertiaryLink {
-    flex-basis: 100%;
-    justify-content: flex-start;
-    padding-left: 0;
-  }
-
   .relatedSection {
     margin: 0 -28px 30px;
     padding: 24px 0 6px;
@@ -982,4 +883,142 @@
 
 .overviewGridWithoutImage {
   grid-template-columns: 1fr;
+}
+
+/* Navigation remains visible before photos and long ingredient descriptions. */
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: 8px;
+  color: #614431;
+  font-size: 0.92rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.guideNavigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0 24px;
+}
+
+.guideNavigation a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 15px;
+  border: 1px solid #dcd8ce;
+  border-radius: 12px;
+  background: #f5f3e9;
+  color: #244b3b;
+  font-size: 0.94rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.guideNavigation a:hover {
+  background: #e9eee5;
+  border-color: #819785;
+}
+
+.container [id] {
+  scroll-margin-top: 100px;
+}
+
+.shoppingSection .shoppingRegion {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #dfdfd4;
+  border-radius: 16px;
+  background: #f5f6ef;
+  color: #2f2a26;
+  text-align: left;
+}
+
+.shoppingRegion h3,
+.shoppingRegion p {
+  color: #3d443a;
+  overflow-wrap: anywhere;
+}
+
+.shoppingSection .shoppingLinks li {
+  padding-top: 18px;
+  border-top: 1px solid #d9dfd2;
+}
+
+.shoppingSection .shoppingProductLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: #244b3b;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.shoppingProductLink::after {
+  content: '↗';
+  margin-left: 8px;
+}
+
+.shoppingSection .shoppingProductLink:hover {
+  background: #19382b;
+}
+
+.shopLinkHint {
+  margin: 10px 0 0;
+  color: #5a6053;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.backLink:focus-visible,
+.guideNavigation a:focus-visible,
+.shoppingProductLink:focus-visible {
+  outline: 3px solid #a75624;
+  outline-offset: 4px;
+}
+
+@media (max-width: 768px) {
+  .guideNavigation {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin: 16px 0 20px;
+  }
+
+  .guideNavigation a {
+    min-height: 48px;
+    padding: 10px 8px;
+    font-size: 0.88rem;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  /* All usage and selection tips are readable without a hidden swipe. */
+  .guideGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0 0 16px;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .shoppingSection .shoppingRegion {
+    padding: 16px;
+  }
+
+  .shoppingSection .shoppingProductLink {
+    width: 100%;
+  }
 }

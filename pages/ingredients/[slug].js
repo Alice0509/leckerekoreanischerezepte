@@ -934,13 +934,41 @@ const IngredientDetail = ({
 
       <div className={styles.container}>
         <header className={styles.hero}>
+          <Link href="/ingredients" className={styles.backLink}>
+            {isGerman ? '← Alle Zutaten' : '← All ingredients'}
+          </Link>
           <p className={styles.eyebrow}>{guide.eyebrow}</p>
           <h1 className={styles.title}>{mainTitle || guide.headline}</h1>
           {subTitle && <p className={styles.subtitle}>{subTitle}</p>}
           <p className={styles.heroText}>{guide.intro}</p>
+          <nav
+            className={styles.guideNavigation}
+            aria-label={isGerman ? 'Auf dieser Seite' : 'On this page'}
+          >
+            <a href="#ingredient-description-title">
+              {isGerman ? 'Zutat kennenlernen' : 'Ingredient guide'}
+            </a>
+            <a href="#ingredient-use">
+              {isGerman ? 'In der Küche' : 'How to use it'}
+            </a>
+            {(shoppingGuide || favoriteProducts.length > 0) && (
+              <a
+                href={
+                  shoppingGuide ? '#ingredient-shopping' : '#shopping-notes'
+                }
+              >
+                {isGerman ? 'Einkaufsmöglichkeiten' : 'Shopping options'}
+              </a>
+            )}
+            {relatedRecipes.length > 0 && (
+              <a href="#recipes">
+                {isGerman ? 'Rezepte damit' : 'Recipes using it'}
+              </a>
+            )}
+          </nav>
           <section
             className={`${styles.overviewGrid} ${!bild ? styles.overviewGridWithoutImage : ''}`}
-            aria-label="Ingredient overview"
+            aria-label={isGerman ? 'Zutat im Überblick' : 'Ingredient overview'}
           >
             {bild && (
               <div className={styles.imageWrapper}>
@@ -979,34 +1007,9 @@ const IngredientDetail = ({
               </ul>
             </div>
           </section>
-
-          <nav
-            className={styles.overviewActions}
-            aria-label={
-              isGerman ? 'Aktionen zu dieser Zutat' : 'Ingredient actions'
-            }
-          >
-            {relatedRecipes.length > 0 && (
-              <a href="#recipes" className={styles.primaryButton}>
-                {isGerman ? 'Rezepte damit finden' : 'Find recipes'}
-              </a>
-            )}
-            <Link
-              href="/ingredients"
-              className={
-                relatedRecipes.length > 0
-                  ? styles.secondaryButton
-                  : styles.primaryButton
-              }
-            >
-              {isGerman ? 'Alle Zutaten ansehen' : 'View all ingredients'}
-            </Link>
-            <Link href="/gallery" className={styles.tertiaryLink}>
-              {isGerman
-                ? 'Meine Einkaufsliste öffnen'
-                : 'Open my shopping list'}
-            </Link>
-          </nav>
+          <Link href="/gallery" className={styles.backLink}>
+            {isGerman ? 'Meine Einkaufsliste →' : 'My shopping notes →'}
+          </Link>
         </header>
 
         <section
@@ -1035,7 +1038,7 @@ const IngredientDetail = ({
             </ul>
           </article>
 
-          <article className={styles.infoCard}>
+          <article className={styles.infoCard} id="ingredient-use">
             <h2>{isGerman ? 'Wofür verwenden?' : 'How to use it'}</h2>
             <ul>
               {guide.uses.map((use) => (
@@ -1056,11 +1059,19 @@ const IngredientDetail = ({
 
         {shoppingGuide && (
           <section
-            className={styles.guideSection}
+            id="ingredient-shopping"
+            className={`${styles.guideSection} ${styles.shoppingSection}`}
             aria-labelledby="ingredient-shopping-title"
           >
             <h2 id="ingredient-shopping-title">{shoppingGuide.title}</h2>
             <p className={styles.sectionIntro}>{shoppingGuide.intro}</p>
+            {shoppingGuide.groups.some((group) => group.stores.length > 0) && (
+              <p className={styles.shopLinkHint}>
+                {isGerman
+                  ? 'Produktlinks öffnen den Shop in einem neuen Tab.'
+                  : 'Product links open the shop in a new tab.'}
+              </p>
+            )}
             <div className={styles.shoppingRegions}>
               {shoppingGuide.groups.map((group) => (
                 <article key={group.region} className={styles.shoppingRegion}>
@@ -1077,7 +1088,7 @@ const IngredientDetail = ({
                           <PurchaseLink
                             link={store.link}
                             locale={mappedLocale}
-                            className={styles.favoriteLink}
+                            className={styles.shoppingProductLink}
                           >
                             {store.label}
                           </PurchaseLink>
@@ -1140,7 +1151,7 @@ const IngredientDetail = ({
         )}
 
         {favoriteProducts.length > 0 && (
-          <section className={styles.favoriteSection}>
+          <section id="shopping-notes" className={styles.favoriteSection}>
             <h2 className={styles.favoriteTitle}>
               {isGerman
                 ? 'Meine Einkaufsliste zu dieser Zutat'
