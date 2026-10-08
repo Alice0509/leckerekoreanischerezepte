@@ -22,6 +22,7 @@ const { companionIds, companionReason, prioritizeCompanions } =
 import RecipeMeasurementGuide from '../../components/RecipeMeasurementGuide';
 import RecipeSharePanel from '../../components/RecipeSharePanel';
 import RecipeIngredientShopping from '../../components/RecipeIngredientShopping';
+import YukgaejangRecipeGuide from '../../components/YukgaejangRecipeGuide';
 import recipeShopping from '../../lib/recipeShopping.cjs';
 const { getRecipeShoppingIngredients } = recipeShopping;
 import recipeSearch from '../../lib/recipeSearchDetails.cjs';
@@ -159,7 +160,7 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
         introTitle: 'So koche ich dieses Gericht zu Hause',
         intro:
           'Ich halte dieses Rezept bewusst alltagstauglich: mit klaren Schritten, verlinkten Zutaten und kleinen Hinweisen, damit du es auch in Deutschland realistisch nachkochen kannst.',
-        shoppingTitle: 'Zutaten realistisch einkaufen',
+        shoppingTitle: 'Hinweise zu den Zutaten',
         shoppingText:
           'Unbekannte Zutaten kannst du direkt anklicken. Viele koreanische Basics findest du im Asia-Markt oder online, frische Zutaten ersetze ich im Alltag aber oft pragmatisch mit dem, was es hier gibt.',
         tips: [],
@@ -182,7 +183,7 @@ const getRecipeGuide = ({ title, slug, ingredients, mappedLocale }) => {
         introTitle: 'How I cook this at home',
         intro:
           'I keep this recipe practical for everyday cooking, with clear steps, helpful ingredient notes, and small tips from my own kitchen.',
-        shoppingTitle: 'Finding the ingredients',
+        shoppingTitle: 'Ingredient tips',
         shoppingText:
           'You can open unfamiliar ingredients directly from the list. Many Korean pantry basics are easiest to find in Asian grocery stores or online, while fresh ingredients can often be handled more flexibly.',
         tips: [],
@@ -1436,6 +1437,10 @@ const RecipeDetail = ({ recipe, error }) => {
           </aside>
 
           <section className={styles.instructionsColumn}>
+            <YukgaejangRecipeGuide
+              recipeId={safeRecipe.id}
+              locale={mappedLocale}
+            />
             {!guide.isDefault && (
               <section className={styles.recipeGuideIntro}>
                 <p className={styles.guideEyebrow}>{guide.eyebrow}</p>
