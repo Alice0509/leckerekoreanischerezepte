@@ -21,6 +21,9 @@ const { companionIds, companionReason, prioritizeCompanions } =
   recipeCompanions;
 import RecipeMeasurementGuide from '../../components/RecipeMeasurementGuide';
 import RecipeSharePanel from '../../components/RecipeSharePanel';
+import RecipeIngredientShopping from '../../components/RecipeIngredientShopping';
+import recipeShopping from '../../lib/recipeShopping.cjs';
+const { getRecipeShoppingIngredients } = recipeShopping;
 import recipeSearch from '../../lib/recipeSearchDetails.cjs';
 const {
   orderedRecipeSteps,
@@ -649,6 +652,15 @@ export async function getStaticProps({ params, locale }) {
       firstPublishedAt: recipeEntry.fields.firstPublishedAt || null,
       servings: recipeEntry.fields.servings || null,
       ingredients,
+      shoppingIngredients: getRecipeShoppingIngredients(
+        ingredients.filter((ingredient) =>
+          hasIngredientDetailPage({
+            slug: ingredient.slug,
+            description: ingredient.description,
+          })
+        ),
+        mappedLocale
+      ),
       instructions:
         recipeEntry.fields.instructions || 'No instructions provided.',
       videoFile: recipeEntry.fields.videoFile || null,
@@ -1401,6 +1413,11 @@ const RecipeDetail = ({ recipe, error }) => {
                     );
                   })}
                 </ul>
+
+                <RecipeIngredientShopping
+                  ingredients={safeRecipe.shoppingIngredients}
+                  locale={mappedLocale}
+                />
 
                 {guide.shoppingText && (
                   <details className={styles.ingredientShoppingNote}>

@@ -1,0 +1,126 @@
+.panel {
+  margin-top: 20px;
+  color: #243b2d;
+  background: #f6f8f3;
+  border: 1px solid #d5dfcf;
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+
+.panel > summary {
+  padding: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.panel > summary:focus-visible,
+.guide:focus-visible,
+.button:focus-visible {
+  outline: 3px solid #27623b;
+  outline-offset: 3px;
+}
+
+.body {
+  padding: 0 16px 16px;
+}
+
+.intro {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.ingredients,
+.products {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ingredient + .ingredient {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid #d5dfcf;
+}
+
+.ingredient h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.guide {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #245735;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.region h4 {
+  margin: 12px 0 8px;
+  font-size: 0.9rem;
+}
+
+.product {
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #d5dfcf;
+  border-radius: 8px;
+}
+
+.product + .product {
+  margin-top: 10px;
+}
+
+.productTitle {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.actionRow {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.shopName {
+  flex: 1 1 70px;
+  padding-top: 12px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.action {
+  flex: 0 1 auto;
+  max-width: 100%;
+}
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  min-height: 48px;
+  max-width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #245735;
+  border-radius: 8px;
+  background: #245735;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  text-align: center;
+}
+
+.button:hover {
+  background: #194528;
+}
