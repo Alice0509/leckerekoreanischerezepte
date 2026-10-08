@@ -542,6 +542,7 @@ const getFaqItems = ({ guide, mainTitle, mappedLocale }) => {
           guide.storage ||
           'Beachte die Aufbewahrungshinweise auf der Verpackung.',
       },
+      ...(guide.faq || []),
     ];
   }
 
@@ -563,6 +564,7 @@ const getFaqItems = ({ guide, mainTitle, mappedLocale }) => {
       answer:
         guide.storage || 'Follow the storage instructions on the package.',
     },
+    ...(guide.faq || []),
   ];
 };
 
@@ -1266,6 +1268,11 @@ const IngredientDetail = ({
               <details key={item.question} className={styles.faqItem}>
                 <summary>{item.question}</summary>
                 <p>{item.answer}</p>
+                {(item.links || []).map((link) => (
+                  <p key={link.href}>
+                    <Link href={link.href}>{link.label} →</Link>
+                  </p>
+                ))}
               </details>
             ))}
           </div>

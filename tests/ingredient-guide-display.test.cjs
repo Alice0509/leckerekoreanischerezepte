@@ -169,7 +169,7 @@ test('shop directories render once without personal product notes and keep count
     assert.match(html, /rel="noopener noreferrer"/);
     assert.doesNotMatch(
       html,
-      /Affiliate disclosure|affiliate-label|My shopping notes|Meine Einkaufsliste zu/
+      /Affiliate disclosure|affiliate-label|My shopping notes for this ingredient|Meine Einkaufsliste zu/
     );
     if (locale === 'en') {
       assert.match(visible(html), /Your country/);
@@ -236,8 +236,8 @@ test('a CMS description is visible once without any shopping products, in both l
       visible(html).split('Reviewed ingredient description.').length - 1,
       1
     );
-    assert.match(html, /aria-labelledby="ingredient-description-title"/);
-    assert.match(html, /overviewGridWithoutImage/);
+    assert.match(html, /<summary id="ingredient-description-title">/);
+    assert.doesNotMatch(html, /<img\b/);
   }
 });
 
@@ -254,12 +254,13 @@ test('multiple shopping products do not duplicate the ingredient guide', () => {
     visible(html).split('Reviewed ingredient description.').length - 1,
     1
   );
-  assert.equal(visible(html).split('What is this ingredient?').length - 1, 1);
+  assert.equal(visible(html).split('Full ingredient guide').length - 1, 1);
   for (const product of products) assert.ok(html.includes(product.title));
 });
 
 test('ingredient-specific guides render their uses and matching FAQ in both languages', () => {
   for (const slug of [
+    'gochujang',
     'wheat-flour-type-550',
     'azukibeanpaste',
     'sb-golden-curry-roux',
@@ -288,6 +289,7 @@ test('ingredient-specific guides render their uses and matching FAQ in both lang
 
 test('English product guidance is global and flour does not recommend paste storage', () => {
   for (const slug of [
+    'gochujang',
     'wheat-flour-type-550',
     'azukibeanpaste',
     'sb-golden-curry-roux',
@@ -307,6 +309,40 @@ test('English product guidance is global and flour does not recommend paste stor
     visible(render('wheat-flour-type-550')),
     /fridge|refrigerat/i
   );
+});
+
+test('chili comparisons appear in closed FAQ with matching schema and reciprocal ingredient destinations', () => {
+  for (const locale of ['en', 'de']) {
+    for (const [slug, other] of [
+      ['gochujang', 'gochugaru'],
+      ['gochugaru', 'gochujang'],
+    ]) {
+      const html = render(slug, locale);
+      const profile = getIngredientGuideProfile(slug, locale);
+      const questions = faq(html).mainEntity;
+      assert.equal(questions.length, 4 + profile.faq.length);
+      for (const item of profile.faq) {
+        const schema = questions.find((q) => q.name === item.question);
+        assert.equal(schema.acceptedAnswer.text, item.answer);
+        const rendered = [
+          ...html.matchAll(/<details\b([^>]*)>([\s\S]*?)<\/details>/g),
+        ].find((m) => m[2].includes(item.question));
+        assert.ok(rendered, item.question);
+        assert.doesNotMatch(rendered[1], /\bopen(?:\s|=|$)/);
+        assert.ok(visible(rendered[2]).includes(item.answer));
+        if (item.links) {
+          assert.ok(rendered[2].includes(`href="/ingredients/${other}"`));
+          assert.ok(rendered[2].includes('href="/recipes/bibim-noodle-sauce"'));
+        }
+      }
+    }
+    const unrelated = render('wheat-flour-type-550', locale);
+    assert.equal(faq(unrelated).mainEntity.length, 4);
+    assert.doesNotMatch(
+      unrelated,
+      /href="\/ingredients\/(gochujang|gochugaru)"/
+    );
+  }
 });
 
 test('an ingredient without rich text uses its guide introduction instead of an empty notice', () => {
