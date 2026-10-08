@@ -20,10 +20,6 @@
   text-transform: uppercase;
 }
 
-.titleHeader {
-  text-align: center;
-}
-
 .title {
   font-size: clamp(2rem, 5vw, 3.2rem);
   line-height: 1.08;
@@ -46,14 +42,6 @@
   line-height: 1.75;
 }
 
-.overviewGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-  gap: 24px;
-  align-items: stretch;
-  margin: 0 auto 34px;
-}
-
 .imageWrapper {
   width: 100%;
   border-radius: 24px;
@@ -69,7 +57,6 @@
   object-fit: contain;
 }
 
-.quickFacts,
 .infoCard,
 .guideSection,
 .faqSection {
@@ -79,11 +66,6 @@
   box-shadow: 0 10px 24px rgba(42, 25, 12, 0.05);
 }
 
-.quickFacts {
-  padding: 24px;
-}
-
-.quickFacts h2,
 .infoCard h2,
 .guideSection h2,
 .faqSection h2 {
@@ -92,19 +74,16 @@
   line-height: 1.3;
 }
 
-.quickFacts ul,
 .infoCard ul {
   padding-left: 1.1rem;
   margin: 0;
 }
 
-.quickFacts li,
 .infoCard li {
   margin: 0 0 0.75rem;
   line-height: 1.65;
 }
 
-.quickFacts li:last-child,
 .infoCard li:last-child {
   margin-bottom: 0;
 }
@@ -125,13 +104,6 @@
 
 .description p:last-child {
   margin-bottom: 0;
-}
-
-.guideGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin: 0 0 26px;
 }
 
 .infoCard {
@@ -182,13 +154,6 @@
   font-size: 1rem;
   line-height: 1.75;
   margin: 0;
-}
-
-.meatCut {
-  max-width: 760px;
-  margin: 0 auto 14px;
-  font-size: 0.98rem;
-  color: #666;
 }
 
 /* Favorite products */
@@ -399,7 +364,6 @@
     color: #d5d1cc;
   }
 
-  .quickFacts,
   .infoCard,
   .guideSection,
   .faqSection,
@@ -435,12 +399,6 @@
     padding: 18px 14px 40px;
   }
 
-  .overviewGrid,
-  .guideGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .quickFacts,
   .guideSection,
   .infoCard,
   .faqSection {
@@ -461,7 +419,6 @@
     color-scheme: light;
   }
 
-  .quickFacts,
   .infoCard,
   .guideSection,
   .faqSection {
@@ -470,7 +427,6 @@
     border-color: rgba(80, 55, 35, 0.1) !important;
   }
 
-  .quickFacts h2,
   .infoCard h2,
   .guideSection h2,
   .faqSection h2,
@@ -480,7 +436,6 @@
     color: #2f2a26 !important;
   }
 
-  .quickFacts li,
   .infoCard li,
   .description,
   .description p,
@@ -512,7 +467,6 @@
   .description,
   .substituteText,
   .sectionIntro,
-  .quickFacts li,
   .infoCard li,
   .faqItem p {
     opacity: 1;
@@ -585,11 +539,6 @@
     line-height: 1.6;
   }
 
-  .overviewGrid {
-    gap: 14px;
-    margin-bottom: 18px;
-  }
-
   .imageWrapper {
     max-height: 280px;
     border-radius: 18px;
@@ -601,7 +550,6 @@
     object-fit: contain;
   }
 
-  .quickFacts,
   .guideSection,
   .infoCard,
   .faqSection {
@@ -609,7 +557,6 @@
     border-radius: 17px;
   }
 
-  .quickFacts h2,
   .guideSection h2,
   .infoCard h2,
   .faqSection h2 {
@@ -617,7 +564,6 @@
     font-size: 1.18rem;
   }
 
-  .quickFacts li,
   .infoCard li {
     margin-bottom: 0.5rem;
     line-height: 1.5;
@@ -632,25 +578,9 @@
     line-height: 1.7;
   }
 
-  .guideGrid {
-    display: flex;
-    gap: 12px;
-    margin: 0 -14px 16px;
-    padding: 0 14px 8px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .guideGrid::-webkit-scrollbar,
   .favoriteGrid::-webkit-scrollbar,
   .relatedGrid::-webkit-scrollbar {
     display: none;
-  }
-
-  .guideGrid .infoCard {
-    flex: 0 0 min(82vw, 300px);
-    scroll-snap-align: start;
   }
 
   .favoriteSection,
@@ -759,12 +689,6 @@
     min-height: 68px;
     padding: 12px 13px;
   }
-
-  .overviewGrid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    margin-bottom: 26px;
-  }
 }
 
 /* Tablet and narrow desktop */
@@ -834,12 +758,6 @@
     transform: none;
   }
 
-  .overviewGrid {
-    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
-    gap: 20px;
-    margin-bottom: 26px;
-  }
-
   .imageWrapper {
     max-height: 420px;
   }
@@ -849,18 +767,11 @@
     object-fit: contain;
   }
 
-  .quickFacts,
   .guideSection,
   .infoCard,
   .faqSection {
     padding: 22px;
     border-radius: 20px;
-  }
-
-  .guideGrid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-bottom: 20px;
   }
 
   .infoCard {
@@ -879,10 +790,6 @@
   .faqSection {
     margin-top: 42px;
   }
-}
-
-.overviewGridWithoutImage {
-  grid-template-columns: 1fr;
 }
 
 /* Navigation remains visible before photos and long ingredient descriptions. */
@@ -982,6 +889,104 @@
   line-height: 1.5;
 }
 
+.heroImage {
+  width: min(100%, 320px);
+  margin: 16px auto 0;
+  box-shadow: none;
+}
+
+.heroImage .image {
+  max-height: 220px;
+  object-fit: contain;
+}
+
+.compactGuides {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.guideDisclosure.guideSection,
+.guideDisclosure.infoCard {
+  padding: 0;
+  box-shadow: none;
+}
+
+.guideDisclosure > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  padding: 16px 20px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.guideDisclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.guideDisclosure > summary h2 {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.4;
+}
+
+.guideDisclosure > summary::after {
+  content: '+';
+  flex-shrink: 0;
+  color: #614431;
+  font-size: 1.4rem;
+}
+
+.guideDisclosure[open] > summary::after {
+  content: '−';
+}
+
+.guideDisclosure .disclosureContent {
+  margin: 0;
+  padding: 0 20px 20px;
+}
+
+.guideDisclosure ul.disclosureContent {
+  padding-left: 40px;
+}
+
+.shoppingAdvice {
+  margin-top: 12px;
+  border-top: 1px solid #d9dfd2;
+}
+
+.shoppingAdvice > summary {
+  padding: 12px 0;
+  color: #244b3b;
+  cursor: pointer;
+  font-size: 0.94rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.shoppingAdvice h4 {
+  margin: 12px 0 8px;
+  line-height: 1.5;
+}
+
+.guideDisclosure > summary:focus-visible,
+.shoppingAdvice > summary:focus-visible {
+  outline: 3px solid #a75624;
+  outline-offset: 4px;
+}
+
+.shoppingSection .shoppingLinks li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.shoppingSection .shoppingProductTitle {
+  margin-bottom: 12px;
+}
+
 .backLink:focus-visible,
 .guideNavigation a:focus-visible,
 .shoppingProductLink:focus-visible {
@@ -1005,20 +1010,51 @@
     overflow-wrap: anywhere;
   }
 
-  /* All usage and selection tips are readable without a hidden swipe. */
-  .guideGrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    margin: 0 0 16px;
-    padding: 0;
-    overflow: visible;
-  }
-
   .shoppingSection .shoppingRegion {
     padding: 16px;
   }
 
   .shoppingSection .shoppingProductLink {
     width: 100%;
+  }
+
+  .heroImage {
+    width: min(100%, 240px);
+    margin-top: 12px;
+  }
+
+  .heroImage .image {
+    max-height: 160px;
+  }
+
+  .guideNavigation {
+    margin: 14px 0;
+  }
+
+  .guideNavigation a {
+    min-height: 44px;
+    padding: 8px;
+  }
+
+  .shoppingRegions {
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .compactGuides {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .guideDisclosure > summary {
+    padding: 14px 16px;
+  }
+
+  .guideDisclosure .disclosureContent {
+    padding: 0 16px 16px;
+  }
+
+  .guideDisclosure ul.disclosureContent {
+    padding-left: 36px;
   }
 }
