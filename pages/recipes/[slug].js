@@ -23,6 +23,7 @@ import RecipeMeasurementGuide from '../../components/RecipeMeasurementGuide';
 import RecipeSharePanel from '../../components/RecipeSharePanel';
 import RecipeIngredientShopping from '../../components/RecipeIngredientShopping';
 import YukgaejangRecipeGuide from '../../components/YukgaejangRecipeGuide';
+import TonkatsuRecipeGuide from '../../components/TonkatsuRecipeGuide';
 import recipeShopping from '../../lib/recipeShopping.cjs';
 const { getRecipeShoppingIngredients } = recipeShopping;
 import recipeSearch from '../../lib/recipeSearchDetails.cjs';
@@ -1437,6 +1438,11 @@ const RecipeDetail = ({ recipe, error }) => {
           </aside>
 
           <section className={styles.instructionsColumn}>
+            <TonkatsuRecipeGuide
+              recipeId={safeRecipe.id}
+              locale={mappedLocale}
+              companions={safeRecipe.relatedRecipes}
+            />
             <YukgaejangRecipeGuide
               recipeId={safeRecipe.id}
               locale={mappedLocale}
