@@ -13,6 +13,25 @@ const sauce = '4scruZVHnEMVsSTYtN5sl9';
 const pancake = '38Ox8shT32YDdOYfxBamOO';
 const entry = (id, slug = id) => ({ sys: { id }, fields: { slug } });
 
+test('tonkatsu connects to its sauce and rice, with a return link from the sauce', () => {
+  const tonkatsu = '5I6AjYlpqOuinx5qYBDHLR';
+  const tonkatsuSauce = '6ctxIrfIiesRNf8yKAnnns';
+  const items = [entry('another-main'), entry(rice), entry(tonkatsuSauce)];
+  assert.deepEqual(
+    prioritizeCompanions(items, tonkatsu).map((item) => item.sys.id),
+    [tonkatsuSauce, rice, 'another-main']
+  );
+  assert.deepEqual(companionIds(tonkatsuSauce), [tonkatsu]);
+  assert.match(
+    companionReason(tonkatsu, tonkatsuSauce, 'en'),
+    /Worcestershire/
+  );
+  assert.match(
+    companionReason(tonkatsuSauce, tonkatsu, 'de'),
+    /Schweineschnitzel/
+  );
+});
+
 test('a soup promotes rice and eggs before its original category recommendations without mutating the catalog', () => {
   const input = [entry('another-soup'), entry(eggs), entry(rice)];
   const before = structuredClone(input);
