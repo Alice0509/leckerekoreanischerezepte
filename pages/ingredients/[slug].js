@@ -1006,12 +1006,41 @@ const IngredientDetail = ({
                           <p className={styles.shoppingProductTitle}>
                             <strong>{store.productTitle}</strong>
                           </p>
+                          <p className={styles.shoppingStoreName}>
+                            {store.link.isAffiliate
+                              ? store.link.advertiserName
+                              : store.name}
+                          </p>
                           <PurchaseLink
                             link={store.link}
                             locale={mappedLocale}
                             className={styles.shoppingProductLink}
+                            compact
+                            ariaLabel={
+                              isGerman
+                                ? `Produkt bei ${store.link.isAffiliate ? store.link.advertiserName : store.name} ansehen (öffnet in einem neuen Tab)`
+                                : `View product at ${store.link.isAffiliate ? store.link.advertiserName : store.name} (opens in a new tab)`
+                            }
                           >
-                            {store.label}
+                            <span className={styles.shoppingAction}>
+                              <span>
+                                {isGerman ? 'Produkt ansehen' : 'View product'}
+                              </span>
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.75"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden="true"
+                                focusable="false"
+                              >
+                                <path d="M7 17 17 7M7 7h10v10" />
+                              </svg>
+                            </span>
                           </PurchaseLink>
                         </li>
                       ))}
