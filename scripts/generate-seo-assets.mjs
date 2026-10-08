@@ -33,6 +33,7 @@ const STATIC_SITEMAP_PATHS = [
   '/gallery',
   '/ingredients',
   '/korean-pantry',
+  '/korean-kitchen-tools',
 ];
 
 const normalizeSlug = (value) => {
@@ -123,9 +124,7 @@ const fetchAllRecipes = async () => {
     throw new Error('Missing recipe build snapshot.');
   }
 
-  console.log(
-    `[seo assets] build snapshot: ${snapshotRecipes.length} recipes`
-  );
+  console.log(`[seo assets] build snapshot: ${snapshotRecipes.length} recipes`);
 
   return snapshotRecipes;
 };
