@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import RecipeCard from '../../components/RecipeCard';
 import styles from '../../styles/Home.module.css';
 import { getSeoUrls } from '../../lib/siteUrls';
@@ -43,14 +42,7 @@ const resolveRecipeImage = (imageField, assetsMap) => {
   return linkedUrl || '/images/default.png';
 };
 
-const CategoryHub = ({
-  categorySlug,
-  label,
-  seo,
-  recipes,
-  locale,
-  categoryLinks,
-}) => {
+const CategoryHub = ({ categorySlug, label, seo, recipes, locale }) => {
   const path = `/categories/${categorySlug}`;
   const seoUrls = getSeoUrls({
     locale,
@@ -115,31 +107,6 @@ const CategoryHub = ({
                 ? `${recipes.length} Rezepte in dieser Kategorie`
                 : `${recipes.length} recipes in this category`}
             </p>
-          </div>
-        </section>
-
-        <section
-          className={`${styles.startHereSection} ${styles.categoryMoreSection}`}
-        >
-          <div className={styles.previewHeader}>
-            <h2 className={styles.previewTitle}>
-              {locale === 'de' ? 'Weitere Kategorien' : 'More categories'}
-            </h2>
-          </div>
-
-          <div className={styles.startHereGrid}>
-            {categoryLinks.map((category) => (
-              <Link
-                key={category.slug}
-                href={`/categories/${category.slug}`}
-                className={styles.startHereCard}
-                aria-current={
-                  category.slug === categorySlug ? 'page' : undefined
-                }
-              >
-                <h3>{category.label}</h3>
-              </Link>
-            ))}
           </div>
         </section>
 
@@ -232,11 +199,6 @@ export async function getStaticProps({ params, locale }) {
     };
   }
 
-  const categoryLinks = RECIPE_CATEGORY_ORDER.map((key) => ({
-    slug: getRecipeCategorySlug(key),
-    label: getRecipeCategoryLabel(key, dataLocale),
-  }));
-
   return {
     props: {
       categorySlug,
@@ -244,7 +206,6 @@ export async function getStaticProps({ params, locale }) {
       seo: getRecipeCategorySeo(categoryKey, dataLocale),
       recipes,
       locale: dataLocale,
-      categoryLinks,
     },
   };
 }
