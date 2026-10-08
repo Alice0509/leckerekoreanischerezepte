@@ -863,6 +863,8 @@
   align-items: center;
   justify-content: center;
   min-height: 48px;
+  width: 100%;
+  flex-wrap: nowrap;
   padding: 10px 16px;
   border-radius: 12px;
   background: #244b3b;
@@ -873,9 +875,22 @@
   overflow-wrap: anywhere;
 }
 
-.shoppingProductLink::after {
-  content: '↗';
-  margin-left: 8px;
+.shoppingAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.shoppingAction svg {
+  flex-shrink: 0;
+}
+
+.shoppingRegion .shoppingStoreName {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 .shoppingSection .shoppingProductLink:hover {
