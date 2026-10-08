@@ -147,6 +147,22 @@ export default function PantryStarter({ locale, copy, ingredients, recipes }) {
           </div>
         </section>
         <section className={styles.section}>
+          <h2>
+            {locale === 'de'
+              ? 'Mit deiner Küche anfangen'
+              : 'Start with the kitchen you have'}
+          </h2>
+          <p>
+            {locale === 'de'
+              ? 'Welche Küchenhelfer brauchst du wirklich? Prüfe die Grundausstattung und erfahre, welche Extras warten können.'
+              : 'Which tools do you actually need? Check the basics and see which extras can wait.'}
+          </p>
+          <Link className={styles.textLink} href="/korean-kitchen-tools">
+            {locale === 'de' ? 'Küchenhelfer ansehen' : 'Explore kitchen tools'}{' '}
+            →
+          </Link>
+        </section>
+        <section className={styles.section}>
           <h2>{copy.countryHeading}</h2>
           <p>{copy.countryText}</p>
           <Link className={styles.textLink} href="/ingredients">
