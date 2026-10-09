@@ -114,5 +114,45 @@
         "url": "https://handokmall.de/de/sempio-sojasauce-jin-s-860ml/12394"
       }
     ]
+  },
+  "sugar": {
+    "de": [
+      {
+        "name": "REWE",
+        "productTitle": "ja! Raffinade-Zucker · 1 kg",
+        "note": "Produktbeispiel für weißen Haushaltszucker. Brauner Zucker, Puderzucker und Gelierzucker sind andere Produkte; verwende die im Rezept genannte Sorte.",
+        "url": "https://www.rewe.de/shop/p/ja-raffinade-zucker-1kg/5249473"
+      }
+    ]
+  },
+  "cooking-oil": {
+    "de": [
+      {
+        "name": "REWE",
+        "productTitle": "ja! Reines Rapsöl · 1 l",
+        "note": "Produktbeispiel für neutrales Speiseöl. Verwende die Ölmenge aus dem Rezept; dieses Rapsöl ersetzt kein geröstetes Sesamöl oder ausdrücklich genanntes Olivenöl.",
+        "url": "https://www.rewe.de/shop/p/ja-reines-rapsoel-1l/6801447"
+      }
+    ]
+  },
+  "apfelessig": {
+    "de": [
+      {
+        "name": "REWE",
+        "productTitle": "REWE Beste Wahl Apfelessig klar · 1 l",
+        "note": "Produktbeispiel für Apfelessig. Prüfe den Säuregehalt auf dem aktuellen Etikett und verwende die Rezeptmenge. Essigessenz und Balsamico sind andere Produkte.",
+        "url": "https://www.rewe.de/shop/p/rewe-beste-wahl-apfelessig-klar-1l/8331440"
+      }
+    ]
+  },
+  "paniermehl": {
+    "de": [
+      {
+        "name": "REWE",
+        "productTitle": "REWE Beste Wahl Panko Paniermehl · 140 g",
+        "note": "Panko ist eine gröbere Variante als feine Semmelbrösel und eine Kaufoption für eine knusprige Tonkatsu-Panade. Im Hacksteak dient Paniermehl als Bindung; Konsistenz und benötigte Menge können sich unterscheiden. Die Marke kann vom Zutatenfoto abweichen.",
+        "url": "https://www.rewe.de/shop/p/rewe-beste-wahl-panko-paniermehl-140g/2666357"
+      }
+    ]
   }
 }
