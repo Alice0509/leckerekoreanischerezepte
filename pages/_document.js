@@ -17,10 +17,15 @@ class MyDocument extends Document {
       lang === 'de'
         ? 'Hansik Young – Koreanisch kochen'
         : 'Hansik Young – Korean Home Cooking';
+    const publisherId = (process.env.ADSENSE_PUBLISHER_ID || '').trim();
+    const hasPublisherId = /^ca-pub-[0-9]{16}$/.test(publisherId);
 
     return (
       <Html lang={lang}>
         <Head>
+          {hasPublisherId && (
+            <meta name="google-adsense-account" content={publisherId} />
+          )}
           <meta
             name="p:domain_verify"
             content="ea5e83aa476e1f706b39d3f897743221"
