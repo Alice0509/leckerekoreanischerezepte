@@ -47,3 +47,18 @@ Sanity Studio 배포나 Publish는 필요 없다. 레시피·분량·기존 사�
 - https://www.rewe.de/shop/p/rewe-beste-wahl-panko-paniermehl-140g/2666357
 
 정확한 제휴 주소는 `lib/affiliate-links.json`, 상품명·종류 안내는 `lib/ingredientShoppingProducts.json`에서 한 번 관리한다. 같은 상품을 사용하는 모든 페이지는 이 목록을 공유한다.
+
+## 한국 빵가루와 REWE 앱 도움말 보완
+
+운영자의 재료 사진은 한국 빵가루다. REWE 판코는 같은 상품이 아닌 대체 구매 선택지다. 재료 페이지·레시피의 구매 안내·gallery에 `Alternative zum koreanischen Paniermehl`을 표시한다. 한국 빵가루의 CMS 정보·사진·레시피 분량은 유지한다.
+
+REWE 앱이 상품을 열지 못하면 구매 버튼 아래의 `Probleme mit der REWE-App?`을 펼친다. 상품 웹주소를 복사해 Safari 등 브라우저의 주소창에 직접 붙여 넣거나, 상품명을 복사해 REWE 앱에서 검색할 수 있다. 도움말은 기본적으로 접혀 있다. 복사가 차단되면 실제 주소를 입력란에서 직접 선택할 수 있다. 이 주소는 일반 상품 주소이며 제휴 링크가 아니다. 기본 구매 버튼의 Awin 발급 링크·광고 표시는 유지한다.
+
+이 보완은 REWE 앱의 상품 화면 처리나 주문 추적을 수리하는 기능이 아니다. 앱으로 넘어간 구매의 제휴 인정 여부는 REWE가 앱 추적을 지원하는지 확인해야 한다. Apple 공식 문서는 브라우저 주소창에 직접 입력한 URL이 Universal Link로 앱을 열지 않는다고 설명한다. 쇼핑몰 자체의 이후 동작·재고·매장별 상품은 별도다.
+
+검증: 기존 검사와 복사 성공/거부/미지원, 일반 주소와 제휴 주소 구분, 독일어·REWE 상품에만 노출하는 검사, 접힌 도움말 서버 렌더링을 포함해 테스트 50개. 전체 빌드 및 생성 HTML에서 판코 대체 표시와 REWE 도움말·직접 주소를 확인한다. 실제 iPhone REWE 앱 동작과 앱 주문 수수료 인정은 확인하지 못했다.
+
+공식 문서:
+
+- https://developer.apple.com/documentation/technotes/tn3155-debugging-universal-links
+- https://help.awin.com/docs/de/app-tracking-guide

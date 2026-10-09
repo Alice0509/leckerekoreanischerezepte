@@ -150,8 +150,9 @@
       {
         "name": "REWE",
         "productTitle": "REWE Beste Wahl Panko Paniermehl · 140 g",
-        "note": "Panko ist eine gröbere Variante als feine Semmelbrösel und eine Kaufoption für eine knusprige Tonkatsu-Panade. Im Hacksteak dient Paniermehl als Bindung; Konsistenz und benötigte Menge können sich unterscheiden. Die Marke kann vom Zutatenfoto abweichen.",
-        "url": "https://www.rewe.de/shop/p/rewe-beste-wahl-panko-paniermehl-140g/2666357"
+        "note": "Das Zutatenfoto zeigt koreanisches Paniermehl. Dieses REWE-Panko ist eine andere Kaufoption, nicht dasselbe Produkt. Prüfe die Körnung für deine Tonkatsu-Panade; für Hambak Steak können Konsistenz und benötigte Menge abweichen.",
+        "url": "https://www.rewe.de/shop/p/rewe-beste-wahl-panko-paniermehl-140g/2666357",
+        "variantLabel": "Alternative zum koreanischen Paniermehl"
       }
     ]
   }

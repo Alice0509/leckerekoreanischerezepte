@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import PurchaseLink from './PurchaseLink';
+import ReweProductHelp from './ReweProductHelp';
 import AffiliateDisclosure from './AffiliateDisclosure';
 import styles from '../styles/RecipeIngredientShopping.module.css';
 
@@ -46,6 +47,11 @@ export default function RecipeIngredientShopping({ ingredients = [], locale }) {
                   <ul className={styles.products}>
                     {group.stores.map((store) => (
                       <li key={store.link.href} className={styles.product}>
+                        {store.variantLabel && (
+                          <p className={styles.variantLabel}>
+                            {store.variantLabel}
+                          </p>
+                        )}
                         <p className={styles.productTitle}>
                           {store.productTitle}
                         </p>
@@ -68,6 +74,7 @@ export default function RecipeIngredientShopping({ ingredients = [], locale }) {
                             </PurchaseLink>
                           </div>
                         </div>
+                        <ReweProductHelp store={store} locale={locale} />
                       </li>
                     ))}
                   </ul>

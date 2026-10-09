@@ -91,6 +91,8 @@ const modules = {
   '../../lib/contentfulBuildSnapshot.cjs': {},
   '../../lib/purchaseLinks.cjs': {},
   '../../components/PurchaseLink': purchaseModule.exports.default,
+  '../../components/ReweProductHelp':
+    require('./helpers/rewe-product-help.cjs').loadReweProductHelp(),
   '../../components/AffiliateDisclosure': () =>
     React.createElement('p', null, 'Affiliate disclosure'),
   '../../lib/ingredientGuideProfiles.cjs': { getIngredientGuideProfile },

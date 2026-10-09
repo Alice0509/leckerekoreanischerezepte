@@ -20,6 +20,7 @@ import {
 import contentfulBuildSnapshot from '../../lib/contentfulBuildSnapshot.cjs';
 import purchaseLinks from '../../lib/purchaseLinks.cjs';
 import PurchaseLink from '../../components/PurchaseLink';
+import ReweProductHelp from '../../components/ReweProductHelp';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure';
 import ingredientGuideProfiles from '../../lib/ingredientGuideProfiles.cjs';
 import ingredientShoppingGuides from '../../lib/ingredientShoppingGuides.cjs';
@@ -1005,6 +1006,11 @@ const IngredientDetail = ({
                     <ul className={styles.shoppingLinks}>
                       {group.stores.map((store) => (
                         <li key={`${store.name}:${store.productTitle}`}>
+                          {store.variantLabel && (
+                            <p className={styles.shoppingVariantLabel}>
+                              {store.variantLabel}
+                            </p>
+                          )}
                           <p className={styles.shoppingProductTitle}>
                             <strong>{store.productTitle}</strong>
                           </p>
@@ -1044,6 +1050,10 @@ const IngredientDetail = ({
                               </svg>
                             </span>
                           </PurchaseLink>
+                          <ReweProductHelp
+                            store={store}
+                            locale={mappedLocale}
+                          />
                         </li>
                       ))}
                     </ul>
