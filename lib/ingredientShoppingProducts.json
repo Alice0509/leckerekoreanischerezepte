@@ -149,10 +149,17 @@
     "de": [
       {
         "name": "REWE",
+        "productTitle": "Samlip Panko Paniermehl · 200 g",
+        "variantLabel": "Koreanisches Paniermehl · Samlip",
+        "note": "Samlip-Panko der auf dem Zutatenfoto gezeigten Marke. Packungsgröße und Verpackung können vom Foto abweichen. Prüfe Zutaten, Körnung und Verfügbarkeit für deinen Markt; die benötigte Menge steht im Rezept.",
+        "url": "https://www.rewe.de/shop/p/samlip-panko-paniermehl-200g/2072098"
+      },
+      {
+        "name": "REWE",
         "productTitle": "REWE Beste Wahl Panko Paniermehl · 140 g",
-        "note": "Das Zutatenfoto zeigt koreanisches Paniermehl. Dieses REWE-Panko ist eine andere Kaufoption, nicht dasselbe Produkt. Prüfe die Körnung für deine Tonkatsu-Panade; für Hambak Steak können Konsistenz und benötigte Menge abweichen.",
+        "note": "Andere Marke als das Samlip-Paniermehl auf dem Zutatenfoto. Vergleiche Körnung und Zutaten. Für die Tonkatsu-Panade und die Bindung im Hambak Steak gelten die Rezeptmengen; eine andere Körnung kann die Konsistenz verändern.",
         "url": "https://www.rewe.de/shop/p/rewe-beste-wahl-panko-paniermehl-140g/2666357",
-        "variantLabel": "Alternative zum koreanischen Paniermehl"
+        "variantLabel": "Alternative Marke · REWE Beste Wahl"
       }
     ]
   }

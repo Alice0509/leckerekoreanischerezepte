@@ -10,7 +10,7 @@ const { getApprovedKitchenOptions } = require('../lib/kitchenPicks.cjs');
 const { getRecipeShoppingIngredients } = require('../lib/recipeShopping.cjs');
 
 test('issued REWE link belongs to the approved publisher and exactly the existing German flour product', () => {
-  assert.equal(registry.length, 5);
+  assert.equal(registry.length, 6);
   const [entry] = registry;
   const url = new URL(entry.affiliateUrl);
   assert.equal(url.origin, 'https://www.awin1.com');
@@ -45,7 +45,7 @@ test('activation reaches ingredient, recipe and kitchen options only in Germany;
   ];
   const recipe = getRecipeShoppingIngredients(flour, 'de', options);
   assert.equal(recipe[0].groups[0].stores[0].link.href, store.link.href);
-  assert.equal(getApprovedKitchenOptions('de', options).length, 5);
+  assert.equal(getApprovedKitchenOptions('de', options).length, 6);
   assert.equal(
     getApprovedKitchenOptions('de', options)[0].ingredient,
     flour[0].slug

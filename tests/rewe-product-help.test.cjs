@@ -11,7 +11,7 @@ const { loadReweProductHelp } = require('./helpers/rewe-product-help.cjs');
 const store = getIngredientShoppingGuide('paniermehl', 'de', { enabled: true })
   .groups[0].stores[0];
 
-test('REWE fallback retains the exact ordinary destination for all five products without changing issued affiliate links', () => {
+test('REWE fallback retains the exact ordinary destination for all six products without changing issued affiliate links', () => {
   for (const item of getApprovedKitchenOptions('de', { enabled: true })) {
     const help = getReweProductHelp(item, 'de');
     assert.equal(help.webUrl, new URL(item.link.href).searchParams.get('ued'));
@@ -27,8 +27,8 @@ test('REWE fallback retains the exact ordinary destination for all five products
   const recipeStore = recipeIngredient.groups[0].stores[0];
   assert.equal(getReweProductHelp(recipeStore, 'de').webUrl, store.sourceUrl);
   assert.equal(recipeStore.variantLabel, store.variantLabel);
-  assert.match(store.variantLabel, /Alternative.*koreanischen/);
-  assert.match(store.note, /Zutatenfoto zeigt koreanisches/);
+  assert.match(store.variantLabel, /Koreanisches.*Samlip/);
+  assert.match(store.note, /Samlip.*Zutatenfoto/);
 });
 
 test('unrelated retailers, unsafe or decorated addresses and English pages get no REWE help', () => {
@@ -57,10 +57,7 @@ test('server rendering keeps help collapsed and gives a manually selectable prod
   assert.doesNotMatch(html, /<details[^>]*\bopen\b|<a\b|awin1\.com|<script/);
   assert.match(html, /readonly=""/);
   assert.match(html, /kein Affiliate-Link/);
-  assert.match(
-    html,
-    /value="https:\/\/www\.rewe\.de\/shop\/p\/rewe-beste-wahl-panko/
-  );
+  assert.match(html, /value="https:\/\/www\.rewe\.de\/shop\/p\/samlip-panko/);
   assert.equal(
     renderToStaticMarkup(
       React.createElement(Component, { store, locale: 'en' })

@@ -62,3 +62,13 @@ REWE 앱이 상품을 열지 못하면 구매 버튼 아래의 `Probleme mit der
 
 - https://developer.apple.com/documentation/technotes/tn3155-debugging-universal-links
 - https://help.awin.com/docs/de/app-tracking-guide
+
+## 삼립 빵가루 우선 연결
+
+운영자가 발급한 삼립 제휴 링크를 추가했다. `paniermehl` 구매 선택지는 삼립 200 g을 먼저, REWE Beste Wahl 140 g을 대체 브랜드로 표시한다. 두 상품은 각각 발급받은 정확한 제휴 주소를 사용한다. 삼립은 재료 사진에 보이는 브랜드지만, 포장과 용량이 같다고 단정하지 않는다. CMS의 사진·설명·레시피 분량은 유지한다.
+
+- 삼립: https://www.rewe.de/shop/p/samlip-panko-paniermehl-200g/2072098
+- 독일어 재료·돈가스·함박스테이크 구매 안내와 gallery에 같은 순서로 적용한다.
+- 영어 페이지는 기존 글로벌 구매 안내를 유지하고 독일 REWE 링크를 추가하지 않는다.
+- 승인된 상품은 총 6개(재료 5종)다. 기존 앱 도움말은 두 빵가루 상품 모두 각각의 웹주소를 복사한다.
+- Vercel 미리보기는 `/de/ingredients/paniermehl`로 직접 연다. 기본 미리보기 주소는 영어다.

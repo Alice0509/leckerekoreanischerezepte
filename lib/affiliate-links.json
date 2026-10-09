@@ -33,5 +33,12 @@
     "locale": "de",
     "advertiserName": "REWE",
     "approved": true
+  },
+  {
+    "sourceUrl": "https://www.rewe.de/shop/p/samlip-panko-paniermehl-200g/2072098",
+    "affiliateUrl": "https://www.awin1.com/cread.php?awinmid=11652&awinaffid=3113363&ued=https%3A%2F%2Fwww.rewe.de%2Fshop%2Fp%2Fsamlip-panko-paniermehl-200g%2F2072098",
+    "locale": "de",
+    "advertiserName": "REWE",
+    "approved": true
   }
 ]

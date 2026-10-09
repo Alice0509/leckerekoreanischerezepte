@@ -12,7 +12,7 @@ const {
 const { getRecipeShoppingIngredients } = require('../lib/recipeShopping.cjs');
 const { getApprovedKitchenOptions } = require('../lib/kitchenPicks.cjs');
 
-// Match the four URLs supplied by the publisher, independently of the registry.
+// Exact supplied URLs for the primary option for each pantry ingredient. The Samlip test also checks the retained alternative.
 const issued = {
   sugar:
     'https://www.awin1.com/cread.php?awinmid=11652&awinaffid=3113363&ued=https%3A%2F%2Fwww.rewe.de%2Fshop%2Fp%2Fja-raffinade-zucker-1kg%2F5249473',
@@ -21,7 +21,7 @@ const issued = {
   apfelessig:
     'https://www.awin1.com/cread.php?awinmid=11652&awinaffid=3113363&ued=https%3A%2F%2Fwww.rewe.de%2Fshop%2Fp%2Frewe-beste-wahl-apfelessig-klar-1l%2F8331440',
   paniermehl:
-    'https://www.awin1.com/cread.php?awinmid=11652&awinaffid=3113363&ued=https%3A%2F%2Fwww.rewe.de%2Fshop%2Fp%2Frewe-beste-wahl-panko-paniermehl-140g%2F2666357',
+    'https://www.awin1.com/cread.php?awinmid=11652&awinaffid=3113363&ued=https%3A%2F%2Fwww.rewe.de%2Fshop%2Fp%2Fsamlip-panko-paniermehl-200g%2F2072098',
 };
 
 test('each issued pantry link keeps the exact product, publisher, advertiser and German scope', () => {
@@ -134,7 +134,7 @@ test('English guides retain local shopping advice and never inherit German retai
   const hub = getApprovedKitchenOptions('de', { enabled: true });
   assert.deepEqual(
     hub.map((item) => item.ingredient).sort(),
-    ['wheat-flour-type-550', ...Object.keys(issued)].sort()
+    ['wheat-flour-type-550', ...Object.keys(issued), 'paniermehl'].sort()
   );
   assert.deepEqual(getApprovedKitchenOptions('en', { enabled: true }), []);
 });
