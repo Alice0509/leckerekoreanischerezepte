@@ -1,8 +1,14 @@
 # Affiliate purchase links
 
-Status: preparation only. `lib/affiliate-links.json` is empty and publication is
-disabled unless `AFFILIATE_LINKS_ENABLED` is exactly `true` at build time.
-Existing Sanity shopping URLs remain ordinary links. No tracking scripts or
+Status: the first approved link is registered for REWE DE (advertiser 11652),
+using publisher 3113363's issued link for REWE Beste Wahl Weizenmehl Type 550,
+1 kg, product 9959918. The owner supplied the link and a Joined programme screen
+on October 9, 2026. Publication still requires `AFFILIATE_LINKS_ENABLED` to be
+exactly `true` at build time. Only the matching German product URL becomes an
+affiliate link. Other shopping URLs remain ordinary links.
+
+See [the Korean launch instructions](rewe-affiliate-launch.ko.md) for Vercel
+activation, preview checks and the GA4 filter update. No tracking scripts or
 advertising widgets are added.
 
 ## Before activation

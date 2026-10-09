@@ -17,7 +17,7 @@ const Datenschutzerklaerung = () => (
       <h1 className={styles.heading1}>Datenschutzerklärung</h1>
 
       <p className={styles.paragraph}>
-        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand vom 3.
+        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand vom 9.
         Oktober 2026.
       </p>
 
@@ -322,6 +322,39 @@ const Datenschutzerklaerung = () => (
         anderen Projekten von Joan oder zu Social-Media-Seiten. Wenn Sie einen
         externen Link anklicken, gilt die Datenschutzerklärung der jeweiligen
         externen Website.
+      </p>
+
+      <h3 className={styles.heading2}>Affiliate-Links über Awin</h3>
+
+      <p className={styles.paragraph}>
+        Als Werbung gekennzeichnete REWE-Produktlinks können über das
+        Affiliate-Netzwerk Awin führen. Wenn Sie einen solchen Link anklicken,
+        wird Ihr Browser zunächst zu Awin und anschließend zum Shop
+        weitergeleitet. Awin und der Shop können technische Daten sowie eine
+        Kennung des Klicks verarbeiten und Cookies oder ähnliche Technologien
+        verwenden, um einen Einkauf dem verweisenden Publisher zuzuordnen.
+        Dadurch können wir bei einem zugeordneten Einkauf eine Provision
+        erhalten.
+      </p>
+      <p className={styles.paragraph}>
+        Auf unseren Seiten ist kein Awin-Tracking-Skript oder Werbepixel
+        eingebunden. Die Weiterleitung erfolgt erst, wenn Sie den markierten
+        Produktlink anklicken. Die Verarbeitung und Cookie-Auswahl beim
+        jeweiligen Anbieter richten sich nach dessen Datenschutzhinweisen. Die
+        Einwilligung in Google Analytics auf unserer Website ist davon getrennt.
+      </p>
+      <p className={styles.paragraph}>
+        Anbieter des Affiliate-Netzwerks: AWIN AG, Otto-Ostrowski-Straße 1A,
+        10249 Berlin. Weitere Informationen:{' '}
+        <a
+          href="https://www.awin.com/de/datenschutzerklarung"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          Datenschutzerklärung von Awin
+        </a>
+        .
       </p>
 
       <h2 className={styles.heading2}>14. Speicherdauer</h2>
