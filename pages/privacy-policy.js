@@ -9,7 +9,7 @@ const PrivacyPolicy = () => (
       <title>Privacy Policy - Hansik Young</title>
       <meta
         name="description"
-        content="Privacy Policy for Hansik Young, a Korean home cooking website with recipes, ingredient notes and kitchen basics for people in Germany."
+        content="Privacy Policy for Hansik Young, a Korean home cooking website with recipes, ingredient notes and kitchen basics for readers around the world."
       />
     </Head>
 
@@ -25,8 +25,8 @@ const PrivacyPolicy = () => (
 
       <p className={styles.paragraph}>
         Hansik Young is a personal Korean home cooking website with recipes,
-        ingredient notes and kitchen basics for people cooking Korean food in
-        Germany.
+        ingredient notes and kitchen basics for readers around the world. The
+        website is operated from Germany.
       </p>
 
       <h2 className={styles.heading2}>Responsible person</h2>
@@ -232,6 +232,30 @@ const PrivacyPolicy = () => (
       <p className={styles.paragraph}>
         The music player itself does not create a user account and is not used
         to identify you.
+      </p>
+
+      <h2 className={styles.heading2}>Optional comments through Disqus</h2>
+
+      <p className={styles.paragraph}>
+        Some recipe pages offer comments through Disqus. The comment embed is
+        loaded when you click &quot;Open comments&quot;. Loading or using the
+        comments may send technical data, browser information and your IP
+        address to Disqus, and may involve cookies. Comments you submit and
+        information you provide when signing in are processed under
+        Disqus&apos;s privacy policy.
+      </p>
+
+      <p className={styles.paragraph}>
+        Provider: Disqus, Inc., USA. More information:{' '}
+        <a
+          href="https://help.disqus.com/en/articles/1717103-disqus-privacy-policy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          Disqus Privacy Policy
+        </a>
+        .
       </p>
 
       <h2 className={styles.heading2}>Contact by email</h2>
