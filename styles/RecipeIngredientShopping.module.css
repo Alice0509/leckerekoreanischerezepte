@@ -124,3 +124,11 @@
 .button:hover {
   background: #194528;
 }
+
+.variantLabel {
+  margin: 0 0 8px;
+  color: #334f3c;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.5;
+}

@@ -128,6 +128,8 @@ const Shopping = compile('components/RecipeIngredientShopping.js', {
   'next/link': (props) =>
     React.createElement('a', { href: props.href }, props.children),
   './PurchaseLink': PurchaseLink,
+  './ReweProductHelp':
+    require('./helpers/rewe-product-help.cjs').loadReweProductHelp(),
   './AffiliateDisclosure': AffiliateDisclosure,
   '../styles/RecipeIngredientShopping.module.css': {},
 });

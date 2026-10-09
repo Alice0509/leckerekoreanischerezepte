@@ -5,5 +5,40 @@
     "locale": "de",
     "advertiserName": "REWE",
     "approved": true
+  },
+  {
+    "sourceUrl": "https://www.rewe.de/shop/p/ja-raffinade-zucker-1kg/5249473",
+    "affiliateUrl": "https://www.awin1.com/cread.php?awinmid=11652&awinaffid=3113363&ued=https%3A%2F%2Fwww.rewe.de%2Fshop%2Fp%2Fja-raffinade-zucker-1kg%2F5249473",
+    "locale": "de",
+    "advertiserName": "REWE",
+    "approved": true
+  },
+  {
+    "sourceUrl": "https://www.rewe.de/shop/p/ja-reines-rapsoel-1l/6801447",
+    "affiliateUrl": "https://www.awin1.com/cread.php?awinmid=11652&awinaffid=3113363&ued=https%3A%2F%2Fwww.rewe.de%2Fshop%2Fp%2Fja-reines-rapsoel-1l%2F6801447",
+    "locale": "de",
+    "advertiserName": "REWE",
+    "approved": true
+  },
+  {
+    "sourceUrl": "https://www.rewe.de/shop/p/rewe-beste-wahl-apfelessig-klar-1l/8331440",
+    "affiliateUrl": "https://www.awin1.com/cread.php?awinmid=11652&awinaffid=3113363&ued=https%3A%2F%2Fwww.rewe.de%2Fshop%2Fp%2Frewe-beste-wahl-apfelessig-klar-1l%2F8331440",
+    "locale": "de",
+    "advertiserName": "REWE",
+    "approved": true
+  },
+  {
+    "sourceUrl": "https://www.rewe.de/shop/p/rewe-beste-wahl-panko-paniermehl-140g/2666357",
+    "affiliateUrl": "https://www.awin1.com/cread.php?awinmid=11652&awinaffid=3113363&ued=https%3A%2F%2Fwww.rewe.de%2Fshop%2Fp%2Frewe-beste-wahl-panko-paniermehl-140g%2F2666357",
+    "locale": "de",
+    "advertiserName": "REWE",
+    "approved": true
+  },
+  {
+    "sourceUrl": "https://www.rewe.de/shop/p/samlip-panko-paniermehl-200g/2072098",
+    "affiliateUrl": "https://www.awin1.com/cread.php?awinmid=11652&awinaffid=3113363&ued=https%3A%2F%2Fwww.rewe.de%2Fshop%2Fp%2Fsamlip-panko-paniermehl-200g%2F2072098",
+    "locale": "de",
+    "advertiserName": "REWE",
+    "approved": true
   }
 ]

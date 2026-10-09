@@ -1,0 +1,85 @@
+.help {
+  margin-top: 12px;
+  color: #334f3c;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.help > summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: list-item;
+  padding: 10px 0;
+  box-sizing: border-box;
+  font-weight: 600;
+}
+
+.body {
+  padding-top: 4px;
+}
+
+.body p {
+  margin: 0 0 10px;
+  color: inherit;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.actions button {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #9cafa0;
+  border-radius: 6px;
+  background: #fff;
+  color: #334f3c;
+  font: inherit;
+  cursor: pointer;
+}
+
+.help > summary:focus-visible,
+.actions button:focus-visible,
+.body input:focus-visible {
+  outline: 3px solid #27623b;
+  outline-offset: 3px;
+}
+
+.body .status {
+  margin-top: 8px;
+}
+
+.body .status:empty {
+  display: none;
+}
+
+.body .productName {
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.body label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.body input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 10px 8px;
+  border: 1px solid #9cafa0;
+  border-radius: 6px;
+  color: #243b2d;
+  background: #fff;
+  font-size: 16px;
+}
+
+.body .note {
+  margin-top: 8px;
+  font-size: 0.8rem;
+}

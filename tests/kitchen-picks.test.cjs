@@ -106,6 +106,8 @@ const Gallery = compile('pages/gallery.js', {
   'next/link': (props) =>
     React.createElement('a', { href: props.href }, props.children),
   '../components/PurchaseLink': PurchaseLink,
+  '../components/ReweProductHelp':
+    require('./helpers/rewe-product-help.cjs').loadReweProductHelp(),
   '../components/AffiliateDisclosure': () =>
     React.createElement('p', null, 'Affiliate disclosure'),
   'next/image': (props) =>

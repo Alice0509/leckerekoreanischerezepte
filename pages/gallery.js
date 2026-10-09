@@ -3,6 +3,7 @@ import contentfulBuildSnapshot from '../lib/contentfulBuildSnapshot.cjs';
 import kitchenPicks from '../lib/kitchenPicks.cjs';
 import Link from 'next/link';
 import PurchaseLink from '../components/PurchaseLink';
+import ReweProductHelp from '../components/ReweProductHelp';
 import AffiliateDisclosure from '../components/AffiliateDisclosure';
 
 const {
@@ -212,6 +213,11 @@ export default function Gallery({
                   key={`${product.ingredient}:${product.link.href}`}
                   className={styles.memoCard}
                 >
+                  {product.variantLabel && (
+                    <p className={styles.variantLabel}>
+                      {product.variantLabel}
+                    </p>
+                  )}
                   <h3>{product.productTitle}</h3>
                   <p className={styles.shopName}>
                     {product.name} · {product.region}
@@ -231,6 +237,7 @@ export default function Gallery({
                   >
                     {isDE ? 'Produkt ansehen' : 'View product'} ↗
                   </PurchaseLink>
+                  <ReweProductHelp store={product} locale={lang} />
                 </article>
               ))}
             </div>
