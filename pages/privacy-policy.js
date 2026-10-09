@@ -16,7 +16,7 @@ const PrivacyPolicy = () => (
     <div className={styles.container}>
       <h1 className={styles.heading1}>Privacy Policy</h1>
 
-      <p className={styles.paragraph}>Last updated: October 3, 2026</p>
+      <p className={styles.paragraph}>Last updated: October 9, 2026</p>
 
       <p className={styles.paragraph}>
         This Privacy Policy explains how Hansik Young collects and uses
@@ -254,6 +254,37 @@ const PrivacyPolicy = () => (
         This website may contain links to external websites, for example other
         projects by Joan or social media pages. If you click an external link,
         the privacy policy of the external website applies.
+      </p>
+
+      <h3 className={styles.heading2}>Affiliate links through Awin</h3>
+
+      <p className={styles.paragraph}>
+        Marked REWE affiliate links on the German website may redirect your
+        browser through the Awin affiliate network before opening the shop. Awin
+        and the shop may process technical data and a click identifier, and use
+        cookies or similar technologies to attribute a purchase to the referring
+        publisher. We may receive a commission for an attributed purchase. REWE
+        shopping options are for Germany.
+      </p>
+      <p className={styles.paragraph}>
+        Our pages do not embed an Awin tracking script or advertising pixel. The
+        redirect happens when you click a marked product link. Data processing
+        and cookie choices at the destination are described in the respective
+        provider&apos;s privacy information. Google Analytics consent on our
+        website is separate from that processing.
+      </p>
+      <p className={styles.paragraph}>
+        Affiliate network provider: AWIN AG, Otto-Ostrowski-Straße 1A, 10249
+        Berlin, Germany. More information:{' '}
+        <a
+          href="https://www.awin.com/gb/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          Awin Privacy Policy
+        </a>
+        .
       </p>
 
       <h2 className={styles.heading2}>Data retention</h2>
