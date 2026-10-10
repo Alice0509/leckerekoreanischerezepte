@@ -976,6 +976,8 @@ const RecipeDetail = ({ recipe, error }) => {
     mappedLocale,
   ]);
 
+  const recipeIntro = stripHtmlLikeWhitespace(seoDescription);
+
   const fallbackPageTitle =
     mappedLocale === 'de'
       ? `${titel || 'Rezept'} Rezept | ${category || 'Korean Food'} | Hansik Young`
@@ -1143,6 +1145,8 @@ const RecipeDetail = ({ recipe, error }) => {
             </Link>
           </p>
 
+          {recipeIntro && <p className={styles.recipeIntro}>{recipeIntro}</p>}
+
           <div
             className={styles.summary}
             aria-label={
@@ -1178,6 +1182,23 @@ const RecipeDetail = ({ recipe, error }) => {
             </p>
           )}
         </header>
+
+        <nav
+          className={styles.recipeJumpNav}
+          aria-label={
+            mappedLocale === 'de'
+              ? 'Zum Rezeptabschnitt springen'
+              : 'Jump to recipe section'
+          }
+        >
+          <a href="#ingredients" className={styles.recipeJumpLink}>
+            {mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}
+          </a>
+
+          <a href="#instructions" className={styles.recipeJumpLink}>
+            {mappedLocale === 'de' ? 'Zubereitung' : 'Instructions'}
+          </a>
+        </nav>
 
         <div className={styles.imageWrapper}>
           {isSliderReady && images.length > 1 ? (
@@ -1220,23 +1241,6 @@ const RecipeDetail = ({ recipe, error }) => {
             />
           )}
         </div>
-
-        <nav
-          className={styles.recipeJumpNav}
-          aria-label={
-            mappedLocale === 'de'
-              ? 'Zum Rezeptabschnitt springen'
-              : 'Jump to recipe section'
-          }
-        >
-          <a href="#ingredients" className={styles.recipeJumpLink}>
-            {mappedLocale === 'de' ? 'Zutaten' : 'Ingredients'}
-          </a>
-
-          <a href="#instructions" className={styles.recipeJumpLink}>
-            {mappedLocale === 'de' ? 'Zubereitung' : 'Instructions'}
-          </a>
-        </nav>
 
         <button
           type="button"
