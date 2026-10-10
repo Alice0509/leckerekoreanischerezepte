@@ -14,26 +14,32 @@ import ClarityAnalytics, {
   denyClarityConsent,
 } from '../components/ClarityAnalytics';
 import CookieConsent, { getCookieConsentValue } from 'react-cookie-consent';
+import GoogleAdvertising from '../components/GoogleAdvertising';
+import { isPrivacyPage } from '../lib/google-advertising.cjs';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [cookiesAccepted, setCookiesAccepted] = useState(false);
   const mappedLocale = router.locale === 'de' ? 'de' : 'en';
   const disableSiteShell = Component.disableSiteShell === true;
+  const privacyPage = isPrivacyPage(router.pathname);
 
   const cookieCopy =
     mappedLocale === 'de'
       ? {
-          accept: 'Akzeptieren',
-          decline: 'Ablehnen',
+          accept: 'Analyse erlauben',
+          decline: 'Analyse ablehnen',
           message:
             'Diese Website verwendet optionale Analyse-Cookies von Google Analytics und Microsoft Clarity, um die Nutzung der Website besser zu verstehen.',
           learnMore: 'Mehr erfahren',
-          privacyUrl: '/datenschutzerklaerung',
+          privacyUrl:
+            router.defaultLocale === 'de'
+              ? '/datenschutzerklaerung'
+              : '/de/datenschutzerklaerung',
         }
       : {
-          accept: 'Accept',
-          decline: 'Decline',
+          accept: 'Allow analytics',
+          decline: 'Decline analytics',
           message:
             'This website uses optional analytics cookies from Google Analytics and Microsoft Clarity to help us understand how the site is used.',
           learnMore: 'Learn more',
@@ -48,7 +54,11 @@ function MyApp({ Component, pageProps }) {
 
     // Google Analytics 트래킹 (쿠키 동의한 경우에만 실행)
     const handleRouteChange = (url) => {
-      if (cookiesAccepted && typeof window.gtag !== 'undefined') {
+      if (
+        cookiesAccepted &&
+        !privacyPage &&
+        typeof window.gtag !== 'undefined'
+      ) {
         window.gtag('config', GA_TRACKING_ID, {
           page_path: url,
           anonymize_ip: true, // ✅ IP 익명화 (GDPR 준수)
@@ -60,7 +70,7 @@ function MyApp({ Component, pageProps }) {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [router, cookiesAccepted]);
+  }, [router, cookiesAccepted, privacyPage]);
 
   return (
     <>
@@ -80,6 +90,7 @@ function MyApp({ Component, pageProps }) {
 
       {/* ✅ Google Analytics (쿠키 동의한 경우에만 실행) */}
       {!disableSiteShell &&
+        !privacyPage &&
         cookiesAccepted &&
         process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
           <>
@@ -106,9 +117,20 @@ function MyApp({ Component, pageProps }) {
         )}
 
       <ClarityAnalytics
-        enabled={!disableSiteShell && cookiesAccepted}
+        enabled={!disableSiteShell && !privacyPage && cookiesAccepted}
         locale={mappedLocale}
       />
+
+      <GoogleAdvertising disabled={disableSiteShell} />
+
+      {!disableSiteShell && !privacyPage && (
+        <Script
+          id="instagram-embed"
+          src="https://www.instagram.com/embed.js"
+          strategy="afterInteractive"
+          onReady={() => window.instgrm?.Embeds?.process()}
+        />
+      )}
 
       {/* ErrorBoundary로 감싸기 */}
       <ErrorBoundary>
@@ -126,7 +148,7 @@ function MyApp({ Component, pageProps }) {
       </ErrorBoundary>
 
       {/* ✅ 쿠키 동의 배너 */}
-      {!disableSiteShell && (
+      {!disableSiteShell && !privacyPage && (
         <CookieConsent
           location="bottom"
           buttonText={cookieCopy.accept}

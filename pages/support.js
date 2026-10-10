@@ -106,7 +106,9 @@ const Support = () => {
     lang === 'de' ? 'hello@hansikyoung.de' : 'hello@hansikyoung.com';
 
   const privacyHref =
-    lang === 'de' ? '/datenschutzerklaerung' : '/privacy-policy';
+    lang === 'de'
+      ? `${router.defaultLocale === 'de' ? '' : '/de'}/datenschutzerklaerung`
+      : '/privacy-policy';
 
   const aboutHref = '/about-us';
   const impressumHref = '/impressum';
@@ -157,9 +159,9 @@ const Support = () => {
 
           <ul className={styles.links}>
             <li>
-              <Link href={privacyHref} className={styles.link}>
+              <a href={privacyHref} className={styles.link}>
                 {t.privacyLabel}
-              </Link>
+              </a>
             </li>
             <li>
               <Link href={impressumHref} className={styles.link}>

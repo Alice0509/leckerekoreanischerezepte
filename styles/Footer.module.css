@@ -42,6 +42,23 @@
   color: #444;
 }
 
+.privacyButton {
+  border: 0;
+  background: transparent;
+  color: #555;
+  font: inherit;
+  padding: 8px 10px;
+  max-width: 100%;
+  min-height: 44px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.privacyButton:focus-visible {
+  outline: 2px solid #555;
+  outline-offset: 2px;
+}
+
 /* 마지막 문구 (디자인/개발) */
 .madeBy {
   margin: 0;

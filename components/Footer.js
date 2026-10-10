@@ -2,6 +2,7 @@ import { FaInstagram } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import styles from '../styles/Footer.module.css';
 import Link from 'next/link';
+import AdvertisingPrivacyButton from './AdvertisingPrivacyButton';
 
 const Footer = () => {
   const router = useRouter();
@@ -22,16 +23,16 @@ const Footer = () => {
         {/* Navigation Links */}
         <ul className={styles.navList}>
           <li>
-            <Link
+            <a
               href={
                 mappedLocale === 'de'
-                  ? '/datenschutzerklaerung'
+                  ? `${router.defaultLocale === 'de' ? '' : '/de'}/datenschutzerklaerung`
                   : '/privacy-policy'
               }
               className={styles.link}
             >
               {mappedLocale === 'de' ? 'Datenschutz' : 'Privacy Policy'}
-            </Link>
+            </a>
           </li>
 
           <li>
@@ -55,6 +56,8 @@ const Footer = () => {
             </Link>
           </li>
         </ul>
+
+        <AdvertisingPrivacyButton />
 
         {/* Instagram Icon */}
         <a

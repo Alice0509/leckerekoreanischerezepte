@@ -17,7 +17,7 @@ const Datenschutzerklaerung = () => (
       <h1 className={styles.heading1}>Datenschutzerklärung</h1>
 
       <p className={styles.paragraph}>
-        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand vom 9.
+        Diese Datenschutzerklärung ist aktuell gültig und hat den Stand vom 10.
         Oktober 2026.
       </p>
 
@@ -145,6 +145,44 @@ const Datenschutzerklaerung = () => (
         Cookie-Auswahl zu merken und grundlegende Website-Funktionen
         bereitzustellen. Optionale Analyse-Cookies werden nur nach Ihrer
         Einwilligung eingesetzt.
+      </p>
+
+      <h2 className={styles.heading2}>Google AdSense und Werbeeinwilligung</h2>
+
+      <p className={styles.paragraph}>
+        Wenn Werbung aktiviert ist, lädt diese Website Google AdSense und
+        Googles Dienst „Datenschutz und Mitteilungen“. Google verarbeitet
+        technische Daten wie Ihre IP-Adresse und Browserinformationen, um
+        Werbung und die Einwilligungsverwaltung bereitzustellen. Abhängig von
+        Ihrer Auswahl und den geltenden Anforderungen können Google und seine
+        Werbepartner Cookies oder ähnliche Technologien für Werbung, Messung und
+        Personalisierung einsetzen.
+      </p>
+      <p className={styles.paragraph}>
+        Wenn die europäische Einwilligungsmitteilung für Sie gilt, können Sie
+        zustimmen, ablehnen oder Ihre Auswahl verwalten. Die Mitteilung nennt
+        Zwecke und Partner. Über „Datenschutzeinstellungen für Werbung“ im
+        Fußbereich einer Inhaltsseite können Sie die Mitteilung erneut öffnen,
+        sobald der Dienst verfügbar ist. Die Auswahl für Werbung ist getrennt
+        von unserem Banner für optionale Google-Analytics- und
+        Microsoft-Clarity-Analyse. Eine Zustimmung zur Analyse erteilt keine
+        Werbeeinwilligung.
+      </p>
+      <p className={styles.paragraph}>
+        Einwilligungsbasierte Verarbeitung erfolgt nach Art. 6 Abs. 1 lit. a
+        DSGVO. Anbieter für Nutzer im EWR und in der Schweiz ist Google Ireland
+        Limited, Gordon House, Barrow Street, Dublin 4, Irland. Daten können
+        außerhalb Ihres Landes, einschließlich in den USA, verarbeitet werden.
+        Weitere Informationen:{' '}
+        <a
+          href="https://policies.google.com/technologies/partner-sites?hl=de"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          Googles Datennutzung auf Websites mit Google-Diensten
+        </a>
+        .
       </p>
 
       <h2 className={styles.heading2}>7. Google Analytics</h2>
