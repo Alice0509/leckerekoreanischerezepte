@@ -26,11 +26,13 @@ const checks = [
   ],
   [
     'Clarity requires cookie consent',
-    app.includes('enabled={!disableSiteShell && cookiesAccepted}'),
+    app.includes(
+      'enabled={!disableSiteShell && !privacyPage && cookiesAccepted}'
+    ),
   ],
   [
     'Clarity disabled on maintenance shell',
-    app.includes('!disableSiteShell && cookiesAccepted'),
+    app.includes('!disableSiteShell && !privacyPage && cookiesAccepted'),
   ],
   [
     'Clarity script uses afterInteractive',

@@ -61,9 +61,6 @@ class MyDocument extends Document {
             name="msvalidate.01"
             content="E67787B0E2316783059B9CE18EB45B0E"
           />
-
-          {/* ---------- Instagram embed ---------- */}
-          <script async defer src="https://www.instagram.com/embed.js" />
         </Head>
 
         <body>

@@ -16,7 +16,7 @@ const PrivacyPolicy = () => (
     <div className={styles.container}>
       <h1 className={styles.heading1}>Privacy Policy</h1>
 
-      <p className={styles.paragraph}>Last updated: October 9, 2026</p>
+      <p className={styles.paragraph}>Last updated: October 10, 2026</p>
 
       <p className={styles.paragraph}>
         This Privacy Policy explains how Hansik Young collects and uses
@@ -130,6 +130,44 @@ const PrivacyPolicy = () => (
         Essential technical storage may be used to remember your cookie choice
         and to provide basic website functions. Optional analytics cookies are
         only used after you give consent.
+      </p>
+
+      <h2 className={styles.heading2}>
+        Google AdSense and advertising choices
+      </h2>
+
+      <p className={styles.paragraph}>
+        When advertising is enabled, this website loads Google AdSense and
+        Google&apos;s Privacy &amp; messaging service. Google uses technical
+        data, including your IP address and browser information, to deliver its
+        advertising and consent services. Depending on your choices and the
+        applicable requirements, Google and its advertising partners may use
+        cookies or similar technologies for advertising, measurement and
+        personalization.
+      </p>
+      <p className={styles.paragraph}>
+        Where the European consent message applies, you can consent, decline or
+        manage your choices. The message lists the purposes and partners. You
+        can reopen it using &quot;Advertising privacy settings&quot; in the
+        footer of a content page when the service is available. Advertising
+        choices are separate from our optional Google Analytics and Microsoft
+        Clarity banner. Accepting that analytics banner does not grant
+        advertising consent.
+      </p>
+      <p className={styles.paragraph}>
+        Consent-based processing relies on Art. 6(1)(a) GDPR. Google Ireland
+        Limited, Gordon House, Barrow Street, Dublin 4, Ireland, provides these
+        services for users in the EEA and Switzerland. Data may be processed
+        outside your country, including in the USA. Further information:{' '}
+        <a
+          href="https://policies.google.com/technologies/partner-sites"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          How Google uses information from sites that use its services
+        </a>
+        .
       </p>
 
       <h2 className={styles.heading2}>Google Analytics</h2>
