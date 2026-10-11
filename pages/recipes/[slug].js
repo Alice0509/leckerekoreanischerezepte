@@ -24,6 +24,7 @@ import RecipeSharePanel from '../../components/RecipeSharePanel';
 import RecipeIngredientShopping from '../../components/RecipeIngredientShopping';
 import YukgaejangRecipeGuide from '../../components/YukgaejangRecipeGuide';
 import TonkatsuRecipeGuide from '../../components/TonkatsuRecipeGuide';
+import RecipeReaderGuide from '../../components/RecipeReaderGuide';
 import recipeShopping from '../../lib/recipeShopping.cjs';
 const { getRecipeShoppingIngredients } = recipeShopping;
 import recipeSearch from '../../lib/recipeSearchDetails.cjs';
@@ -1578,6 +1579,8 @@ const RecipeDetail = ({ recipe, error }) => {
                 {renderContent(instructions)}
               </div>
             )}
+
+            <RecipeReaderGuide recipeId={safeRecipe.id} locale={mappedLocale} />
 
             {youTubeUrl && (
               <div className={styles.youtubeContainer}>

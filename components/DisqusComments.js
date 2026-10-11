@@ -3,12 +3,16 @@
 import React, { useState } from 'react';
 import { DiscussionEmbed } from 'disqus-react';
 import { useRouter } from 'next/router';
+import recipeReaderGuide from '../lib/recipeReaderGuide.cjs';
+
+const { getRecipeReaderGuide } = recipeReaderGuide;
 
 const DisqusComments = ({ post }) => {
   const router = useRouter();
   const { asPath, locale } = router;
   const isGerman = locale === 'de';
   const [isOpen, setIsOpen] = useState(false);
+  const readerGuide = getRecipeReaderGuide(post?.id, locale);
 
   const disqusShortname = process.env.NEXT_PUBLIC_DISQUS_SHORTNAME;
 
@@ -38,9 +42,10 @@ const DisqusComments = ({ post }) => {
             : 'Did you try this recipe?'}
         </h2>
         <p>
-          {isGerman
-            ? 'Wenn du eine Frage hast oder dir eine kleine Notiz zum Rezept merken möchtest, kannst du hier die Kommentare öffnen.'
-            : 'If you have a question or want to leave a small note about this recipe, you can open the comments here.'}
+          {readerGuide?.feedback ||
+            (isGerman
+              ? 'Wenn du eine Frage hast oder dir eine kleine Notiz zum Rezept merken möchtest, kannst du hier die Kommentare öffnen.'
+              : 'If you have a question or want to leave a small note about this recipe, you can open the comments here.')}
         </p>
 
         {!isOpen && (
@@ -49,7 +54,8 @@ const DisqusComments = ({ post }) => {
             className="recipe-comments__button"
             onClick={() => setIsOpen(true)}
           >
-            {isGerman ? 'Kommentare öffnen' : 'Open comments'}
+            {readerGuide?.feedbackButton ||
+              (isGerman ? 'Kommentare öffnen' : 'Open comments')}
           </button>
         )}
       </div>
@@ -80,6 +86,8 @@ const DisqusComments = ({ post }) => {
         }
 
         .recipe-comments__button {
+          min-height: 44px;
+          max-width: 100%;
           border: none;
           border-radius: 999px;
           padding: 0.75rem 1.1rem;
@@ -91,6 +99,11 @@ const DisqusComments = ({ post }) => {
 
         .recipe-comments__button:hover {
           opacity: 0.9;
+        }
+
+        .recipe-comments__button:focus-visible {
+          outline: 2px solid #2f241f;
+          outline-offset: 3px;
         }
 
         @media (max-width: 600px) {
