@@ -5,10 +5,11 @@ const path = require('node:path');
 const {
   SSAMJANG_RECIPE_ID,
   CHOGOCHUJANG_RECIPE_ID,
+  MIYEOKGUK_RECIPE_ID,
   getRecipeReaderGuide,
 } = require('../lib/recipeReaderGuide.cjs');
 
-test('serving guidance and feedback match only the two published recipe identities', () => {
+test('serving guidance and feedback match only the three published recipe identities', () => {
   for (const id of [
     undefined,
     null,
@@ -16,7 +17,9 @@ test('serving guidance and feedback match only the two published recipe identiti
     'another-recipe',
     `drafts.${SSAMJANG_RECIPE_ID}`,
     `drafts.${CHOGOCHUJANG_RECIPE_ID}`,
+    `drafts.${MIYEOKGUK_RECIPE_ID}`,
     'chogochujang',
+    'miyeokguk',
   ]) {
     assert.equal(getRecipeReaderGuide(id, 'en'), null);
     assert.equal(getRecipeReaderGuide(id, 'de'), null);
@@ -25,10 +28,16 @@ test('serving guidance and feedback match only the two published recipe identiti
   assert.ok(getRecipeReaderGuide(SSAMJANG_RECIPE_ID, 'de'));
   assert.ok(getRecipeReaderGuide(CHOGOCHUJANG_RECIPE_ID, 'en'));
   assert.ok(getRecipeReaderGuide(CHOGOCHUJANG_RECIPE_ID, 'de'));
+  assert.ok(getRecipeReaderGuide(MIYEOKGUK_RECIPE_ID, 'en'));
+  assert.ok(getRecipeReaderGuide(MIYEOKGUK_RECIPE_ID, 'de'));
 });
 
 test('both locales have complete guidance, safe internal links and an optional-photo question', () => {
-  for (const recipeId of [SSAMJANG_RECIPE_ID, CHOGOCHUJANG_RECIPE_ID]) {
+  for (const recipeId of [
+    SSAMJANG_RECIPE_ID,
+    CHOGOCHUJANG_RECIPE_ID,
+    MIYEOKGUK_RECIPE_ID,
+  ]) {
     for (const locale of ['en', 'de']) {
       const guide = getRecipeReaderGuide(recipeId, locale);
       for (const key of [
@@ -47,7 +56,9 @@ test('both locales have complete guidance, safe internal links and an optional-p
         guide.links.map(({ href }) => href),
         recipeId === SSAMJANG_RECIPE_ID
           ? ['/ingredients/doenjang', '/ingredients/gochujang']
-          : ['/ingredients/gochujang', '/ingredients/apfelessig']
+          : recipeId === CHOGOCHUJANG_RECIPE_ID
+            ? ['/ingredients/gochujang', '/ingredients/apfelessig']
+            : ['/ingredients/dried-seaweed-miyeok', '/ingredients/gukganjang']
       );
       assert.match(
         guide.feedback,
@@ -66,7 +77,11 @@ test('both locales have complete guidance, safe internal links and an optional-p
 });
 
 test('fallback locale is English and callers cannot mutate shared copy', () => {
-  for (const recipeId of [SSAMJANG_RECIPE_ID, CHOGOCHUJANG_RECIPE_ID]) {
+  for (const recipeId of [
+    SSAMJANG_RECIPE_ID,
+    CHOGOCHUJANG_RECIPE_ID,
+    MIYEOKGUK_RECIPE_ID,
+  ]) {
     const original = getRecipeReaderGuide(recipeId, 'en');
     const changed = getRecipeReaderGuide(recipeId, 'en');
     changed.links[0].href = 'https://example.com';

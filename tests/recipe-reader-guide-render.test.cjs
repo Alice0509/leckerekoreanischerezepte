@@ -7,7 +7,8 @@ const ts = require('typescript');
 const React = require('react');
 const { renderToStaticMarkup } = require('react-dom/server');
 const readerGuide = require('../lib/recipeReaderGuide.cjs');
-const { SSAMJANG_RECIPE_ID, CHOGOCHUJANG_RECIPE_ID } = readerGuide;
+const { SSAMJANG_RECIPE_ID, CHOGOCHUJANG_RECIPE_ID, MIYEOKGUK_RECIPE_ID } =
+  readerGuide;
 
 function loadComponent(file, boundaries, react = React) {
   const mod = { exports: {} };
@@ -49,7 +50,11 @@ test('actual guide renders localized links and closed details in both languages'
       React.createElement('a', { href }, children),
     '../styles/YukgaejangRecipeGuide.module.css': {},
   });
-  for (const recipeId of [SSAMJANG_RECIPE_ID, CHOGOCHUJANG_RECIPE_ID]) {
+  for (const recipeId of [
+    SSAMJANG_RECIPE_ID,
+    CHOGOCHUJANG_RECIPE_ID,
+    MIYEOKGUK_RECIPE_ID,
+  ]) {
     for (const locale of ['en', 'de']) {
       const html = renderToStaticMarkup(
         React.createElement(Guide, { recipeId, locale })
@@ -125,6 +130,7 @@ test('specific question renders before click, and clicking preserves the existin
   for (const [recipeId, title, slug] of [
     [SSAMJANG_RECIPE_ID, 'Ssamjang', 'ssamjang-korean-bbq-dipping-sauce'],
     [CHOGOCHUJANG_RECIPE_ID, 'Chogochujang', 'chogochujang'],
+    [MIYEOKGUK_RECIPE_ID, 'Miyeokguk', 'miyeokguk'],
   ]) {
     for (const locale of ['en', 'de']) {
       const h = commentsHarness(locale, undefined, `/recipes/${slug}`);
