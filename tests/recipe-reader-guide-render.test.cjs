@@ -7,7 +7,7 @@ const ts = require('typescript');
 const React = require('react');
 const { renderToStaticMarkup } = require('react-dom/server');
 const readerGuide = require('../lib/recipeReaderGuide.cjs');
-const { SSAMJANG_RECIPE_ID } = readerGuide;
+const { SSAMJANG_RECIPE_ID, CHOGOCHUJANG_RECIPE_ID } = readerGuide;
 
 function loadComponent(file, boundaries, react = React) {
   const mod = { exports: {} };
@@ -49,17 +49,19 @@ test('actual guide renders localized links and closed details in both languages'
       React.createElement('a', { href }, children),
     '../styles/YukgaejangRecipeGuide.module.css': {},
   });
-  for (const locale of ['en', 'de']) {
-    const html = renderToStaticMarkup(
-      React.createElement(Guide, { recipeId: SSAMJANG_RECIPE_ID, locale })
-    );
-    const copy = readerGuide.getRecipeReaderGuide(SSAMJANG_RECIPE_ID, locale);
-    assert.ok(html.includes(copy.title));
-    assert.equal((html.match(/<h3/g) || []).length, 3);
-    assert.match(html, /<details>/);
-    assert.doesNotMatch(html, /<details[^>]*\bopen/);
-    for (const link of copy.links)
-      assert.ok(html.includes(`href="${link.href}"`));
+  for (const recipeId of [SSAMJANG_RECIPE_ID, CHOGOCHUJANG_RECIPE_ID]) {
+    for (const locale of ['en', 'de']) {
+      const html = renderToStaticMarkup(
+        React.createElement(Guide, { recipeId, locale })
+      );
+      const copy = readerGuide.getRecipeReaderGuide(recipeId, locale);
+      assert.ok(html.includes(copy.title));
+      assert.equal((html.match(/<h3/g) || []).length, 3);
+      assert.match(html, /<details>/);
+      assert.doesNotMatch(html, /<details[^>]*\bopen/);
+      for (const link of copy.links)
+        assert.ok(html.includes(`href="${link.href}"`));
+    }
   }
   assert.equal(
     renderToStaticMarkup(
@@ -71,7 +73,8 @@ test('actual guide renders localized links and closed details in both languages'
 
 function commentsHarness(
   locale,
-  env = { NEXT_PUBLIC_DISQUS_SHORTNAME: 'test-only' }
+  env = { NEXT_PUBLIC_DISQUS_SHORTNAME: 'test-only' },
+  asPath = '/recipes/ssamjang-korean-bbq-dipping-sauce'
 ) {
   let open = false;
   let embedCount = 0;
@@ -92,7 +95,7 @@ function commentsHarness(
       'next/router': {
         useRouter: () => ({
           locale,
-          asPath: '/recipes/ssamjang-korean-bbq-dipping-sauce',
+          asPath,
         }),
       },
       'disqus-react': {
@@ -119,28 +122,33 @@ function findButton(node) {
 }
 
 test('specific question renders before click, and clicking preserves the existing discussion identity', () => {
-  for (const locale of ['en', 'de']) {
-    const h = commentsHarness(locale);
-    const post = { id: SSAMJANG_RECIPE_ID, title: 'Ssamjang' };
-    const tree = h.Comments({ post });
-    const html = renderToStaticMarkup(tree);
-    assert.ok(
-      html.includes(
-        readerGuide.getRecipeReaderGuide(post.id, locale).feedbackButton
-      )
-    );
-    assert.match(
-      html,
-      locale === 'de' ? /Ein Foto ist nicht nötig/ : /No photo is needed/
-    );
-    assert.equal(h.count(), 0);
-    findButton(tree).props.onClick();
-    const opened = renderToStaticMarkup(h.Comments({ post }));
-    assert.match(opened, /data-test-embed/);
-    assert.equal(h.count(), 1);
-    assert.equal(h.config().identifier, post.id);
-    assert.equal(h.config().title, post.title);
-    assert.doesNotMatch(opened, /<button/);
+  for (const [recipeId, title, slug] of [
+    [SSAMJANG_RECIPE_ID, 'Ssamjang', 'ssamjang-korean-bbq-dipping-sauce'],
+    [CHOGOCHUJANG_RECIPE_ID, 'Chogochujang', 'chogochujang'],
+  ]) {
+    for (const locale of ['en', 'de']) {
+      const h = commentsHarness(locale, undefined, `/recipes/${slug}`);
+      const post = { id: recipeId, title };
+      const tree = h.Comments({ post });
+      const html = renderToStaticMarkup(tree);
+      assert.ok(
+        html.includes(
+          readerGuide.getRecipeReaderGuide(post.id, locale).feedbackButton
+        )
+      );
+      assert.match(
+        html,
+        locale === 'de' ? /Ein Foto ist nicht nötig/ : /No photo is needed/
+      );
+      assert.equal(h.count(), 0);
+      findButton(tree).props.onClick();
+      const opened = renderToStaticMarkup(h.Comments({ post }));
+      assert.match(opened, /data-test-embed/);
+      assert.equal(h.count(), 1);
+      assert.equal(h.config().identifier, post.id);
+      assert.equal(h.config().title, post.title);
+      assert.doesNotMatch(opened, /<button/);
+    }
   }
 });
 

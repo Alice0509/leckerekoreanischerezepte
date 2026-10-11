@@ -4,43 +4,56 @@ const fs = require('node:fs');
 const path = require('node:path');
 const {
   SSAMJANG_RECIPE_ID,
+  CHOGOCHUJANG_RECIPE_ID,
   getRecipeReaderGuide,
 } = require('../lib/recipeReaderGuide.cjs');
 
-test('serving guidance and feedback match only the published ssamjang identity', () => {
+test('serving guidance and feedback match only the two published recipe identities', () => {
   for (const id of [
     undefined,
     null,
     '',
     'another-recipe',
     `drafts.${SSAMJANG_RECIPE_ID}`,
+    `drafts.${CHOGOCHUJANG_RECIPE_ID}`,
+    'chogochujang',
   ]) {
     assert.equal(getRecipeReaderGuide(id, 'en'), null);
     assert.equal(getRecipeReaderGuide(id, 'de'), null);
   }
   assert.ok(getRecipeReaderGuide(SSAMJANG_RECIPE_ID, 'en'));
   assert.ok(getRecipeReaderGuide(SSAMJANG_RECIPE_ID, 'de'));
+  assert.ok(getRecipeReaderGuide(CHOGOCHUJANG_RECIPE_ID, 'en'));
+  assert.ok(getRecipeReaderGuide(CHOGOCHUJANG_RECIPE_ID, 'de'));
 });
 
 test('both locales have complete guidance, safe internal links and an optional-photo question', () => {
-  for (const locale of ['en', 'de']) {
-    const guide = getRecipeReaderGuide(SSAMJANG_RECIPE_ID, locale);
-    for (const key of [
-      'title',
-      'intro',
-      'detailsTitle',
-      'feedback',
-      'feedbackButton',
-    ]) {
-      assert.equal(typeof guide[key], 'string');
-      assert.ok(guide[key].trim());
+  for (const recipeId of [SSAMJANG_RECIPE_ID, CHOGOCHUJANG_RECIPE_ID]) {
+    for (const locale of ['en', 'de']) {
+      const guide = getRecipeReaderGuide(recipeId, locale);
+      for (const key of [
+        'title',
+        'intro',
+        'detailsTitle',
+        'feedback',
+        'feedbackButton',
+      ]) {
+        assert.equal(typeof guide[key], 'string');
+        assert.ok(guide[key].trim());
+      }
+      assert.equal(guide.sections.length, 3);
+      assert.ok(guide.sections.every(({ title, text }) => title && text));
+      assert.deepEqual(
+        guide.links.map(({ href }) => href),
+        recipeId === SSAMJANG_RECIPE_ID
+          ? ['/ingredients/doenjang', '/ingredients/gochujang']
+          : ['/ingredients/gochujang', '/ingredients/apfelessig']
+      );
+      assert.match(
+        guide.feedback,
+        locale === 'de' ? /Ein Foto ist nicht nötig/ : /No photo is needed/
+      );
     }
-    assert.equal(guide.sections.length, 3);
-    assert.ok(guide.sections.every(({ title, text }) => title && text));
-    assert.deepEqual(
-      guide.links.map(({ href }) => href),
-      ['/ingredients/doenjang', '/ingredients/gochujang']
-    );
   }
   assert.match(
     getRecipeReaderGuide(SSAMJANG_RECIPE_ID, 'en').feedback,
@@ -53,15 +66,14 @@ test('both locales have complete guidance, safe internal links and an optional-p
 });
 
 test('fallback locale is English and callers cannot mutate shared copy', () => {
-  const original = getRecipeReaderGuide(SSAMJANG_RECIPE_ID, 'en');
-  const changed = getRecipeReaderGuide(SSAMJANG_RECIPE_ID, 'en');
-  changed.links[0].href = 'https://example.com';
-  changed.sections[0].text = 'changed';
-  assert.deepEqual(getRecipeReaderGuide(SSAMJANG_RECIPE_ID, 'en'), original);
-  assert.deepEqual(
-    getRecipeReaderGuide(SSAMJANG_RECIPE_ID, undefined),
-    original
-  );
+  for (const recipeId of [SSAMJANG_RECIPE_ID, CHOGOCHUJANG_RECIPE_ID]) {
+    const original = getRecipeReaderGuide(recipeId, 'en');
+    const changed = getRecipeReaderGuide(recipeId, 'en');
+    changed.links[0].href = 'https://example.com';
+    changed.sections[0].text = 'changed';
+    assert.deepEqual(getRecipeReaderGuide(recipeId, 'en'), original);
+    assert.deepEqual(getRecipeReaderGuide(recipeId, undefined), original);
+  }
 });
 
 test('guide remains collapsed, follows instructions, and comments remain click-to-load', () => {
