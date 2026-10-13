@@ -26,6 +26,7 @@ test('every shopping destination is a specific product with its own title and va
   for (const slug of [
     'wheat-flour-type-550',
     'jinganjang',
+    'doenjang',
     ...asianIngredients,
   ]) {
     for (const locale of ['en', 'de']) {
@@ -40,7 +41,7 @@ test('every shopping destination is a specific product with its own title and va
         assert.notEqual(url.pathname, '/');
         assert.match(
           url.pathname,
-          /\/(?:product|produkt|shop\/p|de|food|gochujang-)/
+          /\/(?:product|produkt|shop\/p|de|food|rezepte|gochujang-)/
         );
         assert.ok(product.productTitle.length > 10);
         assert.ok(product.note.length > 20);

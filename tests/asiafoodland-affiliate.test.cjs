@@ -11,6 +11,14 @@ const { getApprovedKitchenOptions } = require('../lib/kitchenPicks.cjs');
 
 const expected = [
   [
+    'doenjang',
+    'https://www.asiafoodland.de/rezepte/saucen-dips-marinaden/ssamjang-koreanische-dip-sauce-fuer-zb-koreanisches-bbq/sempio-koreanische-sojabohnenpaste-doenjang-460g.html',
+  ],
+  [
+    'sb-golden-curry-roux',
+    'https://www.asiafoodland.de/food/gewuerze-pasten/pasten/currypaste/sb-golden-curry-japanische-curry-paste-saucen-basis-mittelscharf-92-g.html',
+  ],
+  [
     'gochujang',
     'https://www.asiafoodland.de/gochujang-koreanische-chilipaste-red-pepper-500-g.html',
   ],
@@ -20,11 +28,11 @@ const expected = [
   ],
 ];
 
-test('the two issued Asiafoodland URLs identify the correct publisher and exact existing products', () => {
+test('the four issued Asiafoodland URLs identify the correct publisher and exact existing products', () => {
   const entries = registry.filter(
     (entry) => entry.advertiserName === 'Asiafoodland'
   );
-  assert.equal(entries.length, 2);
+  assert.equal(entries.length, 4);
   for (const [slug, source] of expected) {
     const entry = entries.find((entry) => entry.sourceUrl === source);
     assert.ok(entry);
@@ -45,7 +53,7 @@ test('Asiafoodland activation reaches German ingredients, recipe shopping and ki
   const kitchen = getApprovedKitchenOptions('de', options).filter(
     (item) => item.link.advertiserName === 'Asiafoodland'
   );
-  assert.equal(kitchen.length, 2);
+  assert.equal(kitchen.length, 4);
   for (const [slug, source] of expected) {
     const entry = registry.find(
       (entry) => entry.sourceUrl === source && entry.locale === 'de'
@@ -107,4 +115,54 @@ test('Asiafoodland activation reaches German ingredients, recipe shopping and ki
   }
   assert.deepEqual(getApprovedKitchenOptions('de', { enabled: false }), []);
   assert.deepEqual(getApprovedKitchenOptions('en', options), []);
+});
+
+test('the smaller Golden Curry pack keeps the 110 g recipe amount visible in recipe and kitchen shopping', () => {
+  const options = { enabled: true };
+  const guide = getIngredientShoppingGuide(
+    'sb-golden-curry-roux',
+    'de',
+    options
+  );
+  const curry = guide.groups[0].stores.find(
+    (store) => store.name === 'Asiafoodland'
+  );
+  assert.ok(curry);
+  assert.match(curry.productTitle, /92 g/);
+  assert.match(curry.variantLabel, /92 g.*110 g/);
+  assert.match(curry.note, /110 g/);
+  assert.match(curry.note, /nicht aus/);
+  const recipe = getRecipeShoppingIngredients(
+    [{ slug: 'sb-golden-curry-roux', name: 'Golden Curry', quantity: '110 g' }],
+    'de',
+    options
+  );
+  const item = recipe[0].groups[0].stores.find(
+    (store) => store.name === 'Asiafoodland'
+  );
+  assert.equal(item.variantLabel, curry.variantLabel);
+  assert.equal(
+    getApprovedKitchenOptions('de', options).find(
+      (item) => item.ingredient === 'sb-golden-curry-roux'
+    ).variantLabel,
+    curry.variantLabel
+  );
+});
+
+test('doenjang has a German product example and English local guidance; declined noodles are absent', () => {
+  const english = getIngredientShoppingGuide('doenjang', 'en', {
+    enabled: true,
+  });
+  assert.deepEqual(
+    english.groups.map((group) => group.region),
+    ['local']
+  );
+  assert.deepEqual(english.groups[0].stores, []);
+  assert.equal(getIngredientShoppingGuide('dangmyeon', 'de'), null);
+  assert.equal(
+    registry.some((item) =>
+      /hosaku|suesskartoffel.*nudeln/i.test(item.sourceUrl)
+    ),
+    false
+  );
 });
