@@ -40,5 +40,19 @@
     "locale": "de",
     "advertiserName": "REWE",
     "approved": true
+  },
+  {
+    "sourceUrl": "https://www.asiafoodland.de/gochujang-koreanische-chilipaste-red-pepper-500-g.html",
+    "affiliateUrl": "https://www.awin1.com/cread.php?awinmid=15939&awinaffid=3113363&ued=https%3A%2F%2Fwww.asiafoodland.de%2Fgochujang-koreanische-chilipaste-red-pepper-500-g.html",
+    "locale": "de",
+    "advertiserName": "Asiafoodland",
+    "approved": true
+  },
+  {
+    "sourceUrl": "https://www.asiafoodland.de/food/oel-essig-fischsauce/oele-fette/ottogi-koreanisches-sesamoel-100-pur-160-ml.html",
+    "affiliateUrl": "https://www.awin1.com/cread.php?awinmid=15939&awinaffid=3113363&ued=https%3A%2F%2Fwww.asiafoodland.de%2Ffood%2Foel-essig-fischsauce%2Foele-fette%2Fottogi-koreanisches-sesamoel-100-pur-160-ml.html",
+    "locale": "de",
+    "advertiserName": "Asiafoodland",
+    "approved": true
   }
 ]
