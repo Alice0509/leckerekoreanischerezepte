@@ -34,6 +34,13 @@
         "productTitle": "S&B Golden Curry, mittelscharf · 220 g",
         "note": "Die 220-g-Packung passt zur im Rezept genannten Packungsgröße. Wähle den gewünschten Schärfegrad; das Rezept verwendet 110 g.",
         "url": "https://www.momogo.de/produkt/s-b-golden-curry-mittelscharf-220g"
+      },
+      {
+        "name": "Asiafoodland",
+        "productTitle": "S&B Golden Curry, mittelscharf · 92 g",
+        "variantLabel": "Andere Packungsgröße · 92 g (Rezept: 110 g)",
+        "note": "Andere Packungsgröße als die 220-g-Packung im Rezept. Das Rezept verwendet 110 g; wiege diese Menge ab, statt eine halbe 92-g-Packung zu verwenden. Eine einzelne 92-g-Packung reicht dafür nicht aus. Prüfe den Schärfegrad auf der Packung.",
+        "url": "https://www.asiafoodland.de/food/gewuerze-pasten/pasten/currypaste/sb-golden-curry-japanische-curry-paste-saucen-basis-mittelscharf-92-g.html"
       }
     ],
     "en": [
@@ -160,6 +167,17 @@
         "note": "Andere Marke als das Samlip-Paniermehl auf dem Zutatenfoto. Vergleiche Körnung und Zutaten. Für die Tonkatsu-Panade und die Bindung im Hambak Steak gelten die Rezeptmengen; eine andere Körnung kann die Konsistenz verändern.",
         "url": "https://www.rewe.de/shop/p/rewe-beste-wahl-panko-paniermehl-140g/2666357",
         "variantLabel": "Alternative Marke · REWE Beste Wahl"
+      }
+    ]
+  },
+  "doenjang": {
+    "de": [
+      {
+        "name": "Asiafoodland",
+        "productTitle": "Sempio Doenjang · 460 g",
+        "variantLabel": "Produktbeispiel · Sempio",
+        "note": "Produktbeispiel für koreanische Sojabohnenpaste. Vergleiche Marke, Packungsgröße und Zutaten mit dem Zutatenbild; die Verpackung kann abweichen. Verwende Doenjang als Ausgangszutat für selbst gemachtes Ssamjang.",
+        "url": "https://www.asiafoodland.de/rezepte/saucen-dips-marinaden/ssamjang-koreanische-dip-sauce-fuer-zb-koreanisches-bbq/sempio-koreanische-sojabohnenpaste-doenjang-460g.html"
       }
     ]
   }
