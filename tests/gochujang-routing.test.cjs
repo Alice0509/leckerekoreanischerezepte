@@ -7,7 +7,7 @@ const http = require('node:http');
 const { setTimeout: pause } = require('node:timers/promises');
 
 test(
-  'production routing serves canonical gochujang and redirects its legacy case once in both domains',
+  'production routing restores known ingredient aliases in one hop without canonical loops',
   { timeout: 60000 },
   async (t) => {
     const root =
@@ -99,21 +99,38 @@ test(
         canonical.body.includes(products.gochujang[locale][0].url),
         `${locale} exact product link`
       );
-      const legacy = await request(host, '/ingredients/Gochujang');
-      assert.equal(legacy.status, 308, `${locale} legacy redirect`);
-      assert.equal(
-        new URL(legacy.location, `https://${host}`).pathname,
-        '/ingredients/gochujang'
-      );
-      const destination = await request(
+      for (const [oldPath, newPath] of [
+        ['/ingredients/Gochujang', '/ingredients/gochujang'],
+        ['/ingredients/%20Tofu', '/ingredients/tofu'],
+        ['/ingredients/MincedGarlic', '/ingredients/minced-garlic'],
+        ['/ingredients/Typ%20550', '/ingredients/wheat-flour-type-550'],
+      ]) {
+        // Explicit locale prefixes in old Search Console URLs must work too.
+        for (const prefix of ['', `/${locale}`]) {
+          const legacy = await request(host, `${prefix}${oldPath}?from=legacy`);
+          assert.equal(legacy.status, 308, `${host}${prefix}${oldPath}`);
+          const target = new URL(legacy.location, `https://${host}`);
+          assert.equal(target.hostname, host);
+          assert.equal(target.pathname, newPath);
+          assert.equal(target.search, '?from=legacy');
+          const destination = await request(host, target.pathname);
+          assert.equal(destination.status, 200, `${host}${newPath}`);
+          assert.ok(
+            !destination.location,
+            'canonical destination must not redirect'
+          );
+          assert.ok(
+            destination.body.includes(
+              `rel="canonical" href="https://${host}${newPath}"`
+            )
+          );
+        }
+      }
+      const unrelated = await request(
         host,
-        new URL(legacy.location, `https://${host}`).pathname
+        '/ingredients/not-a-real-ingredient'
       );
-      assert.equal(
-        destination.status,
-        200,
-        `${locale} legacy destination must load in one hop`
-      );
+      assert.equal(unrelated.status, 404);
     }
   }
 );

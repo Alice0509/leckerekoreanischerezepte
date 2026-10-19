@@ -74,7 +74,7 @@ const modules = {
     ].map((match) => [match[1], match[1]])
   ),
   '../../lib/siteUrls': {
-    getSeoUrls: ({ locale, path: urlPath }) => ({
+    getSeoUrls: ({ path: urlPath }) => ({
       siteOrigin: 'https://example.test',
       canonicalUrl: 'https://example.test' + urlPath,
       alternateUrls: {
@@ -269,6 +269,12 @@ test('ingredient-specific guides render their uses and matching FAQ in both lang
     'sesame-oil',
     'jinganjang',
     'gochugaru',
+    'dangmyeon',
+    'tteokbokki-tteok',
+    'klebreismehl',
+    'yangjo-ganjang',
+    'chunjang',
+    'kelp-dashima',
   ])
     for (const locale of ['en', 'de']) {
       const profile = getIngredientGuideProfile(slug, locale);
@@ -298,11 +304,17 @@ test('English product guidance is global and flour does not recommend paste stor
     'sesame-oil',
     'jinganjang',
     'gochugaru',
+    'dangmyeon',
+    'tteokbokki-tteok',
+    'klebreismehl',
+    'yangjo-ganjang',
+    'chunjang',
+    'kelp-dashima',
   ]) {
     const english = visible(render(slug));
     assert.doesNotMatch(
       english,
-      /Germany|Deutschland|REWE|Edeka|fermented ingredients/i
+      /\b(?:Germany|Deutschland|REWE|Edeka)\b|fermented ingredients/i
     );
     const german = visible(render(slug, 'de'));
     assert.match(german, /Deutschland/);
