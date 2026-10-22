@@ -1,0 +1,692 @@
+{
+  "format": "hansik-search-guides-v1",
+  "updates": [
+    {
+      "id": "iqvr9JyBrbxsh9PSeFW86",
+      "locale": "en",
+      "fields": {
+        "seoTitle": "Soboro Bread Recipe – Korean Peanut Streusel Buns",
+        "seoDescription": "Make 8 Korean soboro buns with soft yeast dough and a crumbly peanut topping. Follow the steps, separate dough and topping amounts, and choose suitable flour.",
+        "description": [
+          {
+            "_key": "soboro-en-intro",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "soboro-en-intro-text",
+                "_type": "span",
+                "text": "Soboro bread (soboro-ppang, 소보로빵) is a Korean bakery bun with soft yeast dough and a sweet, crumbly peanut topping. This recipe makes 8 buns and includes the dough, the soboro topping and both rises. Peanut butter gives the topping its distinctive flavor, while almond flour is also included in this version.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "soboro-en-amounts-heading",
+            "_type": "block",
+            "style": "h2",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "soboro-en-amounts-heading-text",
+                "_type": "span",
+                "text": "Separate the dough and topping ingredients",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "soboro-en-amounts",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "soboro-en-amounts-text",
+                "_type": "span",
+                "text": "The ingredient checklist shows combined totals for shopping. Before mixing, set aside 200 g flour, 30 g sugar, 30 g butter and 3 g salt for the dough. For the topping, keep 80 g flour, 60 g sugar, 50 g butter and 1 g salt separate. The peanut butter, almond flour, baking powder and honey belong to the topping; the yeast, milk and egg belong to the dough.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "soboro-en-flour-heading",
+            "_type": "block",
+            "style": "h2",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "soboro-en-flour-heading-text",
+                "_type": "span",
+                "text": "Choosing flour where you live",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "soboro-en-flour-link",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "soboro-en-flour-link-link",
+                "_type": "link",
+                "href": "/ingredients/wheat-flour-type-550"
+              }
+            ],
+            "children": [
+              {
+                "_key": "soboro-en-flour-link-a",
+                "_type": "span",
+                "text": "The recipe uses ",
+                "marks": []
+              },
+              {
+                "_key": "soboro-en-flour-link-b",
+                "_type": "span",
+                "text": "Type 550 wheat flour",
+                "marks": ["soboro-en-flour-link-link"]
+              },
+              {
+                "_key": "soboro-en-flour-link-c",
+                "_type": "span",
+                "text": ". If that label is unfamiliar, the ingredient guide explains what it means and how to choose a flour suitable for soft yeast buns. Plain or all-purpose wheat flour labels vary by country and brand, so compare the intended baking use rather than the name alone.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "soboro-en-rise-heading",
+            "_type": "block",
+            "style": "h2",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "soboro-en-rise-heading-text",
+                "_type": "span",
+                "text": "Give the dough time to rise",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "soboro-en-rise",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "soboro-en-rise-text",
+                "_type": "span",
+                "text": "Prepare the soboro mixture while the dough goes through its first rise, then press the topping gently onto the shaped buns. The rise times in the steps are guides: room and dough temperature affect how quickly yeast dough expands. In a cool kitchen, allow more time rather than moving on just because the timer has finished.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "soboro-en-bake-heading",
+            "_type": "block",
+            "style": "h2",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "soboro-en-bake-heading-text",
+                "_type": "span",
+                "text": "Baking and serving",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "soboro-en-bake",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "soboro-en-bake-text",
+                "_type": "span",
+                "text": "The baking step uses 190°C, approximately 375°F. Let the buns cool slightly on a rack before serving, so the topping can settle. The listed total time includes resting and rising; it is not all hands-on work.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "soboro-en-related",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "soboro-en-related-link",
+                "_type": "link",
+                "href": "/recipes/danpatbbang"
+              }
+            ],
+            "children": [
+              {
+                "_key": "soboro-en-related-a",
+                "_type": "span",
+                "text": "For a filled Korean bakery bun, try ",
+                "marks": []
+              },
+              {
+                "_key": "soboro-en-related-b",
+                "_type": "span",
+                "text": "danpatbbang with sweet red bean paste",
+                "marks": ["soboro-en-related-link"]
+              },
+              {
+                "_key": "soboro-en-related-c",
+                "_type": "span",
+                "text": ". It uses a similar soft dough but a different filling and shaping method.",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      },
+      "expectedContentHash": "e69893505d8721d0436dc8515979c5536aa7c4ea8c8ff03f5b1c10b21c605acf"
+    },
+    {
+      "id": "6MrScHBmL3Q85jAADFwrSH",
+      "locale": "en",
+      "fields": {
+        "seoTitle": "Danpatbbang Recipe – Korean Sweet Red Bean Buns",
+        "seoDescription": "Bake 8 soft Korean danpatbbang buns filled with sweet red bean paste. Learn which filling to buy, how to portion and seal it, and follow the shaping steps.",
+        "description": [
+          {
+            "_key": "danpat-en-intro",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "danpat-en-intro-text",
+                "_type": "span",
+                "text": "Danpatbbang (단팥빵) is a soft Korean bakery bun filled with sweet red bean paste. This recipe makes 8 buns, with 40 g of filling in each one. Ready-made sweet red bean paste keeps the preparation manageable, and the steps show how to fill and shape the buns before baking.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "danpat-en-filling-heading",
+            "_type": "block",
+            "style": "h2",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "danpat-en-filling-heading-text",
+                "_type": "span",
+                "text": "Which red bean paste should I buy?",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "danpat-en-filling",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "danpat-en-filling-link",
+                "_type": "link",
+                "href": "/ingredients/azukibeanpaste"
+              }
+            ],
+            "children": [
+              {
+                "_key": "danpat-en-filling-a",
+                "_type": "span",
+                "text": "Look for ",
+                "marks": []
+              },
+              {
+                "_key": "danpat-en-filling-b",
+                "_type": "span",
+                "text": "sweet red bean paste, also sold as anko",
+                "marks": ["danpat-en-filling-link"]
+              },
+              {
+                "_key": "danpat-en-filling-c",
+                "_type": "span",
+                "text": ", at Korean, Japanese or other East Asian grocery stores and retailers serving your country. Koshi-an is smooth; tsubu-an contains pieces of bean. Choose a sweetened filling that holds its shape when portioned. Dried azuki beans and unsweetened cooked beans need further preparation and cannot be used straight from the packet as this filling.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "danpat-en-portions-heading",
+            "_type": "block",
+            "style": "h2",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "danpat-en-portions-heading-text",
+                "_type": "span",
+                "text": "Portion the filling before shaping",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "danpat-en-portions",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "danpat-en-portions-text",
+                "_type": "span",
+                "text": "Divide the 320 g of red bean paste into 8 portions of 40 g while the dough rises. Keep the paste in the center when filling each bun, bring the edges of the dough together and seal them well. If filling spreads over the edges, it becomes harder to close the dough cleanly. Follow the shaping step for the decorative cuts rather than cutting all the way through the center.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "danpat-en-dough-heading",
+            "_type": "block",
+            "style": "h2",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "danpat-en-dough-heading-text",
+                "_type": "span",
+                "text": "Flour, rising and egg wash",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "danpat-en-flour",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "danpat-en-flour-link",
+                "_type": "link",
+                "href": "/ingredients/wheat-flour-type-550"
+              }
+            ],
+            "children": [
+              {
+                "_key": "danpat-en-flour-a",
+                "_type": "span",
+                "text": "This dough uses 200 g of ",
+                "marks": []
+              },
+              {
+                "_key": "danpat-en-flour-b",
+                "_type": "span",
+                "text": "Type 550 wheat flour",
+                "marks": ["danpat-en-flour-link"]
+              },
+              {
+                "_key": "danpat-en-flour-c",
+                "_type": "span",
+                "text": ". The ingredient guide explains the label and options to consider where you live. Reserve a little of the egg for the wash as described in the first step. The two rises are part of the total preparation time; a cool room can slow the dough, so use its expansion as well as the timer to judge progress.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "danpat-en-bake-heading",
+            "_type": "block",
+            "style": "h2",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "danpat-en-bake-heading-text",
+                "_type": "span",
+                "text": "Baking and serving",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "danpat-en-bake",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "danpat-en-bake-text",
+                "_type": "span",
+                "text": "The baking step uses 190°C, approximately 375°F. Let the buns cool slightly before serving: the sweet filling and soft bread go well with tea, coffee or milk. The filling is already prepared, so this recipe does not include making red bean paste from dried beans.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "danpat-en-related",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "danpat-en-related-link",
+                "_type": "link",
+                "href": "/recipes/soboro-brot"
+              }
+            ],
+            "children": [
+              {
+                "_key": "danpat-en-related-a",
+                "_type": "span",
+                "text": "For a Korean bakery bun with a crumbly peanut topping, try ",
+                "marks": []
+              },
+              {
+                "_key": "danpat-en-related-b",
+                "_type": "span",
+                "text": "soboro bread",
+                "marks": ["danpat-en-related-link"]
+              },
+              {
+                "_key": "danpat-en-related-c",
+                "_type": "span",
+                "text": ".",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      },
+      "expectedContentHash": "87b0fa4779aa00840c82ec52a9ca930e4262b4cf7fdcf682ef4235cdc43714bb"
+    },
+    {
+      "id": "31qLwPpZYSKIi7ZpC41EZp",
+      "locale": "de",
+      "fields": {
+        "description": [
+          {
+            "_key": "gochujang-de-0",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-0",
+                "_type": "span",
+                "marks": [],
+                "text": "Gochujang (고추장) ist eine dicke, fermentierte koreanische Chilipaste. Sie verbindet Schärfe, Süße und einen herzhaften Geschmack und eignet sich für Saucen, Marinaden und Pfannengerichte. Geschmack und Schärfe unterscheiden sich je nach Produkt."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "gochujang-de-1",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-1",
+                "_type": "span",
+                "marks": [],
+                "text": "Die passende Paste auswählen"
+              }
+            ],
+            "markDefs": [],
+            "style": "h2"
+          },
+          {
+            "_key": "gochujang-de-2",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-2",
+                "_type": "span",
+                "marks": [],
+                "text": "Achte auf die Bezeichnung Gochujang oder Korean Red Pepper Paste. Eine fertige Gochujang-Sauce kann bereits weitere Gewürze enthalten und ist nicht dieselbe Zutat wie die reine Paste im Rezept. Entscheidend sind Produktname und Schärfegrad, nicht die Farbe der Verpackung."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "gochujang-de-3",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-3",
+                "_type": "span",
+                "marks": [],
+                "text": "Gochujang oder Gochugaru?"
+              }
+            ],
+            "markDefs": [],
+            "style": "h2"
+          },
+          {
+            "_key": "gochujang-de-4",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-4",
+                "_type": "span",
+                "marks": [],
+                "text": "Gochujang ist eine gewürzte Paste. Gochugaru besteht aus getrockneten koreanischen Chiliflocken oder Chilipulver. Konsistenz und Verwendung sind unterschiedlich; die beiden Zutaten lassen sich nicht einfach löffelweise austauschen."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "gochujang-de-5",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-5",
+                "_type": "span",
+                "marks": [],
+                "text": "Wofür verwendet man Gochujang?"
+              }
+            ],
+            "markDefs": [],
+            "style": "h2"
+          },
+          {
+            "_key": "gochujang-de-6",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-6",
+                "_type": "span",
+                "marks": [],
+                "text": "Die Paste passt in Bibimbap-Sauce, Tteokbokki-Sauce und Marinaden. Für Chogochujang wird sie unter anderem mit Essig vermischt; bei Bokkeum Gochujang entsteht daraus eine gekochte Würzpaste. Die verlinkten Rezepte unten zeigen Mengen und Zubereitungsschritte."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "gochujang-de-7",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-7",
+                "_type": "span",
+                "marks": [],
+                "text": "Was eignet sich als Gochujang-Ersatz?"
+              }
+            ],
+            "markDefs": [],
+            "style": "h2"
+          },
+          {
+            "_key": "gochujang-de-8",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "gochujang-de-8-text",
+                "_type": "span",
+                "text": "Wenn Gochujang den Geschmack prägt, etwa in Tteokbokki oder Chogochujang, ist die Originalpaste die beste Wahl. Sie liefert nicht nur Schärfe, sondern auch Süße, Würze und Konsistenz. Ein Ersatz verändert deshalb das Ergebnis; es gibt keine allgemeine Mischung, die in jedem Rezept gleich gut funktioniert.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "gochujang-de-miso-heading",
+            "_type": "block",
+            "style": "h3",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "gochujang-de-miso-heading-text",
+                "_type": "span",
+                "text": "Miso oder Doenjang als improvisierte Alternative",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "gochujang-de-miso",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "gochujang-de-miso-link",
+                "_type": "link",
+                "href": "/ingredients/gochugaru"
+              }
+            ],
+            "children": [
+              {
+                "_key": "gochujang-de-miso-a",
+                "_type": "span",
+                "text": "Für eine kleine Sauce oder Marinade kannst du Miso oder Doenjang mit ",
+                "marks": []
+              },
+              {
+                "_key": "gochujang-de-miso-b",
+                "_type": "span",
+                "text": "Gochugaru",
+                "marks": ["gochujang-de-miso-link"]
+              },
+              {
+                "_key": "gochujang-de-miso-c",
+                "_type": "span",
+                "text": " und etwas Süße vorsichtig kombinieren. Das nähert einzelne Geschmacksnoten an, ersetzt Gochujang aber nicht vollständig. Gib Chili und Süße nach und nach dazu und schmecke ab, bevor du die Mischung ins ganze Gericht gibst. Miso und Doenjang sind bereits salzig; zusätzliche Sojasauce ist nicht automatisch nötig.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "gochujang-de-chili-heading",
+            "_type": "block",
+            "style": "h3",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "gochujang-de-chili-heading-text",
+                "_type": "span",
+                "text": "Reichen Gochugaru oder eine andere Chilisauce?",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "gochujang-de-chili",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "gochujang-de-chili-text",
+                "_type": "span",
+                "text": "Gochugaru allein ist keine Paste und liefert weder dieselbe Süße noch dieselbe Konsistenz. Eine andere Chilisauce kann Schärfe hinzufügen, hat aber ihre eigene Würzung und Textur. Verwende sie deshalb nicht ungeprüft im gleichen Mengenverhältnis, wenn das Rezept auf Gochujang basiert.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "gochujang-de-heat-heading",
+            "_type": "block",
+            "style": "h3",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "gochujang-de-heat-heading-text",
+                "_type": "span",
+                "text": "Ich möchte weniger Schärfe – brauche ich einen Ersatz?",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "gochujang-de-heat",
+            "_type": "block",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_key": "gochujang-de-heat-text",
+                "_type": "span",
+                "text": "Schau zuerst nach einer milden Gochujang-Variante. Der Schärfegrad unterscheidet sich je nach Produkt. Bei Saucen, die du separat servierst, kannst du mit einer kleinen Menge beginnen und abschmecken. Wenn du die Paste in einem Rezept reduzierst, verändern sich auch Süße, Salz und Konsistenz, nicht nur die Schärfe.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_key": "gochujang-de-9",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-9",
+                "_type": "span",
+                "marks": [],
+                "text": "Gochujang in Deutschland finden"
+              }
+            ],
+            "markDefs": [],
+            "style": "h2"
+          },
+          {
+            "_key": "gochujang-de-10",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-10",
+                "_type": "span",
+                "marks": [],
+                "text": "Suche in koreanischen oder asiatischen Lebensmittelgeschäften und bei Lebensmittel-Onlineshops mit Lieferung nach Deutschland nach Gochujang oder koreanischer Chilipaste. Prüfe Produktbeschreibung und Schärfegrad. Auch beim Einkauf in Deutschland lässt sich die Schärfe nicht allein aus dem Verkaufsland ableiten."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          },
+          {
+            "_key": "gochujang-de-11",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-11",
+                "_type": "span",
+                "marks": [],
+                "text": "Nach dem Öffnen"
+              }
+            ],
+            "markDefs": [],
+            "style": "h2"
+          },
+          {
+            "_key": "gochujang-de-12",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text-de-12",
+                "_type": "span",
+                "marks": [],
+                "text": "Beachte die Aufbewahrungshinweise auf der Packung, verschließe den Behälter und verwende einen sauberen Löffel."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "seoTitle": "Gochujang-Ersatz: Alternativen und Verwendung",
+        "seoDescription": "Gochujang ersetzen: Was Miso, Doenjang und Gochugaru leisten, wann die Originalpaste besser passt und wie du milde Gochujang in Deutschland findest."
+      },
+      "expectedContentHash": "91a689d5cf44bfd13b1b752b84ccbb7a1c63ef081ccd10a0c38756f7e3f0d17b"
+    }
+  ]
+}
